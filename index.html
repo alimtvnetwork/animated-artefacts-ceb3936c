@@ -118,7 +118,7 @@
           window[KEY] = [...(window[KEY] || []), err];
           console.error(`[runtime-error ${err.correlationId}] blank-root: ${err.message}`);
           render(err, true);
-        }, 8000);
+        }, 15000);
         new MutationObserver(() => {
           const overlay = document.querySelector('[data-runtime-error-overlay="true"]');
           if (overlayKind === "blank" && overlay && !rootIsEmpty()) overlay.remove();
