@@ -689,9 +689,14 @@ export default function SlideDeckPage() {
   useEffect(() => {
     if (!slide) return;
     if (slide.isClickReveal) return;
-    if (current !== slide.slideNumber) {
-      setCurrent(slide.slideNumber);
-      navigate(`/${slide.slideNumber}${location.search}`, { replace: true });
+    const params = new URLSearchParams(location.search);
+    params.delete('slide');
+    const nextSearch = params.toString();
+    const canonical = `/${slide.slideNumber}${nextSearch ? `?${nextSearch}` : ''}`;
+    const currentUrl = `${location.pathname}${location.search}`;
+    if (current !== slide.slideNumber) setCurrent(slide.slideNumber);
+    if (current !== slide.slideNumber || currentUrl !== canonical) {
+      navigate(canonical, { replace: true });
     }
   }, [slide, current, navigate, location.search]);
 
