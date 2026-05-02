@@ -1,0 +1,15 @@
+{
+  "slideNumber": 2,
+  "slideName": "section-craft",
+  "slideType": "SectionDividerSlide",
+  "transition": "PushLeft",
+  "textAnimation": "SlideUp",
+  "enabled": true,
+  "showBrandHeader": true,
+  "showPresenterChip": false,
+  "narrowIdea": "Pillar I — Craft.",
+  "content": {
+    "eyebrow": "Pillar I",
+    "title": "Craft"
+  }
+}

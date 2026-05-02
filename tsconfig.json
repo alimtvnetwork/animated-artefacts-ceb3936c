@@ -1,0 +1,22 @@
+{
+  "files": [],
+  "references": [{ "path": "./tsconfig.app.json" }, { "path": "./tsconfig.node.json" }],
+  "compilerOptions": {
+    "paths": {
+      "@/*": ["./src/*"]
+    },
+    /* v0.170 — strict-types flip. The actual source-of-truth strict config
+       lives in `tsconfig.app.json` (the file CI runs `tsc -p` against). The
+       options below mirror it so editors and ad-hoc `tsc --noEmit` calls
+       made from the repo root see the same rules and don't accept code that
+       CI rejects. `allowJs` + `skipLibCheck` are intentional carry-overs to
+       keep authoring quality-of-life unchanged. */
+    "strict": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "noUnusedParameters": false,
+    "noUnusedLocals": false,
+    "skipLibCheck": true,
+    "allowJs": true
+  }
+}

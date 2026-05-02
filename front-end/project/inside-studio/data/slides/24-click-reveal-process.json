@@ -1,0 +1,24 @@
+{
+  "slideNumber": 24,
+  "slideName": "click-reveal-process",
+  "slideType": "CapsuleListSlide",
+  "transition": "PushIn",
+  "textAnimation": "Stagger",
+  "enabled": true,
+  "isClickReveal": true,
+  "parentSlide": 4,
+  "showBrandHeader": true,
+  "showPresenterChip": false,
+  "narrowIdea": "Off-flow detail — what 'motion with meaning' actually means.",
+  "content": {
+    "eyebrow": "Detail · click-reveal",
+    "title": "Motion with meaning",
+    "capsules": [
+      { "text": "Variety required",     "color": "gold" },
+      { "text": "Reduced-motion safe",  "color": "ember" },
+      { "text": "No surprise easings",  "color": "violet" },
+      { "text": "Cause-tagged variants","color": "teal" }
+    ],
+    "footnote": "Triggered from slide 4 · 'Motion with meaning' capsule."
+  }
+}

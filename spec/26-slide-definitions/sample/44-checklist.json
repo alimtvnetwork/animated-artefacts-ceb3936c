@@ -1,0 +1,22 @@
+{
+  "$schema": "../../../slide.schema.json",
+  "slideNumber": 50,
+  "slideName": "Pre-flight checklist",
+  "slideType": "ChecklistSlide",
+  "transition": "FadeIn",
+  "textAnimation": "Stagger",
+  "narrowIdea": "One checklist. Presenter ticks off items live; gold progress bar tracks completion.",
+  "densityCheck": { "capItems": 7 },
+  "content": {
+    "eyebrow": "Live walkthrough",
+    "title": "Pre-flight checklist",
+    "progressColor": "gold",
+    "items": [
+      { "text": "Brand identity locked",      "detail": "Logo, color tokens, type pair signed off",  "capsule": { "color": "gold",  "text": "Mon" } },
+      { "text": "Slide deck rehearsed",       "detail": "Run-through with timer; no hand-offs",       "capsule": { "color": "ember", "text": "Tue" } },
+      { "text": "Demo environment seeded",    "detail": "Sample data, no PII, fast network" },
+      { "text": "Q&A talking points drafted", "detail": "Top 5 likely questions + crisp answers" },
+      { "text": "Recording + captions ready" }
+    ]
+  }
+}

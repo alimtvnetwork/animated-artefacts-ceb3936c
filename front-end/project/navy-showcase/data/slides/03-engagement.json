@@ -1,0 +1,58 @@
+{
+  "slideNumber": 3,
+  "slideName": "engagement",
+  "slideType": "StepTimelineSlide",
+  "transition": "SlideIn",
+  "textAnimation": "SlideUp",
+  "enabled": true,
+  "isClickReveal": false,
+  "showBrandHeader": true,
+  "showPresenterChip": true,
+  "titleStyle": "white",
+  "titleShimmer": false,
+  "sound": { "on": "focus", "kind": "whoosh", "volume": 0.55 },
+  "content": {
+    "eyebrow": "How we engage",
+    "title": "From signal to scale",
+    "headerOffsetPx": 8,
+    "stepAmbient": {
+      "count": 5,
+      "opacity": 0.06,
+      "drift": 0.5,
+      "parallax": 20,
+      "sizeRange": [40, 72],
+      "positions": [
+        { "icon": "vscode",      "top": 22, "left": 80, "size": 56, "accent": "#007ACC", "float": true },
+        { "icon": "database",    "top": 38, "left": 92, "size": 50 },
+        { "icon": "boxes",       "top": 60, "left": 86, "size": 54 },
+        { "icon": "github-mark", "top": 78, "left": 72, "size": 56, "accent": "#FFFFFF", "float": true },
+        { "icon": "code2",       "top": 88, "left": 90, "size": 40 }
+      ]
+    },
+    "steps": [
+      {
+        "label": "Step 1", "title": "Discover", "subtitle": "Listen, audit, align",
+        "description": "Two-week intake — stakeholder interviews, asset audit, alignment workshop. We leave with a one-page brief signed by everyone in the room.",
+        "capsule": { "text": "Week 1", "color": "gold" }
+      },
+      {
+        "label": "Step 2", "title": "Strategy", "subtitle": "Frame the bet",
+        "description": "We narrow to a single, measurable bet. One page, one team, one number to move.",
+        "capsule": { "text": "Week 2-3", "color": "ember" },
+        "revealSlide": 50,
+        "revealLabel": "Open strategy detail"
+      },
+      {
+        "label": "Step 3", "title": "Build", "subtitle": "Ship in increments",
+        "description": "Two-week increments, demo every Friday. Each increment is shippable on its own — no big-bang go-live.",
+        "capsule": { "text": "Week 4-8", "color": "cream" }
+      },
+      {
+        "label": "Step 4", "title": "Scale", "subtitle": "Compound the wins",
+        "description": "Ongoing optimisation, expansion into adjacent surfaces, and quarterly review against the original bet.",
+        "capsule": { "text": "Ongoing", "color": "outline" }
+      }
+    ]
+  },
+  "notes": "Step 2 click-reveals to slide 50 (same target as the Strategy capsule on slide 2). Demonstrates the per-step revealSlide pattern; the rest of the steps are presenter-paced with ↑↓/jk/digits."
+}

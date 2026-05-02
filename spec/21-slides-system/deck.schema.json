@@ -1,0 +1,92 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://riseupasia.com/spec/slides/deck.schema.json",
+  "title": "DeckSpec",
+  "description": "Deck manifest. One file per deck at spec/slides/{deck-slug}/deck.json. The `slides` array names the slide files (without .json) in the order they should appear; disabling a slide is done in the slide JSON itself via `enabled: false`.",
+  "type": "object",
+  "required": ["deckSlug", "deckName", "presenter", "theme", "slides"],
+  "additionalProperties": false,
+  "properties": {
+    "deckSlug":  { "type": "string", "pattern": "^[a-z0-9-]+$", "description": "Folder name under spec/slides/." },
+    "deckName":  { "type": "string", "description": "Human-readable deck title." },
+    "presenter": { "type": "string", "description": "Default presenter name shown in the chip." },
+    "theme":     { "type": "string", "enum": ["noir-gold", "bright-gold", "vscode-dark", "dracula", "monokai", "github-light", "macos-sonoma", "windows-11"], "description": "Active theme palette. Brand presets (`noir-gold`, `bright-gold`) plus IDE/OS-inspired skins (`vscode-dark`, `dracula`, `monokai`, `github-light`, `macos-sonoma`, `windows-11`). Switched live via the controller's palette button; persisted with the deck on export." },
+    "preset":    { "type": "string", "enum": ["premium"], "description": "Optional reusable slide preset. `premium` locks Ubuntu Bold titles, clamp-based sizing, and auto-picks title color (white for hero slides, gold when titleShimmer is true, cream otherwise) for every slide that does not declare its own `titleStyle`. Per-slide values always win." },
+    "slides":    {
+      "type": "array",
+      "items": { "type": "string", "pattern": "^[0-9]{2}-[a-z0-9-]+$" },
+      "description": "Ordered list of slide file basenames (without .json), e.g. \"01-title\"."
+    },
+    "brandStrip": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "Optional thin branded strip rendered above the standard BrandHeader on every slide. Per-slide overrides win (`slide.brandStrip: false` to hide on a single slide; object to replace).",
+      "properties": {
+        "logoAsset":   { "type": "string", "enum": ["riseup-asia"], "default": "riseup-asia", "description": "Registered bundled logo asset. Preferred for export/import because the renderer resolves it to the built image URL." },
+        "logo":        { "type": "string", "description": "Direct image src for the primary logo. Use only for absolute/export-safe URLs; otherwise prefer `logoAsset`." },
+        "logoAlt":     { "type": "string", "description": "Alt text. Also used as the text-only fallback when no asset can resolve." },
+        "logoHeight":  { "type": "integer", "minimum": 12, "maximum": 32, "default": 22, "description": "Logo height in px. Clamped 12–32 so it never overflows the 36px strip." },
+        "logoAlign":   { "type": "string", "enum": ["left", "center", "right"], "default": "left", "description": "Horizontal position of the logo. When `right`, the tagline (if any) automatically moves to the left edge to avoid overlap." },
+        "padding":     { "type": "string", "enum": ["tight", "cozy", "roomy"], "default": "cozy", "description": "Horizontal padding preset applied to both edges of the strip." },
+        "tagline":     { "type": "string", "description": "Tagline pill text, e.g. \"Riseup Asia LLC \u00b7 2026 Deck\". Anchored opposite the logo." },
+        "taglineTone": { "type": "string", "enum": ["gold", "cream", "muted"], "default": "cream" },
+        "divider":     { "type": "boolean", "default": true },
+        "background":  { "type": "string", "enum": ["solid", "gradient", "transparent"], "default": "solid" }
+      }
+    },
+    "meeting": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "Deck-wide meeting/QR defaults consumed by QrMeetingSlide. Per-slide `content.meetingUrl` / `content.meetingLabel` / `content.qrAsset` always win.",
+      "properties": {
+        "url":     { "type": "string", "format": "uri", "description": "Live URL the QR encodes (e.g. \"https://cal.com/riseup-asia/intro\"). Used when no per-slide URL or branded asset is set." },
+        "label":   { "type": "string", "description": "Human-readable label shown next to the QR (e.g. \"cal.com/riseup-asia/intro\"). Falls back to a derived host when omitted." },
+        "qrAsset": { "type": "string", "description": "Registered branded QR asset slug. When set, the bundled PNG wins over `url` (treat the asset as authored brand artwork). Slug must be registered under deck.assets.qr or in the built-in registry." }
+      }
+    },
+    "assets": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "Deck-level asset registry. Lets a deck override or extend the built-in audio/QR/brand/icon registries. Every asset slug referenced by the deck or any slide MUST resolve at boot — missing references throw an aggregated error with the exact slide + slug. See `src/slides/assetRegistry.ts`.",
+      "properties": {
+        "audio": {
+          "type": "object",
+          "additionalProperties": { "type": "string" },
+          "description": "Audio cue slug → URL. Built-ins: whoosh, click, fadeClick, zoom, fadeZoom. Override an entry to point at a custom MP3, or add new slugs and reference them from `slide.sound.kind`."
+        },
+        "qr": {
+          "type": "object",
+          "additionalProperties": { "type": "string" },
+          "description": "QR slug → image URL. Built-in: `riseup-meeting`. Slides reference these via `content.qrAsset` or `deck.meeting.qrAsset`."
+        },
+        "brand": {
+          "type": "object",
+          "additionalProperties": { "type": "string" },
+          "description": "Brand chrome slug → image URL. Built-ins: `logo`, `logo-trimmed`, `presenter`. Used by BrandHeader / BrandStrip."
+        },
+        "icons": {
+          "type": "object",
+          "additionalProperties": { "type": "string" },
+          "description": "Ambient icon slug remap. Key is the slug used in slide JSON; value must be a built-in icon-registry slug. Use this to rename or alias icons without changing slide files."
+        }
+      }
+    },
+    "transitionTiming": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "Deck-wide default transition timing applied to every slide. Per-slide `content.transitionTiming` overrides this field-by-field. Lets a deck enforce one consistent cadence (e.g. 700ms expoOut on every slide) without repeating the override on every slide. Required for blind-AI reproducibility. v0.147.",
+      "properties": {
+        "durationMs": { "type": "integer", "minimum": 0, "maximum": 4000, "description": "Animation length in ms. Clamped to [0, 4000]. Default 550." },
+        "delayMs":    { "type": "integer", "minimum": 0, "maximum": 4000, "description": "Pre-animation hold in ms. Clamped to [0, 4000]. Default 0." },
+        "easing": {
+          "oneOf": [
+            { "type": "string", "enum": ["linear", "easeIn", "easeOut", "easeInOut", "expoIn", "expoOut", "expoInOut", "circIn", "circOut", "circInOut", "backIn", "backOut", "backInOut"] },
+            { "type": "array", "items": { "type": "number" }, "minItems": 4, "maxItems": 4, "description": "Cubic-bezier tuple [x1, y1, x2, y2]." }
+          ],
+          "description": "Named easing or 4-tuple cubic-bezier. Default expoOut [0.22, 1, 0.36, 1]."
+        }
+      }
+    }
+  }
+}
+

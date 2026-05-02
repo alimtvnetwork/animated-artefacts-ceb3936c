@@ -1,0 +1,83 @@
+{
+  "slideNumber": 4,
+  "slideName": "process-3d",
+  "slideType": "StepsChain3DSlide",
+  "transition": "FadeIn",
+  "textAnimation": "SlideUp",
+  "enabled": true,
+  "isClickReveal": false,
+  "showBrandHeader": true,
+  "showPresenterChip": true,
+  "brandStrip": false,
+  "titleStyle": "white",
+  "titleShimmer": false,
+  "sound": { "on": "focus", "kind": "whoosh", "volume": 0.6 },
+  "content": {
+    "eyebrow": "How we work",
+    "title": "Engagement Process — Cinematic",
+    "steps": [
+      {
+        "label": "Step 1",
+        "title": "Discovery",
+        "subtitle": "Listen, audit, align",
+        "capsule": { "text": "Week 1", "color": "gold" },
+        "description": {
+          "title": "Discovery & alignment",
+          "bullets": [
+            "Stakeholder interviews",
+            "System audit",
+            "Written brief",
+            "Framed the bet"
+          ],
+          "meta": "Week 1"
+        }
+      },
+      {
+        "label": "Step 2",
+        "title": "Strategy",
+        "subtitle": "Frame the bet",
+        "capsule": { "text": "Week 2-3", "color": "ember" },
+        "description": {
+          "title": "Strategy & architecture",
+          "bullets": [
+            "Sequenced plan",
+            "Sharpest increments",
+            "Compound outcome"
+          ],
+          "meta": "Week 2-3"
+        }
+      },
+      {
+        "label": "Step 3",
+        "title": "Build",
+        "subtitle": "Ship in increments",
+        "capsule": { "text": "Week 4-8", "color": "cream" },
+        "description": {
+          "title": "Build in the open",
+          "bullets": [
+            "Working software weekly",
+            "Tight feedback loops",
+            "Transparent metrics",
+            "No demo-day surprises"
+          ],
+          "meta": "Week 4-8"
+        }
+      },
+      {
+        "label": "Step 4",
+        "title": "Scale",
+        "subtitle": "Compound the wins",
+        "capsule": { "text": "Ongoing", "color": "outline" },
+        "description": {
+          "title": "Scale & compound",
+          "bullets": [
+            "Operate, measure, refine",
+            "Sharper releases",
+            "Quarterly compounding"
+          ],
+          "meta": "Ongoing"
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "slideNumber": 6,
+  "slideName": "impact",
+  "slideType": "MetricGridSlide",
+  "transition": "PushIn",
+  "textAnimation": "Stagger",
+  "enabled": true,
+  "isClickReveal": false,
+  "showBrandHeader": true,
+  "showPresenterChip": true,
+  "titleStyle": "white",
+  "titleShimmer": false,
+  "content": {
+    "eyebrow": "BY THE NUMBERS",
+    "title": "Proof of impact",
+    "subtitle": "Last 12 months across the navy-blue reference platform.",
+    "metrics": [
+      { "value": "3.4M",  "label": "Users reached", "caption": "Across all tenant surfaces.", "accent": "gold"  },
+      { "value": "99.95%","label": "Uptime",        "caption": "Rolling 90-day SLO.",          "accent": "teal"  },
+      { "value": "<10ms", "label": "P95 latency",   "caption": "Edge-rendered globally.",      "accent": "sky"   },
+      { "value": "$4.2M", "label": "ARR added",     "caption": "Net-new in 2025 — click for split.", "accent": "ember" }
+    ],
+    "hotspots": [
+      {
+        "x": 50,
+        "y": 55,
+        "width": 28,
+        "height": 32,
+        "revealSlide": 60,
+        "label": "$4.2M ARR breakdown",
+        "style": "ghost"
+      }
+    ]
+  },
+  "notes": "The bottom-right ARR cell carries a transparent ghost hotspot that click-reveals to slide 60. This is the third reveal pattern in the deck (capsule revealSlide on /2, step revealSlide on /3, hotspot revealSlide on /6)."
+}

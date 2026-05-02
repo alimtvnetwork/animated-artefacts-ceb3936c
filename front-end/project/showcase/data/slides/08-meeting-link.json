@@ -1,0 +1,40 @@
+{
+  "slideNumber": 8,
+  "slideName": "meeting-link",
+  "slideType": "QrMeetingSlide",
+  "transition": "PushIn",
+  "textAnimation": "Stagger",
+  "enabled": true,
+  "isClickReveal": false,
+  "showBrandHeader": true,
+  "showPresenterChip": true,
+  "brandStrip": false,
+  "titleStyle": "gold",
+  "titleShimmer": true,
+  "content": {
+    "eyebrow": "BOOK A WORKING SESSION",
+    "title": "Scan to meet with Riseup Asia LLC",
+    "subtitle": "Point your camera at the QR. We'll send a calendar invite the moment you pick a slot \u2014 no forms, no follow-up email tag.",
+    "qrAsset": "riseup-meeting",
+    "meetingLabel": "meet.rasia.pro/intro-call",
+    "capsules": [
+      {
+        "text": "Riseup Asia LLC",
+        "color": "gold"
+      },
+      {
+        "text": "30-min intro",
+        "color": "ember"
+      },
+      {
+        "text": "Free of charge",
+        "color": "cream"
+      },
+      {
+        "text": "MD ALIM UL KARIM",
+        "color": "outline"
+      }
+    ]
+  },
+  "notes": "Hold for the room to scan. The first capsule is the brand mark; the rest set expectations (length / cost / who they're meeting). Compact layout (no contactRows + no cta) so the QR is the hero \u2014 the contact card on /6 is the deeper version."
+}

@@ -1,0 +1,24 @@
+{
+  "slideNumber": 2,
+  "slideName": "data-table",
+  "slideType": "DataTableSlide",
+  "transition": "SlideIn",
+  "textAnimation": "Stagger",
+  "enabled": true,
+  "showBrandHeader": true,
+  "showPresenterChip": true,
+  "content": {
+    "eyebrow": "Plans",
+    "title": "Plan comparison",
+    "dataColumns": [
+      { "key": "plan",  "label": "Plan",  "align": "left" },
+      { "key": "seats", "label": "Seats", "align": "right" },
+      { "key": "price", "label": "Price", "align": "right" }
+    ],
+    "dataRows": [
+      { "plan": "Solo",   "seats": "1",  "price": "$0",   "accent": "cream" },
+      { "plan": "Team",   "seats": "10", "price": "$49",  "accent": "gold" },
+      { "plan": "Studio", "seats": "50", "price": "$199", "accent": "ember" }
+    ]
+  }
+}

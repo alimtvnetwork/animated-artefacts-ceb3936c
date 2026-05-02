@@ -1,0 +1,21 @@
+{
+  "slideNumber": 5,
+  "slideName": "metrics",
+  "slideType": "MetricGridSlide",
+  "transition": "PushRight",
+  "textAnimation": "Stagger",
+  "enabled": true,
+  "showBrandHeader": true,
+  "showPresenterChip": false,
+  "narrowIdea": "Four numbers. Receipts.",
+  "content": {
+    "eyebrow": "Studio · 2026 YTD",
+    "title": "By the numbers",
+    "metrics": [
+      { "value": "23", "label": "Decks shipped",  "caption": "Since January" },
+      { "value": "4.8/5","label": "Client NPS",   "caption": "Quarterly avg" },
+      { "value": "97%", "label": "On-time rate",  "caption": "Across milestones" },
+      { "value": "0",   "label": "Brand drift",   "caption": "Token-locked output" }
+    ]
+  }
+}

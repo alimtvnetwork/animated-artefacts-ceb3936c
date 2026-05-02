@@ -1,0 +1,27 @@
+{
+  "slideNumber": 15,
+  "slideName": "table",
+  "slideType": "TableSlide",
+  "transition": "SlideIn",
+  "textAnimation": "Stagger",
+  "enabled": true,
+  "showBrandHeader": true,
+  "showPresenterChip": false,
+  "narrowIdea": "Three engagement tiers. Plain comparison.",
+  "content": {
+    "eyebrow": "Proof · how we engage",
+    "title": "Engagement tiers",
+    "tableColumns": [
+      { "key": "scope",     "label": "Scope" },
+      { "key": "starter",   "label": "Starter" },
+      { "key": "studio",    "label": "Studio" },
+      { "key": "embedded",  "label": "Embedded" }
+    ],
+    "tableRows": [
+      { "name": "Length",   "cells": { "scope": "Length",   "starter": "1 deck",      "studio": "1 quarter",        "embedded": "Always-on" } },
+      { "name": "Cadence",  "cells": { "scope": "Cadence",  "starter": "One-shot",    "studio": "Weekly review",    "embedded": "Daily standup" } },
+      { "name": "Tokens",   "cells": { "scope": "Tokens",   "starter": "Provided",    "studio": "Co-designed",      "embedded": "Owned with you" } },
+      { "name": "Outputs",  "cells": { "scope": "Outputs",  "starter": "Deck",        "studio": "Deck + system",    "embedded": "System + handoff" } }
+    ]
+  }
+}

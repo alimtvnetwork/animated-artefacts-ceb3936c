@@ -1,0 +1,40 @@
+{
+  "compilerOptions": {
+    "types": ["vitest/globals"],
+    "target": "ES2020",
+    "useDefineForClassFields": true,
+    "lib": ["ES2020", "DOM", "DOM.Iterable"],
+    "module": "ESNext",
+    "skipLibCheck": true,
+
+    /* Bundler mode */
+    "moduleResolution": "bundler",
+    "allowImportingTsExtensions": true,
+    "isolatedModules": true,
+    "moduleDetection": "force",
+    "noEmit": true,
+    "resolveJsonModule": true,
+    "jsx": "react-jsx",
+
+    /* Linting — v0.170 strict-types flip.
+       `strict` enables the full strict family (noImplicitAny, strictNullChecks,
+       strictFunctionTypes, strictBindCallApply, strictPropertyInitialization,
+       alwaysStrict, useUnknownInCatchVariables). The two flags below are kept
+       explicit even though `strict: true` already implies them — they document
+       the intent to a reader and lock the policy in if `strict` is ever
+       relaxed. `noUnusedLocals`/`noUnusedParameters` stay off so authoring
+       drafts don't fight the typechecker, but the `any` ban (in eslint.config
+       + the CI grep guard) still applies. */
+    "strict": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
+    "noFallthroughCasesInSwitch": false,
+
+    "paths": {
+      "@/*": ["./src/*"]
+    }
+  },
+  "include": ["src"]
+}

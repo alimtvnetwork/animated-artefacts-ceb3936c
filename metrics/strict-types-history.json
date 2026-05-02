@@ -1,0 +1,557 @@
+[
+  {
+    "timestamp": "2026-04-27T07:42:50.301Z",
+    "sha": "b1e8f0a",
+    "totals": {
+      "tscErrors": 0,
+      "eslintErrors": 11,
+      "unknownUsages": 51
+    },
+    "byFile": {
+      "tscErrors": {},
+      "eslintErrors": {
+        "src/slides/controls/DeckMenu.tsx": 1,
+        "src/slides/motionPreferences.ts": 10
+      },
+      "unknownUsages": {
+        "src/lib/errors.ts": 4,
+        "src/main.tsx": 2,
+        "src/slides/capsuleLayout.ts": 2,
+        "src/slides/components/BrandStripAuditOverlay.tsx": 1,
+        "src/slides/contracts.ts": 5,
+        "src/slides/exportSchemas.ts": 2,
+        "src/slides/fixtures.ts": 16,
+        "src/slides/loader.ts": 3,
+        "src/slides/manifest.ts": 1,
+        "src/slides/preload.ts": 1,
+        "src/slides/sound.ts": 2,
+        "src/slides/stepTiming.ts": 1,
+        "src/slides/textAnimations.ts": 4,
+        "src/slides/themes.ts": 1,
+        "src/slides/transitions.ts": 1,
+        "src/slides/types/TitleSlide.tsx": 2,
+        "src/slides/validationMode.ts": 1,
+        "src/slides/assetRegistry.ts": 2
+      }
+    }
+  },
+  {
+    "timestamp": "2026-04-27T07:44:16.814Z",
+    "sha": "0a8d0ab",
+    "totals": {
+      "tscErrors": 0,
+      "eslintErrors": 0,
+      "unknownUsages": 55
+    },
+    "byFile": {
+      "tscErrors": {},
+      "eslintErrors": {},
+      "unknownUsages": {
+        "src/lib/errors.ts": 4,
+        "src/main.tsx": 2,
+        "src/slides/capsuleLayout.ts": 2,
+        "src/slides/components/BrandStripAuditOverlay.tsx": 1,
+        "src/slides/contracts.ts": 5,
+        "src/slides/controls/DeckMenu.tsx": 1,
+        "src/slides/exportSchemas.ts": 2,
+        "src/slides/fixtures.ts": 16,
+        "src/slides/loader.ts": 3,
+        "src/slides/manifest.ts": 1,
+        "src/slides/motionPreferences.ts": 3,
+        "src/slides/preload.ts": 1,
+        "src/slides/sound.ts": 2,
+        "src/slides/stepTiming.ts": 1,
+        "src/slides/textAnimations.ts": 4,
+        "src/slides/themes.ts": 1,
+        "src/slides/transitions.ts": 1,
+        "src/slides/types/TitleSlide.tsx": 2,
+        "src/slides/validationMode.ts": 1,
+        "src/slides/assetRegistry.ts": 2
+      }
+    }
+  },
+  {
+    "timestamp": "2026-04-27T10:47:50.380Z",
+    "sha": "76cdb92",
+    "totals": {
+      "tscErrors": 0,
+      "eslintErrors": 0,
+      "unknownUsages": 69
+    },
+    "byFile": {
+      "tscErrors": {},
+      "eslintErrors": {},
+      "unknownUsages": {
+        "src/builder/BoxDiagramCanvasEditor.tsx": 2,
+        "src/lib/errors.ts": 4,
+        "src/main.tsx": 3,
+        "src/pages/PresenterPage.tsx": 1,
+        "src/pages/SlideDeckPage.tsx": 1,
+        "src/slides/assetRegistry.ts": 2,
+        "src/slides/capsuleLayout.ts": 2,
+        "src/slides/components/BrandStripAuditOverlay.tsx": 1,
+        "src/slides/contracts.ts": 7,
+        "src/slides/controls/DeckMenu.tsx": 1,
+        "src/slides/exportSchemas.ts": 2,
+        "src/slides/fixtures.ts": 17,
+        "src/slides/loader.ts": 3,
+        "src/slides/manifest.ts": 1,
+        "src/slides/motionPreferences.ts": 3,
+        "src/slides/preload.ts": 1,
+        "src/slides/sound.ts": 2,
+        "src/slides/stepTiming.ts": 1,
+        "src/slides/sync.ts": 6,
+        "src/slides/textAnimations.ts": 4,
+        "src/slides/themes.ts": 1,
+        "src/slides/transitions.ts": 1,
+        "src/slides/types/TitleSlide.tsx": 2,
+        "src/slides/validationMode.ts": 1
+      }
+    },
+    "eslintByRule": {
+      "@typescript-eslint/no-explicit-any": 0,
+      "@typescript-eslint/no-unsafe-assignment": 0,
+      "@typescript-eslint/no-unsafe-member-access": 0,
+      "@typescript-eslint/no-unsafe-call": 0,
+      "@typescript-eslint/no-unsafe-return": 0
+    },
+    "eslintByRuleByFile": {
+      "@typescript-eslint/no-explicit-any": {},
+      "@typescript-eslint/no-unsafe-assignment": {},
+      "@typescript-eslint/no-unsafe-member-access": {},
+      "@typescript-eslint/no-unsafe-call": {},
+      "@typescript-eslint/no-unsafe-return": {}
+    }
+  },
+  {
+    "timestamp": "2026-04-27T10:48:54.934Z",
+    "sha": "4eac7eb",
+    "totals": {
+      "tscErrors": 0,
+      "eslintErrors": 0,
+      "unknownUsages": 69
+    },
+    "byFile": {
+      "tscErrors": {},
+      "eslintErrors": {},
+      "unknownUsages": {
+        "src/builder/BoxDiagramCanvasEditor.tsx": 2,
+        "src/lib/errors.ts": 4,
+        "src/main.tsx": 3,
+        "src/pages/PresenterPage.tsx": 1,
+        "src/pages/SlideDeckPage.tsx": 1,
+        "src/slides/assetRegistry.ts": 2,
+        "src/slides/capsuleLayout.ts": 2,
+        "src/slides/components/BrandStripAuditOverlay.tsx": 1,
+        "src/slides/contracts.ts": 7,
+        "src/slides/controls/DeckMenu.tsx": 1,
+        "src/slides/exportSchemas.ts": 2,
+        "src/slides/fixtures.ts": 17,
+        "src/slides/loader.ts": 3,
+        "src/slides/manifest.ts": 1,
+        "src/slides/motionPreferences.ts": 3,
+        "src/slides/preload.ts": 1,
+        "src/slides/sound.ts": 2,
+        "src/slides/stepTiming.ts": 1,
+        "src/slides/sync.ts": 6,
+        "src/slides/textAnimations.ts": 4,
+        "src/slides/themes.ts": 1,
+        "src/slides/transitions.ts": 1,
+        "src/slides/types/TitleSlide.tsx": 2,
+        "src/slides/validationMode.ts": 1
+      }
+    },
+    "eslintByRule": {
+      "@typescript-eslint/no-explicit-any": 0,
+      "@typescript-eslint/no-unsafe-assignment": 0,
+      "@typescript-eslint/no-unsafe-member-access": 0,
+      "@typescript-eslint/no-unsafe-call": 0,
+      "@typescript-eslint/no-unsafe-return": 0
+    },
+    "eslintByRuleByFile": {
+      "@typescript-eslint/no-explicit-any": {},
+      "@typescript-eslint/no-unsafe-assignment": {},
+      "@typescript-eslint/no-unsafe-member-access": {},
+      "@typescript-eslint/no-unsafe-call": {},
+      "@typescript-eslint/no-unsafe-return": {}
+    }
+  },
+  {
+    "timestamp": "2026-05-01T19:49:09.072Z",
+    "sha": "524b0c6",
+    "totals": {
+      "tscErrors": 0,
+      "eslintErrors": 16,
+      "unknownUsages": 121
+    },
+    "byFile": {
+      "tscErrors": {},
+      "eslintErrors": {
+        "src/builder/NormalizeBulletsAction.tsx": 1,
+        "src/components/RuntimeErrorOverlay.tsx": 1,
+        "src/slides/controls/TransitionInspector.tsx": 6,
+        "src/slides/transitionPresets.ts": 8
+      },
+      "unknownUsages": {
+        "src/builder/BoxDiagramCanvasEditor.tsx": 2,
+        "src/builder/NormalizeBulletsAction.tsx": 3,
+        "src/builder/validate3DSteps.ts": 2,
+        "src/components/BlankScreenFallback.tsx": 1,
+        "src/components/RuntimeErrorOverlay.tsx": 3,
+        "src/lib/errors.ts": 4,
+        "src/main.tsx": 4,
+        "src/pages/PresenterPage.tsx": 1,
+        "src/pages/PreviewDiagnosticsPage.tsx": 3,
+        "src/pages/ReleaseChecklistPage.tsx": 2,
+        "src/pages/ReleaseIndexPage.tsx": 1,
+        "src/pages/SlideDeckPage.tsx": 1,
+        "src/slides/assetRegistry.ts": 2,
+        "src/slides/brokenAssetReport.ts": 3,
+        "src/slides/capsuleLayout.ts": 2,
+        "src/slides/components/BrandStripAuditOverlay.tsx": 1,
+        "src/slides/components/ColorTokenDebugOverlay.tsx": 2,
+        "src/slides/contracts.ts": 8,
+        "src/slides/controls/DeckMenu.tsx": 1,
+        "src/slides/controls/TransitionInspector.tsx": 1,
+        "src/slides/densityCheck.ts": 6,
+        "src/slides/exportSchemas.ts": 2,
+        "src/slides/fixtures.ts": 23,
+        "src/slides/loader.ts": 6,
+        "src/slides/manifest.ts": 2,
+        "src/slides/motionPreferences.ts": 3,
+        "src/slides/normalize3DBullets.ts": 2,
+        "src/slides/preload.ts": 3,
+        "src/slides/sound.ts": 2,
+        "src/slides/stepTiming.ts": 1,
+        "src/slides/sync.ts": 6,
+        "src/slides/textAnimations.ts": 4,
+        "src/slides/themes.ts": 2,
+        "src/slides/transitions.ts": 1,
+        "src/slides/types/EquationSlide.tsx": 1,
+        "src/slides/types/StepsChain3DSlide.tsx": 4,
+        "src/slides/types/TitleSlide.tsx": 2,
+        "src/slides/utils/legacyBodyToBullets.ts": 1,
+        "src/slides/validateAgainstCatalog.ts": 2,
+        "src/slides/validationMode.ts": 1
+      }
+    },
+    "eslintByRule": {
+      "@typescript-eslint/no-explicit-any": 1,
+      "@typescript-eslint/no-unsafe-assignment": 6,
+      "@typescript-eslint/no-unsafe-member-access": 8,
+      "@typescript-eslint/no-unsafe-call": 0,
+      "@typescript-eslint/no-unsafe-return": 1
+    },
+    "eslintByRuleByFile": {
+      "@typescript-eslint/no-explicit-any": {
+        "src/slides/controls/TransitionInspector.tsx": 1
+      },
+      "@typescript-eslint/no-unsafe-assignment": {
+        "src/builder/NormalizeBulletsAction.tsx": 1,
+        "src/components/RuntimeErrorOverlay.tsx": 1,
+        "src/slides/controls/TransitionInspector.tsx": 3,
+        "src/slides/transitionPresets.ts": 1
+      },
+      "@typescript-eslint/no-unsafe-member-access": {
+        "src/slides/controls/TransitionInspector.tsx": 2,
+        "src/slides/transitionPresets.ts": 6
+      },
+      "@typescript-eslint/no-unsafe-call": {},
+      "@typescript-eslint/no-unsafe-return": {
+        "src/slides/transitionPresets.ts": 1
+      }
+    }
+  },
+  {
+    "timestamp": "2026-05-01T19:50:56.114Z",
+    "sha": "8a83aa2",
+    "totals": {
+      "tscErrors": 0,
+      "eslintErrors": 2,
+      "unknownUsages": 127
+    },
+    "byFile": {
+      "tscErrors": {},
+      "eslintErrors": {
+        "src/builder/NormalizeBulletsAction.tsx": 1,
+        "src/components/RuntimeErrorOverlay.tsx": 1
+      },
+      "unknownUsages": {
+        "src/builder/BoxDiagramCanvasEditor.tsx": 2,
+        "src/builder/NormalizeBulletsAction.tsx": 3,
+        "src/builder/validate3DSteps.ts": 2,
+        "src/components/BlankScreenFallback.tsx": 1,
+        "src/components/RuntimeErrorOverlay.tsx": 3,
+        "src/lib/errors.ts": 4,
+        "src/main.tsx": 4,
+        "src/pages/PresenterPage.tsx": 1,
+        "src/pages/PreviewDiagnosticsPage.tsx": 3,
+        "src/pages/ReleaseChecklistPage.tsx": 2,
+        "src/pages/ReleaseIndexPage.tsx": 1,
+        "src/pages/SlideDeckPage.tsx": 1,
+        "src/slides/assetRegistry.ts": 2,
+        "src/slides/brokenAssetReport.ts": 3,
+        "src/slides/capsuleLayout.ts": 2,
+        "src/slides/components/BrandStripAuditOverlay.tsx": 1,
+        "src/slides/components/ColorTokenDebugOverlay.tsx": 2,
+        "src/slides/contracts.ts": 8,
+        "src/slides/controls/DeckMenu.tsx": 1,
+        "src/slides/controls/TransitionInspector.tsx": 4,
+        "src/slides/densityCheck.ts": 6,
+        "src/slides/exportSchemas.ts": 2,
+        "src/slides/fixtures.ts": 23,
+        "src/slides/loader.ts": 6,
+        "src/slides/manifest.ts": 2,
+        "src/slides/motionPreferences.ts": 3,
+        "src/slides/normalize3DBullets.ts": 2,
+        "src/slides/preload.ts": 3,
+        "src/slides/sound.ts": 2,
+        "src/slides/stepTiming.ts": 1,
+        "src/slides/sync.ts": 6,
+        "src/slides/textAnimations.ts": 4,
+        "src/slides/themes.ts": 2,
+        "src/slides/transitionPresets.ts": 3,
+        "src/slides/transitions.ts": 1,
+        "src/slides/types/EquationSlide.tsx": 1,
+        "src/slides/types/StepsChain3DSlide.tsx": 4,
+        "src/slides/types/TitleSlide.tsx": 2,
+        "src/slides/utils/legacyBodyToBullets.ts": 1,
+        "src/slides/validateAgainstCatalog.ts": 2,
+        "src/slides/validationMode.ts": 1
+      }
+    },
+    "eslintByRule": {
+      "@typescript-eslint/no-explicit-any": 0,
+      "@typescript-eslint/no-unsafe-assignment": 2,
+      "@typescript-eslint/no-unsafe-member-access": 0,
+      "@typescript-eslint/no-unsafe-call": 0,
+      "@typescript-eslint/no-unsafe-return": 0
+    },
+    "eslintByRuleByFile": {
+      "@typescript-eslint/no-explicit-any": {},
+      "@typescript-eslint/no-unsafe-assignment": {
+        "src/builder/NormalizeBulletsAction.tsx": 1,
+        "src/components/RuntimeErrorOverlay.tsx": 1
+      },
+      "@typescript-eslint/no-unsafe-member-access": {},
+      "@typescript-eslint/no-unsafe-call": {},
+      "@typescript-eslint/no-unsafe-return": {}
+    }
+  },
+  {
+    "timestamp": "2026-05-01T19:51:36.562Z",
+    "sha": "a3b07b8",
+    "totals": {
+      "tscErrors": 0,
+      "eslintErrors": 2,
+      "unknownUsages": 127
+    },
+    "byFile": {
+      "tscErrors": {},
+      "eslintErrors": {
+        "src/builder/NormalizeBulletsAction.tsx": 1,
+        "src/components/RuntimeErrorOverlay.tsx": 1
+      },
+      "unknownUsages": {
+        "src/builder/BoxDiagramCanvasEditor.tsx": 2,
+        "src/builder/NormalizeBulletsAction.tsx": 3,
+        "src/builder/validate3DSteps.ts": 2,
+        "src/components/BlankScreenFallback.tsx": 1,
+        "src/components/RuntimeErrorOverlay.tsx": 3,
+        "src/lib/errors.ts": 4,
+        "src/main.tsx": 4,
+        "src/pages/PresenterPage.tsx": 1,
+        "src/pages/PreviewDiagnosticsPage.tsx": 3,
+        "src/pages/ReleaseChecklistPage.tsx": 2,
+        "src/pages/ReleaseIndexPage.tsx": 1,
+        "src/pages/SlideDeckPage.tsx": 1,
+        "src/slides/assetRegistry.ts": 2,
+        "src/slides/brokenAssetReport.ts": 3,
+        "src/slides/capsuleLayout.ts": 2,
+        "src/slides/components/BrandStripAuditOverlay.tsx": 1,
+        "src/slides/components/ColorTokenDebugOverlay.tsx": 2,
+        "src/slides/contracts.ts": 8,
+        "src/slides/controls/DeckMenu.tsx": 1,
+        "src/slides/controls/TransitionInspector.tsx": 4,
+        "src/slides/densityCheck.ts": 6,
+        "src/slides/exportSchemas.ts": 2,
+        "src/slides/fixtures.ts": 23,
+        "src/slides/loader.ts": 6,
+        "src/slides/manifest.ts": 2,
+        "src/slides/motionPreferences.ts": 3,
+        "src/slides/normalize3DBullets.ts": 2,
+        "src/slides/preload.ts": 3,
+        "src/slides/sound.ts": 2,
+        "src/slides/stepTiming.ts": 1,
+        "src/slides/sync.ts": 6,
+        "src/slides/textAnimations.ts": 4,
+        "src/slides/themes.ts": 2,
+        "src/slides/transitionPresets.ts": 3,
+        "src/slides/transitions.ts": 1,
+        "src/slides/types/EquationSlide.tsx": 1,
+        "src/slides/types/StepsChain3DSlide.tsx": 4,
+        "src/slides/types/TitleSlide.tsx": 2,
+        "src/slides/utils/legacyBodyToBullets.ts": 1,
+        "src/slides/validateAgainstCatalog.ts": 2,
+        "src/slides/validationMode.ts": 1
+      }
+    },
+    "eslintByRule": {
+      "@typescript-eslint/no-explicit-any": 0,
+      "@typescript-eslint/no-unsafe-assignment": 2,
+      "@typescript-eslint/no-unsafe-member-access": 0,
+      "@typescript-eslint/no-unsafe-call": 0,
+      "@typescript-eslint/no-unsafe-return": 0
+    },
+    "eslintByRuleByFile": {
+      "@typescript-eslint/no-explicit-any": {},
+      "@typescript-eslint/no-unsafe-assignment": {
+        "src/builder/NormalizeBulletsAction.tsx": 1,
+        "src/components/RuntimeErrorOverlay.tsx": 1
+      },
+      "@typescript-eslint/no-unsafe-member-access": {},
+      "@typescript-eslint/no-unsafe-call": {},
+      "@typescript-eslint/no-unsafe-return": {}
+    }
+  },
+  {
+    "timestamp": "2026-05-01T19:52:37.629Z",
+    "sha": "7c89333",
+    "totals": {
+      "tscErrors": 0,
+      "eslintErrors": 0,
+      "unknownUsages": 128
+    },
+    "byFile": {
+      "tscErrors": {},
+      "eslintErrors": {},
+      "unknownUsages": {
+        "src/builder/BoxDiagramCanvasEditor.tsx": 2,
+        "src/builder/NormalizeBulletsAction.tsx": 3,
+        "src/builder/validate3DSteps.ts": 2,
+        "src/components/BlankScreenFallback.tsx": 1,
+        "src/components/RuntimeErrorOverlay.tsx": 4,
+        "src/lib/errors.ts": 4,
+        "src/main.tsx": 4,
+        "src/pages/PresenterPage.tsx": 1,
+        "src/pages/PreviewDiagnosticsPage.tsx": 3,
+        "src/pages/ReleaseChecklistPage.tsx": 2,
+        "src/pages/ReleaseIndexPage.tsx": 1,
+        "src/pages/SlideDeckPage.tsx": 1,
+        "src/slides/assetRegistry.ts": 2,
+        "src/slides/brokenAssetReport.ts": 3,
+        "src/slides/capsuleLayout.ts": 2,
+        "src/slides/components/BrandStripAuditOverlay.tsx": 1,
+        "src/slides/components/ColorTokenDebugOverlay.tsx": 2,
+        "src/slides/contracts.ts": 8,
+        "src/slides/controls/DeckMenu.tsx": 1,
+        "src/slides/controls/TransitionInspector.tsx": 4,
+        "src/slides/densityCheck.ts": 6,
+        "src/slides/exportSchemas.ts": 2,
+        "src/slides/fixtures.ts": 23,
+        "src/slides/loader.ts": 6,
+        "src/slides/manifest.ts": 2,
+        "src/slides/motionPreferences.ts": 3,
+        "src/slides/normalize3DBullets.ts": 2,
+        "src/slides/preload.ts": 3,
+        "src/slides/sound.ts": 2,
+        "src/slides/stepTiming.ts": 1,
+        "src/slides/sync.ts": 6,
+        "src/slides/textAnimations.ts": 4,
+        "src/slides/themes.ts": 2,
+        "src/slides/transitionPresets.ts": 3,
+        "src/slides/transitions.ts": 1,
+        "src/slides/types/EquationSlide.tsx": 1,
+        "src/slides/types/StepsChain3DSlide.tsx": 4,
+        "src/slides/types/TitleSlide.tsx": 2,
+        "src/slides/utils/legacyBodyToBullets.ts": 1,
+        "src/slides/validateAgainstCatalog.ts": 2,
+        "src/slides/validationMode.ts": 1
+      }
+    },
+    "eslintByRule": {
+      "@typescript-eslint/no-explicit-any": 0,
+      "@typescript-eslint/no-unsafe-assignment": 0,
+      "@typescript-eslint/no-unsafe-member-access": 0,
+      "@typescript-eslint/no-unsafe-call": 0,
+      "@typescript-eslint/no-unsafe-return": 0
+    },
+    "eslintByRuleByFile": {
+      "@typescript-eslint/no-explicit-any": {},
+      "@typescript-eslint/no-unsafe-assignment": {},
+      "@typescript-eslint/no-unsafe-member-access": {},
+      "@typescript-eslint/no-unsafe-call": {},
+      "@typescript-eslint/no-unsafe-return": {}
+    }
+  },
+  {
+    "timestamp": "2026-05-01T19:53:14.213Z",
+    "sha": "bb3f1f4",
+    "totals": {
+      "tscErrors": 0,
+      "eslintErrors": 0,
+      "unknownUsages": 128
+    },
+    "byFile": {
+      "tscErrors": {},
+      "eslintErrors": {},
+      "unknownUsages": {
+        "src/builder/BoxDiagramCanvasEditor.tsx": 2,
+        "src/builder/NormalizeBulletsAction.tsx": 3,
+        "src/builder/validate3DSteps.ts": 2,
+        "src/components/BlankScreenFallback.tsx": 1,
+        "src/components/RuntimeErrorOverlay.tsx": 4,
+        "src/lib/errors.ts": 4,
+        "src/main.tsx": 4,
+        "src/pages/PresenterPage.tsx": 1,
+        "src/pages/PreviewDiagnosticsPage.tsx": 3,
+        "src/pages/ReleaseChecklistPage.tsx": 2,
+        "src/pages/ReleaseIndexPage.tsx": 1,
+        "src/pages/SlideDeckPage.tsx": 1,
+        "src/slides/assetRegistry.ts": 2,
+        "src/slides/brokenAssetReport.ts": 3,
+        "src/slides/capsuleLayout.ts": 2,
+        "src/slides/components/BrandStripAuditOverlay.tsx": 1,
+        "src/slides/components/ColorTokenDebugOverlay.tsx": 2,
+        "src/slides/contracts.ts": 8,
+        "src/slides/controls/DeckMenu.tsx": 1,
+        "src/slides/controls/TransitionInspector.tsx": 4,
+        "src/slides/densityCheck.ts": 6,
+        "src/slides/exportSchemas.ts": 2,
+        "src/slides/fixtures.ts": 23,
+        "src/slides/loader.ts": 6,
+        "src/slides/manifest.ts": 2,
+        "src/slides/motionPreferences.ts": 3,
+        "src/slides/normalize3DBullets.ts": 2,
+        "src/slides/preload.ts": 3,
+        "src/slides/sound.ts": 2,
+        "src/slides/stepTiming.ts": 1,
+        "src/slides/sync.ts": 6,
+        "src/slides/textAnimations.ts": 4,
+        "src/slides/themes.ts": 2,
+        "src/slides/transitionPresets.ts": 3,
+        "src/slides/transitions.ts": 1,
+        "src/slides/types/EquationSlide.tsx": 1,
+        "src/slides/types/StepsChain3DSlide.tsx": 4,
+        "src/slides/types/TitleSlide.tsx": 2,
+        "src/slides/utils/legacyBodyToBullets.ts": 1,
+        "src/slides/validateAgainstCatalog.ts": 2,
+        "src/slides/validationMode.ts": 1
+      }
+    },
+    "eslintByRule": {
+      "@typescript-eslint/no-explicit-any": 0,
+      "@typescript-eslint/no-unsafe-assignment": 0,
+      "@typescript-eslint/no-unsafe-member-access": 0,
+      "@typescript-eslint/no-unsafe-call": 0,
+      "@typescript-eslint/no-unsafe-return": 0
+    },
+    "eslintByRuleByFile": {
+      "@typescript-eslint/no-explicit-any": {},
+      "@typescript-eslint/no-unsafe-assignment": {},
+      "@typescript-eslint/no-unsafe-member-access": {},
+      "@typescript-eslint/no-unsafe-call": {},
+      "@typescript-eslint/no-unsafe-return": {}
+    }
+  }
+]

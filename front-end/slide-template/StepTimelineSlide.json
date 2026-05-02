@@ -1,0 +1,16 @@
+{
+  "templateName": "StepTimelineSlide",
+  "depends": {
+    "color": "../themes/noir-gold/colors.json",
+    "theme": "../themes/noir-gold/themes.json"
+  },
+  "fields": {
+    "eyebrow": { "type": "string",  "required": false },
+    "title":   { "type": "string",  "required": true },
+    "steps":   { "type": "Step[]",  "required": true }
+  },
+  "defaults": {
+    "transition": "SlideIn",
+    "textAnimation": "SlideUp"
+  }
+}

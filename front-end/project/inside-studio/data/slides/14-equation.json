@@ -1,0 +1,17 @@
+{
+  "slideNumber": 14,
+  "slideName": "equation",
+  "slideType": "EquationSlide",
+  "transition": "FadeIn",
+  "textAnimation": "Stagger",
+  "enabled": true,
+  "showBrandHeader": true,
+  "showPresenterChip": false,
+  "narrowIdea": "One equation. The economics of clarity.",
+  "content": {
+    "eyebrow": "Proof · math",
+    "title": "Clarity compounds",
+    "tex": "R = C \\cdot (1 + r)^t",
+    "caption": "Recall (R) compounds at rate r every retelling t, given baseline clarity C"
+  }
+}

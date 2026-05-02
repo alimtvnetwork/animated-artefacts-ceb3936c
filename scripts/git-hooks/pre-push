@@ -1,0 +1,73 @@
+#!/usr/bin/env bash
+# Strict-types pre-push hook (Phase 14 / 52 follow-up).
+#
+# Runs the same gate CI does, scoped to make local pushes fast:
+#   1. ESLint on TS/TSX files changed in commits being pushed
+#      (skipped if no TS/TSX files changed).
+#   2. `tsc -p tsconfig.app.json --noEmit` — strict TypeScript on the whole
+#      app project. tsc can't be reliably scoped to a file subset under
+#      project references, so we accept the full run; on a warm bun cache
+#      this is < 5s.
+#
+# The hook is a hard fail: if either step exits non-zero the push is aborted.
+# To bypass intentionally, use `git push --no-verify`.
+#
+# Installation: `bun run prepare` (or `bash scripts/install-git-hooks.sh`).
+
+set -euo pipefail
+
+GREEN='\033[0;32m'
+RED='\033[0;31m'
+DIM='\033[2m'
+NC='\033[0m'
+
+echo -e "${DIM}[pre-push] strict-types gate (eslint + tsc)…${NC}"
+
+# Collect TS/TSX files staged in commits about-to-be-pushed.
+# stdin format on pre-push: "<local_ref> <local_sha> <remote_ref> <remote_sha>"
+remote_sha=""
+local_sha=""
+while read -r _local_ref l_sha _remote_ref r_sha; do
+  local_sha="$l_sha"
+  remote_sha="$r_sha"
+done
+
+# Fall back to comparing against `origin/main` when remote_sha is all-zeros
+# (first push of a branch) or unset (manual invocation).
+ZERO="0000000000000000000000000000000000000000"
+if [ -z "${remote_sha:-}" ] || [ "$remote_sha" = "$ZERO" ]; then
+  if git rev-parse --verify origin/main >/dev/null 2>&1; then
+    remote_sha=$(git rev-parse origin/main)
+  else
+    remote_sha="HEAD~1"
+  fi
+fi
+
+if [ -z "${local_sha:-}" ] || [ "$local_sha" = "$ZERO" ]; then
+  local_sha="HEAD"
+fi
+
+changed_ts=$(git diff --name-only --diff-filter=ACMR "$remote_sha" "$local_sha" 2>/dev/null \
+  | grep -E '\.(ts|tsx)$' \
+  | grep -v -E '^(node_modules|dist)/' \
+  || true)
+
+if [ -n "$changed_ts" ]; then
+  echo -e "${DIM}[pre-push] eslint on $(echo "$changed_ts" | wc -l | tr -d ' ') changed file(s)${NC}"
+  # shellcheck disable=SC2086
+  if ! bunx eslint $changed_ts; then
+    echo -e "${RED}[pre-push] ✗ ESLint failed — push aborted.${NC}" >&2
+    echo -e "${DIM}  Bypass with: git push --no-verify (not recommended)${NC}" >&2
+    exit 1
+  fi
+else
+  echo -e "${DIM}[pre-push] no TS/TSX changes — skipping eslint${NC}"
+fi
+
+echo -e "${DIM}[pre-push] tsc -p tsconfig.app.json --noEmit${NC}"
+if ! bunx tsc -p tsconfig.app.json --noEmit; then
+  echo -e "${RED}[pre-push] ✗ TypeScript check failed — push aborted.${NC}" >&2
+  exit 1
+fi
+
+echo -e "${GREEN}[pre-push] ✓ strict-types gate passed${NC}"

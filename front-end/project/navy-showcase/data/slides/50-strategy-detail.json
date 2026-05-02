@@ -1,0 +1,25 @@
+{
+  "slideNumber": 50,
+  "slideName": "strategy-detail",
+  "slideType": "KeywordSlide",
+  "transition": "PushIn",
+  "textAnimation": "Bounce",
+  "enabled": true,
+  "isClickReveal": true,
+  "parentSlide": 2,
+  "showBrandHeader": true,
+  "showPresenterChip": true,
+  "titleStyle": "cream",
+  "titleShimmer": true,
+  "content": {
+    "eyebrow": "Click reveal · from Pillars (or Engagement step 2)",
+    "title": "Strategy",
+    "keywords": ["Clarity", "Bets", "Positioning"],
+    "capsules": [
+      { "text": "Workshops", "color": "gold" },
+      { "text": "Research",  "color": "ember" },
+      { "text": "Roadmaps",  "color": "cream" }
+    ]
+  },
+  "notes": "Reached from TWO entrypoints — the Strategy capsule on slide 2 and the Strategy step on slide 3. parentSlide: 2 picks the capsule path as the canonical 'back' target; the controller back-arrow returns there regardless of which entry was used. The /3 step still passes through correctly because click-reveal navigation is global."
+}

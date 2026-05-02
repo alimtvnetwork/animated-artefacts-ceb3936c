@@ -1,0 +1,28 @@
+{
+  "slideNumber": 21,
+  "slideName": "layout",
+  "slideType": "LayoutSlide",
+  "transition": "PushIn",
+  "textAnimation": "Stagger",
+  "enabled": true,
+  "showBrandHeader": true,
+  "showPresenterChip": false,
+  "narrowIdea": "Two columns. The shared studio promise.",
+  "content": {
+    "eyebrow": "Proof · the deal",
+    "title": "What you ship · what we ship",
+    "preset": "two-equal",
+    "layoutSlots": [
+      {
+        "kind": "card",
+        "title": "What you ship",
+        "body": "A point of view. Audience. Constraints. The story only you can tell."
+      },
+      {
+        "kind": "card",
+        "title": "What we ship",
+        "body": "A token-locked deck. A spec. A rehearsal. A Friday review. Then the live moment."
+      }
+    ]
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "templateName": "QrMeetingSlide",
+  "depends": {
+    "color": "../themes/noir-gold/colors.json",
+    "theme": "../themes/noir-gold/themes.json"
+  },
+  "fields": {
+    "eyebrow":      { "type": "string",   "required": false },
+    "title":        { "type": "string",   "required": true },
+    "subtitle":     { "type": "string",   "required": false },
+    "qrAsset":      { "type": "string",   "required": false, "description": "Registered branded-QR slug (preferred). Drop the PNG into src/assets/brand/ and register it in BrandedQR.tsx." },
+    "qrUrl":        { "type": "string",   "required": false, "description": "Legacy / metadata only — no longer drives the visual. The PNG is rendered as-is." },
+    "meetingLabel": { "type": "string",   "required": false },
+    "capsules":     { "type": "Capsule[]","required": false }
+  },
+  "defaults": {
+    "transition": "PushRight",
+    "textAnimation": "FadeIn"
+  }
+}

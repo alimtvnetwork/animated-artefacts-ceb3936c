@@ -1,0 +1,55 @@
+{
+  "slideNumber": 6,
+  "slideName": "impact-metrics",
+  "slideType": "MetricGridSlide",
+  "transition": "PushIn",
+  "textAnimation": "Stagger",
+  "isClickReveal": false,
+  "showBrandHeader": true,
+  "showPresenterChip": true,
+  "titleStyle": "white",
+  "titleShimmer": false,
+  "content": {
+    "eyebrow": "BY THE NUMBERS",
+    "title": "Proof of impact",
+    "subtitle": "Last 12 months across the full Riseup Asia portfolio.",
+    "metrics": [
+      {
+        "value": "3.4M",
+        "label": "Users reached",
+        "caption": "Across all client surfaces.",
+        "accent": "gold"
+      },
+      {
+        "value": "99.9%",
+        "label": "Uptime",
+        "caption": "Rolling 90-day SLO.",
+        "accent": "teal"
+      },
+      {
+        "value": "<10ms",
+        "label": "P95 latency",
+        "caption": "Edge-rendered globally.",
+        "accent": "sky"
+      },
+      {
+        "value": "$4.2M",
+        "label": "ARR added",
+        "caption": "Net-new in 2025.",
+        "accent": "ember"
+      }
+    ],
+    "hotspots": [
+      {
+        "x": 50,
+        "y": 55,
+        "width": 28,
+        "height": 32,
+        "revealSlide": 50,
+        "label": "$4.2M ARR breakdown",
+        "style": "ghost"
+      }
+    ]
+  },
+  "notes": "Pause on each metric. Lead with the user-reach number \u2014 that's the headline. Uptime + latency are the trust proof. ARR closes."
+}

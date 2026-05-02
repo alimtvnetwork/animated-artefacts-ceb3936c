@@ -1,0 +1,19 @@
+{
+  "name": "noir-gold",
+  "mode": "dark",
+  "fontFamily": {
+    "display": "Ubuntu",
+    "body": "Inter"
+  },
+  "radius": "0.75rem",
+  "shadows": {
+    "elegant": "0 30px 80px -20px hsl(0 0% 0% / 0.6)",
+    "gold": "0 10px 40px -10px hsl(40 96% 48% / 0.45)",
+    "pill": "0 10px 30px -8px hsl(0 0% 0% / 0.7), 0 0 0 1px hsl(0 0% 100% / 0.06) inset"
+  },
+  "transitionEasing": "cubic-bezier(0.22, 1, 0.36, 1)",
+  "animationDefaults": {
+    "slideTransition": "FadeIn",
+    "textAnimation": "FadeIn"
+  }
+}

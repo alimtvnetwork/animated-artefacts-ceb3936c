@@ -1,0 +1,76 @@
+{
+  "$comment": "Root manifest for the entire spec/slides authoring tree. Lists every deck and every slide as an explicit { json, md } pair so loaders never have to string-munge file paths. Generated v0.116.",
+  "manifestVersion": 1,
+  "rootRelativeTo": "spec/slides/",
+  "decks": [
+    {
+      "deckSlug": "showcase",
+      "deckName": "Riseup Asia LLC — Showcase",
+      "presenter": "MD ALIM UL KARIM",
+      "theme": "noir-gold",
+      "preset": "premium",
+      "deckJson": "showcase/deck.json",
+      "meeting": {
+        "url": "https://meet.rasia.pro/intro-call",
+        "label": "meet.rasia.pro/intro-call",
+        "qrAsset": "riseup-meeting"
+      },
+      "slides": [
+        {
+          "slideNumber": 1,
+          "slideName": "title",
+          "slideType": "TitleSlide",
+          "json": "showcase/01-title.json",
+          "md":   "showcase/01-title.md"
+        },
+        {
+          "slideNumber": 2,
+          "slideName": "capabilities",
+          "slideType": "CapsuleListSlide",
+          "json": "showcase/02-capabilities.json",
+          "md":   "showcase/02-capabilities.md"
+        },
+        {
+          "slideNumber": 3,
+          "slideName": "process",
+          "slideType": "StepTimelineSlide",
+          "json": "showcase/03-process.json",
+          "md":   "showcase/03-process.md"
+        },
+        {
+          "slideNumber": 4,
+          "slideName": "strategy-detail",
+          "slideType": "ClickRevealSlide",
+          "json": "showcase/04-strategy-detail.json",
+          "md":   "showcase/04-strategy-detail.md"
+        },
+        {
+          "slideNumber": 5,
+          "slideName": "impact-metrics",
+          "slideType": "MetricGridSlide",
+          "json": "showcase/05-impact-metrics.json",
+          "md":   "showcase/05-impact-metrics.md"
+        },
+        {
+          "slideNumber": 6,
+          "slideName": "contact",
+          "slideType": "QrMeetingSlide",
+          "json": "showcase/06-contact.json",
+          "md":   "showcase/06-contact.md"
+        },
+        {
+          "slideNumber": 16,
+          "slideName": "middle-title",
+          "slideType": "MiddleTitleSlide",
+          "json": "showcase/16-middle-title.json",
+          "md":   "showcase/16-middle-title.md"
+        }
+      ]
+    }
+  ],
+  "templates": {
+    "$comment": "Per-slideType starter templates live under front-end/slide-template/. See that folder's deck.json for the template-deck manifest.",
+    "rootRelativeTo": "../../front-end/slide-template/",
+    "manifest": "../../front-end/slide-template/deck.json"
+  }
+}

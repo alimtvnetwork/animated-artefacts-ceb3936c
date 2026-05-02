@@ -1,0 +1,21 @@
+{
+  "slideNumber": 9,
+  "slideName": "advance-step",
+  "slideType": "AdvanceStepSlide",
+  "transition": "PushIn",
+  "textAnimation": "FadeIn",
+  "enabled": true,
+  "showBrandHeader": true,
+  "showPresenterChip": false,
+  "narrowIdea": "Build week — camera dollies through the four habits.",
+  "content": {
+    "eyebrow": "Process · build week",
+    "title": "Four habits, on rails",
+    "steps": [
+      { "label": "01", "title": "Token first",   "subtitle": "Color, type, motion — declared, never inlined",  "capsule": { "text": "Discipline","color": "gold" } },
+      { "label": "02", "title": "Spec first",    "subtitle": "JSON is the source of truth — code follows",     "capsule": { "text": "Truth",     "color": "ember" } },
+      { "label": "03", "title": "Test first",    "subtitle": "Contracts + density caps + WCAG + variety audit","capsule": { "text": "Guardrails","color": "violet" } },
+      { "label": "04", "title": "Ship behind flag","subtitle": "Dark-launch · diff in production · roll back fast","capsule": { "text": "Safety",  "color": "teal" } }
+    ]
+  }
+}

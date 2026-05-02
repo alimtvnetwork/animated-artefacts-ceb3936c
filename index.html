@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" href="data:," />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Riseup Asia LLC — Presentation</title>
+    <meta name="description" content="Riseup Asia LLC — strategy, design, and growth presentation deck." />
+    <meta name="author" content="Riseup Asia LLC" />
+    <meta name="theme-color" content="#0D0D0D" />
+
+    <meta property="og:title" content="Riseup Asia LLC" />
+    <meta property="og:description" content="Riseup Asia LLC — presentation deck." />
+    <meta property="og:type" content="website" />
+  </head>
+
+  <body>
+    <div id="root"></div>
+    <script>
+      (() => {
+        const KEY = "__runtimeErrors__";
+        const BOOT = "__previewBoot__";
+        const alphabet = "0123456789ABCDEFGHJKMNPQRSTVWXYZ";
+        let nextId = 1;
+        let overlayKind = null;
+        let mainLoaded = false;
+
+        const id = () => "err_" + Array.from({ length: 6 }, () => alphabet[Math.floor(Math.random() * alphabet.length)]).join("");
+        const asText = (value) => {
+          if (value instanceof Error) return value.message || value.name;
+          if (typeof value === "string") return value;
+          try { return JSON.stringify(value); } catch { return String(value); }
+        };
+        const stackOf = (value) => value instanceof Error ? value.stack : undefined;
+        const shortPath = (path) => {
+          if (!path) return undefined;
+          const src = path.indexOf("/src/");
+          if (src >= 0) return path.slice(src + 1);
+          try { return new URL(path).pathname.replace(/^\/+/, ""); } catch { return path; }
+        };
+        const firstFrame = (stack, fallback) => {
+          const skip = /(node_modules|react-dom|react\/jsx|scheduler|@vite|\/vite\/dist|<anonymous>)/i;
+          for (const raw of String(stack || "").split("\n").slice(1)) {
+            const line = raw.trim();
+            if (!line || skip.test(line)) continue;
+            const named = line.match(/^at\s+(.+?)\s+\((.+?):(\d+):(\d+)\)/);
+            if (named) return `${named[1]} (${shortPath(named[2])}:${named[3]}:${named[4]})`;
+            const anon = line.match(/^at\s+(.+?):(\d+):(\d+)$/);
+            if (anon) return `${shortPath(anon[1])}:${anon[2]}:${anon[3]}`;
+            const ff = line.match(/^(.+?)@(.+?):(\d+):(\d+)$/);
+            if (ff) return `${ff[1]} (${shortPath(ff[2])}:${ff[3]}:${ff[4]})`;
+          }
+          return fallback;
+        };
+        const capture = (kind, message, stack, source) => {
+          const at = Date.now();
+          const err = { id: nextId++, correlationId: id(), kind, message: message || "Unknown preview failure", stack, source, at, atIso: new Date(at).toISOString(), url: location.href };
+          window[KEY] = [...(window[KEY] || []), err];
+          console.error(`[runtime-error ${err.correlationId}] ${kind}: ${err.message}`);
+          if (err.stack) console.error(`[runtime-error ${err.correlationId}] stack:\n${err.stack}`);
+          render(err, false);
+        };
+        const rootIsEmpty = () => {
+          const root = document.getElementById("root");
+          if (!root) return true;
+          if ((root.textContent || "").replace(/\s+/g, "").trim().length > 0) return false;
+          return !root.querySelector("img,canvas,svg,video,iframe,[data-non-empty]");
+        };
+        const css = (node, styles) => Object.assign(node.style, styles);
+        const render = (err, blank) => {
+          if (new URLSearchParams(location.search).get("errorOverlay") === "off") return;
+          if (document.querySelector('[data-runtime-error-overlay="true"]')) return;
+          overlayKind = blank ? "blank" : "error";
+          const wrap = document.createElement("div");
+          wrap.setAttribute("data-runtime-error-overlay", "true");
+          wrap.setAttribute("role", blank ? "status" : "alert");
+          wrap.setAttribute("aria-live", blank ? "polite" : "assertive");
+          css(wrap, { position: "fixed", inset: "0", zIndex: "2147483647", overflow: "auto", background: "rgba(8,6,4,.96)", color: "hsl(42 100% 96%)", padding: "32px", fontFamily: "ui-monospace,SFMono-Regular,Menlo,Consolas,monospace", fontSize: "13px", lineHeight: "1.55" });
+          const box = document.createElement("div");
+          css(box, { maxWidth: "980px", margin: "0 auto" });
+          const title = document.createElement("h1");
+          title.textContent = blank ? "Preview rendered nothing" : "Preview runtime error";
+          css(title, { margin: "0 0 12px", color: blank ? "hsl(42 70% 55%)" : "hsl(14 80% 57%)", fontFamily: "Ubuntu,system-ui,sans-serif", fontSize: "24px", letterSpacing: ".01em" });
+          const why = document.createElement("p");
+          why.textContent = blank
+            ? (mainLoaded ? "The app module loaded, but #root stayed empty. The deck route probably returned no visible UI or is still blocked before first paint." : "The app bundle did not mount React. The most likely cause is an import-time/module-graph crash before App.tsx can render its React error overlay.")
+            : "This happened before or during preview boot, so the browser-level overlay painted outside React.";
+          css(why, { margin: "0 0 18px", color: "hsl(42 25% 78%)" });
+          const meta = document.createElement("div");
+          meta.textContent = `Correlation: ${err.correlationId} · ${err.kind}${err.source ? " · " + err.source : ""}`;
+          css(meta, { display: "inline-block", marginBottom: "14px", padding: "4px 8px", border: "1px solid hsl(42 25% 35%)", borderRadius: "4px", color: "hsl(42 100% 96%)" });
+          const msg = document.createElement("pre");
+          msg.textContent = `${err.message}${err.stack ? "\n\n" + err.stack : ""}`;
+          css(msg, { whiteSpace: "pre-wrap", wordBreak: "break-word", margin: "0 0 18px", padding: "16px", border: "1px solid hsl(14 80% 57% / .55)", borderRadius: "6px", background: "hsl(0 0% 6%)", color: "hsl(42 25% 84%)", maxHeight: "55vh", overflow: "auto" });
+          const row = document.createElement("div");
+          css(row, { display: "flex", gap: "10px", flexWrap: "wrap" });
+          const button = (label, fn) => { const b = document.createElement("button"); b.type = "button"; b.textContent = label; b.onclick = fn; css(b, { cursor: "pointer", background: "hsl(42 70% 50%)", color: "hsl(0 0% 8%)", border: "0", borderRadius: "6px", padding: "9px 14px", fontFamily: "inherit", fontWeight: "700" }); return b; };
+          row.append(button("Retry", () => location.reload()), button("Diagnostics", () => location.assign("/preview-diagnostics")), button("Copy error", () => navigator.clipboard?.writeText(JSON.stringify(err, null, 2))));
+          box.append(title, why, meta, msg, row);
+          wrap.append(box);
+          document.body.append(wrap);
+        };
+
+        window[BOOT] = { markMainLoaded: () => { mainLoaded = true; } };
+        window.addEventListener("error", (ev) => {
+          if (!ev.message && !ev.error) return;
+          const source = firstFrame(stackOf(ev.error), ev.filename ? `${shortPath(ev.filename)}:${ev.lineno || "?"}:${ev.colno || "?"}` : undefined);
+          capture("window.error", ev.error instanceof Error ? ev.error.message : ev.message, stackOf(ev.error), source);
+        });
+        window.addEventListener("unhandledrejection", (ev) => {
+          capture("unhandledrejection", asText(ev.reason), stackOf(ev.reason), firstFrame(stackOf(ev.reason)));
+        });
+        window.setTimeout(() => {
+          if (overlayKind || document.querySelector('[data-allow-blank="true"]')) return;
+          if (!rootIsEmpty()) return;
+          const at = Date.now();
+          const err = { id: nextId++, correlationId: id(), kind: "blank-root", message: "#root is still empty after preview boot watchdog timeout.", source: "index.html boot watchdog", at, atIso: new Date(at).toISOString(), url: location.href };
+          window[KEY] = [...(window[KEY] || []), err];
+          console.error(`[runtime-error ${err.correlationId}] blank-root: ${err.message}`);
+          render(err, true);
+        }, 8000);
+        new MutationObserver(() => {
+          const overlay = document.querySelector('[data-runtime-error-overlay="true"]');
+          if (overlayKind === "blank" && overlay && !rootIsEmpty()) overlay.remove();
+        }).observe(document.documentElement, { childList: true, subtree: true });
+      })();
+    </script>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

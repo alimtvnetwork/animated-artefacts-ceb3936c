@@ -1,0 +1,61 @@
+{
+  "slideNumber": 3,
+  "slideName": "process",
+  "slideType": "StepTimelineSlide",
+  "transition": "SlideIn",
+  "textAnimation": "SlideUp",
+  "enabled": true,
+  "isClickReveal": false,
+  "showBrandHeader": true,
+  "showPresenterChip": true,
+  "brandStrip": false,
+  "titleStyle": "white",
+  "titleShimmer": false,
+  "sound": { "on": "focus", "kind": "whoosh", "volume": 0.6 },
+  "content": {
+    "eyebrow": "How we work",
+    "title": "Engagement Process",
+    "headerOffsetPx": 8,
+    "stepAmbient": {
+      "count": 5,
+      "opacity": 0.05,
+      "drift": 0.5,
+      "parallax": 22,
+      "sizeRange": [40, 78],
+      "positions": [
+        { "icon": "vscode",      "top": 22, "left": 78, "size": 64, "accent": "#007ACC", "float": true },
+        { "icon": "database",    "top": 36, "left": 92, "size": 52 },
+        { "icon": "boxes",       "top": 62, "left": 88, "size": 56 },
+        { "icon": "github-mark", "top": 78, "left": 70, "size": 60, "accent": "#FFFFFF", "float": true },
+        { "icon": "code2",       "top": 88, "left": 92, "size": 44 }
+      ]
+    },
+    "steps": [
+      {
+        "label": "Step 1", "title": "Discovery",  "subtitle": "Listen, audit, align",
+        "description": "Two-week intake — stakeholder interviews, asset audit, alignment workshop. We leave with a one-page brief signed by everyone in the room.",
+        "capsule": { "text": "Week 1", "color": "gold" },
+        "revealLabel": "See discovery details",
+        "expand": {
+          "eyebrow": "Phase 01",
+          "title": "Discovery",
+          "body": "Stakeholder interviews, asset audit, and an alignment workshop. We leave with a one-page brief signed by everyone in the room.",
+          "capsules": [
+            { "text": "Interviews", "color": "gold" },
+            { "text": "Asset audit", "color": "ember" },
+            { "text": "Workshop", "color": "cream" }
+          ]
+        }
+      },
+      {
+        "label": "Step 2", "title": "Strategy",   "subtitle": "Frame the bet",
+        "description": "We narrow to a single, measurable bet. One page, one team, one number to move.",
+        "capsule": { "text": "Week 2-3", "color": "ember" },
+        "revealSlide": 4,
+        "revealLabel": "Open strategy page"
+      },
+      { "label": "Step 3", "title": "Build",      "subtitle": "Ship in increments",  "description": "Two-week increments, demo every Friday. Each increment must be shippable on its own.", "capsule": { "text": "Week 4-8", "color": "cream" } },
+      { "label": "Step 4", "title": "Scale",      "subtitle": "Compound the wins",   "description": "Ongoing optimisation, expansion into adjacent surfaces, and quarterly review against the original bet.", "capsule": { "text": "Ongoing", "color": "outline" } }
+    ]
+  }
+}

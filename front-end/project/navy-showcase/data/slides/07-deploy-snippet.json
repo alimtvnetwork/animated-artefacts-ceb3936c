@@ -1,0 +1,26 @@
+{
+  "slideNumber": 7,
+  "slideName": "deploy-snippet",
+  "slideType": "CodeBlockSlide",
+  "transition": "PushLeft",
+  "textAnimation": "FadeIn",
+  "enabled": true,
+  "isClickReveal": false,
+  "showBrandHeader": true,
+  "showPresenterChip": true,
+  "titleStyle": "white",
+  "titleShimmer": false,
+  "content": {
+    "eyebrow": "Friday deploy",
+    "title": "One command, three regions",
+    "subtitle": "The whole release script. JetBrains Mono ships with the navy-blue theme.",
+    "code": "#!/usr/bin/env bash\nset -euo pipefail\n\n# 1. Build + tag the image (immutable digest).\nIMAGE=ghcr.io/riseup/api:$(git rev-parse --short HEAD)\ndocker buildx build --platform linux/amd64 -t \"$IMAGE\" --push .\n\n# 2. Run dbt models + integration tests (fail-loud).\nbun run dbt:build\nbun run test:integration\n\n# 3. Roll the three regions in series; each waits on a healthy /readyz.\nfor region in sin syd nrt; do\n  fly deploy --image \"$IMAGE\" --region \"$region\" --strategy rolling\n  ./scripts/wait-healthy.sh \"$region\"\ndone\n\necho \"✓ released $IMAGE\"\n",
+    "codeLanguage": "bash",
+    "codeSyntax": "shiki",
+    "codeHighlightLines": [3, 8, 12, 13],
+    "codeShowLineNumbers": true,
+    "codeCopyButton": true,
+    "codeCaption": "Highlighted lines pulse a warm cyan backdrop on slide enter (suppressed under prefers-reduced-motion)."
+  },
+  "notes": "The four highlighted lines are the moments that matter: image build, dbt build, the rolling per-region loop, and the readiness wait. Use the copy button live if anyone asks for a copy."
+}

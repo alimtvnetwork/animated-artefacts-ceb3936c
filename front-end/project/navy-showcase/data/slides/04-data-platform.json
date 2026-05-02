@@ -1,0 +1,66 @@
+{
+  "slideNumber": 4,
+  "slideName": "data-platform",
+  "slideType": "LayoutSlide",
+  "transition": "PushIn",
+  "textAnimation": "FadeIn",
+  "enabled": true,
+  "isClickReveal": false,
+  "showBrandHeader": true,
+  "showPresenterChip": true,
+  "titleStyle": "white",
+  "titleShimmer": false,
+  "content": {
+    "eyebrow": "Reference architecture",
+    "title": "Data platform — at a glance",
+    "layout": "card-grid-2x3",
+    "layoutSlots": [
+      {
+        "kind": "card",
+        "variant": "accent",
+        "eyebrow": "Ingest",
+        "title": "Source of truth",
+        "body": "Postgres on the edge, logical replication into the warehouse. One write path, every reader downstream.",
+        "bullets": ["RLS by tenant", "Logical decoding", "Point-in-time recovery"]
+      },
+      {
+        "kind": "card",
+        "eyebrow": "Transform",
+        "title": "dbt + cron",
+        "body": "Boring on purpose. Versioned models, tested incrementally, deployed on the same Friday cadence as product code.",
+        "bullets": ["~120 models", "Slim CI on PR", "Fail loud, fail early"]
+      },
+      {
+        "kind": "card",
+        "variant": "success",
+        "eyebrow": "Serve",
+        "title": "Read replicas",
+        "body": "Per-region read replicas behind the edge router. P95 stays under 10ms because every query is near the user.",
+        "bullets": ["3 regions", "Auto-failover", "Replica lag < 1s"]
+      },
+      {
+        "kind": "codeblock",
+        "eyebrow": "Schema sketch",
+        "title": "core.events",
+        "code": "create table core.events (\n  id        uuid primary key default gen_random_uuid(),\n  tenant_id uuid not null references core.tenants(id),\n  kind      text not null,\n  payload   jsonb not null,\n  created_at timestamptz not null default now()\n);\ncreate index on core.events (tenant_id, created_at desc);",
+        "codeLanguage": "sql"
+      },
+      {
+        "kind": "card",
+        "variant": "danger",
+        "eyebrow": "Guardrails",
+        "title": "Cost ceilings",
+        "body": "Every workload has a published budget. We page on the burn rate, not the absolute number — surprises stay small.",
+        "bullets": ["Budget alerts", "Per-tenant quotas", "Weekly review"]
+      },
+      {
+        "kind": "plain",
+        "eyebrow": "Outcome",
+        "title": "One platform, many products",
+        "body": "Six products share this stack. New product = new schema, not a new platform — that's how a small team runs a large surface."
+      }
+    ],
+    "gridPreset": "card-grid-2x3"
+  },
+  "notes": "Showcases LayoutSlide with all three slot kinds: card (with all 4 variants), codeblock (SQL syntax), and plain. Navy-blue's success/danger borders read as muted teal/orange against the navy surface."
+}

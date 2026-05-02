@@ -1,0 +1,20 @@
+{
+  "$schema": "../../../21-slides-system/llm/CATALOG.json",
+  "seq": 43,
+  "type": "EquationSlide",
+  "id": "sample-43-equation",
+  "eyebrow": "Growth",
+  "title": "Compound growth",
+  "content": {
+    "tex": "A = P\\,(1 + r)^t",
+    "termIds": ["A", "P", "factor", "exp"],
+    "labels": {
+      "left":  { "color": "cream", "text": "P = principal" },
+      "right": { "color": "ember", "text": "t = years" }
+    }
+  },
+  "transition": "FadeIn",
+  "textAnimation": "Stagger",
+  "narrowIdea": "Compound growth in one line.",
+  "densityCheck": { "equations": 1, "capEquations": 1 }
+}

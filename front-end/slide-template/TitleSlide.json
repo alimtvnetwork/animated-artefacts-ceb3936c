@@ -1,0 +1,17 @@
+{
+  "templateName": "TitleSlide",
+  "depends": {
+    "color": "../themes/noir-gold/colors.json",
+    "theme": "../themes/noir-gold/themes.json"
+  },
+  "fields": {
+    "eyebrow":  { "type": "string",   "required": false },
+    "title":    { "type": "string",   "required": true },
+    "subtitle": { "type": "string",   "required": false },
+    "capsules": { "type": "Capsule[]","required": false }
+  },
+  "defaults": {
+    "transition": "FadeIn",
+    "textAnimation": "Bounce"
+  }
+}

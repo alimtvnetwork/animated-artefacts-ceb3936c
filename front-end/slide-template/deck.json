@@ -1,0 +1,45 @@
+{
+  "$comment": "Template deck — one entry per slideType. Authors duplicate any of these into spec/slides/<deck>/NN-name.json to start a new slide. Each entry pairs the JSON template with a sibling .md authoring guide. v0.116.",
+  "manifestVersion": 1,
+  "deckSlug": "slide-template",
+  "deckName": "Per-slideType starter templates",
+  "rootRelativeTo": "front-end/slide-template/",
+  "slides": [
+    {
+      "slideType": "TitleSlide",
+      "json": "TitleSlide.json",
+      "md":   "TitleSlide.md",
+      "purpose": "Hero opener with eyebrow, headline, subtitle, capsules, and ambient icon scatter."
+    },
+    {
+      "slideType": "CapsuleListSlide",
+      "json": "CapsuleListSlide.json",
+      "md":   "CapsuleListSlide.md",
+      "purpose": "Title + 3–10 colored capsules. Optional click-reveal targets per capsule."
+    },
+    {
+      "slideType": "StepTimelineSlide",
+      "json": "StepTimelineSlide.json",
+      "md":   "StepTimelineSlide.md",
+      "purpose": "Cinematic step chain (numbered nodes, focused-step description, ambient icons)."
+    },
+    {
+      "slideType": "QrMeetingSlide",
+      "json": "QrMeetingSlide.json",
+      "md":   "QrMeetingSlide.md",
+      "purpose": "Closer / contact card. QR + meeting URL + amber-tile contact rows + socials."
+    }
+  ],
+  "$missing": {
+    "$comment": "Slide types without a template yet — add front-end/slide-template/<Type>.json + .md to backfill.",
+    "types": [
+      "MetricGridSlide",
+      "MiddleTitleSlide",
+      "FocusTimelineSlide",
+      "AdvanceStepSlide",
+      "ImageSlide",
+      "KeywordSlide",
+      "SectionDividerSlide"
+    ]
+  }
+}

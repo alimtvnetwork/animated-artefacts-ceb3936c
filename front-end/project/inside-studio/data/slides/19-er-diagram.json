@@ -1,0 +1,26 @@
+{
+  "slideNumber": 19,
+  "slideName": "er-diagram",
+  "slideType": "ERDiagramSlide",
+  "transition": "FadeIn",
+  "textAnimation": "FadeIn",
+  "enabled": true,
+  "showBrandHeader": true,
+  "showPresenterChip": false,
+  "narrowIdea": "Four entities. The deck-authoring graph.",
+  "content": {
+    "eyebrow": "Proof · model",
+    "title": "How a deck is structured",
+    "entities": [
+      { "id": "deck",   "title": "Deck",     "x": 18, "y": 20, "fields": [ { "name": "id" }, { "name": "name" }, { "name": "theme" } ] },
+      { "id": "slide",  "title": "Slide",    "x": 56, "y": 20, "fields": [ { "name": "id" }, { "name": "deck_id (FK)" }, { "name": "type" }, { "name": "seq" } ] },
+      { "id": "asset",  "title": "Asset",    "x": 56, "y": 70, "fields": [ { "name": "id" }, { "name": "slide_id (FK)" }, { "name": "kind" }, { "name": "url" } ] },
+      { "id": "audit",  "title": "Audit",    "x": 88, "y": 45, "fields": [ { "name": "id" }, { "name": "slide_id (FK)" }, { "name": "rule" }, { "name": "ok" } ] }
+    ],
+    "relationships": [
+      { "from": "deck",  "to": "slide", "label": "contains" },
+      { "from": "slide", "to": "asset", "label": "uses" },
+      { "from": "slide", "to": "audit", "label": "passes" }
+    ]
+  }
+}

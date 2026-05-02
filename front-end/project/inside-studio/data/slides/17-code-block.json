@@ -1,0 +1,18 @@
+{
+  "slideNumber": 17,
+  "slideName": "code-block",
+  "slideType": "CodeBlockSlide",
+  "transition": "PushLeft",
+  "textAnimation": "FadeIn",
+  "enabled": true,
+  "showBrandHeader": true,
+  "showPresenterChip": false,
+  "narrowIdea": "One contract. Authored once, validated everywhere.",
+  "content": {
+    "eyebrow": "Proof · contract",
+    "title": "A slide is just a JSON",
+    "language": "json",
+    "code": "{\n  \"slideNumber\": 3,\n  \"slideType\": \"KeywordSlide\",\n  \"transition\": \"PushIn\",\n  \"textAnimation\": \"Bounce\",\n  \"content\": {\n    \"title\": \"Three words\",\n    \"keywords\": [\"Clarity\", \"Cadence\", \"Restraint\"]\n  }\n}",
+    "caption": "Validated by zod, density-capped, theme-token aware."
+  }
+}

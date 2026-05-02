@@ -1,0 +1,15 @@
+{
+  "Name": "Sample — Addendum 29 (Narrow-Idea Slides)",
+  "config": {
+    "deckSlug": "sample",
+    "presenter": "MD ALIM UL KARIM",
+    "theme": "noir-gold",
+    "preset": "premium"
+  },
+  "Slides": [
+    { "title": "database-erd",   "path": "./slides/40-database-erd.json" },
+    { "title": "data-table",     "path": "./slides/41-data-table.json" },
+    { "title": "number-callout", "path": "./slides/42-number-callout.json" },
+    { "title": "equation",       "path": "./slides/43-equation.json" }
+  ]
+}

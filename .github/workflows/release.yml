@@ -1,0 +1,369 @@
+name: Release · tag + build + notes
+
+# One-click release workflow for Riseup Asia LLC slide deck.
+#
+# What it does
+# ------------
+# 1. Resolves the target tag from `package.json#version` (so the workflow
+#    stays correct as the version bumps — today it's v1.1.0).
+# 2. Creates the annotated git tag if it doesn't already exist, pointing at
+#    the commit the workflow ran against. Idempotent: re-running on the same
+#    commit is a no-op; running with a different commit on an existing tag
+#    fails loudly (we never silently move a release tag).
+# 3. Runs the production build (`bun run build`) and captures the dist size,
+#    file count, and wall-clock duration.
+# 4. Publishes (or updates) a GitHub Release for that tag with the build
+#    results as the body.
+#
+# Triggers
+# --------
+# - push to `main` — auto-tag + release whenever the version in package.json
+#   changes (so a normal version-bump PR ships the release).
+# - workflow_dispatch — manual button in the Actions tab. Optional `force`
+#   input lets a maintainer move the tag if absolutely needed.
+#
+# Required permissions
+# --------------------
+# `contents: write` is needed to push the tag and create the Release. The
+# default GITHUB_TOKEN with that permission is enough; no PAT required.
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      force:
+        description: "Move the tag if it already exists at a different commit"
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+concurrency:
+  # Serialize releases so two runs can't fight over the same tag.
+  group: release-tag-and-build
+  cancel-in-progress: false
+
+jobs:
+  release:
+    name: Tag · build · publish notes
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Checkout (full history so tags resolve)
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          fetch-tags: true
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - name: Resolve target tag from package.json
+        id: version
+        run: |
+          set -euo pipefail
+          VERSION=$(node -p "require('./package.json').version")
+          TAG="v${VERSION}"
+          echo "version=${VERSION}" >> "$GITHUB_OUTPUT"
+          echo "tag=${TAG}"         >> "$GITHUB_OUTPUT"
+          echo "::notice title=Release target::${TAG} (from package.json)"
+
+      - name: Check existing tag
+        id: tagcheck
+        env:
+          TAG: ${{ steps.version.outputs.tag }}
+          FORCE: ${{ github.event.inputs.force }}
+        run: |
+          set -euo pipefail
+          HEAD_SHA="$(git rev-parse HEAD)"
+          echo "head=${HEAD_SHA}" >> "$GITHUB_OUTPUT"
+
+          if git rev-parse -q --verify "refs/tags/${TAG}^{commit}" >/dev/null; then
+            EXISTING_SHA="$(git rev-parse "refs/tags/${TAG}^{commit}")"
+            echo "exists=true"            >> "$GITHUB_OUTPUT"
+            echo "existing=${EXISTING_SHA}" >> "$GITHUB_OUTPUT"
+
+            if [ "${EXISTING_SHA}" = "${HEAD_SHA}" ]; then
+              echo "action=skip" >> "$GITHUB_OUTPUT"
+              echo "::notice title=Tag::${TAG} already at HEAD — idempotent re-run"
+            elif [ "${FORCE}" = "true" ]; then
+              echo "action=move" >> "$GITHUB_OUTPUT"
+              echo "::warning title=Tag move::${TAG} will be moved from ${EXISTING_SHA} to ${HEAD_SHA} (force=true)"
+            else
+              echo "::error title=Tag mismatch::${TAG} already points at ${EXISTING_SHA} (≠ HEAD ${HEAD_SHA}). Re-run with workflow_dispatch + force=true if intended."
+              exit 2
+            fi
+          else
+            echo "exists=false"  >> "$GITHUB_OUTPUT"
+            echo "action=create" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Create / move annotated tag
+        if: steps.tagcheck.outputs.action != 'skip'
+        env:
+          TAG: ${{ steps.version.outputs.tag }}
+          ACTION: ${{ steps.tagcheck.outputs.action }}
+        run: |
+          set -euo pipefail
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          if [ "${ACTION}" = "move" ]; then
+            # Local + remote delete before re-creating, so the push below
+            # doesn't need --force on the tag ref.
+            git tag -d "${TAG}" || true
+            git push origin ":refs/tags/${TAG}" || true
+          fi
+
+          git tag -a "${TAG}" -m "Release ${TAG}"
+          git push origin "refs/tags/${TAG}"
+
+      - name: Verify tag resolves to HEAD
+        env:
+          TAG: ${{ steps.version.outputs.tag }}
+          HEAD_SHA: ${{ steps.tagcheck.outputs.head }}
+        run: |
+          set -euo pipefail
+          RESOLVED="$(git rev-parse "refs/tags/${TAG}^{commit}")"
+          if [ "${RESOLVED}" != "${HEAD_SHA}" ]; then
+            echo "::error title=Tag verification::${TAG} resolves to ${RESOLVED}, expected ${HEAD_SHA}"
+            exit 1
+          fi
+          echo "::notice title=Tag verified::${TAG} → ${RESOLVED}"
+
+      - name: Install dependencies
+        run: bun install --frozen-lockfile
+
+      - name: Production build
+        id: build
+        run: |
+          set -euo pipefail
+          START=$(date +%s)
+          set +e
+          bun run build 2>&1 | tee build.log
+          STATUS=${PIPESTATUS[0]}
+          set -e
+          END=$(date +%s)
+          DURATION=$((END - START))
+          echo "duration=${DURATION}" >> "$GITHUB_OUTPUT"
+          echo "status=${STATUS}"     >> "$GITHUB_OUTPUT"
+          if [ "${STATUS}" -ne 0 ]; then
+            echo "::error title=Build failed::Exit ${STATUS} after ${DURATION}s"
+            exit "${STATUS}"
+          fi
+          echo "::notice title=Build green::${DURATION}s"
+
+      - name: Measure dist
+        id: dist
+        run: |
+          set -euo pipefail
+          if [ ! -d dist ]; then
+            echo "::error title=No dist::Build did not produce a dist/ directory"
+            exit 1
+          fi
+          SIZE_HUMAN=$(du -sh dist | cut -f1)
+          SIZE_BYTES=$(du -sb dist | cut -f1)
+          FILE_COUNT=$(find dist -type f | wc -l | tr -d ' ')
+          echo "size_human=${SIZE_HUMAN}" >> "$GITHUB_OUTPUT"
+          echo "size_bytes=${SIZE_BYTES}" >> "$GITHUB_OUTPUT"
+          echo "file_count=${FILE_COUNT}" >> "$GITHUB_OUTPUT"
+
+      - name: Package dist artifacts (zip + tar.gz)
+        id: artifacts
+        env:
+          TAG: ${{ steps.version.outputs.tag }}
+        run: |
+          set -euo pipefail
+          # Stage dist/ under a versioned top-level directory inside each
+          # archive so extracting `riseup-asia-slides-v1.1.0.zip` yields
+          # `riseup-asia-slides-v1.1.0/index.html`, not a bare `dist/`.
+          # Self-hostable static output: drop the extracted directory behind
+          # any HTTP server with SPA fallback and the deck just runs.
+          STAGE_DIR="riseup-asia-slides-${TAG}"
+          mkdir -p artifacts
+          rm -rf "${STAGE_DIR}"
+          cp -R dist "${STAGE_DIR}"
+
+          ZIP_NAME="riseup-asia-slides-${TAG}.zip"
+          TGZ_NAME="riseup-asia-slides-${TAG}.tar.gz"
+
+          # `zip -r -q -X` → recursive, quiet, no extra Mac/file metadata.
+          # Fall back to `nix run nixpkgs#zip` only if the runner image is
+          # missing zip (ubuntu-latest has it preinstalled, so this is a
+          # belt-and-braces guard for self-hosted runners).
+          if command -v zip >/dev/null 2>&1; then
+            zip -r -q -X "artifacts/${ZIP_NAME}" "${STAGE_DIR}"
+          else
+            echo "::warning title=zip missing::falling back to python zipfile"
+            python3 -c "
+import os, zipfile, sys
+root = sys.argv[1]; out = sys.argv[2]
+with zipfile.ZipFile(out, 'w', zipfile.ZIP_DEFLATED) as z:
+  for dp, _, fs in os.walk(root):
+    for f in fs:
+      p = os.path.join(dp, f)
+      z.write(p, os.path.relpath(p, '.'))
+" "${STAGE_DIR}" "artifacts/${ZIP_NAME}"
+          fi
+
+          tar -czf "artifacts/${TGZ_NAME}" "${STAGE_DIR}"
+
+          # Clean the staging dir; archives live in artifacts/.
+          rm -rf "${STAGE_DIR}"
+
+          # Sizes (human + bytes) + SHA-256 for verification by downloaders.
+          ZIP_SIZE_HUMAN=$(du -h  "artifacts/${ZIP_NAME}" | cut -f1)
+          ZIP_SIZE_BYTES=$(du -sb "artifacts/${ZIP_NAME}" | cut -f1)
+          TGZ_SIZE_HUMAN=$(du -h  "artifacts/${TGZ_NAME}" | cut -f1)
+          TGZ_SIZE_BYTES=$(du -sb "artifacts/${TGZ_NAME}" | cut -f1)
+          ZIP_SHA256=$(sha256sum "artifacts/${ZIP_NAME}" | cut -d' ' -f1)
+          TGZ_SHA256=$(sha256sum "artifacts/${TGZ_NAME}" | cut -d' ' -f1)
+
+          # Publish a SHA256SUMS sidecar — single source of truth for
+          # integrity verification (`sha256sum -c SHA256SUMS` after download).
+          (
+            cd artifacts
+            sha256sum "${ZIP_NAME}" "${TGZ_NAME}" > SHA256SUMS
+          )
+
+          {
+            echo "zip_name=${ZIP_NAME}"
+            echo "tgz_name=${TGZ_NAME}"
+            echo "zip_size_human=${ZIP_SIZE_HUMAN}"
+            echo "zip_size_bytes=${ZIP_SIZE_BYTES}"
+            echo "tgz_size_human=${TGZ_SIZE_HUMAN}"
+            echo "tgz_size_bytes=${TGZ_SIZE_BYTES}"
+            echo "zip_sha256=${ZIP_SHA256}"
+            echo "tgz_sha256=${TGZ_SHA256}"
+          } >> "$GITHUB_OUTPUT"
+
+          echo "::notice title=Artifacts packaged::${ZIP_NAME} (${ZIP_SIZE_HUMAN}) + ${TGZ_NAME} (${TGZ_SIZE_HUMAN}) + SHA256SUMS"
+          ls -lh artifacts/
+
+      - name: Extract changelog section from readme.md
+        id: changelog
+        env:
+          VERSION: ${{ steps.version.outputs.version }}
+        run: |
+          set -euo pipefail
+          # `release:notes` reads readme.md, finds the `## v${VERSION} — …`
+          # block, strips the duplicate version heading, and demotes inner
+          # `###` → `##` so the GitHub Release body has a clean hierarchy.
+          # Exit 2 from the script means "section not found" — we treat that
+          # as a soft fall-back (an empty changelog file) so the workflow can
+          # still publish the build-verification block.
+          set +e
+          bun ./scripts/extract-changelog.ts "${VERSION}" --out changelog-section.md > /dev/null
+          STATUS=$?
+          set -e
+          if [ "${STATUS}" -eq 2 ]; then
+            echo "::warning title=Changelog::No section for v${VERSION} in readme.md — release notes will only contain the build verification block"
+            : > changelog-section.md
+          elif [ "${STATUS}" -ne 0 ]; then
+            echo "::error title=extract-changelog failed::exit ${STATUS}"
+            exit "${STATUS}"
+          else
+            echo "::notice title=Changelog::Pulled v${VERSION} section from readme.md ($(wc -c < changelog-section.md | tr -d ' ') bytes)"
+          fi
+
+      - name: Compose release notes
+        id: notes
+        env:
+          TAG:            ${{ steps.version.outputs.tag }}
+          VERSION:        ${{ steps.version.outputs.version }}
+          DURATION:       ${{ steps.build.outputs.duration }}
+          SIZE_HUMAN:     ${{ steps.dist.outputs.size_human }}
+          FILE_COUNT:     ${{ steps.dist.outputs.file_count }}
+          HEAD_SHA:       ${{ steps.tagcheck.outputs.head }}
+          RUN_URL:        ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+          ZIP_NAME:       ${{ steps.artifacts.outputs.zip_name }}
+          TGZ_NAME:       ${{ steps.artifacts.outputs.tgz_name }}
+          ZIP_SIZE_HUMAN: ${{ steps.artifacts.outputs.zip_size_human }}
+          TGZ_SIZE_HUMAN: ${{ steps.artifacts.outputs.tgz_size_human }}
+          ZIP_SHA256:     ${{ steps.artifacts.outputs.zip_sha256 }}
+          TGZ_SHA256:     ${{ steps.artifacts.outputs.tgz_sha256 }}
+        run: |
+          set -euo pipefail
+          REPO_URL="${{ github.server_url }}/${{ github.repository }}"
+          DL_BASE="${REPO_URL}/releases/download/${TAG}"
+          {
+            echo "## Riseup Asia · Release ${TAG}"
+            echo
+            echo "Automated release from \`${GITHUB_REF_NAME:-main}\` @ \`${HEAD_SHA:0:12}\`."
+            echo
+
+            # --- Changelog section (from readme.md) -----------------------
+            if [ -s changelog-section.md ]; then
+              cat changelog-section.md
+              echo
+              echo "---"
+              echo
+            fi
+
+            # --- Build verification (always present) ---------------------
+            echo "## Build verification"
+            echo
+            echo "| Check | Result |"
+            echo "|---|---|"
+            echo "| Tag                | \`${TAG}\` |"
+            echo "| Commit             | \`${HEAD_SHA}\` |"
+            echo "| Production build   | ✅ green |"
+            echo "| Build duration     | ${DURATION}s |"
+            echo "| dist/ size         | ${SIZE_HUMAN} |"
+            echo "| dist/ file count   | ${FILE_COUNT} |"
+            echo "| Workflow run       | [#${{ github.run_number }}](${RUN_URL}) |"
+            echo
+
+            # --- Artifacts (attached to this release) ---------------------
+            echo "## Artifacts"
+            echo
+            echo "Self-contained static build of the deck. Extract either archive and serve the resulting \`riseup-asia-slides-${TAG}/\` directory from any HTTP server with SPA fallback."
+            echo
+            echo "| Asset | Size | SHA-256 |"
+            echo "|---|---|---|"
+            echo "| [\`${ZIP_NAME}\`](${DL_BASE}/${ZIP_NAME})   | ${ZIP_SIZE_HUMAN} | \`${ZIP_SHA256}\` |"
+            echo "| [\`${TGZ_NAME}\`](${DL_BASE}/${TGZ_NAME})   | ${TGZ_SIZE_HUMAN} | \`${TGZ_SHA256}\` |"
+            echo "| [\`SHA256SUMS\`](${DL_BASE}/SHA256SUMS)     | —                 | (verify with \`sha256sum -c SHA256SUMS\`) |"
+            echo
+
+            echo "## Reproduce locally"
+            echo
+            echo "\`\`\`sh"
+            echo "git fetch --tags"
+            echo "git checkout ${TAG}"
+            echo "bun install --frozen-lockfile"
+            echo "bun run build"
+            echo "\`\`\`"
+          } > release-notes.md
+
+          # Expose path for the next step.
+          echo "path=release-notes.md" >> "$GITHUB_OUTPUT"
+
+      - name: Publish (or update) GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ steps.version.outputs.tag }}
+          name: "Release ${{ steps.version.outputs.tag }}"
+          body_path: ${{ steps.notes.outputs.path }}
+          # Attach the packaged static build + checksum sidecar as release
+          # assets. action-gh-release upserts by name, so re-running the
+          # workflow on the same tag replaces the prior assets cleanly.
+          files: |
+            artifacts/${{ steps.artifacts.outputs.zip_name }}
+            artifacts/${{ steps.artifacts.outputs.tgz_name }}
+            artifacts/SHA256SUMS
+          # Don't fail if the release already exists — update it in place.
+          prerelease: false
+          draft: false
+          fail_on_unmatched_files: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Job summary
+        if: always()
+        run: cat release-notes.md >> "$GITHUB_STEP_SUMMARY" || true

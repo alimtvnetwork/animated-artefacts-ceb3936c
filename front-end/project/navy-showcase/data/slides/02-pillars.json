@@ -1,0 +1,60 @@
+{
+  "slideNumber": 2,
+  "slideName": "pillars",
+  "slideType": "CapsuleListSlide",
+  "transition": "PushLeft",
+  "textAnimation": "Stagger",
+  "enabled": true,
+  "isClickReveal": false,
+  "showBrandHeader": true,
+  "showPresenterChip": true,
+  "titleStyle": "white",
+  "titleShimmer": true,
+  "content": {
+    "eyebrow": "Three pillars",
+    "title": "Strategy · Data · Delivery",
+    "subtitle": "Hover any pillar for the verb. Click to expand the case.",
+    "animations": {
+      "capsules": "cinematicCapsules"
+    },
+    "capsules": [
+      {
+        "text": "Strategy",
+        "color": "gold",
+        "hoverText": "Frame the bet",
+        "clickRevealSlide": 50
+      },
+      {
+        "text": "Data",
+        "color": "ember",
+        "hoverText": "Wire the truth",
+        "expand": {
+          "eyebrow": "Pillar · Data",
+          "title": "Data",
+          "body": "Schemas you can read, pipelines you can rerun, dashboards your CFO actually opens. Built on the same ER diagram you'll see on slide 5.",
+          "capsules": [
+            { "text": "Modeling",    "color": "gold" },
+            { "text": "Pipelines",   "color": "ember" },
+            { "text": "Observability","color": "cream" }
+          ]
+        }
+      },
+      {
+        "text": "Delivery",
+        "color": "cream",
+        "hoverText": "Ship the wedge",
+        "expand": {
+          "eyebrow": "Pillar · Delivery",
+          "title": "Delivery",
+          "body": "Two-week increments, deploy on Friday, demo on the next Monday. We pick the boring stack on purpose so the surprise is the outcome, not the postmortem.",
+          "capsules": [
+            { "text": "TS + Postgres", "color": "gold" },
+            { "text": "Edge runtime",  "color": "ember" },
+            { "text": "Postmortems",   "color": "cream" }
+          ]
+        }
+      }
+    ]
+  },
+  "notes": "Strategy capsule navigates to slide 50 (parent: 2). The other two expand inline via the shared layoutId card morph — both demos in one slide."
+}

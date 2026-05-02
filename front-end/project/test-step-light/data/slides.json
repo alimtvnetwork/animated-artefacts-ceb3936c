@@ -1,0 +1,88 @@
+{
+  "Name": "Test — Step Timeline (GitHub Light)",
+  "config": {
+    "deckSlug": "test-step-light",
+    "presenter": "MD ALIM UL KARIM",
+    "theme": "github-light",
+    "preset": "premium",
+    "meeting": {
+      "url": "https://meet.rasia.pro/intro-call",
+      "label": "meet.rasia.pro/intro-call",
+      "qrAsset": "riseup-meeting"
+    },
+    "assets": {
+      "audio": {
+        "whoosh": "/sounds/fade_swoosh_v4.mp3",
+        "click": "/sounds/click.mp3",
+        "fadeClick": "/sounds/click.mp3",
+        "zoom": "/sounds/zoom.mp3",
+        "fadeZoom": "/sounds/fade_zoom.mp3"
+      },
+      "qr": {
+        "riseup-meeting": "/assets/brand/meeting-qr.png"
+      },
+      "brand": {
+        "logo": "/assets/brand/riseup-asia-logo.png",
+        "logo-trimmed": "/assets/brand/riseup-asia-logo-trimmed.png",
+        "presenter": "/assets/brand/alim-presenter.png"
+      },
+      "icons": {
+        "message-square": "message-square",
+        "clipboard": "clipboard",
+        "user-check": "user-check",
+        "book": "book",
+        "git-branch": "git-branch",
+        "code2": "code2",
+        "terminal": "terminal",
+        "boxes": "boxes",
+        "cloud": "cloud",
+        "database": "database",
+        "vscode": "vscode",
+        "github-mark": "github-mark",
+        "jetbrains": "jetbrains",
+        "figma-mark": "figma-mark"
+      }
+    },
+    "assetConstraints": {
+      "audio": {
+        "formats": [
+          "mp3"
+        ],
+        "maxBytes": 524288,
+        "maxDurationSec": 4,
+        "minDurationSec": 0.1
+      },
+      "qr": {
+        "formats": [
+          "png"
+        ],
+        "minWidth": 256,
+        "minHeight": 256,
+        "maxWidth": 2048,
+        "maxHeight": 2048,
+        "aspectRatio": "1:1",
+        "aspectRatioTolerance": 0.02,
+        "maxBytes": 262144
+      },
+      "brand": {
+        "formats": [
+          "png",
+          "jpg",
+          "svg",
+          "webp"
+        ],
+        "minWidth": 96,
+        "minHeight": 96,
+        "maxWidth": 4096,
+        "maxHeight": 4096,
+        "maxBytes": 3145728
+      }
+    }
+  },
+  "Slides": [
+    {
+      "title": "process",
+      "path": "./slides/01-process.json"
+    }
+  ]
+}

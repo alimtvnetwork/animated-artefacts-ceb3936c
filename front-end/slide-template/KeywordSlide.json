@@ -1,0 +1,16 @@
+{
+  "templateName": "KeywordSlide",
+  "depends": {
+    "color": "../themes/noir-gold/colors.json",
+    "theme": "../themes/noir-gold/themes.json"
+  },
+  "fields": {
+    "eyebrow":  { "type": "string",   "required": false },
+    "title":    { "type": "string",   "required": true },
+    "keywords": { "type": "string[]", "required": true, "description": "3–7 short keywords. Presenter narrates; the slide is the visual anchor." }
+  },
+  "defaults": {
+    "transition": "PushIn",
+    "textAnimation": "Stagger"
+  }
+}

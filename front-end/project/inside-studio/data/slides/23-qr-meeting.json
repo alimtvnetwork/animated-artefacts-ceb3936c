@@ -1,0 +1,20 @@
+{
+  "slideNumber": 23,
+  "slideName": "qr-meeting",
+  "slideType": "QrMeetingSlide",
+  "transition": "FadeIn",
+  "textAnimation": "FadeIn",
+  "enabled": true,
+  "showBrandHeader": true,
+  "showPresenterChip": true,
+  "narrowIdea": "One QR. One meeting link. Zero friction.",
+  "content": {
+    "eyebrow": "Talk to us",
+    "title": "Meet the studio",
+    "subtitle": "Friday · 30 minutes · scan to book",
+    "meetingUrl": "https://riseup.asia/meet",
+    "meetingLabel": "riseup.asia/meet",
+    "presenterName": "MD ALIM UL KARIM",
+    "presenterRole": "Founder · Riseup Asia LLC"
+  }
+}

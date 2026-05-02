@@ -1,0 +1,28 @@
+{
+  "slideNumber": 16,
+  "slideName": "data-table",
+  "slideType": "DataTableSlide",
+  "transition": "FadeIn",
+  "textAnimation": "Stagger",
+  "enabled": true,
+  "showBrandHeader": true,
+  "showPresenterChip": false,
+  "narrowIdea": "Five rows. Five quarters. Density-capped.",
+  "content": {
+    "eyebrow": "Proof · trend",
+    "title": "Five quarters, five steps",
+    "dataColumns": [
+      { "key": "q",      "label": "Quarter", "align": "left" },
+      { "key": "decks",  "label": "Decks",   "align": "right" },
+      { "key": "nps",    "label": "NPS",     "align": "right" },
+      { "key": "ontime", "label": "On-time", "align": "right" }
+    ],
+    "dataRows": [
+      { "q": "Q1 '25", "decks": "14", "nps": "4.5", "ontime": "92%" },
+      { "q": "Q2 '25", "decks": "17", "nps": "4.6", "ontime": "94%" },
+      { "q": "Q3 '25", "decks": "21", "nps": "4.7", "ontime": "95%" },
+      { "q": "Q4 '25", "decks": "24", "nps": "4.7", "ontime": "96%" },
+      { "q": "Q1 '26", "decks": "23", "nps": "4.8", "ontime": "97%" }
+    ]
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "slideNumber": 0,
+  "slideName": "ER Diagram",
+  "slideType": "ERDiagramSlide",
+  "transition": "FadeIn",
+  "textAnimation": "FadeIn",
+  "showBrandHeader": true,
+  "content": {
+    "eyebrow": "SCHEMA",
+    "title": "Users ↔ Posts",
+    "diagramExplanation": "Optional short prose. Renders as a 4/8 split when present; diagram-only when omitted.",
+    "entities": [
+      { "id": "users", "title": "Users", "x": 8,  "y": 25, "w": 22, "fields": [
+        { "name": "id",         "type": "uuid",        "role": "pk" },
+        { "name": "email",      "type": "text" },
+        { "name": "created_at", "type": "timestamptz" }
+      ]},
+      { "id": "posts", "title": "Posts", "x": 70, "y": 25, "w": 22, "fields": [
+        { "name": "id",      "type": "uuid", "role": "pk" },
+        { "name": "user_id", "type": "uuid", "role": "fk" },
+        { "name": "body",    "type": "text" }
+      ]}
+    ],
+    "relationships": [
+      { "from": "users", "to": "posts", "label": "writes", "cardinality": ["1", "N"] }
+    ]
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "$schema": "../../../21-slides-system/llm/CATALOG.json",
+  "seq": 42,
+  "type": "NumberCalloutSlide",
+  "id": "sample-42-number-callout",
+  "eyebrow": "Engagement",
+  "title": null,
+  "content": {
+    "number": { "from": 0, "to": 92, "unit": "%", "easing": "easeOutQuint", "duration": "slow" },
+    "label": "of users return within 7 days",
+    "capsule": { "color": "gold", "text": "Cohort · Apr 2026" }
+  },
+  "transition": "PushIn",
+  "textAnimation": "FadeIn",
+  "narrowIdea": "92% of users return in week one.",
+  "densityCheck": { "numbers": 1, "capNumbers": 1 }
+}

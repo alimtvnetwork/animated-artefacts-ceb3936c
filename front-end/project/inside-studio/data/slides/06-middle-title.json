@@ -1,0 +1,16 @@
+{
+  "slideNumber": 6,
+  "slideName": "middle-title",
+  "slideType": "MiddleTitleSlide",
+  "transition": "FadeIn",
+  "textAnimation": "FadeIn",
+  "enabled": true,
+  "showBrandHeader": false,
+  "showPresenterChip": false,
+  "narrowIdea": "Pillar II — Process. One breath before we walk it.",
+  "content": {
+    "eyebrow": "Pillar II",
+    "title": "Process",
+    "subtitle": "Spec · Build · Ship · Review"
+  }
+}

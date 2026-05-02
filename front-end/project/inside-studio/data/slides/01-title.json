@@ -1,0 +1,16 @@
+{
+  "slideNumber": 1,
+  "slideName": "title",
+  "slideType": "TitleSlide",
+  "transition": "FadeIn",
+  "textAnimation": "FadeIn",
+  "enabled": true,
+  "showBrandHeader": false,
+  "showPresenterChip": true,
+  "narrowIdea": "One studio, one promise: keywords on screen, narrative in the room.",
+  "content": {
+    "eyebrow": "Riseup Asia · Studio Tour",
+    "title": "Inside the Studio",
+    "subtitle": "Craft pillars · Process · Proof"
+  }
+}

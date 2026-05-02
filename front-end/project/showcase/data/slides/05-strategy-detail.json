@@ -1,0 +1,37 @@
+{
+  "slideNumber": 5,
+  "slideName": "strategy-detail",
+  "slideType": "KeywordSlide",
+  "transition": "PushIn",
+  "textAnimation": "Bounce",
+  "enabled": true,
+  "isClickReveal": true,
+  "parentSlide": 2,
+  "showBrandHeader": true,
+  "showPresenterChip": true,
+  "titleStyle": "cream",
+  "titleShimmer": true,
+  "content": {
+    "eyebrow": "Click reveal \u00b7 from Capabilities",
+    "title": "Strategy",
+    "keywords": [
+      "Clarity",
+      "Bets",
+      "Positioning"
+    ],
+    "capsules": [
+      {
+        "text": "Workshops",
+        "color": "gold"
+      },
+      {
+        "text": "Research",
+        "color": "ember"
+      },
+      {
+        "text": "Roadmaps",
+        "color": "cream"
+      }
+    ]
+  }
+}

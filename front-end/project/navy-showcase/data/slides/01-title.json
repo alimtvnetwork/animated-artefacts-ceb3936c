@@ -1,0 +1,62 @@
+{
+  "slideNumber": 1,
+  "slideName": "title",
+  "slideType": "TitleSlide",
+  "transition": "FadeIn",
+  "textAnimation": "Bounce",
+  "enabled": true,
+  "isClickReveal": false,
+  "showBrandHeader": true,
+  "showPresenterChip": true,
+  "titleStyle": "white",
+  "titleShimmer": true,
+  "content": {
+    "eyebrow": "Riseup Asia LLC",
+    "title": "Navy Blue\nWorked Example",
+    "subtitle": "End-to-end deck on the navy-blue theme — animations, steps, click-to-reveal.",
+    "capsules": [
+      { "text": "v0.184", "color": "gold" },
+      { "text": "Showcase", "color": "ember" },
+      { "text": "Confidential", "color": "outline" }
+    ],
+    "titleAmbient": {
+      "iconPool": [
+        "database",
+        "cloud",
+        "boxes",
+        "git-branch",
+        "code2",
+        "terminal",
+        "vscode",
+        "github-mark",
+        "jetbrains",
+        "figma-mark"
+      ],
+      "accents": {
+        "6": "#06b6d4",
+        "7": "#FFFFFF",
+        "8": "#FF318C",
+        "9": "#F24E1E"
+      },
+      "count": 10,
+      "opacity": 0.16,
+      "drift": 0.55,
+      "parallax": 22,
+      "glow": true,
+      "floatIndexes": [0, 2, 4, 6, 8, 9],
+      "positions": [
+        { "icon": "database",     "top": 18, "left": 72, "size": 40 },
+        { "icon": "cloud",        "top": 30, "left": 18, "size": 44 },
+        { "icon": "boxes",        "top": 52, "left": 86, "size": 38 },
+        { "icon": "git-branch",   "top": 72, "left": 28, "size": 34 },
+        { "icon": "code2",        "top": 84, "left": 60, "size": 32 },
+        { "icon": "terminal",     "top": 24, "left": 48, "size": 30 },
+        { "icon": "vscode",       "top": 60, "left": 12, "size": 42, "accent": "#007ACC", "float": true },
+        { "icon": "github-mark",  "top": 80, "left": 78, "size": 40, "accent": "#FFFFFF", "float": true },
+        { "icon": "jetbrains",    "top": 14, "left": 9,  "size": 34, "accent": "#FF318C", "float": true },
+        { "icon": "figma-mark",   "top": 90, "left": 44, "size": 38, "accent": "#F24E1E", "float": true }
+      ]
+    }
+  },
+  "notes": "Cold open: hold for 3 seconds while the ambient icons drift. The white title pops on navy; cyan/orange capsules are the brand cue."
+}

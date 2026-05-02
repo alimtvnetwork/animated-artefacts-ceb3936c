@@ -1,0 +1,25 @@
+{
+  "slideNumber": 22,
+  "slideName": "checklist",
+  "slideType": "ChecklistSlide",
+  "transition": "FadeIn",
+  "textAnimation": "Stagger",
+  "enabled": true,
+  "showBrandHeader": true,
+  "showPresenterChip": false,
+  "narrowIdea": "Six items. Tap to mark done. Gold bar tracks progress.",
+  "densityCheck": { "capItems": 7 },
+  "content": {
+    "eyebrow": "Live walkthrough",
+    "title": "Pre-flight · before any live deck",
+    "progressColor": "gold",
+    "items": [
+      { "text": "Brief signed off",        "detail": "Goals · audience · constraints locked",  "capsule": { "color": "gold",   "text": "Mon" } },
+      { "text": "Spec frozen",             "detail": "JSON + companion notes — no late edits", "capsule": { "color": "ember",  "text": "Tue" } },
+      { "text": "Tokens audited",          "detail": "WCAG AA · zero hardcoded white",          "capsule": { "color": "violet", "text": "Wed" } },
+      { "text": "Motion variety verified", "detail": "Transitions + text anims diversified",    "capsule": { "color": "teal",   "text": "Thu" } },
+      { "text": "Rehearsal recorded",      "detail": "Run-through with timer · captions on",   "capsule": { "color": "rose",   "text": "Fri" } },
+      { "text": "Friday review passed",    "detail": "Studio sign-off · ready to ship",         "capsule": { "color": "sky",    "text": "Fri pm" } }
+    ]
+  }
+}

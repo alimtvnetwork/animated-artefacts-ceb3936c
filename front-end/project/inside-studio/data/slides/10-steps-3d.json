@@ -1,0 +1,57 @@
+{
+  "slideNumber": 10,
+  "slideName": "steps-3d",
+  "slideType": "StepsChain3DSlide",
+  "transition": "FadeIn",
+  "textAnimation": "FadeIn",
+  "enabled": true,
+  "showBrandHeader": true,
+  "showPresenterChip": false,
+  "narrowIdea": "Cinematic chain — active forward, neighbours recede, distant blur.",
+  "content": {
+    "eyebrow": "Process · cinematic",
+    "title": "Four phases, one chain",
+    "steps": [
+      {
+        "label": "01",
+        "title": "Discover",
+        "subtitle": "Listen before drawing",
+        "description": {
+          "title": "Discovery & alignment",
+          "bullets": ["Stakeholder interviews", "System audit", "One-page brief"],
+          "meta": "Week 1"
+        }
+      },
+      {
+        "label": "02",
+        "title": "Define",
+        "subtitle": "Spec is law",
+        "description": {
+          "title": "Spec & token system",
+          "bullets": ["JSON contracts", "Color · type · motion tokens", "Density caps locked"],
+          "meta": "Week 2"
+        }
+      },
+      {
+        "label": "03",
+        "title": "Build",
+        "subtitle": "Slides assemble themselves",
+        "description": {
+          "title": "Component build",
+          "bullets": ["Slide types from registry", "WCAG AA contrast", "Motion variety audit"],
+          "meta": "Weeks 3–4"
+        }
+      },
+      {
+        "label": "04",
+        "title": "Ship",
+        "subtitle": "Behind a flag, never blind",
+        "description": {
+          "title": "Ship & review",
+          "bullets": ["Dark-launch", "Live rehearsal", "Friday review"],
+          "meta": "Week 5"
+        }
+      }
+    ]
+  }
+}

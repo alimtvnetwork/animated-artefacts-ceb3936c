@@ -1,0 +1,26 @@
+{
+  "slideNumber": 60,
+  "slideName": "arr-breakdown",
+  "slideType": "CapsuleListSlide",
+  "transition": "PushIn",
+  "textAnimation": "Stagger",
+  "enabled": true,
+  "isClickReveal": true,
+  "parentSlide": 6,
+  "showBrandHeader": true,
+  "showPresenterChip": true,
+  "titleStyle": "cream",
+  "titleShimmer": true,
+  "content": {
+    "eyebrow": "Click reveal · from Impact ($4.2M ARR)",
+    "title": "Where the ARR came from",
+    "subtitle": "Net-new annual recurring revenue, 2025 — split by engagement tier.",
+    "capsules": [
+      { "text": "Strategy retainers · $1.6M", "color": "gold" },
+      { "text": "Build engagements · $1.4M",  "color": "ember" },
+      { "text": "Brand systems · $0.7M",      "color": "cream" },
+      { "text": "Advisory · $0.5M",           "color": "outline" }
+    ]
+  },
+  "notes": "Triggered by the ghost hotspot on the ARR cell of slide 6. Walk through each tier; close on the advisory line as the on-ramp for prospects who can't commit to a retainer yet."
+}

@@ -1,0 +1,24 @@
+{
+  "$schema": "../../../21-slides-system/llm/CATALOG.json",
+  "seq": 41,
+  "type": "DataTableSlide",
+  "id": "sample-41-data-table",
+  "eyebrow": "Plans",
+  "title": "Plan comparison",
+  "content": {
+    "columns": [
+      { "key": "plan",  "label": "Plan",  "align": "left"  },
+      { "key": "seats", "label": "Seats", "align": "right" },
+      { "key": "price", "label": "Price", "align": "right" }
+    ],
+    "rows": [
+      { "plan": "Solo",   "seats": "1",  "price": "$0",   "accent": "cream" },
+      { "plan": "Team",   "seats": "10", "price": "$49",  "accent": "gold"  },
+      { "plan": "Studio", "seats": "50", "price": "$199", "accent": "ember" }
+    ]
+  },
+  "transition": "SlideIn",
+  "textAnimation": "Stagger",
+  "narrowIdea": "Three plans, three price points.",
+  "densityCheck": { "columns": 3, "rows": 3, "capColumns": 5, "capRows": 8 }
+}

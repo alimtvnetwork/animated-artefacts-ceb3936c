@@ -1,0 +1,147 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+# Cancel in-progress runs for the same ref when a new commit lands.
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  typecheck-and-lint:
+    name: Strict types · lint · test · build
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - name: Install dependencies
+        run: bun install --frozen-lockfile
+
+      # ── Strict TypeScript ─────────────────────────────────────────
+      # v0.170 — `strict: true` is now on in tsconfig.app.json AND mirrored in
+      # the root tsconfig.json so editors / ad-hoc `tsc --noEmit` runs see the
+      # same rules. CI runs the SAME project files developers use locally:
+      #   1. `tsc -p tsconfig.app.json` — the app source (covers src/**)
+      #   2. `tsc -p tsconfig.node.json` — vite.config.ts and friends
+      #   3. `tsc --noEmit`              — bare invocation parity check; uses
+      #                                    the root tsconfig.json (solution
+      #                                    file w/ project references) so it
+      #                                    must stay green alongside the two
+      #                                    explicit project runs above.
+      # No `--strict` flag is passed on the CLI; it lives in the project
+      # configs so a green local typecheck and a green CI typecheck mean the
+      # exact same thing. If you change strictness, change it ONLY in those
+      # two files — never as a CLI override.
+      - name: Type check — app project (tsconfig.app.json)
+        run: bunx tsc -p tsconfig.app.json --noEmit
+
+      - name: Type check — node project (tsconfig.node.json)
+        run: bunx tsc -p tsconfig.node.json --noEmit
+
+      # Parity guard: a bare `tsc --noEmit` is what most editors and
+      # contributors run by reflex. If it ever diverges from the two project
+      # runs above, the harness is lying. Keep all three green together.
+      - name: Type check — bare `tsc --noEmit` parity
+        run: bunx tsc --noEmit
+
+      # ── Strong-typing guard (no explicit `any`) ───────────────────
+      # eslint.config.js already errors on @typescript-eslint/no-explicit-any.
+      # This step also greps for raw `: any` / `as any` in authored source
+      # so that disabling the ESLint rule on a single line still trips CI.
+      - name: Forbid explicit `any` in authored source
+        run: |
+          set -e
+          violations=$(grep -rEn --include='*.ts' --include='*.tsx' \
+            --exclude-dir=node_modules \
+            --exclude-dir=dist \
+            --exclude-dir='src/components/ui' \
+            --exclude-dir='src/test' \
+            -e ':\s*any(\b|\[)' \
+            -e '<any>' \
+            -e '\bas any\b' \
+            src || true)
+          if [ -n "$violations" ]; then
+            echo "::error::Explicit 'any' is forbidden in authored source. Use a precise type or 'unknown' + narrowing."
+            echo "$violations"
+            exit 1
+          fi
+          echo "✓ No explicit 'any' in authored source."
+
+      - name: ESLint
+        run: bun run lint
+
+      # Strict-types zero gate — `report:strict` runs tsc + eslint with the
+      # exact same project configs as the steps above and exits 1 if
+      # `tscErrors > 0` or `eslintErrors > 0`. Belt-and-suspenders: if anyone
+      # weakens `strict` in tsconfig or relaxes the no-explicit-any /
+      # no-unsafe-* rules in eslint.config.js, this step fails the build
+      # even if the granular steps somehow pass. Also writes the latest
+      # entry to `metrics/strict-types-history.json` for trend visibility.
+      # `unknown` usages stay informational per
+      # `spec/21-slides-system/architecture/typescript-unknown-policy.md`.
+      - name: Strict-types zero gate
+        run: bun run report:strict
+
+      # Phase 4 / A-04 — fail PRs where src/slides/enums.ts and
+      # spec/21-slides-system/llm/CATALOG.json have drifted out of sync.
+      # Both files are the project's source of truth for slide/transition/
+      # text-anim/capsule-color values; if one declares a value the other
+      # doesn't, downstream LLM imports + the dev-mode catalog probe will
+      # silently mislead authors.
+      - name: Catalog ↔ enums drift guard
+        run: bun run check:catalog
+
+      # M-03 — advisory motion variety audit. Always exits 0; emits
+      # `::warning::` lines if a deck overuses one transition / textAnimation.
+      - name: Motion variety audit (advisory)
+        run: bun run audit:motion
+
+      - name: Unit tests
+        run: bun run test
+
+      # Strict-mode asset existence check — every URL in deck.assets.{audio,qr,brand}
+      # must point at a file under public/. Catches bundled-deck typos in CI before
+      # they hit the runtime validator in a user's browser.
+      - name: Deck asset existence (build-time)
+        run: bun run check:assets
+
+      # Spec 53 — opens every referenced asset and verifies its actual format,
+      # dimensions, duration, and file size against `deck.assetConstraints`.
+      # Catches a 32×32 placeholder QR or a stretched 4K logo before merge.
+      - name: Deck asset resolution audit
+        run: bun run audit:resolutions
+
+      # Spec 55 — full reference QA suite. Verifies every PNG referenced
+      # by the Reference Gallery exists at the manifest-pinned resolution
+      # AND that the required glyphs (× · §) + Ubuntu/Inter font stacks
+      # are still configured. Emits one Markdown table with a row per
+      # check, uploaded as `reference-qa-report` for PR review.
+      - name: Reference QA suite
+        id: reference_qa
+        run: bun run qa:reference
+        continue-on-error: false
+
+      - name: Upload reference QA report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: reference-qa-report
+          path: reports/reference-qa.md
+          if-no-files-found: warn
+          retention-days: 30
+
+      - name: Production build
+        run: bun run build

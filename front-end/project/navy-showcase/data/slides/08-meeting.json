@@ -1,0 +1,28 @@
+{
+  "slideNumber": 8,
+  "slideName": "meeting",
+  "slideType": "QrMeetingSlide",
+  "transition": "FadeIn",
+  "textAnimation": "Stagger",
+  "enabled": true,
+  "isClickReveal": false,
+  "showBrandHeader": true,
+  "showPresenterChip": true,
+  "brandStrip": false,
+  "titleStyle": "white",
+  "titleShimmer": true,
+  "content": {
+    "eyebrow": "BOOK A WORKING SESSION",
+    "title": "Scan to meet with Riseup Asia LLC",
+    "subtitle": "Same intro slot as the noir deck — point your camera, pick a slot, calendar invite lands automatically.",
+    "qrAsset": "riseup-meeting",
+    "meetingLabel": "meet.rasia.pro/intro-call",
+    "capsules": [
+      { "text": "Riseup Asia LLC", "color": "gold" },
+      { "text": "30-min intro",     "color": "ember" },
+      { "text": "Free of charge",   "color": "cream" },
+      { "text": "MD ALIM UL KARIM", "color": "outline" }
+    ]
+  },
+  "notes": "Closer slide. Hold for the room to scan — the cyan-on-navy reads loud at the back of the room."
+}

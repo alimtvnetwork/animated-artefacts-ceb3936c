@@ -1,0 +1,18 @@
+{
+  "templateName": "FocusTimelineSlide",
+  "depends": {
+    "color": "../themes/noir-gold/colors.json",
+    "theme": "../themes/noir-gold/themes.json"
+  },
+  "fields": {
+    "eyebrow":    { "type": "string",  "required": false },
+    "title":      { "type": "string",  "required": true },
+    "steps":      { "type": "Step[]",  "required": true, "description": "Each step needs a label, title, and description (1–2 sentences for the focused detail panel)." },
+    "direction":  { "type": "string",  "required": false, "description": "'horizontal' (default) or 'vertical'." },
+    "windowSize": { "type": "number",  "required": false, "description": "How many steps are visible at once. 3 (default) or 5." }
+  },
+  "defaults": {
+    "transition": "FadeIn",
+    "textAnimation": "FadeIn"
+  }
+}

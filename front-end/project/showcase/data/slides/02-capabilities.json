@@ -1,0 +1,140 @@
+{
+  "slideNumber": 2,
+  "slideName": "capabilities",
+  "slideType": "CapsuleListSlide",
+  "transition": "PushLeft",
+  "textAnimation": "Stagger",
+  "enabled": true,
+  "isClickReveal": false,
+  "showBrandHeader": true,
+  "showPresenterChip": true,
+  "titleStyle": "white",
+  "titleShimmer": true,
+  "content": {
+    "eyebrow": "What We Do",
+    "title": "Capabilities",
+    "animations": {
+      "capsules": "cinematicCapsules"
+    },
+    "capsules": [
+      {
+        "text": "Strategy",
+        "color": "gold",
+        "hoverText": "Frame the bet",
+        "expand": {
+          "eyebrow": "Capability · Strategy",
+          "title": "Strategy",
+          "body": "We narrow ambiguous goals to a single measurable bet — one page, one team, one number to move. Workshops, research, roadmaps.",
+          "capsules": [
+            { "text": "Workshops", "color": "gold" },
+            { "text": "Research",  "color": "ember" },
+            { "text": "Roadmaps",  "color": "cream" }
+          ]
+        }
+      },
+      {
+        "text": "Brand",
+        "color": "rose",
+        "hoverText": "Make it stick",
+        "expand": {
+          "eyebrow": "Capability · Brand",
+          "title": "Brand",
+          "body": "Identity, voice, and the visual system that earns a second look. Built to compound across every surface — pitch, product, hire.",
+          "capsules": [
+            { "text": "Identity", "color": "gold" },
+            { "text": "Voice",    "color": "ember" },
+            { "text": "Systems",  "color": "cream" }
+          ]
+        }
+      },
+      {
+        "text": "Product",
+        "color": "cream",
+        "hoverText": "Ship the wedge",
+        "expand": {
+          "eyebrow": "Capability · Product",
+          "title": "Product",
+          "body": "Sharp scope, real users, fast loops. We design and ship the smallest version that proves the bet — then expand from there.",
+          "capsules": [
+            { "text": "Scoping",   "color": "gold" },
+            { "text": "Prototyping","color": "ember" },
+            { "text": "Design",    "color": "cream" }
+          ]
+        }
+      },
+      {
+        "text": "Engineering",
+        "color": "ink",
+        "hoverText": "Build to scale",
+        "expand": {
+          "eyebrow": "Capability · Engineering",
+          "title": "Engineering",
+          "body": "Type-safe, observable, boring in the best way. We pick the shortest path from idea to production that won't bite you in 12 months.",
+          "capsules": [
+            { "text": "TypeScript", "color": "gold" },
+            { "text": "Edge",       "color": "ember" },
+            { "text": "Observability","color": "cream" }
+          ]
+        }
+      },
+      {
+        "text": "Growth",
+        "color": "teal",
+        "hoverText": "Compound the wins",
+        "expand": {
+          "eyebrow": "Capability · Growth",
+          "title": "Growth",
+          "body": "Acquisition, activation, retention — measured against the original bet. We close the loop so each release teaches the next.",
+          "capsules": [
+            { "text": "Funnels",     "color": "gold" },
+            { "text": "Lifecycle",   "color": "ember" },
+            { "text": "Experiments", "color": "cream" }
+          ]
+        }
+      },
+      {
+        "text": "Operations",
+        "color": "outline",
+        "hoverText": "Keep it humming",
+        "expand": {
+          "eyebrow": "Capability · Operations",
+          "title": "Operations",
+          "body": "Process, tooling, and the boring discipline that lets a small team punch above its weight. Quiet, but compounding.",
+          "capsules": [
+            { "text": "Process", "color": "gold" },
+            { "text": "Tooling", "color": "ember" }
+          ]
+        }
+      },
+      {
+        "text": "AI Systems",
+        "color": "violet",
+        "hoverText": "Augment the team",
+        "expand": {
+          "eyebrow": "Capability · AI Systems",
+          "title": "AI Systems",
+          "body": "LLM workflows, retrieval pipelines, and human-in-the-loop interfaces that turn fuzzy work into a repeatable engine.",
+          "capsules": [
+            { "text": "LLM Ops",   "color": "gold" },
+            { "text": "Retrieval", "color": "ember" },
+            { "text": "Eval",      "color": "cream" }
+          ]
+        }
+      },
+      {
+        "text": "Partnerships",
+        "color": "sky",
+        "hoverText": "Open new doors",
+        "expand": {
+          "eyebrow": "Capability · Partnerships",
+          "title": "Partnerships",
+          "body": "Distribution and co-build deals across Asia. We bring relationships, not just decks — and we close.",
+          "capsules": [
+            { "text": "Distribution", "color": "gold" },
+            { "text": "Co-build",     "color": "ember" }
+          ]
+        }
+      }
+    ]
+  }
+}

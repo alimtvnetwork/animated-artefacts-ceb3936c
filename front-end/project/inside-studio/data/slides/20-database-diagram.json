@@ -1,0 +1,26 @@
+{
+  "slideNumber": 20,
+  "slideName": "database-diagram",
+  "slideType": "DatabaseDiagramSlide",
+  "transition": "FadeIn",
+  "textAnimation": "FadeIn",
+  "enabled": true,
+  "showBrandHeader": true,
+  "showPresenterChip": false,
+  "narrowIdea": "Three tables. The audit log we keep.",
+  "densityCheck": { "entities": 3, "relationships": 2, "capEntities": 5, "capRelationships": 6 },
+  "content": {
+    "eyebrow": "Proof · audit log",
+    "title": "What we record",
+    "diagram": "erDiagram\n  PROJECT ||--o{ RUN : has\n  RUN ||--|{ FINDING : produces\n  PROJECT { string id  string slug }\n  RUN { string id  string project_id  datetime started_at  string status }\n  FINDING { string id  string run_id  string rule  string severity  string path }",
+    "dbEntities": [
+      { "id": "project", "name": "PROJECT", "fields": ["id", "slug"] },
+      { "id": "run",     "name": "RUN",     "fields": ["id", "project_id", "started_at", "status"] },
+      { "id": "finding", "name": "FINDING", "fields": ["id", "run_id", "rule", "severity", "path"] }
+    ],
+    "dbRelationships": [
+      { "from": "project", "to": "run",     "label": "has" },
+      { "from": "run",     "to": "finding", "label": "produces" }
+    ]
+  }
+}

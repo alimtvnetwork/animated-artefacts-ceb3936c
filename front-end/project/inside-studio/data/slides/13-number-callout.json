@@ -1,0 +1,18 @@
+{
+  "slideNumber": 13,
+  "slideName": "number-callout",
+  "slideType": "NumberCalloutSlide",
+  "transition": "PushIn",
+  "textAnimation": "Bounce",
+  "enabled": true,
+  "showBrandHeader": true,
+  "showPresenterChip": false,
+  "narrowIdea": "One number. One unit. One claim.",
+  "content": {
+    "eyebrow": "Proof · audience recall",
+    "title": "Recall after 7 days",
+    "number": { "from": 0, "to": 84, "unit": "%", "easing": "easeOutQuint", "duration": "slow", "decimals": 0 },
+    "label": "of audiences remember the keyword slide",
+    "capsule": { "color": "gold", "text": "Internal study · n=412" }
+  }
+}

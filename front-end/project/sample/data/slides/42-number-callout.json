@@ -1,0 +1,16 @@
+{
+  "slideNumber": 3,
+  "slideName": "number-callout",
+  "slideType": "NumberCalloutSlide",
+  "transition": "PushIn",
+  "textAnimation": "FadeIn",
+  "enabled": true,
+  "showBrandHeader": true,
+  "showPresenterChip": true,
+  "content": {
+    "eyebrow": "Engagement",
+    "number": { "from": 0, "to": 92, "unit": "%", "easing": "easeOutQuint", "duration": "slow" },
+    "label": "of users return within 7 days",
+    "capsule": { "color": "gold", "text": "Cohort · Apr 2026" }
+  }
+}

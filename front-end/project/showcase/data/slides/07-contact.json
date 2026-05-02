@@ -1,0 +1,63 @@
+{
+  "slideNumber": 7,
+  "slideName": "contact",
+  "slideType": "QrMeetingSlide",
+  "transition": "FadeIn",
+  "textAnimation": "FadeIn",
+  "enabled": true,
+  "isClickReveal": false,
+  "showBrandHeader": false,
+  "showPresenterChip": false,
+  "brandStrip": false,
+  "titleStyle": "white",
+  "titleShimmer": false,
+  "content": {
+    "eyebrow": "LET'S BUILD TOGETHER",
+    "title": "RiseupAsia",
+    "qrAsset": "riseup-meeting",
+    "contactRows": [
+      {
+        "icon": "pin",
+        "text": "30 N Gould St, STE R, Sheridan,\nWyoming 82801, United States"
+      },
+      {
+        "icon": "mail",
+        "text": "contact@riseup-asia.com",
+        "href": "mailto:contact@riseup-asia.com"
+      },
+      {
+        "icon": "phone",
+        "text": "+1 (567) 978 1833",
+        "href": "tel:+15679781833"
+      }
+    ],
+    "cta": {
+      "icon": "calendar",
+      "text": "Schedule a Call",
+      "href": "https://meet.rasia.pro/intro-call",
+      "variant": "gold"
+    },
+    "socials": [
+      {
+        "icon": "linkedin",
+        "href": "https://www.linkedin.com/company/riseup-asia/",
+        "label": "LinkedIn"
+      },
+      {
+        "icon": "mail",
+        "href": "mailto:contact@riseup-asia.com",
+        "label": "Email"
+      },
+      {
+        "icon": "github",
+        "href": "https://github.com/riseup-asia",
+        "label": "GitHub"
+      },
+      {
+        "icon": "facebook",
+        "href": "https://www.facebook.com/riseup.asia",
+        "label": "Facebook"
+      }
+    ]
+  }
+}

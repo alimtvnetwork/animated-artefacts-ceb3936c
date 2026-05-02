@@ -1,0 +1,25 @@
+{
+  "slideNumber": 1,
+  "slideName": "database-erd",
+  "slideType": "DatabaseDiagramSlide",
+  "transition": "FadeIn",
+  "textAnimation": "FadeIn",
+  "enabled": true,
+  "showBrandHeader": true,
+  "showPresenterChip": true,
+  "content": {
+    "eyebrow": "Schema · core",
+    "title": "Order graph",
+    "subtitle": "Three entities. Two relationships.",
+    "diagram": "erDiagram\n  USERS ||--o{ ORDERS : places\n  ORDERS ||--|{ ORDER_ITEMS : contains\n  USERS {\n    string id\n    string email\n  }\n  ORDERS {\n    string id\n    string user_id\n    int total\n  }\n  ORDER_ITEMS {\n    string id\n    string order_id\n    string sku\n  }",
+    "dbEntities": [
+      { "id": "users",  "name": "USERS",       "fields": ["id", "email"] },
+      { "id": "orders", "name": "ORDERS",      "fields": ["id", "user_id", "total"] },
+      { "id": "items",  "name": "ORDER_ITEMS", "fields": ["id", "order_id", "sku"] }
+    ],
+    "dbRelationships": [
+      { "from": "users",  "to": "orders", "label": "places" },
+      { "from": "orders", "to": "items",  "label": "contains" }
+    ]
+  }
+}

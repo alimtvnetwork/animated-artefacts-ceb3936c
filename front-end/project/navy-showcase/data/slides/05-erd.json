@@ -1,0 +1,67 @@
+{
+  "slideNumber": 5,
+  "slideName": "erd",
+  "slideType": "ERDiagramSlide",
+  "transition": "FadeIn",
+  "textAnimation": "FadeIn",
+  "enabled": true,
+  "isClickReveal": false,
+  "showBrandHeader": true,
+  "showPresenterChip": true,
+  "titleStyle": "white",
+  "titleShimmer": false,
+  "content": {
+    "eyebrow": "Schema",
+    "title": "Core entities",
+    "diagramExplanation": "Three entities, two relationships. Tenants own users; users emit events. Cyan rows are primary keys, orange rows are foreign keys — the navy-blue theme's data-deck fingerprint.",
+    "entities": [
+      {
+        "id": "tenants",
+        "title": "tenants",
+        "x": 8,
+        "y": 18,
+        "w": 22,
+        "fields": [
+          { "name": "id",         "type": "uuid",        "role": "pk" },
+          { "name": "slug",       "type": "text",        "role": "plain" },
+          { "name": "plan",       "type": "text",        "role": "plain" },
+          { "name": "created_at", "type": "timestamptz", "role": "plain" }
+        ]
+      },
+      {
+        "id": "users",
+        "title": "users",
+        "x": 39,
+        "y": 18,
+        "w": 22,
+        "fields": [
+          { "name": "id",         "type": "uuid",        "role": "pk" },
+          { "name": "tenant_id",  "type": "uuid",        "role": "fk" },
+          { "name": "email",      "type": "citext",      "role": "plain" },
+          { "name": "role",       "type": "text",        "role": "plain" },
+          { "name": "created_at", "type": "timestamptz", "role": "plain" }
+        ]
+      },
+      {
+        "id": "events",
+        "title": "core.events",
+        "x": 70,
+        "y": 18,
+        "w": 22,
+        "fields": [
+          { "name": "id",         "type": "uuid",        "role": "pk" },
+          { "name": "tenant_id",  "type": "uuid",        "role": "fk" },
+          { "name": "user_id",    "type": "uuid",        "role": "fk" },
+          { "name": "kind",       "type": "text",        "role": "plain" },
+          { "name": "payload",    "type": "jsonb",       "role": "plain" },
+          { "name": "created_at", "type": "timestamptz", "role": "plain" }
+        ]
+      }
+    ],
+    "relationships": [
+      { "from": "tenants", "to": "users",  "label": "owns",  "cardinality": ["1", "N"] },
+      { "from": "users",   "to": "events", "label": "emits", "cardinality": ["1", "N"] }
+    ]
+  },
+  "notes": "The 4/8 split (left = explanation paragraph, right = canvas) auto-engages because diagramExplanation is set. Navy-blue auto-paints PK rows cyan, FK rows orange — so this slide ships zero color overrides yet reads as on-brand."
+}

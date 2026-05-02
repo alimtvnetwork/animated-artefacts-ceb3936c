@@ -1,0 +1,16 @@
+{
+  "$schema": "../../../21-slides-system/llm/CATALOG.json",
+  "seq": 40,
+  "type": "DatabaseDiagramSlide",
+  "id": "sample-40-database-erd",
+  "eyebrow": "Schema · core",
+  "title": "Order graph",
+  "content": {
+    "diagram": "erDiagram\n  USERS ||--o{ ORDERS : places\n  ORDERS ||--|{ ORDER_ITEMS : contains",
+    "caption": "Three entities. Two relationships."
+  },
+  "transition": "FadeIn",
+  "textAnimation": "FadeIn",
+  "narrowIdea": "Three entities link the order graph.",
+  "densityCheck": { "entities": 3, "relationships": 2, "capEntities": 5, "capRelationships": 6 }
+}

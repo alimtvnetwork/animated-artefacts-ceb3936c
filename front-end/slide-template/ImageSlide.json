@@ -1,0 +1,18 @@
+{
+  "templateName": "ImageSlide",
+  "depends": {
+    "color": "../themes/noir-gold/colors.json",
+    "theme": "../themes/noir-gold/themes.json"
+  },
+  "fields": {
+    "eyebrow":  { "type": "string",   "required": false },
+    "title":    { "type": "string",   "required": false },
+    "subtitle": { "type": "string",   "required": false },
+    "image":    { "type": "string",   "required": true, "description": "Public image path or registered brand-asset URL." },
+    "capsules": { "type": "Capsule[]","required": false }
+  },
+  "defaults": {
+    "transition": "FadeIn",
+    "textAnimation": "FadeIn"
+  }
+}

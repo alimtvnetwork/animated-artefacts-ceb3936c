@@ -1,0 +1,2540 @@
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;500;700&family=Inter:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Noir & Gold — dark default. Brand gold = #f3a502. */
+    --background: 0 0% 5%;             /* #0D0D0D */
+    --foreground: 42 100% 96%;         /* near-white cream — strong contrast on noir */
+
+    --card: 0 0% 7%;
+    --card-foreground: 42 100% 96%;
+
+    --popover: 0 0% 8%;
+    --popover-foreground: 42 100% 96%;
+
+    --primary: 40 88% 50%;             /* gold — toned down 96→88 sat (v0.36) */
+    --primary-foreground: 0 0% 7%;     /* near-black on gold for AAA */
+
+    --secondary: 0 0% 12%;
+    --secondary-foreground: 42 100% 96%;
+
+    --muted: 0 0% 14%;
+    --muted-foreground: 42 25% 75%;
+
+    --accent: 14 80% 57%;              /* ember #E85D3A — kept as secondary accent */
+    --accent-foreground: 0 0% 7%;
+
+    --destructive: 0 70% 55%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 42 25% 22%;
+    --input: 0 0% 14%;
+    --ring: 40 88% 50%;
+
+    /* Brand palette extensions */
+    --gold: 40 88% 50%;                /* primary brand — v0.36 muted from 40 96% 48% */
+    --gold-glow: 42 100% 62%;          /* lighter highlight for shimmer / glow */
+    --ember: 14 80% 57%;
+    --cream: 42 100% 94%;              /* near-white warm cream — pairs with gold */
+    --white: 0 0% 100%;                /* pure white when needed */
+    --ink: 0 0% 9%;
+    --surface-1: 0 0% 7%;
+    --surface-2: 0 0% 10%;
+    --surface-3: 0 0% 14%;
+
+    /* Capsule color tokens — bumped contrast to read against the new gold. */
+    --capsule-gold-bg: 40 96% 48% / 0.20;
+    --capsule-gold-fg: 42 100% 78%;
+    --capsule-gold-border: 40 96% 48% / 0.55;
+
+    --capsule-ember-bg: 14 80% 57% / 0.18;
+    --capsule-ember-fg: 14 90% 72%;
+    --capsule-ember-border: 14 80% 57% / 0.45;
+
+    /* Capsule cream/ink/outline tokens — overridable per theme so light
+       palettes can retune them (the noir defaults paint dark-on-dark on
+       light surfaces because `--cream` is repurposed as ink there). */
+    --capsule-cream-bg: var(--cream);
+    --capsule-cream-fg: var(--ink);
+    --capsule-cream-border: var(--cream);
+
+    --capsule-ink-bg: var(--surface-2);
+    --capsule-ink-fg: var(--cream);
+    --capsule-ink-border: var(--gold) / 0.55;
+
+    /* Outline capsule background uses a raw CSS color (incl. `transparent`),
+       not an HSL triplet, so it can express full transparency without the
+       fragile `hsl(transparent)` trick. */
+    --capsule-outline-bg: transparent;
+    --capsule-outline-fg: var(--cream);
+    --capsule-outline-border: var(--gold) / 0.7;
+
+    /* Vibrant capsule gradient stops — tokenized so light themes can
+       override them with darker hues that retain AA against the label.
+       Foregrounds switched 2026-05-01 from white → near-black ink for
+       WCAG 2.2 AA: white-on-bright-rose/sky/violet failed across every
+       theme (worst: 1.82:1 on sky-end). Near-black gives ≥ 4.5:1 on
+       every gradient stop while preserving the saturated brand pop.
+       Violet-start L bumped 62→66 to clear AA on the inner stop. */
+    --capsule-violet-start: 265 75% 66%;
+    --capsule-violet-end:   280 80% 72%;
+    --capsule-violet-fg:    0 0% 4%;
+    --capsule-rose-start:   340 80% 60%;
+    --capsule-rose-end:     352 85% 70%;
+    --capsule-rose-fg:      0 0% 4%;
+    --capsule-sky-start:    205 85% 55%;
+    --capsule-sky-end:      195 90% 65%;
+    --capsule-sky-fg:       0 0% 4%;
+
+    /* Slide-wide bloom — the soft radial glow rendered behind hero text and
+       capsule clusters. Default is the warm noir amber (28 75% 11%); light
+       themes override below to a tonally-correct cool wash so the bloom
+       doesn't read as a brown smudge on a white slide. */
+    --slide-bloom: 28 75% 11%;
+    --slide-bloom-strength: 0.85;
+
+    /* Gradients & shadows */
+    --gradient-noir: radial-gradient(ellipse at top, hsl(40 40% 10%) 0%, hsl(0 0% 5%) 60%);
+    --gradient-gold: linear-gradient(135deg, hsl(var(--gold)), hsl(var(--ember)));
+    --gradient-text-gold: linear-gradient(135deg, hsl(var(--gold-glow)), hsl(var(--gold)) 50%, hsl(var(--ember)));
+
+    /* Chart palette (v0.177) — 5-stop categorical defaults reused by
+       any recharts/data viz. Themes override these in `themes.ts` so a
+       <Bar fill="hsl(var(--chart-1))" /> instantly retunes per palette.
+       House (Bright Gold) defaults: gold → ember → cream → muted teal →
+       muted violet, picked for AAA contrast on noir. */
+    --chart-1: 40 88% 50%;             /* gold */
+    --chart-2: 14 80% 57%;             /* ember */
+    --chart-3: 42 100% 84%;            /* warm cream */
+    --chart-4: 176 55% 48%;            /* teal — analogous offset */
+    --chart-5: 265 65% 65%;            /* violet — second analogous */
+
+    /* Layout grid spacing tokens (v0.181) — single source of truth shared
+       by every `.slide-grid-*` preset and by the deck-wide `gridPreset`
+       wrapper applied via `SlideStage`. Designers retune slide-wide gutter
+       and padding by overriding these three vars (e.g. in a per-deck
+       presetSettings panel) and every preset stays in lockstep. */
+    --slide-grid-gutter:    2.5rem;    /* gap between cells / columns */
+    --slide-grid-padding-x: 6rem;      /* horizontal slide padding */
+    --slide-grid-padding-y: 5rem;      /* vertical slide padding */
+
+    --shadow-elegant: 0 30px 80px -20px hsl(0 0% 0% / 0.6);
+    --shadow-gold: 0 10px 40px -10px hsl(var(--gold) / 0.45);
+    --shadow-pill: 0 10px 30px -8px hsl(0 0% 0% / 0.7), 0 0 0 1px hsl(0 0% 100% / 0.06) inset;
+
+    /* Count-up timing tokens — addendum 29 §2.3 (NumberCalloutSlide).
+       Both collapse to 0ms under prefers-reduced-motion via the override
+       block in @media (prefers-reduced-motion: reduce) below. */
+    --dur-count-fast: 900ms;
+    --dur-count-slow: 1800ms;
+
+    /* ────────────────────────────────────────────────────────────────────
+       Text-weight shadow tokens — see spec/architecture/text-weight-shadow.md
+       Subtle 45° bevel that gives light glyphs perceived mass on dark
+       surfaces (and dark glyphs an embossed feel on light surfaces, when
+       opted in). NEVER hardcode text-shadow hex in components — reference
+       these tokens via the `.text-weight*` utilities only. */
+    --text-shadow-weight-light:
+      0.7px 0.7px 0px hsl(0 0% 0% / 0.35),
+      1.4px 1.4px 4px hsl(0 0% 0% / 0.18);
+    --text-shadow-weight-light-strong:
+      1px 1px 0px hsl(0 0% 0% / 0.40),
+      2px 2px 6px hsl(0 0% 0% / 0.22),
+      3px 3px 14px hsl(0 0% 0% / 0.10);
+    --text-shadow-weight-dark:
+      -0.5px -0.5px 0px hsl(0 0% 100% / 0.6),
+      0.5px 0.5px 1px hsl(220 10% 30% / 0.10);
+    --text-shadow-weight-dark-strong:
+      -0.5px -0.5px 0px hsl(0 0% 100% / 0.7),
+      1px 1px 2px hsl(220 10% 25% / 0.14),
+      2px 2px 6px hsl(220 10% 25% / 0.06);
+
+    --transition-smooth: cubic-bezier(0.22, 1, 0.36, 1);
+
+    --radius: 0.75rem;
+
+    /* ============================================================
+       Step Timeline — "Revolver" depth tokens (spec 17 v2.3)
+       ------------------------------------------------------------
+       Drives the chain-of-steps focus animation: active step is
+       the focal point; inactive steps recede in 3D space via
+       scale + opacity + slight rotateX tilt. NO filled highlight
+       rectangle behind the active row — depth is the focus
+       mechanism. CSS3-only, GPU-friendly (transform + opacity).
+       ============================================================ */
+    /* v2.5 — NO transform:scale. Depth reads through real font-size
+       jumps + opacity ramp + (subtle) translateX for the chain feel.
+       This keeps the typography crisp on every line (no anti-aliasing
+       blur from sub-pixel scale transforms). */
+    /* v0.88 — Single source of truth for "where does the brand inset begin".
+       Both BrandHeader (logo + presenter chip) and the body grid (StepTimeline
+       title block, rail, capsules) read from `--brand-inset-x` so they stay
+       in lockstep. Mirror on the right via `--brand-inset-x` for the chip.
+       To shift the deck inward/outward in the future, change ONLY this var.
+
+       v0.94 — switched from viewport-scaled `clamp(48px,15vw,288px)` to a
+       fixed `218px` because (a) the v0.89 logoScale 0.85 made 288px look
+       too far inboard relative to the now-smaller wordmark, and (b) on a
+       1920 stage 218px reads as the optical sweet spot the user requested
+       on top of the actual pixel measurement (not a viewport %). Mobile
+       safety: clamped to a 48px floor via min(), so phones still keep the
+       logo on-canvas. */
+    --brand-inset-x: max(48px, 218px);
+    /* v0.207 — Vertical companion to `--brand-inset-x`. Single source of
+       truth for "where does the brand chrome end vertically". BrandHeader
+       reads it for its top padding (so the logo + chip baseline tracks),
+       and every body grid (StepTimeline `.step-timeline-content`,
+       CapsuleList, etc.) reads it for `padding-top` so the eyebrow/title
+       and the step rail/chips/rows automatically inherit any vertical
+       chrome shift the user makes — no per-slide sync required.
+
+       Default 116px = the historical reserve (h-24 header box ≈ 96px +
+       20px breathing room above the eyebrow). To shift the entire deck's
+       top sight line, change ONLY this var (or the autoInsetFromLogo
+       coupling math in `presetSettings.ts`). */
+    --brand-inset-y: 116px;
+    --body-grid-margin-left: var(--brand-inset-x);
+    --body-grid-margin-right: auto;
+
+    /* v3.3 — tightened active size for short viewports so 4-step chains
+       don't blow past the bottom of a 720p screen. Was 5vw / 4.75rem max.
+       v0.220 — bumped +30% per user directive: FitStage's transform:scale
+       was making step labels read too small on typical viewports. Honest
+       font-size growth (no transform scaling) preserves glyph crispness. */
+    --step-title-active: clamp(2.93rem, 5.46vw, 4.88rem);
+    --step-title-adjacent: clamp(1.95rem, 2.86vw, 2.6rem);
+    --step-title-far: clamp(1.46rem, 2.08vw, 1.95rem);
+    /* v1.2 — 3D-rail variants for StepsChain3DSlide. Sized ~30% smaller
+       than the vertical timeline because the 3D rail shows multiple
+       cards simultaneously, but authored with the same grammar so any
+       future deck-wide bump applies to both step-driven slide types.
+       See `mem://design/step-row-motion-parity`. */
+    --step-title-3d-active:   clamp(2.6rem, 3.6vw, 3.6rem);
+    --step-title-3d-adjacent: clamp(1.95rem, 2.6vw, 2.6rem);
+    --step-eyebrow-3d:        clamp(0.95rem, 1.15vw, 1.15rem);
+    --step-subtitle-3d:       clamp(1.15rem, 1.4vw, 1.4rem);
+    --step-opacity-active: 1;
+    --step-opacity-adjacent: 0.55;
+    --step-opacity-far: 0.30;
+    --step-bubble-duration: 520ms;
+    --step-bubble-ease: cubic-bezier(0.34, 1.56, 0.64, 1);
+    /* v0.36 — back to ~1s per the fullscreen-polish spec. The chain row
+       and the right-column description share this duration so they land
+       together. Easing stays expo-out for the cinematic glide. */
+    --step-text-duration: 1000ms;
+    --step-text-ease: cubic-bezier(0.19, 1, 0.22, 1);
+    --step-glow-color: hsl(var(--gold) / 0.18);
+    /* v3 — breathing halo around the active number badge. */
+    --step-radiate-duration: 2400ms;
+  }
+}
+
+@layer base {
+  * { @apply border-border; }
+  html, body, #root { height: 100%; }
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-feature-settings: 'cv11', 'ss01', 'ss03';
+    -webkit-font-smoothing: antialiased;
+    background: var(--gradient-noir);
+    overflow: hidden;
+  }
+  h1, h2, h3, .font-display {
+    font-family: 'Ubuntu', 'Inter', sans-serif;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+
+  /* ============================================================
+     Deck-wide ambient surface (v0.45 — locked recipe)
+     ------------------------------------------------------------
+     Two distinct treatments based on user feedback:
+
+     1. EVERY slide gets a soft warm-amber radial halo (`.slide-stage-ambient`
+        base) so the deck reads as "warm noir paper" instead of flat
+        black. The halo is balanced — clearly visible (mid alpha 0.22)
+        but never spotlight-bright. This restores the gold glow the
+        user noticed had vanished in v0.43.
+     2. ONLY the StepTimeline slide gets the dotted gold lattice on top
+        — per the user's "only the steps" instruction. Other slides
+        stay clean halo + content; the contact card paints its own
+        bespoke background and is unaffected.
+
+     The dot pattern uses CSS variables so future themes can retune
+     dot color/spacing without touching the markup. Both layers are
+     pointer-events:none and behind every slide layer.
+     ============================================================ */
+  .slide-stage-ambient {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    /* v0.45 — bumped halo alphas so the gold glow is actually visible
+       again. Previous values (0.30 / 0.17 / 0.07) read as "barely
+       there" on a 1080p projector once the dotted lattice was removed
+       from non-step slides. */
+    --stage-halo-inner: 38 84% 44% / 0.38;
+    --stage-halo-mid:   38 76% 36% / 0.22;
+    --stage-halo-outer: 38 60% 24% / 0.10;
+    background-image:
+      radial-gradient(
+        ellipse 72% 56% at 48% 54%,
+        hsl(var(--stage-halo-inner)) 0%,
+        hsl(var(--stage-halo-mid)) 28%,
+        hsl(var(--stage-halo-outer)) 54%,
+        transparent 78%
+      );
+    background-size: 100% 100%;
+    background-position: 0 0;
+    background-repeat: no-repeat;
+  }
+  /* StepTimeline-only — overlay the faint gold dot lattice ON TOP of
+     the base halo via ::after so it can be masked independently of
+     the halo gradient.
+
+     v0.49 — user feedback: "dots too hard, fade them out, only keep
+     visible inside the selection area". Implementation:
+       • Base dot alpha dropped to 0.09 (was 0.16) so the lattice is
+         a whisper, not a grid.
+       • A radial mask fades the dots: full strength at the halo
+         center (the "selected area" — ≈55% effective = 45% fade),
+         then ramps down to ≈40% effective (60% fade) across the
+         visible band, hard-cut to 0 at the edges so corners stay
+         clean noir.
+       • Mask uses the same ellipse geometry as the halo so the
+         lattice "lives inside the glow". */
+  .slide-stage-ambient.with-dot-lattice::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    /* v0.215 — user asked to "reduce the lattice 30% more" on slide 3
+       (StepTimeline). Applied a uniform 0.70 multiplier to the visible
+       intensity: dot alpha 0.14 → 0.098, mask peak 0.80 → 0.56, mid
+       0.55 → 0.385. Geometry (24px grid, ellipse mask) unchanged so the
+       texture still reads as a lattice — just dimmer. */
+    --stage-dot: var(--gold) / 0.098;
+    background-image: radial-gradient(
+      circle at center,
+      hsl(var(--stage-dot)) 1.3px,
+      transparent 2px
+    );
+    background-size: 24px 24px;
+    background-repeat: repeat;
+    -webkit-mask-image: radial-gradient(
+      ellipse 74% 58% at 48% 54%,
+      rgba(0, 0, 0, 0.56) 0%,
+      rgba(0, 0, 0, 0.385) 45%,
+      rgba(0, 0, 0, 0) 84%
+    );
+            mask-image: radial-gradient(
+      ellipse 74% 58% at 48% 54%,
+      rgba(0, 0, 0, 0.56) 0%,
+      rgba(0, 0, 0, 0.385) 45%,
+      rgba(0, 0, 0, 0) 84%
+    );
+  }
+  /* When the deck is in document fullscreen, the lattice feels too
+     dense on a 1920+ canvas — widen the lattice and brighten the halo
+     a hair so it still reads from across the room. */
+  :fullscreen .slide-stage-ambient,
+  :-webkit-full-screen .slide-stage-ambient {
+    --stage-halo-inner: 38 86% 46% / 0.42;
+    --stage-halo-mid:   38 76% 36% / 0.24;
+    --stage-halo-outer: 38 60% 24% / 0.11;
+  }
+  :fullscreen .slide-stage-ambient.with-dot-lattice::after,
+  :-webkit-full-screen .slide-stage-ambient.with-dot-lattice::after {
+    --stage-dot: var(--gold) / 0.07;
+    background-size: 30px 30px;
+  }
+}
+
+/* Gentle automatic float — used by selected ambient icons on the home
+   slide so the field has its own life independent of cursor parallax.
+   Two phases (`-a` / `-b`) so neighboring icons don't bob in lockstep. */
+@keyframes ambient-float-a {
+  0%, 100% { transform: translate3d(0, 0, 0); }
+  50%      { transform: translate3d(0, -10px, 0); }
+}
+@keyframes ambient-float-b {
+  0%, 100% { transform: translate3d(0, 0, 0); }
+  50%      { transform: translate3d(4px, 8px, 0); }
+}
+.ambient-float-a { animation: ambient-float-a 7.5s ease-in-out infinite; }
+.ambient-float-b { animation: ambient-float-b 9.5s ease-in-out infinite; }
+@media (prefers-reduced-motion: reduce) {
+  .ambient-float-a, .ambient-float-b { animation: none !important; }
+  /* Count-up snaps to final value — addendum 29 §2.3 reduced-motion rule. */
+  :root { --dur-count-fast: 0ms; --dur-count-slow: 0ms; }
+}
+/* In-app reduced-motion override (Window-2 task 22). Mirrors the @media
+   block above so the chrome toggle + ?reduceMotion=1 URL flag flatten
+   pure-CSS animations even when the OS pref is off. See
+   `src/slides/components/reducedMotionToggle.ts`. */
+:root[data-reduce-motion="true"] .ambient-float-a,
+:root[data-reduce-motion="true"] .ambient-float-b { animation: none !important; }
+:root[data-reduce-motion="true"] {
+  --dur-count-fast: 0ms;
+  --dur-count-slow: 0ms;
+}
+
+/* ============================================================
+   New slide types — addendum 29 surface styles
+   ------------------------------------------------------------
+   Tokens-only. Used by NumberCalloutSlide / EquationSlide /
+   DataTableSlide / DatabaseDiagramSlide. */
+.number-callout-value {
+  font-family: var(--font-display, 'Ubuntu'), system-ui, sans-serif;
+  font-weight: 700;
+  font-size: clamp(8rem, 22vw, 22rem);
+  line-height: 0.95;
+  letter-spacing: -0.04em;
+  color: hsl(var(--gold));
+}
+.equation-host {
+  font-family: 'Cambria Math', 'STIX Two Math', 'Times New Roman', serif;
+  font-size: clamp(3rem, 7vw, 6rem);
+  color: hsl(var(--cream));
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+}
+.equation-host .equation-term {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(8px);
+  animation: equation-term-in 320ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+@keyframes equation-term-in {
+  to { opacity: 1; transform: translateY(0); }
+}
+/* Prerendered path (scripts/prerender-equations.ts): KaTeX is the visible
+   equation; the stagger overlay sits offscreen as a pure animation driver. */
+.equation-host .equation-katex { font-family: inherit; }
+.equation-host .equation-stagger-overlay {
+  position: absolute;
+  width: 1px; height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+}
+@media (prefers-reduced-motion: reduce) {
+  .equation-host .equation-term { animation: none; opacity: 1; transform: none; }
+}
+:root[data-reduce-motion="true"] .equation-host .equation-term {
+  animation: none; opacity: 1; transform: none;
+}
+.data-table-narrow th {
+  font-family: var(--font-display, 'Ubuntu'), system-ui, sans-serif;
+  text-align: left;
+  padding: 0.75rem 1rem;
+  border-bottom: 2px solid hsl(var(--gold) / 0.7);
+  color: hsl(var(--cream));
+}
+.data-table-narrow td {
+  padding: 0.75rem 1rem;
+  color: hsl(var(--foreground) / 0.9);
+}
+.data-table-narrow tbody tr:nth-child(odd) td {
+  background: hsl(var(--surface-2, var(--background)) / 0.4);
+}
+.data-table-narrow td[data-accent='gold']  { box-shadow: inset 4px 0 0 hsl(var(--gold)); }
+.data-table-narrow td[data-accent='ember'] { box-shadow: inset 4px 0 0 hsl(var(--ember)); }
+.data-table-narrow td[data-accent='cream'] { box-shadow: inset 4px 0 0 hsl(var(--cream)); }
+
+/* ============================================================
+   ChecklistSlide (spec 62) — click-to-confirm rows + progress
+   ============================================================ */
+.checklist-progress {
+  position: relative;
+  width: 100%;
+  max-width: 1100px;
+  height: 4px;
+  background: hsl(var(--foreground) / 0.08);
+  border-radius: 2px;
+  overflow: visible;
+}
+.checklist-progress__fill {
+  position: absolute;
+  inset: 0 auto 0 0;
+  height: 100%;
+  border-radius: 2px;
+  box-shadow: 0 0 12px hsl(var(--gold) / 0.45);
+}
+.checklist-progress__count {
+  position: absolute;
+  right: 0;
+  top: -1.6rem;
+  font-size: 0.85rem;
+  letter-spacing: 0.06em;
+  color: hsl(var(--foreground) / 0.65);
+  font-variant-numeric: tabular-nums;
+}
+.checklist-rows { list-style: none; padding: 0; margin: 0; max-width: 1100px; }
+.checklist-row-li { margin: 0.4rem 0; }
+.checklist-row {
+  width: 100%;
+  display: flex;
+  align-items: stretch;
+  gap: 0.5rem;
+  background: hsl(var(--surface-2, var(--background)) / 0.5);
+  border: 1px solid hsl(var(--foreground) / 0.08);
+  border-radius: 12px;
+  transition: background 200ms ease, border-color 200ms ease;
+}
+.checklist-row:hover { background: hsl(var(--surface-2, var(--background)) / 0.75); }
+.checklist-row[data-done] { border-color: hsl(var(--gold) / 0.55); }
+.checklist-row__toggle {
+  flex: 1 1 auto;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.95rem 1.1rem;
+  background: transparent;
+  border: 0;
+  border-radius: 12px 0 0 12px;
+  text-align: left;
+  cursor: pointer;
+  color: inherit;
+}
+.checklist-row__toggle:focus-visible {
+  outline: 2px solid hsl(var(--gold));
+  outline-offset: -2px;
+}
+.checklist-row[data-done] .checklist-row__text {
+  text-decoration: line-through;
+  opacity: 0.55;
+}
+.checklist-row__badge {
+  flex: 0 0 auto;
+  width: 2rem;
+  height: 2rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  border: 1px solid hsl(var(--gold) / 0.6);
+  color: hsl(var(--gold));
+  font-family: var(--font-display, 'Ubuntu'), system-ui, sans-serif;
+  font-size: 0.85rem;
+  font-variant-numeric: tabular-nums;
+}
+.checklist-row[data-done] .checklist-row__badge {
+  background: hsl(var(--gold));
+  color: hsl(var(--background));
+  border-color: hsl(var(--gold));
+}
+.checklist-row__text {
+  flex: 1 1 auto;
+  font-size: 1.15rem;
+  color: hsl(var(--foreground));
+}
+.checklist-row__chevron {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.25rem 0.85rem;
+  margin: 0.4rem 0.4rem 0.4rem 0;
+  background: transparent;
+  border: 0;
+  border-radius: 8px;
+  cursor: pointer;
+  color: hsl(var(--foreground) / 0.6);
+  transition: transform 220ms cubic-bezier(0.22, 1, 0.36, 1), color 200ms ease, background 200ms ease;
+}
+.checklist-row__chevron:hover { color: hsl(var(--gold)); background: hsl(var(--foreground) / 0.04); }
+.checklist-row__chevron:focus-visible {
+  outline: 2px solid hsl(var(--gold));
+  outline-offset: 2px;
+}
+.checklist-row__chevron[data-open] { transform: rotate(180deg); }
+.checklist-row__detail-wrap { overflow: hidden; }
+.checklist-row__detail {
+  padding: 0.6rem 1.1rem 0.4rem 4rem;
+  font-size: 0.95rem;
+  color: hsl(var(--foreground) / 0.7);
+  line-height: 1.5;
+}
+@media (prefers-reduced-motion: reduce) {
+  .checklist-row__chevron { transition: none; }
+  .checklist-row, .checklist-row__toggle { transition: none; }
+}
+:root[data-reduce-motion="true"] .checklist-row__chevron,
+:root[data-reduce-motion="true"] .checklist-row,
+:root[data-reduce-motion="true"] .checklist-row__toggle {
+  transition: none;
+}
+
+/* ============================================================
+   StepTimeline fullscreen offset (v0.38, spec 31 §2)
+   ------------------------------------------------------------
+   When the deck enters document fullscreen the canvas grows from
+   ~720p to the projector's native 1080p+. The title column was
+   originally sized for the windowed viewport, so the headline
+   "Engagement Process" hugged the top edge and the description
+   text crowded the right margin. In fullscreen we:
+     - push the inner content column DOWN by an extra block of
+       padding so the headline drops into the upper third instead
+       of glued to the brand header,
+     - widen the gap between the timeline and the description
+       column so the description breathes,
+     - bump the active step font size a notch for projection.
+   We use the native `:fullscreen` pseudo-class (and the WebKit
+   prefix) so there is NO React state required — the browser
+   toggles the rules at the same moment it grows the viewport.
+   ============================================================ */
+/* v0.56 — spec 32 (StepTimeline v3.3 "Centered Composition"). Replaces
+   the v0.53 hard-left lock. The composition is now a centered 1440px
+   master container (75% of the 1920px design canvas → 12.5vw symmetric
+   margins) with an inner two-column body grid of 560px / 80px gutter /
+   800px. Header title left edge ≡ Step List left edge ≡ left margin
+   line. Decorative ghost numeral sits behind the right column. */
+:fullscreen .step-timeline-root .step-timeline-content,
+:-webkit-full-screen .step-timeline-root .step-timeline-content,
+.is-slide-fullscreen .step-timeline-root .step-timeline-content,
+.step-timeline-root[data-wide-stage="true"] .step-timeline-content {
+  width: 75% !important;
+  max-width: 1440px !important;
+  /* Spec 34 — alignment toggle. Read the live preset vars so the
+     `header-anchored` mode also applies in fullscreen / wide-stage.
+     Defaults to `auto/auto` (centered) when the vars aren't set. */
+  margin-left: var(--body-grid-margin-left, auto) !important;
+  margin-right: var(--body-grid-margin-right, auto) !important;
+  /* v0.207 — Vertical brand chrome inheritance. Was a hardcoded
+     `clamp(8rem, 14vh, 11rem)`; now it tracks `--brand-inset-y` so
+     the eyebrow/title and every step chip/connector/row stay anchored
+     to the logo's vertical sight line in fullscreen too. The clamp is
+     preserved as the FALLBACK so behavior matches v0.206 when the var
+     is missing (isolated unit test, SSR, etc.). */
+  padding-top: var(--brand-inset-y, clamp(8rem, 14vh, 11rem)) !important;
+  padding-bottom: clamp(5rem, 8vh, 7rem) !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  box-sizing: border-box;
+}
+:fullscreen .step-timeline-root .step-timeline-grid,
+:-webkit-full-screen .step-timeline-root .step-timeline-grid,
+.is-slide-fullscreen .step-timeline-root .step-timeline-grid,
+.step-timeline-root[data-wide-stage="true"] .step-timeline-grid {
+  /* Spec 32 §3 — fixed-ratio two-column grid: 560 / 800 with 80px gutter.
+     Using fr units so it scales proportionally with the 75% master container
+     while preserving the 560:800 ratio. align-items:center vertically
+     centers each column in the 560px-equivalent body zone. */
+  grid-template-columns: minmax(0, 560fr) minmax(0, 800fr) !important;
+  gap: clamp(2.5rem, 5vw, 5rem) !important;
+  align-items: center !important;
+}
+:fullscreen .step-timeline-root,
+:-webkit-full-screen .step-timeline-root,
+.is-slide-fullscreen .step-timeline-root,
+.step-timeline-root[data-wide-stage="true"] {
+  --step-title-active: clamp(3.25rem, 5.98vw, 5.85rem); /* v0.220 +30% */
+}
+
+/* Spec 32 v3.3 — detail panel align-self:center handles vertical
+   alignment via the grid (items-center). The previous translateY nudge
+   is no longer required — removed to keep the panel midpoint aligned
+   to the active step row midpoint within the spec's 8px tolerance. */
+
+@layer components {
+  .text-gold-gradient {
+    background: var(--gradient-text-gold);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  /* Solid title color tokens — preferred over gradients for clarity. */
+  .text-title-cream { color: hsl(var(--cream)); }
+  .text-title-gold  { color: hsl(var(--gold-glow)); }
+  .text-title-white { color: hsl(var(--white)); }
+
+  /* ============================================================
+     Premium slide preset — typography scale (clamp-based)
+     ------------------------------------------------------------
+     One global scale used by EVERY slide when the deck opts into
+     `preset: "premium"`. All sizes are viewport-clamped so they
+     hold their visual weight from 360px phones up to 4K displays
+     without per-breakpoint className ladders.
+
+     Rules (locked):
+       - Titles: Ubuntu Bold (inherited from `.font-display`),
+         tight tracking (-0.02em), leading 0.95.
+       - Subtitles: Inter, `--foreground/70`, generous leading.
+       - Eyebrows: Inter Bold, gold, wide tracking, fixed 12px.
+       - Author writes the casing — no CSS text-transform.
+     ============================================================ */
+  /* The four sizing/font values below honor `--preset-*` overrides set at
+     runtime by `src/slides/presetSettings.ts` (the in-app /settings panel).
+     When no override is saved the fallback expression matches the original
+     hard-coded value, so existing behavior is unchanged. */
+  /* v0.220 — bumped semantic typography clamps +18% (titles/subtitles) and
+     eyebrow +20%. Honest font-size growth, no transform scaling, so the type
+     stays crisp through FitStage's responsive scale. See
+     .lovable/question-and-ambiguity/23-deck-wide-typography-too-small.md */
+  .slide-title-display {
+    font-family: 'Ubuntu', 'Inter', sans-serif;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 0.95;
+    font-size: var(--preset-title-display-size, clamp(2.95rem, 7.08vw, 7.08rem));
+    max-width: 92vw;
+    /* Hero text — strong weight bevel. See spec/architecture/text-weight-shadow.md */
+    text-shadow: var(--text-shadow-weight-light-strong);
+  }
+  .slide-title-content {
+    font-family: 'Ubuntu', 'Inter', sans-serif;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.05;
+    font-size: var(--preset-title-content-size, clamp(2.83rem, 5.9vw, 5.31rem));
+    max-width: 92vw;
+    text-shadow: var(--text-shadow-weight-light-strong);
+  }
+  .slide-eyebrow {
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    font-size: 1.08rem; /* v0.220 +20% (was 0.9rem) */
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: hsl(var(--gold));
+    text-shadow: var(--text-shadow-weight-light);
+  }
+  .slide-subtitle {
+    font-family: var(--preset-body-font, 'Inter', sans-serif);
+    font-weight: 400;
+    color: hsl(var(--foreground) / 0.7);
+    line-height: 1.5;
+    font-size: clamp(1.18rem, 1.89vw, 1.77rem); /* v0.220 +18% */
+    text-shadow: var(--text-shadow-weight-light);
+  }
+   /* Light-theme overrides — drop the bevel entirely. Dark ink on a near-white
+      slide doesn't need a halo or drop shadow; the bevel only muddied the
+      glyphs and read as an unintentional "duplicate text" effect (v0.181). */
+  [data-theme='github-light'] .slide-title-display,
+  [data-theme='paper-ink'] .slide-title-display,
+  [data-theme='macos-sonoma'] .slide-title-display,
+  [data-theme='github-light'] .slide-title-content,
+  [data-theme='paper-ink'] .slide-title-content,
+  [data-theme='macos-sonoma'] .slide-title-content,
+  [data-theme='github-light'] .slide-eyebrow,
+  [data-theme='paper-ink'] .slide-eyebrow,
+  [data-theme='macos-sonoma'] .slide-eyebrow,
+  [data-theme='github-light'] .slide-subtitle,
+  [data-theme='paper-ink'] .slide-subtitle,
+  [data-theme='macos-sonoma'] .slide-subtitle {
+    text-shadow: none;
+  }
+
+  /* Hide native scrollbars while keeping scroll behavior. Used by the dot
+     pagination row when the deck has more dots than fit comfortably. */
+  .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+  .no-scrollbar::-webkit-scrollbar { display: none; }
+
+  /* One-shot shimmer sweep — overlay a moving highlight across solid-colored text/elements. */
+  .shimmer-sweep {
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+  }
+  .shimmer-sweep::after {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(115deg,
+      transparent 30%,
+      hsl(var(--gold-glow) / 0.35) 50%,
+      transparent 70%);
+    transform: translateX(-120%);
+    animation: shimmer-slide 1.6s var(--transition-smooth) 0.4s 1 forwards;
+    pointer-events: none;
+    mix-blend-mode: screen;
+  }
+
+  /* Capsules — vibrant solid fills with crisp contrast.
+     `gold` and `ember` are filled with brand color and dark ink text for max pop.
+     `cream` is pale on dark. `ink` is dark surface with cream text. `outline` is hairline only.
+
+     Accessibility note: every capsule pairs its fill with `hsl(var(--ink))`
+     (≈ #0d0d0d) for fills, or `hsl(var(--cream))` for dark surfaces. We
+     intentionally avoid the red-on-black combo (saturated ember directly
+     touching pure ink with white text) — instead, ember capsules use a
+     warmer amber-leaning gradient with **dark ink text** so contrast lands
+     well above 7:1 and the chip never reads as a "warning red on black."
+   */
+  .capsule {
+    @apply inline-flex items-center gap-1.5 px-4 py-2 rounded-full border transition-colors duration-300;
+    /* Ubuntu (font-display) for capsule labels — more legible at small
+       sizes than Inter and reads as a deliberate "label" voice. Letter
+       spacing tuned per-size; antialiasing forced ON so the glyph edges
+       stay crisp on both light and dark capsule backgrounds. */
+    font-family: 'Ubuntu', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-weight: 500;
+    font-size: 0.95rem;
+    letter-spacing: 0.005em;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+  .capsule-gold {
+    background: linear-gradient(135deg, hsl(var(--gold)), hsl(var(--gold-glow)));
+    color: hsl(var(--ink));
+    border-color: hsl(var(--gold) / 0.9);
+    box-shadow: 0 4px 14px -4px hsl(var(--gold) / 0.5), inset 0 1px 0 hsl(var(--white) / 0.25);
+  }
+  /* Ember capsule — pulled toward amber (hue 22 instead of 14) so it never
+     reads as a red alert chip on the noir background. Dark ink text + warm
+     glow keeps it brand-coherent next to gold while staying WCAG AA against
+     the surrounding noir. */
+  .capsule-ember {
+    background: linear-gradient(135deg, hsl(22 85% 60%), hsl(28 90% 70%));
+    color: hsl(var(--ink));
+    border-color: hsl(22 85% 60% / 0.9);
+    box-shadow: 0 4px 14px -4px hsl(22 85% 60% / 0.45), inset 0 1px 0 hsl(var(--white) / 0.25);
+  }
+  .capsule-cream {
+    background: hsl(var(--capsule-cream-bg));
+    color: hsl(var(--capsule-cream-fg));
+    border-color: hsl(var(--capsule-cream-border));
+    box-shadow: 0 4px 14px -4px hsl(0 0% 0% / 0.25), inset 0 1px 0 hsl(var(--white) / 0.5);
+  }
+  .capsule-ink {
+    background: hsl(var(--capsule-ink-bg));
+    color: hsl(var(--capsule-ink-fg));
+    border-color: hsl(var(--capsule-ink-border));
+    box-shadow: 0 4px 14px -6px hsl(0 0% 0% / 0.6);
+  }
+  /* Outline capsule — bumped border opacity from 0.5 → 0.7 so the affordance
+     is visible against the noir surface even at small sizes. v0.188: gained
+     a subtle inner gradient + tighter foreground for stronger contrast on
+     non-active step capsules without losing the "ghost" voice. */
+  .capsule-outline {
+    background:
+      linear-gradient(180deg, hsl(var(--white) / 0.04), hsl(var(--white) / 0.01)),
+      var(--capsule-outline-bg);
+    color: hsl(var(--capsule-outline-fg));
+    border-color: hsl(var(--capsule-outline-border));
+    border-width: 1.5px;
+    box-shadow: inset 0 1px 0 hsl(var(--white) / 0.08);
+  }
+  /* Vibrant variants (added v0.25) — give multi-capsule slides like
+     "Capabilities" real chromatic variety beyond gold + ember. Each one
+     uses a 135° gradient + dark ink text for AA contrast on noir. */
+  .capsule-violet {
+    background: linear-gradient(135deg, hsl(var(--capsule-violet-start)), hsl(var(--capsule-violet-end)));
+    color: hsl(var(--capsule-violet-fg));
+    border-color: hsl(var(--capsule-violet-start) / 0.9);
+    box-shadow: 0 4px 14px -4px hsl(var(--capsule-violet-start) / 0.5), inset 0 1px 0 hsl(var(--white) / 0.25);
+  }
+  .capsule-teal {
+    background: linear-gradient(135deg, hsl(176 70% 42%), hsl(168 78% 55%));
+    color: hsl(var(--ink));
+    border-color: hsl(176 70% 42% / 0.9);
+    box-shadow: 0 4px 14px -4px hsl(176 70% 42% / 0.5), inset 0 1px 0 hsl(var(--white) / 0.3);
+  }
+  .capsule-rose {
+    background: linear-gradient(135deg, hsl(var(--capsule-rose-start)), hsl(var(--capsule-rose-end)));
+    color: hsl(var(--capsule-rose-fg));
+    border-color: hsl(var(--capsule-rose-start) / 0.9);
+    box-shadow: 0 4px 14px -4px hsl(var(--capsule-rose-start) / 0.5), inset 0 1px 0 hsl(var(--white) / 0.25);
+  }
+  .capsule-sky {
+    background: linear-gradient(135deg, hsl(var(--capsule-sky-start)), hsl(var(--capsule-sky-end)));
+    color: hsl(var(--capsule-sky-fg));
+    border-color: hsl(var(--capsule-sky-start) / 0.9);
+    box-shadow: 0 4px 14px -4px hsl(var(--capsule-sky-start) / 0.5), inset 0 1px 0 hsl(var(--white) / 0.25);
+  }
+
+  /* ────────────────────────────────────────────────────────────────────
+     Capsule icon affordances (v0.188)
+     `.capsule-icon-badge`  — circular contrast plate at the leading edge,
+     used by *step* capsules where the icon should read as an emblem.
+     Plate flips with capsule luminance: dark capsules get a light plate,
+     light capsules get a dark plate. Glyph uses currentColor.
+     `.capsule-icon-inline` — bare leading glyph at full opacity; lighter
+     affordance for non-step capsules.
+     ──────────────────────────────────────────────────────────────────── */
+  .capsule-icon-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 1.6em;
+    height: 1.6em;
+    margin-right: 0.5em;
+    border-radius: 9999px;
+    background: hsl(var(--ink) / 0.16);
+    box-shadow:
+      inset 0 1px 0 hsl(var(--white) / 0.45),
+      0 1px 2px hsl(var(--ink) / 0.18);
+    color: inherit;
+  }
+  .capsule-ink .capsule-icon-badge,
+  .capsule-outline .capsule-icon-badge {
+    background: hsl(var(--white) / 0.10);
+    box-shadow:
+      inset 0 1px 0 hsl(var(--white) / 0.18),
+      0 1px 2px hsl(0 0% 0% / 0.35);
+  }
+  .capsule-icon-inline {
+    margin-right: 0.35em;
+    opacity: 0.9;
+  }
+  .capsule-icon-inline > svg {
+    display: block;
+  }
+
+  /* Step-row hierarchy bump (v0.188).
+     When a step capsule is in its `active` state (set by the parent row
+     wrapper via `data-capsule-state="active"`), nudge contrast and add a
+     soft gold accent glow so the active step reads as the row's anchor.
+     Only touches outline capsules — gradient variants already carry their
+     own active emphasis via color. */
+  [data-capsule-state="active"] > .capsule-outline {
+    color: hsl(var(--foreground));
+    border-color: hsl(var(--gold) / 0.55);
+    background:
+      linear-gradient(180deg, hsl(var(--gold) / 0.08), hsl(var(--gold) / 0.02)),
+      var(--capsule-outline-bg);
+    box-shadow:
+      inset 0 1px 0 hsl(var(--white) / 0.10),
+      0 0 0 1px hsl(var(--gold) / 0.18);
+  }
+  [data-capsule-state="active"] > .capsule-outline .capsule-icon-badge {
+    background: hsl(var(--gold) / 0.20);
+    color: hsl(var(--gold));
+  }
+
+
+  /* Chrome tokens — pinned across ALL themes (including light themes like
+     GitHub Light). The controller pill, theme menu, share menu, and other
+     presenter chrome live on a permanently dark surface, so they must NEVER
+     inherit slide-level `--foreground` / `--background`. Reference these in
+     any chrome component instead of `--foreground`.
+
+     Defined here (not under a theme block) so light themes cannot override. */
+  :root,
+  [data-theme] {
+    --chrome-bg: 0 0% 7%;                 /* dark pill surface */
+    --chrome-fg: 0 0% 98%;                /* primary chrome text — ~16:1 on chrome-bg */
+    --chrome-fg-muted: 0 0% 98% / 0.78;   /* secondary chrome text — ~AA on chrome-bg */
+    --chrome-fg-subtle: 0 0% 98% / 0.72;  /* tertiary chrome text — ~AA on chrome-bg */
+    --chrome-border: 0 0% 100% / var(--chrome-divider-strength, 0.12);  /* hairline divider on chrome — opacity tuned per palette */
+    --chrome-hover: 0 0% 100% / 0.08;     /* hover wash on chrome */
+
+    /* Per-palette hairline tuning. Kept as bare numbers so each ruleset
+       can pick its own multiplier without re-declaring the colour. The
+       border strength is applied to the gold-tinted outer border + inset
+       ring; the divider strength is applied to white-alpha dividers
+       inside menus. Defaults work for the bright/saturated bright-gold
+       and noir-gold themes; dimmer accents (vscode-dark, github-light,
+       navy-blue) bump these up so the hairline doesn't disappear. */
+    --chrome-border-strength: 0.22;
+    --chrome-divider-strength: 0.12;
+  }
+
+  /* Per-theme overrides — only themes whose `--gold` lightness sits well
+     below 60% need the bump. Bright themes (dracula 78%, windows-11 69%,
+     monokai 53% but high sat, bright-gold 48% high sat) keep the default. */
+  [data-theme='vscode-dark'],
+  [data-theme='github-light'],
+  [data-theme='paper-ink'],
+  [data-theme='macos-sonoma'],
+  [data-theme='navy-blue'] {
+    --chrome-border-strength: 0.36;        /* dim accents need a stronger hairline */
+    --chrome-divider-strength: 0.18;
+  }
+  [data-theme='noir-gold'] {
+    --chrome-border-strength: 0.26;        /* warm but desaturated antique gold */
+  }
+
+  /* ─── Light-theme corrections ──────────────────────────────────────────
+     Several capsule + bloom tokens were authored for the noir base and
+     break visually on light slide surfaces:
+       - `--cream` is repurposed as ink in light themes, so capsule-cream
+         (which paints `bg: --cream; color: --ink`) collapses to dark-on-dark.
+       - `--surface-2` is a pale gray on light themes; capsule-ink's
+         `color: --cream` (now dark ink) is the correct pairing, but the
+         border still references `--gold` which becomes a saturated blue.
+       - `--slide-bloom` defaults to a warm dark brown — visible as a smudge
+         on white slides.
+     Override per light theme so the slides stay polished. */
+  [data-theme='github-light'] {
+    /* Soft cool wash matching the GitHub Light surface palette. */
+    --slide-bloom: 210 30% 92%;
+    --slide-bloom-strength: 0.55;
+
+    /* Title color remap — on a white slide surface, pure white titles
+       (text-title-white, used by TitleSlide / SectionDividerSlide / any
+       slide auto-picking white from the premium preset) collapse to
+       white-on-white. Remap `--white` AND `--gold-glow` (used by
+       text-title-gold) to dark GitHub ink so every title type — cream,
+       white, gold — renders dark and legible across all slide types
+       without touching individual slide components. */
+    --white: 210 12% 16%;        /* #1f2328 — GitHub ink, replaces pure white for titles */
+    --gold-glow: 212 92% 35%;    /* deeper #0969da-ish blue for text-title-gold legibility */
+    --foreground: 210 12% 16%;   /* belt-and-suspenders for any subtitle/body using --foreground */
+
+    /* Capsule color palette retuned to the GitHub Primer-ish vibe:
+       cream → soft canvas chip with ink text; ink → solid dark chip;
+       outline → blue-tinted hairline. */
+    --capsule-cream-bg: 210 17% 95%;
+    --capsule-cream-fg: 210 12% 16%;
+    --capsule-cream-border: 210 18% 80%;
+
+    --capsule-ink-bg: 210 12% 16%;
+    --capsule-ink-fg: 0 0% 100%;
+    --capsule-ink-border: 210 12% 16%;
+
+    --capsule-outline-bg: hsl(0 0% 100%);
+    --capsule-outline-fg: 210 12% 16%;
+    --capsule-outline-border: 212 92% 45% / 0.55;
+
+    /* Vibrant gradient capsules — light-theme stops are darkened so
+       white labels hold ≥ 4.5:1 (WCAG AA) on the white slide surface.
+       Hues kept intact; only L (and a small S nudge on rose/sky) was
+       lowered. Verified via /tmp/capsule-audit.mjs.
+
+       NOTE: the dark-theme defaults (`:root`) flipped to ink-on-bright
+       2026-05-01, so github-light must explicitly re-assert white fg
+       since its stops are intentionally dark. */
+    --capsule-violet-start: 265 75% 60%;   /* white → 4.89:1 */
+    --capsule-violet-end:   280 80% 57%;   /* white → 4.56:1 */
+    --capsule-violet-fg:    0 0% 100%;
+    --capsule-rose-start:   340 80% 49%;   /* white → 4.67:1 */
+    --capsule-rose-end:     352 85% 49%;   /* white → 4.63:1 */
+    --capsule-rose-fg:      0 0% 100%;
+    --capsule-sky-start:    205 85% 41%;   /* white → 4.74:1 */
+    --capsule-sky-end:      195 90% 34%;   /* white → 4.63:1 */
+    --capsule-sky-fg:       0 0% 100%;
+  }
+
+  /* GitHub Light page wash — soft cool-blue radial behind every slide so
+     the surface never reads as a flat #ffffff sheet (matches the contact
+     card treatment, mem://design/light-theme-bg). */
+  [data-theme='github-light'] body {
+    background:
+      radial-gradient(ellipse 90% 60% at 50% 0%, hsl(212 60% 94%), transparent 70%),
+      radial-gradient(ellipse 70% 50% at 50% 100%, hsl(210 50% 95%), transparent 70%),
+      hsl(212 40% 97%);
+  }
+
+  /* ─── Paper & Ink ─ daytime light theme that retains brand gold ───
+     Mirrors github-light's light-theme corrections but tuned for the
+     warm cream surface (#FAF6EC) and gold accent (#B8821C):
+       - eyebrow/step-label use a darkened gold for AA on cream
+       - cta-button-label (white on gold capsule) needs the gold dark
+         enough that white text clears 4.5:1 — handled below
+       - capsule-cream collapses to dark-on-dark (cream is now ink),
+         so re-tune to a paper chip with ink text
+       - title bevel disabled above; slide-bloom muted to a warm wash */
+  [data-theme='paper-ink'] {
+    --slide-bloom: 42 60% 90%;
+    --slide-bloom-strength: 0.55;
+
+    /* Title color remap — on a cream surface, pure-white titles or
+       gold-glow titles need the same dark-ink fallback as github-light
+       so every title type renders legible. */
+    --white: 36 25% 12%;
+    --gold-glow: 38 80% 32%;        /* deeper gold for text-title-gold legibility */
+    --foreground: 36 25% 12%;
+
+    /* Capsule retune for cream bg: cream chip = paper canvas + ink;
+       ink chip = solid espresso; outline = gold-tinted hairline. */
+    --capsule-cream-bg: 40 50% 92%;
+    --capsule-cream-fg: 36 25% 12%;
+    --capsule-cream-border: 40 30% 78%;
+
+    --capsule-ink-bg: 36 25% 12%;
+    --capsule-ink-fg: 40 50% 98%;
+    --capsule-ink-border: 36 25% 12%;
+
+    --capsule-outline-bg: 40 50% 98%;
+    --capsule-outline-fg: 36 25% 12%;
+    --capsule-outline-border: 38 75% 41% / 0.55;
+
+    /* Saturated capsule stops on warm cream — same AA-safe ramp as
+       github-light, white text holds ≥ 4.5:1 on each stop. */
+    --capsule-violet-start: 265 75% 55%;
+    --capsule-violet-end:   280 80% 52%;
+    --capsule-violet-fg:    0 0% 100%;
+    --capsule-rose-start:   340 80% 47%;
+    --capsule-rose-end:     352 85% 47%;
+    --capsule-rose-fg:      0 0% 100%;
+    --capsule-sky-start:    205 85% 38%;
+    --capsule-sky-end:      195 90% 32%;
+    --capsule-sky-fg:       0 0% 100%;
+  }
+
+  /* Paper & Ink page wash — warm-cream radial so slides never read flat. */
+  [data-theme='paper-ink'] body {
+    background:
+      radial-gradient(ellipse 90% 60% at 50% 0%, hsl(42 70% 92%), transparent 70%),
+      radial-gradient(ellipse 70% 50% at 50% 100%, hsl(38 65% 93%), transparent 70%),
+      hsl(42 60% 95%);
+  }
+
+  /* (Eyebrow / step-label / CTA gold use `--gold` directly. The token is
+     already L=30 on cream, which clears AA — no per-selector override needed.) */
+
+  /* v0.181 — `.capsule-gold` / `.capsule-ember` paint the brand-accent
+     gradient as bg with `--ink` (dark) text on top. Works on noir (amber
+     gradient, dark text ⇒ ~7:1). In github-light + macos-sonoma the
+     accent becomes blue and dark-on-mid-blue collapses to ~3:1. Replace
+     the gradient with the solid darker stop and switch labels to white,
+     yielding white on #0969da (4.74:1, AA) for github-light and white on
+     #007aff (4.55:1, AA) for macos-sonoma. */
+  [data-theme='github-light'] .capsule-gold,
+  [data-theme='macos-sonoma'] .capsule-gold {
+    /* Darken the gold to a 45% L variant ONLY for solid capsule bg, so
+       white text holds ≥ 4.5:1. The eyebrow/step-label/hero usage of
+       --gold stays at the brighter 50% L for dark-bg legibility. */
+    background: hsl(212 100% 45%);
+    color: hsl(0 0% 100%);
+    border-color: hsl(212 100% 45%);
+  }
+  /* Paper & Ink — token --gold is already L=30 (white-on-gold ≥ AA), so
+     the same default rule applies. */
+  [data-theme='github-light'] .capsule-gold,
+  [data-theme='paper-ink'] .capsule-gold {
+    background: hsl(var(--gold));
+    color: hsl(0 0% 100%);
+    border-color: hsl(var(--gold));
+  }
+  [data-theme='github-light'] .capsule-ember,
+  [data-theme='paper-ink'] .capsule-ember,
+  [data-theme='macos-sonoma'] .capsule-ember {
+    background: hsl(var(--ember));
+    color: hsl(0 0% 100%);
+    border-color: hsl(var(--ember));
+  }
+
+  /* macOS Sonoma + navy-blue + vscode-dark are still dark surfaces, so the
+     warm bloom + dark capsules read fine — no override needed. */
+
+  /* Controller pill — opaque dark base + warm gold-tinted gradient overlay.
+     The opaque `--chrome-bg` layer guarantees the pill stays dark regardless
+     of the active slide theme (incl. GitHub Light), preserving contrast for
+     the chrome text tokens above. The gradient sits on top for warmth. */
+  .controller-pill {
+    background:
+      linear-gradient(160deg, hsl(35 18% 14% / 0.92) 0%, hsl(30 12% 10% / 0.94) 60%, hsl(25 10% 8% / 0.96) 100%),
+      hsl(var(--chrome-bg));
+    backdrop-filter: blur(20px) saturate(140%);
+    box-shadow:
+      0 10px 30px -8px hsl(0 0% 0% / 0.55),
+      0 0 0 1px hsl(var(--gold) / var(--chrome-border-strength)) inset,
+      inset 0 1px 0 hsl(var(--white) / 0.06);
+    border: 1px solid hsl(var(--gold) / var(--chrome-border-strength));
+    /* The pill is permanently dark across every theme. Re-scope `--foreground`
+       inside it to the chrome's light text token so any descendant using
+       `text-foreground` (presenter chip, ShareMenu, ThemeMenu, ThumbnailStrip,
+       AnimationScrubber, etc.) stays legible on the dark base — critical for
+       light themes (github-light, macos-sonoma) where `--foreground` is dark ink. */
+    --foreground: var(--chrome-fg);
+    --muted-foreground: var(--chrome-fg-muted);
+    --border: var(--chrome-border);
+  }
+
+  /* Non-blur fallback — Firefox without `layout.css.backdrop-filter.enabled`,
+     older Chromium-derived browsers, and any rendering context that drops
+     `backdrop-filter` (e.g. some print/export pipelines). Without the blur,
+     translucent gradient stops would composite over whatever sits behind the
+     pill, eroding the chrome-text contrast we promise in mem://features/
+     theme-menu-tokens. Swap to fully opaque gradient stops layered on the
+     opaque `--chrome-bg` base, drop the blur, and add a touch more shadow
+     to compensate for the lost depth. Same hue ramp so the look is
+     visually identical when blur IS available. */
+  @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+    .controller-pill {
+      background:
+        linear-gradient(160deg, hsl(35 18% 14%) 0%, hsl(30 12% 10%) 60%, hsl(25 10% 8%) 100%),
+        hsl(var(--chrome-bg));
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+      box-shadow:
+        0 12px 34px -8px hsl(0 0% 0% / 0.7),
+        0 0 0 1px hsl(var(--gold) / calc(var(--chrome-border-strength) + 0.06)) inset,
+        inset 0 1px 0 hsl(var(--white) / 0.07);
+      border-color: hsl(var(--gold) / calc(var(--chrome-border-strength) + 0.06));
+    }
+  }
+
+  .dot-tooltip-pill {
+    box-shadow:
+      0 8px 20px -8px hsl(var(--gold) / 0.35),
+      0 10px 26px -14px hsl(var(--background) / 0.85);
+  }
+
+  /* ============================================================
+     Reusable hover effect — `lift-hover`
+     ------------------------------------------------------------
+     Designer-grade replacement for the previous scale/zoom hover.
+     On hover: 1.5px upward translate + softened, growing drop
+     shadow tinted with brand gold. NO scale change, no bounce.
+     Used on every Capsule and every clickable controller button
+     so the deck has one consistent interaction language.
+     ============================================================ */
+  .lift-hover {
+    transform: translateY(0);
+    transition:
+      transform 280ms var(--transition-smooth),
+      box-shadow 280ms var(--transition-smooth),
+      filter 280ms var(--transition-smooth);
+    will-change: transform, box-shadow;
+  }
+  .lift-hover:hover {
+    transform: translateY(-1.5px);
+    box-shadow:
+      0 10px 24px -10px hsl(var(--gold) / 0.45),
+      0 4px 10px -4px hsl(0 0% 0% / 0.45);
+    filter: brightness(1.04);
+  }
+  .lift-hover:active {
+    transform: translateY(-0.5px);
+    transition-duration: 120ms;
+  }
+  /* Tighter shadow variant for chrome (controller buttons): no gold bloom,
+     just a subtle drop so the button feels physical without competing with content. */
+  .lift-hover-subtle {
+    transform: translateY(0);
+    transition:
+      transform 240ms var(--transition-smooth),
+      box-shadow 240ms var(--transition-smooth);
+    will-change: transform, box-shadow;
+  }
+  .lift-hover-subtle:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 16px -8px hsl(0 0% 0% / 0.55);
+  }
+  .lift-hover-subtle:active {
+    transform: translateY(0);
+    transition-duration: 100ms;
+  }
+
+  .noise::before {
+    content: ''; position: absolute; inset: 0; pointer-events: none;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.4'/%3E%3C/svg%3E");
+    opacity: 0.04; mix-blend-mode: overlay;
+  }
+}
+
+@layer utilities {
+  .animate-bounce-in { animation: bounce-in 0.7s var(--transition-smooth); }
+  .animate-slide-up { animation: slide-up 0.6s var(--transition-smooth); }
+  .animate-fade-in { animation: fade-in 0.5s ease-out; }
+
+  /* Text-weight utilities — see spec/architecture/text-weight-shadow.md.
+     Reference these instead of writing inline text-shadow anywhere. */
+  .text-weight             { text-shadow: var(--text-shadow-weight-light); }
+  .text-weight-strong      { text-shadow: var(--text-shadow-weight-light-strong); }
+  .text-weight-dark        { text-shadow: var(--text-shadow-weight-dark); }
+  .text-weight-dark-strong { text-shadow: var(--text-shadow-weight-dark-strong); }
+
+  /* Brand logo halo — soft dark drop on dark themes (gives the wordmark
+     lift over noir surfaces); dropped on light themes where any dark blur
+     reads as a smudge under the colored letterforms (v0.181). */
+  .brand-logo-shadow { filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.55)); }
+  [data-theme='github-light'] .brand-logo-shadow,
+  [data-theme='macos-sonoma'] .brand-logo-shadow { filter: none; }
+  .text-weight-none        { text-shadow: none; }
+
+  /* MetricGridSlide accent colors. Default tunings are calibrated for the
+     dark noir slide bg; light themes (github-light, macos-sonoma) override
+     below for ≥ 4.5:1 against a white slide surface. */
+  .metric-accent-gold    { color: hsl(var(--gold)); }
+  .metric-accent-ember   { color: hsl(var(--ember)); }
+  .metric-accent-cream   { color: hsl(var(--cream)); }
+  .metric-accent-violet  { color: hsl(265 85% 72%); }
+  .metric-accent-teal    { color: hsl(175 75% 55%); }
+  .metric-accent-rose    { color: hsl(345 85% 70%); }
+  .metric-accent-sky     { color: hsl(210 90% 70%); }
+}
+
+/* Light-theme metric accent overrides — pulled darker so the huge value
+   numbers hold ≥ 4.5:1 contrast against a soft cool-blue slide background.
+   ONLY github-light qualifies as a light theme; macos-sonoma keeps the dark
+   noir bg (`--background` not overridden) and uses the default tunings. */
+[data-theme='github-light'] .metric-accent-gold     { color: hsl(var(--gold)); }
+[data-theme='github-light'] .metric-accent-ember    { color: hsl(var(--ember)); }
+[data-theme='github-light'] .metric-accent-cream    { color: hsl(210 12% 16%); }
+[data-theme='github-light'] .metric-accent-violet   { color: hsl(265 75% 45%); }
+[data-theme='github-light'] .metric-accent-teal     { color: hsl(175 85% 24%); /* AA on cool-blue bg */ }
+[data-theme='github-light'] .metric-accent-rose     { color: hsl(345 80% 42%); }
+[data-theme='github-light'] .metric-accent-sky      { color: hsl(210 90% 38%); }
+/* Paper & Ink — same dark-stop strategy as github-light, tuned for cream bg. */
+[data-theme='paper-ink'] .metric-accent-gold        { color: hsl(38 80% 30%); }
+[data-theme='paper-ink'] .metric-accent-ember       { color: hsl(var(--ember)); }
+[data-theme='paper-ink'] .metric-accent-cream       { color: hsl(36 25% 12%); }
+[data-theme='paper-ink'] .metric-accent-violet      { color: hsl(265 75% 42%); }
+[data-theme='paper-ink'] .metric-accent-teal        { color: hsl(175 85% 22%); }
+[data-theme='paper-ink'] .metric-accent-rose        { color: hsl(345 80% 38%); }
+[data-theme='paper-ink'] .metric-accent-sky         { color: hsl(210 90% 34%); }
+
+
+/* Slide-content auto-application: dark themes get the light-text bevel as
+   the default for headings; light themes (github-light, macos-sonoma) drop
+   the default and rely on opt-in `.text-weight-dark*`. Capsules, code, and
+   chrome opt out via `.text-weight-none`. */
+.slide-content {
+  --slide-text-shadow: var(--text-shadow-weight-light);
+}
+[data-theme='github-light'] .slide-content,
+[data-theme='paper-ink'] .slide-content,
+[data-theme='macos-sonoma'] .slide-content {
+  --slide-text-shadow: none;
+}
+.slide-content h1,
+.slide-content h2,
+.slide-content .text-weight-auto {
+  text-shadow: var(--slide-text-shadow);
+}
+/* Always-opt-out surfaces: capsules carry their own weight via fill,
+   chrome lives on a separate dark pill, code blocks need crisp glyphs. */
+.slide-content [class*="capsule-"],
+.slide-content code,
+.slide-content pre,
+.controller-pill,
+.chrome-surface {
+  text-shadow: none;
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  :root {
+    /* Drop soft halo, keep hairline edge only. */
+    --text-shadow-weight-light: 0.7px 0.7px 0px hsl(0 0% 0% / 0.35);
+    --text-shadow-weight-light-strong: 1px 1px 0px hsl(0 0% 0% / 0.40);
+    --text-shadow-weight-dark: -0.5px -0.5px 0px hsl(0 0% 100% / 0.6);
+    --text-shadow-weight-dark-strong: -0.5px -0.5px 0px hsl(0 0% 100% / 0.7);
+  }
+}
+
+@keyframes bounce-in {
+  0% { opacity: 0; transform: scale(0.8) translateY(20px); }
+  60% { opacity: 1; transform: scale(1.04) translateY(-4px); }
+  100% { transform: scale(1) translateY(0); }
+}
+@keyframes slide-up {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes fade-in {
+  from { opacity: 0; } to { opacity: 1; }
+}
+@keyframes shimmer-slide {
+  to { transform: translateX(120%); }
+}
+
+/* Webcam shape-toggle pop — fires when `circleShape` flips on/off.
+   Synced with the 360ms `border-radius` tween (same duration + easing) so
+   the radius morph, scale dip, and glow peak land on a single timeline:
+     • 0–30%   anticipation: scale dips while corners just begin to morph
+     • 50%     glow peak: coincides with the radius hitting its midpoint
+                — the most visually-active frame of the morph
+     • 70–100% settle: gentle overshoot, glow + radius converge to rest
+   Pure transform/box-shadow so it stays on the compositor. Reduced-motion
+   users get the radius tween only — pop is suppressed. */
+@keyframes webcam-shape-pop {
+  0%   { transform: scale(1);     box-shadow: 0 0 32px hsl(var(--gold) / 0.18), 0 12px 32px hsl(var(--background) / 0.6); }
+  30%  { transform: scale(0.965); box-shadow: 0 0 48px hsl(var(--gold) / 0.36), 0 12px 32px hsl(var(--background) / 0.6); }
+  50%  { transform: scale(0.985); box-shadow: 0 0 60px hsl(var(--gold) / 0.50), 0 12px 32px hsl(var(--background) / 0.6); }
+  70%  { transform: scale(1.018); box-shadow: 0 0 44px hsl(var(--gold) / 0.30), 0 12px 32px hsl(var(--background) / 0.6); }
+  100% { transform: scale(1);     box-shadow: 0 0 32px hsl(var(--gold) / 0.18), 0 12px 32px hsl(var(--background) / 0.6); }
+}
+.animate-webcam-shape-pop {
+  animation: webcam-shape-pop 360ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+@media (prefers-reduced-motion: reduce) {
+  .animate-webcam-shape-pop { animation: none; }
+}
+
+/* Webcam halo brightness pulse — fires on the same 360ms timeline as
+   `webcam-shape-pop`. Brightness/opacity peak at 50% (the moment the box's
+   inner glow also peaks and the radius hits its midpoint), so the vignette
+   glow visibly intensifies WITH the corner morph rather than sitting flat
+   while the box pulses underneath it. Filter-only — pointer-events stay
+   none, no layout impact. Suppressed under reduced-motion. */
+@keyframes webcam-halo-pulse {
+  0%   { opacity: 1;    filter: brightness(1)    saturate(1); }
+  30%  { opacity: 1.0;  filter: brightness(1.18) saturate(1.15); }
+  50%  { opacity: 1.0;  filter: brightness(1.32) saturate(1.25); }
+  70%  { opacity: 1.0;  filter: brightness(1.18) saturate(1.15); }
+  100% { opacity: 1;    filter: brightness(1)    saturate(1); }
+}
+.animate-webcam-halo-pulse {
+  animation: webcam-halo-pulse 360ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+@media (prefers-reduced-motion: reduce) {
+  .animate-webcam-halo-pulse { animation: none; }
+}
+
+/* ============================================================
+   Step Timeline — Revolver keyframes (spec 17 v2.3)
+   ------------------------------------------------------------
+   All transform-only / opacity-only so they stay on the GPU
+   compositor. Each row gets a `data-state` attribute and the
+   matching transition kicks in via `transition: ...` declared
+   on `.step-row`. Bubble + text-slide are explicit @keyframes
+   so they retrigger on every state change via React `key`.
+   ============================================================ */
+@keyframes step-bubble-in {
+  0%   { transform: scale(0.6);  opacity: 0.4; }
+  55%  { transform: scale(1.15); opacity: 1;   }
+  80%  { transform: scale(0.96); opacity: 1;   }
+  100% { transform: scale(1);    opacity: 1;   }
+}
+@keyframes step-text-slide-in-left {
+  /* v3 — longer travel for cinematic grace, paired with the 1100ms
+     expo-out duration on `--step-text-duration`. */
+  0%   { transform: translateX(-32px); opacity: 0; }
+  100% { transform: translateX(0);     opacity: 1; }
+}
+@keyframes step-glow-pulse {
+  0%   { box-shadow: 0 0 0 0 hsl(var(--gold) / 0); }
+  60%  { box-shadow: 0 0 0 6px hsl(var(--gold) / 0.18); }
+  100% { box-shadow: 0 0 0 6px hsl(var(--gold) / 0.18); }
+}
+/* v3 — continuous breathing halo around the active number badge.
+   The one-shot bubble-in still fires on activation; this radiates
+   indefinitely on top of it so the active badge feels alive. */
+@keyframes step-badge-radiate {
+  0%, 100% {
+    box-shadow:
+      0 0 0 0 hsl(var(--gold) / 0.55),
+      0 0 24px -2px hsl(var(--gold) / 0.55);
+  }
+  50% {
+    box-shadow:
+      0 0 0 10px hsl(var(--gold) / 0),
+      0 0 36px -2px hsl(var(--gold) / 0.85);
+  }
+}
+
+/* Step row container — depth via FONT-SIZE + opacity, NEVER scale.
+   v3.2 — FIXED SLOT HEIGHT. Each row reserves the *active* size as its
+   minimum height regardless of state, so when the active step grows
+   from `--step-title-far` → `--step-title-active` the surrounding rows
+   no longer reflow downward. Emphasis moves; layout stays still.
+   Header font is Ubuntu on the step slide (deck title language); supporting
+   subtitle copy stays Inter unless overridden by preset body font. */
+.step-row {
+  /* Reserve the tallest possible row height so size jumps never push
+     siblings. Active title height ≈ font-size * leading 1.05. */
+  min-height: calc(var(--step-title-active) * 1.05);
+  display: flex;
+  align-items: center;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  /* v3.1 — even slower opacity transition so dim/active state changes
+     feel cinematic rather than snappy. */
+  transition:
+    opacity 1300ms var(--step-text-ease),
+    color   1300ms var(--step-text-ease);
+  background: transparent !important;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+.step-row .step-title {
+  font-family: 'Ubuntu', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  /* Weight bevel for light-on-dark glyphs. Tween includes text-shadow so
+     it animates alongside font-size/color when a row activates. */
+  text-shadow: var(--text-shadow-weight-light-strong);
+  /* v1.2 — added transform to the transition list so font-size growth is
+     paired with a subtle lift + scale (read as 3D parallax / depth on
+     step change). 700ms on font-size+transform reads as a confident
+     "rise to focus" without dragging behind opacity/color which stay on
+     the existing 1300ms expo-out. See `mem://design/step-row-motion-parity`. */
+  transition:
+    font-size    700ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform    700ms cubic-bezier(0.22, 1, 0.36, 1),
+    color       1300ms var(--step-text-ease),
+    opacity     1300ms var(--step-text-ease),
+    text-shadow 1300ms var(--step-text-ease);
+  position: relative;
+  transform-origin: left center;
+}
+/* v0.181 — Light themes: drop the bevel on every step row. The white halo
+   around dark glyphs always reads as a semi-transparent ghost on the
+   near-white surface, never as "weight". Hierarchy is conveyed by
+   font-size + alpha already. */
+[data-theme='github-light'] .step-row .step-title,
+[data-theme='macos-sonoma'] .step-row .step-title {
+  text-shadow: none;
+}
+/* v0.36 — upcoming/past steps are blurred + grayscale-ish so the focus
+   hierarchy reads instantly. Blur is a static cue and SURVIVES reduced
+   motion (only the transition is dropped). */
+.step-row {
+  filter: blur(0px);
+  transition:
+    opacity 1300ms var(--step-text-ease),
+    color   1300ms var(--step-text-ease),
+    filter  900ms  var(--step-text-ease);
+}
+.step-row[data-state="active"]   { opacity: var(--step-opacity-active);   filter: blur(0px); }
+.step-row[data-state="adjacent"] { opacity: var(--step-opacity-adjacent); filter: blur(1.2px); }
+.step-row[data-state="far"]      { opacity: var(--step-opacity-far);      filter: blur(2.5px); }
+
+/* Theme-aware: --foreground is cream on noir, dark ink on github-light.
+   Adjacent/far rows step down via alpha so they remain legible in both themes
+   instead of the previous hardcoded grayscale ramp that broke on light bgs. */
+/* Alpha ramp: active 1.0 → adjacent 0.62 → far 0.55. The far value used to
+   be 0.40 but failed the WCAG 2.1 AA-large threshold (3:1) in github-light
+   (~2.36:1 on white). 0.55 stays clearly dimmer than adjacent while
+   remaining legible. Guarded by stepTimelineGithubLightContrast.test.ts. */
+.step-row[data-state="active"]   .step-title {
+  font-size: var(--step-title-active);
+  color: hsl(var(--foreground));
+  transform: translateY(0) scale(1);
+}
+.step-row[data-state="adjacent"] .step-title {
+  font-size: var(--step-title-adjacent);
+  color: hsl(var(--foreground) / 0.62);
+  transform: translateY(2px) scale(0.985);
+}
+.step-row[data-state="far"]      .step-title {
+  font-size: var(--step-title-far);
+  color: hsl(var(--foreground) / 0.55);
+  transform: translateY(4px) scale(0.97);
+}
+
+/* v1.3 — Per-step motion variant. Three shapes rotate deterministically by
+   step index so a 6-step deck reads as lift → slide → parallax → lift → …
+   instead of six identical lifts. Variant is selected in TSX via
+   `data-motion-variant="lift|slide|parallax"` on each `.step-row`; if the
+   attribute is missing the default rule above (plain lift) still applies,
+   so unmigrated callers don't break. Active state is the only one that
+   varies per variant — adjacent/far stay uniform so the resting hierarchy
+   stays calm. See `mem://design/step-row-motion-parity` §Variants.
+
+   Each variant overrides ONLY the active transform; font-size + color +
+   opacity follow the same shared transition list, so every variant lands
+   on the same final visual state. The one-shot swipe pulse fires on all
+   three (it's keyed off `[data-state="active"]`, not the variant). */
+
+/* Lift: subtle 2D rise — the v1.2 default, kept verbatim as the calm
+   anchor variant. */
+.step-row[data-motion-variant="lift"][data-state="active"] .step-title {
+  animation: step-row-lift-in 700ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+@keyframes step-row-lift-in {
+  0%   { transform: translateY(6px) scale(0.985); }
+  60%  { transform: translateY(-1px) scale(1.005); }
+  100% { transform: translateY(0)    scale(1);     }
+}
+
+/* Slide-in: glyphs ride in from the left, no scale change. Pairs naturally
+   with `.step-text-slide` further down — same direction, shorter distance
+   so it doesn't feel like a duplicate animation. */
+.step-row[data-motion-variant="slide"][data-state="active"] .step-title {
+  animation: step-row-slide-in 700ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+@keyframes step-row-slide-in {
+  0%   { transform: translate3d(-22px, 0, 0); }
+  100% { transform: translate3d(0, 0, 0);     }
+}
+
+/* Parallax: depth-y 3D tilt — a tiny rotateY plus z-translate so the
+   active title reads as "stepping out of the page" while still settling
+   to the same flat resting position the other variants land on. */
+.step-row[data-motion-variant="parallax"][data-state="active"] .step-title {
+  animation: step-row-parallax-in 720ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  transform-style: preserve-3d;
+}
+@keyframes step-row-parallax-in {
+  0%   { transform: perspective(800px) translate3d(0, 4px, -16px) rotateY(-6deg) scale(0.99); }
+  55%  { transform: perspective(800px) translate3d(0, -1px, 4px)  rotateY(1deg)  scale(1.005); }
+  100% { transform: perspective(800px) translate3d(0, 0, 0)       rotateY(0)     scale(1);     }
+}
+
+/* v1.2 — One-shot gold/ember swipe pulse across the active title baseline.
+   Mirrors the traveling rail pulse on slide 4 (StepsChain3DSlide). The
+   keyframe is restarted whenever data-state="active" applies because the
+   rule re-attaches the animation on the matching element; animation-fill-mode
+   forwards keeps the post-pulse state clean. The pseudo-element is masked
+   to the title's own bounds via `background-clip: text` is unnecessary —
+   we want the sweep visible *behind* the glyphs, not painting them. */
+.step-row[data-state="active"] .step-title::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 4px;
+  pointer-events: none;
+  background: linear-gradient(
+    100deg,
+    transparent 0%,
+    transparent 38%,
+    hsl(var(--gold) / 0.18) 50%,
+    hsl(var(--ember) / 0.10) 58%,
+    transparent 70%
+  );
+  background-size: 220% 100%;
+  background-position: -120% 0;
+  animation: step-row-swipe 900ms cubic-bezier(0.22, 1, 0.36, 1) 120ms 1 forwards;
+  mix-blend-mode: screen;
+  z-index: -1;
+}
+[data-theme='github-light'] .step-row[data-state="active"] .step-title::before,
+[data-theme='macos-sonoma'] .step-row[data-state="active"] .step-title::before {
+  /* On light themes, screen-blend on light surfaces is invisible. Use
+     multiply with a darker tint so the sweep is still perceptible. */
+  background: linear-gradient(
+    100deg,
+    transparent 0%,
+    transparent 38%,
+    hsl(var(--gold) / 0.22) 50%,
+    hsl(var(--ember) / 0.14) 58%,
+    transparent 70%
+  );
+  background-size: 220% 100%;
+  background-position: -120% 0;
+  mix-blend-mode: multiply;
+}
+@keyframes step-row-swipe {
+  0%   { background-position: -120% 0; opacity: 0; }
+  20%  { opacity: 1; }
+  80%  { opacity: 1; }
+  100% { background-position: 220% 0; opacity: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  /* Strip the depth/swipe layers — keep opacity + color crossfade only. */
+  .step-row .step-title {
+    transition:
+      color       1300ms var(--step-text-ease),
+      opacity     1300ms var(--step-text-ease),
+      text-shadow 1300ms var(--step-text-ease);
+    transform: none !important;
+  }
+  .step-row[data-state="active"]   .step-title,
+  .step-row[data-state="adjacent"] .step-title,
+  .step-row[data-state="far"]      .step-title {
+    transform: none;
+  }
+  .step-row[data-state="active"] .step-title::before {
+    animation: none;
+    display: none;
+  }
+  /* v1.3 — also kill the per-step variant entrance animations. The
+     `data-motion-variant="lift|slide|parallax"` selectors otherwise
+     re-introduce transforms via @keyframes, bypassing the
+     `transform: none !important` above (animations beat declared values).
+     Safe to nuke unconditionally — opacity + color crossfade still
+     communicate the active step. */
+  .step-row[data-motion-variant="lift"][data-state="active"]     .step-title,
+  .step-row[data-motion-variant="slide"][data-state="active"]    .step-title,
+  .step-row[data-motion-variant="parallax"][data-state="active"] .step-title {
+    animation: none !important;
+    transform: none !important;
+  }
+}
+/* In-app reduced-motion mirror of the step-row block above. */
+:root[data-reduce-motion="true"] .step-row .step-title {
+  transition:
+    color       1300ms var(--step-text-ease),
+    opacity     1300ms var(--step-text-ease),
+    text-shadow 1300ms var(--step-text-ease);
+  transform: none !important;
+}
+:root[data-reduce-motion="true"] .step-row[data-state="active"]   .step-title,
+:root[data-reduce-motion="true"] .step-row[data-state="adjacent"] .step-title,
+:root[data-reduce-motion="true"] .step-row[data-state="far"]      .step-title {
+  transform: none;
+}
+:root[data-reduce-motion="true"] .step-row[data-state="active"] .step-title::before {
+  animation: none;
+  display: none;
+}
+:root[data-reduce-motion="true"] .step-row[data-motion-variant="lift"][data-state="active"]     .step-title,
+:root[data-reduce-motion="true"] .step-row[data-motion-variant="slide"][data-state="active"]    .step-title,
+:root[data-reduce-motion="true"] .step-row[data-motion-variant="parallax"][data-state="active"] .step-title {
+  animation: none !important;
+  transform: none !important;
+}
+
+.step-text-slide {
+  animation: step-text-slide-in-left var(--step-text-duration) var(--step-text-ease) both;
+}
+
+/* Number badge — one-shot bubble-in + continuous breathing halo. */
+.step-badge-bubble {
+  animation:
+    step-bubble-in var(--step-bubble-duration) var(--step-bubble-ease) both,
+    step-glow-pulse var(--step-bubble-duration) var(--step-bubble-ease) both;
+}
+.step-badge-radiate {
+  animation: step-badge-radiate var(--step-radiate-duration) ease-in-out infinite;
+}
+
+/* Spec 26 — click-reveal hint pulse for step rows that opt into a reveal/expand
+   trigger. Only applied when the controller's "Reveal hints" toggle is on; the
+   ring stays soft so the hint never fights the active-row composition. */
+.step-row--reveal-hint > button {
+  position: relative;
+}
+.step-row--reveal-hint > button::after {
+  content: '';
+  position: absolute;
+  inset: -4px -8px;
+  border-radius: 14px;
+  border: 1px solid hsl(var(--gold) / 0.55);
+  pointer-events: none;
+  animation: step-reveal-hint-pulse 2.4s ease-in-out infinite;
+}
+@keyframes step-reveal-hint-pulse {
+  0%, 100% { opacity: 0.35; }
+  50%      { opacity: 0.85; }
+}
+
+/* v0.84 — "Step timeline reveal" mode. A snap-aligned row (authored with
+   `leftOffsetPx > 0`) gets a faint gold underline that fades in just after
+   the row lands, reinforcing the visual that the row is anchored to a
+   guide. Pure opacity + transform — GPU-cheap, reduced-motion friendly. */
+.step-row--snap-reveal { position: relative; }
+.step-row--snap-reveal::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  height: 1px;
+  width: 0;
+  background: linear-gradient(90deg, hsl(var(--gold) / 0.55), hsl(var(--gold) / 0));
+  animation: step-snap-rail-trace 1100ms cubic-bezier(0.16, 1, 0.3, 1) 250ms both;
+  pointer-events: none;
+}
+@keyframes step-snap-rail-trace {
+  0%   { width: 0;    opacity: 0; }
+  100% { width: 64px; opacity: 1; }
+}
+
+/* Reduced motion: keep opacity cues alive, collapse transforms.
+   v0.152 — refined from the previous "all transitions to 0.01ms" rule so
+   opacity-only transitions (controller hover fade, popover entry/exit,
+   button focus rings, top-jumper toggle) still cross-fade gently and the
+   slide change is perceptible. Animation durations still collapse hard so
+   any keyframe motion (rotation, ambient float, pulse) freezes. Per WCAG
+   guidance reduced-motion targets vestibular triggers (large translation,
+   parallax, spin) — soft fades are explicitly fine. Mirrored at the JS
+   layer in `src/slides/motionPreferences.ts` (`flattenVariants` keeps
+   opacity, drops transforms). */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    /* Default: collapse transitions hard. */
+    transition-duration: 0.01ms !important;
+    /* But: preserve opacity-only transitions as a short cross-fade so
+       enter/exit cues still register. The longer `transition-property`
+       isn't reliably overridable here (browsers split the shorthand
+       differently); instead the rule below targets common opacity-fade
+       utilities so the cue survives without re-introducing transforms. */
+  }
+  /* Opacity-fade utilities and Radix popover/tooltip surfaces — keep a
+     ~120ms cross-fade so the user can perceive show/hide. */
+  [data-state="open"], [data-state="closed"],
+  .lift-hover, .lift-hover-subtle,
+  .controller-pill, .controller-pill * {
+    transition-duration: 120ms !important;
+  }
+  .step-badge-bubble, .step-text-slide, .step-badge-radiate { animation: none !important; }
+  .step-row--snap-reveal::after { animation: none !important; width: 64px; opacity: 1; }
+}
+/* In-app reduced-motion mirror of the universal block above (Window-2 task 22).
+   Identical clamp behavior, triggered by `<html data-reduce-motion="true">`. */
+:root[data-reduce-motion="true"] *,
+:root[data-reduce-motion="true"] *::before,
+:root[data-reduce-motion="true"] *::after {
+  animation-duration: 0.01ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.01ms !important;
+}
+:root[data-reduce-motion="true"] [data-state="open"],
+:root[data-reduce-motion="true"] [data-state="closed"],
+:root[data-reduce-motion="true"] .lift-hover,
+:root[data-reduce-motion="true"] .lift-hover-subtle,
+:root[data-reduce-motion="true"] .controller-pill,
+:root[data-reduce-motion="true"] .controller-pill * {
+  transition-duration: 120ms !important;
+}
+:root[data-reduce-motion="true"] .step-badge-bubble,
+:root[data-reduce-motion="true"] .step-text-slide,
+:root[data-reduce-motion="true"] .step-badge-radiate { animation: none !important; }
+:root[data-reduce-motion="true"] .step-row--snap-reveal::after {
+  animation: none !important; width: 64px; opacity: 1;
+}
+
+/* ============================================================
+   Print / "Save as PDF" + offscreen HTML capture
+   ------------------------------------------------------------
+   Browser print engines (Chrome, Safari, Firefox) and most
+   "Save Page as PDF/HTML" tools strip:
+     - CSS gradients on backgrounds (unless `print-color-adjust: exact`)
+     - `backdrop-filter` / `-webkit-backdrop-filter`
+     - `::before`/`::after` decorative layers (often)
+     - HSL color functions inside `background-image` shorthand
+   The brand strip relies on all four. Without this block, exported
+   slides show the strip as a transparent band with text only.
+   See `spec/issues/22-app-issues.md` Issue 22.01.
+   ============================================================ */
+@media print {
+  /* Force exact color reproduction (gradients, gold tones, ink). */
+  html, body, * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    color-adjust: exact !important;
+  }
+  /* Print engines clip overflow:hidden bodies — release it for capture. */
+  body { overflow: visible !important; background: hsl(var(--ink)) !important; }
+  /* Hide the controller, grid, presenter chrome — only the slide prints. */
+  .controller-pill,
+  [data-print-hide="true"] { display: none !important; }
+  /* v0.75 — alignment guides are debug-only chrome; never print them
+     even if the user forgot to disable the toggle. Same hardening for
+     headless capture tools via [data-export-mode] below. */
+  [data-alignment-guide="true"],
+  [data-preview-alignment-guide="true"] { display: none !important; }
+  /* Brand strip print-safe surface: solid ink with a gold hairline border so
+     the band is always visible even if gradients/backdrop-blur are dropped. */
+  [aria-label="Branded strip"] {
+    background: hsl(var(--ink)) !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    border-bottom: 1px solid hsl(var(--gold) / 0.55) !important;
+    box-shadow: none !important;
+  }
+  /* Drop the radial sheen ::before — print engines render it as a black box. */
+  [aria-label="Branded strip"]::before { display: none !important; }
+}
+
+/* Same hardening for headless HTML capture / screenshot tools that don't
+   trigger `@media print` but do honor a `data-export-mode` attribute on
+   `<html>` (set by future export tooling). Safe no-op when the attr is
+   absent. */
+html[data-export-mode="true"] [aria-label="Branded strip"] {
+  background: hsl(var(--ink)) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  border-bottom: 1px solid hsl(var(--gold) / 0.55) !important;
+}
+html[data-export-mode="true"] [aria-label="Branded strip"]::before { display: none !important; }
+html[data-export-mode="true"] [data-alignment-guide="true"],
+html[data-export-mode="true"] [data-preview-alignment-guide="true"] {
+  display: none !important;
+}
+
+/* ============================================================
+   Spec 28 — Handout / one-click PDF export (v0.119)
+   ------------------------------------------------------------
+   The /handout route mounts every linear slide stacked. Two
+   coordinated rules make the export clean:
+
+   1. Animation kill — every CSS animation/transition collapses
+      to its final keyframe (duration 0). This pairs with the
+      JS-side reduced-motion flatteners in motionPreferences.ts
+      so Framer-driven and CSS-driven motion both freeze on the
+      final state. Never mid-animation snapshots.
+
+   2. Print pagination — each `.handout-page` becomes one A4
+      landscape page. `break-after: page` separates them; the
+      `.handout-stage` is a 16:9 frame that scales to the page
+      content area so the slide always fills the page.
+
+   Activated by:
+     - `<html data-export-mode="true">` (set by HandoutPage)
+     - `@media print` (set by the browser during print preview)
+   ============================================================ */
+html[data-export-mode="true"] *,
+html[data-export-mode="true"] *::before,
+html[data-export-mode="true"] *::after {
+  animation-duration: 0s !important;
+  animation-delay: 0s !important;
+  animation-iteration-count: 1 !important;
+  animation-fill-mode: forwards !important;
+  transition-duration: 0s !important;
+  transition-delay: 0s !important;
+}
+
+/* ============================================================
+   v0.206 — Pixel Snap preview mode
+   ------------------------------------------------------------
+   Mirrors the export-mode animation-kill so every CSS animation
+   AND transition collapses to its final keyframe — paired with
+   the JS-side flag in motionPreferences.ts so Framer-driven
+   motion freezes too. Lets the author measure step-timeline,
+   eyebrow, title, logo, and chip alignment without anything
+   mid-flight.
+
+   Also forces whole-pixel rendering on the BrandHeader so the
+   logo + presenter chip can't sit on a sub-pixel boundary
+   (which would soften their edges and make pixel-perfect
+   measurement against the red Target boxes impossible).
+   ============================================================ */
+html[data-pixel-snap="true"] *,
+html[data-pixel-snap="true"] *::before,
+html[data-pixel-snap="true"] *::after {
+  animation-duration: 0s !important;
+  animation-delay: 0s !important;
+  animation-iteration-count: 1 !important;
+  animation-fill-mode: forwards !important;
+  transition-duration: 0s !important;
+  transition-delay: 0s !important;
+}
+
+html[data-pixel-snap="true"] header {
+  /* Force the GPU to rasterize the header on integer pixel boundaries.
+     `translateZ(0)` promotes to its own layer; `will-change: auto`
+     prevents Chrome from applying its sub-pixel anti-aliasing pass that
+     would otherwise blur the logo's left edge by ~0.5px. */
+  transform: translateZ(0) !important;
+  will-change: auto !important;
+  image-rendering: -webkit-optimize-contrast;
+}
+
+html[data-pixel-snap="true"] header img,
+html[data-pixel-snap="true"] header [class*="rounded-full"] {
+  /* Crisp logo + chip avatar edges — disable transform smoothing. */
+  transform: translateZ(0) !important;
+  backface-visibility: hidden !important;
+}
+
+/* Subtle visual marker: a 1px gold rule under the header so the author
+   can see that pixel-snap is active without leaving the preview. */
+html[data-pixel-snap="true"] header::after {
+  content: '';
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  height: 1px;
+  background: hsl(var(--gold) / 0.35);
+  pointer-events: none;
+}
+@media print {
+  *, *::before, *::after {
+    animation-duration: 0s !important;
+    animation-delay: 0s !important;
+    animation-iteration-count: 1 !important;
+    animation-fill-mode: forwards !important;
+    transition-duration: 0s !important;
+    transition-delay: 0s !important;
+  }
+}
+
+/* ============================================================
+   Handout layout — fit-to-page, no cropping (v0.155)
+   ------------------------------------------------------------
+   The handout exists in two modes — on-screen preview and print
+   pagination. Both honour the same contract: the 16:9 slide stage
+   is letterboxed inside the available area so every authored
+   element stays visible. We never stretch the stage to fill a
+   non-16:9 surface (which would crop edges or warp the layout).
+
+   On-screen sizing strategy
+   - `--handout-max-w`: cap so very wide monitors don't blow text
+     past comfortable reading width.
+   - The page is sized to the SMALLER of the width-bound (97vw) and
+     the height-bound (height fits one slide per viewport height
+     with breathing room). This way a tall narrow window stops
+     forcing the stage to shrink horizontally past readability —
+     it just shows fewer slides per scroll.
+
+   Print sizing strategy
+   - A4 landscape ≈ 1.414:1 ratio. A 16:9 stage is wider, so the
+     letterbox sits on the TOP+BOTTOM (the stage scales to fill
+     page width and centers vertically). Bars use `--ink` so they
+     blend with the deck background — no visible "frame".
+   - `aspect-ratio: 16/9` is preserved (we no longer override it
+     to `auto` like pre-v0.155, which had been stretching slides).
+   - We use a flex centering wrapper (`.handout-page` is the page,
+     `.handout-stage` is the 16:9 box). Page-break still lives on
+     `.handout-page` so each slide gets its own A4 sheet.
+   ============================================================ */
+.handout-root {
+  padding: 24px 0;
+  --handout-max-w: 1480px;
+}
+.handout-page {
+  position: relative;
+  /* Fit-to-viewport on screen: width capped at --handout-max-w and at
+     97vw, height capped at 92vh (one slide per viewport, lets the user
+     scroll between slides). Use the smaller-bound calc so neither
+     dimension overflows. */
+  width: min(var(--handout-max-w), 97vw, calc(92vh * 16 / 9));
+  aspect-ratio: 16 / 9;
+  margin: 0 auto 32px;
+  background: hsl(var(--ink));
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 18px 60px -28px hsl(0 0% 0% / 0.65),
+              0 0 0 1px hsl(var(--gold) / 0.18);
+  /* Center the inner stage. Currently the stage already fills the page
+     1:1 because the page is itself 16:9 — the flex centering matters
+     only when the page becomes non-16:9 (print path below). */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.handout-stage {
+  /* On screen: the stage exactly equals the 16:9 page. In print the
+     page becomes A4 landscape (≈1.414:1) and the stage shrinks to the
+     largest 16:9 box that fits inside it via the flex centering above
+     and the explicit width/height clamps below. */
+  width: 100%;
+  height: 100%;
+  aspect-ratio: 16 / 9;
+}
+.handout-page-footer {
+  position: absolute;
+  bottom: 10px;
+  right: 18px;
+  pointer-events: none;
+}
+/* v0.156 — three-zone footer bar (left=presenter, center=confidentiality,
+   right=slide numbers). Spans the full width of the handout page so each
+   zone aligns with the page edge instead of clustering in one corner.
+   Lives in the letterbox bar so it never overlaps slide content. */
+.handout-page-footer-bar {
+  position: absolute;
+  left: 18px;
+  right: 18px;
+  bottom: 10px;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  pointer-events: none;
+  z-index: 5;
+}
+.handout-footer-zone {
+  flex: 1 1 0;
+  min-width: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.handout-footer-left   { text-align: left;   }
+.handout-footer-center { text-align: center; }
+.handout-footer-right  { text-align: right;  }
+/* Empty zones collapse to 0 height so the row shows nothing when all
+   three settings are off — no orphaned padding. */
+.handout-footer-zone:empty { display: none; }
+
+/* ============================================================
+   v0.157 — Handout cover page
+   ------------------------------------------------------------
+   First-page chrome: deck title, presenter byline, date. Uses
+   the same .handout-page wrapper for free A4 pagination + the
+   letterboxed 16:9 stage. Visual language matches a TitleSlide
+   (Ubuntu display, gold accent rule, generous whitespace) so it
+   reads as part of the deck rather than a generic cover sheet.
+   ============================================================ */
+.handout-cover .handout-cover-stage {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 8% 9% 9%;
+  background: linear-gradient(135deg,
+    hsl(var(--ink)) 0%,
+    hsl(var(--surface-1)) 60%,
+    hsl(var(--surface-2)) 100%);
+  position: relative;
+}
+.handout-cover .handout-cover-stage::after {
+  content: '';
+  position: absolute;
+  inset: 4% 4.5%;
+  border: 1px solid hsl(var(--gold) / 0.18);
+  border-radius: 4px;
+  pointer-events: none;
+}
+.handout-cover-eyebrow {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: clamp(11px, 1.05vw, 14px);
+  font-weight: 500;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: hsl(var(--gold) / 0.85);
+  margin-bottom: clamp(18px, 2.6vh, 32px);
+}
+.handout-cover-title {
+  font-family: 'Ubuntu', system-ui, sans-serif;
+  font-weight: 700;
+  font-size: clamp(40px, 6.4vw, 96px);
+  line-height: 1.04;
+  color: hsl(var(--cream));
+  letter-spacing: -0.012em;
+  margin: 0 0 clamp(10px, 1.4vh, 18px);
+  max-width: 90%;
+}
+.handout-cover-subtitle {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: clamp(16px, 1.7vw, 26px);
+  font-weight: 400;
+  color: hsl(var(--foreground) / 0.78);
+  letter-spacing: 0.005em;
+  max-width: 80%;
+}
+.handout-cover-rule {
+  width: clamp(64px, 7vw, 120px);
+  height: 2px;
+  background: hsl(var(--gold));
+  margin: clamp(28px, 4vh, 56px) 0 clamp(20px, 2.8vh, 36px);
+  border-radius: 2px;
+}
+.handout-cover-meta {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(8px, 1.1vh, 14px);
+}
+.handout-cover-meta-row {
+  display: flex;
+  align-items: baseline;
+  gap: clamp(14px, 1.5vw, 22px);
+  font-family: 'Inter', system-ui, sans-serif;
+}
+.handout-cover-meta-label {
+  font-size: clamp(10px, 0.85vw, 13px);
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: hsl(var(--gold) / 0.8);
+  min-width: clamp(96px, 9vw, 130px);
+}
+.handout-cover-meta-value {
+  font-size: clamp(14px, 1.4vw, 20px);
+  font-weight: 500;
+  color: hsl(var(--cream));
+  letter-spacing: 0.02em;
+}
+
+/* Print-time pagination: one slide per A4 landscape page, letterboxed. */
+@media print {
+  @page {
+    size: A4 landscape;
+    margin: 0;
+  }
+  html, body { background: hsl(var(--ink)) !important; }
+  .handout-root { padding: 0 !important; }
+  .handout-page {
+    /* Page IS the A4 sheet (~297mm × 210mm). The stage centers inside
+       it and keeps 16:9 — letterbox bars top + bottom render in `--ink`
+       so they read as deck background, not frame. */
+    width: 100vw !important;
+    height: 100vh !important;
+    max-width: none !important;
+    margin: 0 !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    /* IMPORTANT: do NOT reset aspect-ratio to auto here — the page
+       itself is dictated by the @page A4 size, and we want the inner
+       stage to stay 16:9. */
+    aspect-ratio: auto !important;
+    break-after: page;
+    page-break-after: always;
+    /* Already display:flex from base rule — keep centering. */
+  }
+  /* Stage scales to fit the A4 landscape sheet. The min() picks the
+     binding dimension: on A4 landscape the height is the limit, so
+     the stage becomes (height × 16/9) wide with horizontal letterbox
+     space evenly split. If a printer ever applies a portrait sheet
+     (shouldn't, given @page rule), the width-bound branch kicks in
+     and we letterbox top/bottom instead. */
+  .handout-stage {
+    width: min(100%, calc(100vh * 16 / 9)) !important;
+    height: min(100%, calc(100vw * 9 / 16)) !important;
+  }
+  /* Last page: don't add a trailing blank. */
+  .handout-page:last-child {
+    break-after: auto;
+    page-break-after: auto;
+  }
+  /* Keep the page-number footer in the export — it's useful for handouts. */
+  .handout-page-footer,
+  .handout-page-footer-bar { display: flex !important; }
+}
+
+/* ============================================================
+   v0.123 — CMYK-safe export filter
+   ------------------------------------------------------------
+   When the handout route is opened with `?cmyk=1`, the root element
+   gets `data-export-cmyk="true"`. We apply a CSS filter chain that
+   approximates the print gamut (offset CMYK is ~70% the volume of
+   sRGB): saturation drop + slight contrast lift + a hue nudge to
+   pull cyans away from the unprintable corner. Visual approximation
+   only — true ICC conversion needs Acrobat Pro or a server-side
+   Ghostscript pass. The banner in HandoutPage explains this.
+   ============================================================ */
+html[data-export-cmyk="true"] .handout-stage {
+  filter: saturate(0.86) contrast(1.04) hue-rotate(-2deg);
+}
+@media print {
+  html[data-export-cmyk="true"] .handout-stage {
+    filter: saturate(0.86) contrast(1.04) hue-rotate(-2deg);
+  }
+}
+
+/* ============================================================
+   v0.169 — Generic slide utility classes + layout grid presets
+   ------------------------------------------------------------
+   Borrowed (the GENERIC parts only) from an external "presentation
+   design system" doc and remapped onto OUR tokens — never raw hex.
+   These are the building blocks for the new TableSlide,
+   CodeBlockSlide, BoxDiagramSlide, and LayoutSlide types.
+
+   Per-theme font swaps come from `--preset-display-font`,
+   `--preset-body-font`, `--preset-mono-font`, written by
+   `applyTheme()` in `src/slides/themes.ts`. When a theme omits a
+   font override, the fallback in each `var(...)` keeps house style
+   (Ubuntu / Inter / "JetBrains Mono") intact.
+   ============================================================ */
+
+@layer components {
+  /* --- Generic surface card. Default container for any block of content. --- */
+  .slide-card {
+    background: hsl(var(--surface-1));
+    border: 1px solid hsl(var(--border));
+    border-radius: 1.25rem;
+    box-shadow: 0 8px 24px -12px hsl(0 0% 0% / 0.45);
+    padding: 2rem;
+  }
+  .slide-card.is-success { border-color: hsl(152 60% 40% / 0.55); }
+  .slide-card.is-danger  { border-color: hsl(var(--destructive) / 0.55); }
+  .slide-card.is-accent  { border-color: hsl(var(--gold) / 0.55); }
+
+  /* --- Generic data table. Themed header row, alt-row striping. --- */
+  .slide-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    border: 1px solid hsl(var(--border));
+    border-radius: 1rem;
+    overflow: hidden;
+    font-family: var(--preset-body-font, 'Inter', sans-serif);
+  }
+  .slide-table thead th {
+    background: hsl(var(--surface-3));
+    color: hsl(var(--cream));
+    text-align: left;
+    padding: 1rem 1.25rem;
+    font-family: var(--preset-display-font, 'Ubuntu', 'Inter', sans-serif);
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    font-size: 1.125rem;
+    border-bottom: 1px solid hsl(var(--border));
+  }
+  .slide-table tbody td {
+    padding: 0.875rem 1.25rem;
+    border-bottom: 1px solid hsl(var(--border) / 0.6);
+    color: hsl(var(--foreground));
+    font-size: 1rem;
+    line-height: 1.45;
+  }
+  .slide-table tbody tr:nth-child(even) td { background: hsl(var(--surface-2) / 0.55); }
+  .slide-table tbody tr:last-child td      { border-bottom: 0; }
+  /* Optional left-edge accent bar — pair with `data-accent` on <td>. */
+  .slide-table td[data-accent] {
+    box-shadow: inset 4px 0 0 0 var(--row-accent, hsl(var(--gold)));
+  }
+
+  /* --- Generic code block. Dark surface, mono font, hand-colored or
+         shiki-rendered tokens (see CodeBlockSlide). --- */
+  .slide-codeblock {
+    background: hsl(var(--ink));
+    color: hsl(var(--cream));
+    border: 1px solid hsl(var(--border));
+    border-radius: 1rem;
+    padding: 1.5rem 1.75rem;
+    font-family: var(--preset-mono-font, 'JetBrains Mono', ui-monospace, monospace);
+    font-size: 1.125rem;
+    line-height: 1.55;
+    overflow: hidden;
+    white-space: pre;
+  }
+  .slide-codeblock .tok-keyword { color: hsl(var(--gold)); }
+  .slide-codeblock .tok-literal { color: hsl(var(--ember)); }
+  .slide-codeblock .tok-comment { color: hsl(var(--muted-foreground)); font-style: italic; }
+  /* shiki overrides — let our tokens win against the bundled theme. */
+  .slide-codeblock pre { margin: 0; background: transparent !important; font-family: inherit !important; }
+  .slide-codeblock code { font-family: inherit !important; }
+
+  /* v0.180 — copy button + line emphasis chrome.
+     The wrapper is `position: relative` so the copy button can anchor
+     top-right without a custom flex shell at the call-site. */
+  .slide-codeblock-wrap { position: relative; }
+
+  .slide-codeblock-copy {
+    position: absolute;
+    top: 0.75rem;
+    right: 0.85rem;
+    z-index: 2;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.4rem 0.7rem;
+    border-radius: 0.55rem;
+    border: 1px solid hsl(var(--border) / 0.7);
+    background: hsl(var(--surface-2) / 0.85);
+    color: hsl(var(--cream));
+    font-family: var(--preset-display-font, 'Ubuntu', 'Inter', sans-serif);
+    font-size: 0.78rem;
+    letter-spacing: 0.02em;
+    backdrop-filter: blur(6px);
+    cursor: pointer;
+    transition: background 180ms var(--transition-smooth), border-color 180ms var(--transition-smooth);
+  }
+  .slide-codeblock-copy:hover {
+    background: hsl(var(--surface-3));
+    border-color: hsl(var(--gold) / 0.55);
+  }
+
+  /* Line wrapper — needed for both the gutter and the emphasis backdrop.
+     `display: block` so the row spans the full width of the code block. */
+  .slide-codeblock-line {
+    display: block;
+    padding: 0.05rem 0.25rem 0.05rem 0;
+    border-radius: 0.35rem;
+    transition: background-color 240ms var(--transition-smooth);
+  }
+  /* Steady-state highlight after the pulse animation lands. Gold tint pulled
+     down to 0.14 alpha so it reads as "this line matters" without competing
+     with the active token colors. */
+  .slide-codeblock-line[data-emphasised] {
+    background: hsl(var(--gold) / 0.14);
+    box-shadow: inset 3px 0 0 0 hsl(var(--gold) / 0.85);
+  }
+
+  .slide-codeblock-gutter {
+    display: inline-block;
+    width: 2.2ch;
+    margin-right: 1rem;
+    text-align: right;
+    color: hsl(var(--muted-foreground) / 0.65);
+    user-select: none;
+    font-variant-numeric: tabular-nums;
+  }
+  .slide-codeblock-line[data-emphasised] .slide-codeblock-gutter {
+    color: hsl(var(--gold));
+  }
+  .slide-codeblock-line-body { white-space: pre; }
+
+  /* --- Layout grid presets. Used by LayoutSlide via `layout` prop AND
+         by the deck-wide `gridPreset` wrapper SlideStage applies on any
+         slide type. All presets read the same `--slide-grid-*` spacing
+         tokens defined in `:root` so designers get consistent gutter and
+         padding across every preset and every slide type. --- */
+  .slide-grid-5-7        { display: grid; grid-template-columns: 5fr 7fr; gap: var(--slide-grid-gutter); }
+  .slide-grid-4-8        { display: grid; grid-template-columns: 4fr 8fr; gap: var(--slide-grid-gutter); }
+  .slide-grid-3-9        { display: grid; grid-template-columns: 3fr 9fr; gap: var(--slide-grid-gutter); }
+  .slide-grid-2-equal    { display: grid; grid-template-columns: 1fr 1fr;  gap: var(--slide-grid-gutter); }
+  .slide-grid-3-panel    { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: var(--slide-grid-gutter); }
+  .slide-grid-12-column  {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    gap: var(--slide-grid-gutter);
+  }
+  .slide-grid-card-2x3   { display: grid; grid-template-columns: 1fr 1fr;        gap: calc(var(--slide-grid-gutter) - 0.5rem); }
+  .slide-grid-card-3x3   { display: grid; grid-template-columns: 1fr 1fr 1fr;    gap: calc(var(--slide-grid-gutter) - 0.5rem); }
+  .slide-grid-centered   { display: flex; flex-direction: column; align-items: center; justify-content: center; }
+
+  /* Stage-level wrapper applied by SlideStage when a slide opts in via
+     `content.gridPreset`. Just enforces the shared horizontal/vertical
+     padding tokens; the actual grid layout comes from the chained
+     `.slide-grid-*` class. We use `min-height: 100%` (not `height`) so a
+     slide body that happens to be its own absolute-positioned scene
+     (e.g. TitleSlide) still gets the consistent edge padding without
+     cutting off existing internal scrolling/overflow logic. */
+  .slide-grid-wrapper {
+    width: 100%;
+    min-height: 100%;
+    padding-left:  var(--slide-grid-padding-x);
+    padding-right: var(--slide-grid-padding-x);
+    padding-top:    var(--slide-grid-padding-y);
+    padding-bottom: var(--slide-grid-padding-y);
+    box-sizing: border-box;
+  }
+}
+
+/* ============================================================
+   Deck-wide Tailwind type-scale bump (v0.220)
+   ------------------------------------------------------------
+   User feedback: after FitStage scales the 1920×1080 canvas to
+   typical viewports (~0.55x), Tailwind text-* utilities used
+   inside slide components read too small. We bump every text-*
+   utility by ~18% via HONEST font-size declarations (no CSS
+   transform scaling) so glyphs stay crisp through the FitStage
+   scale. Scoped to [data-fit-stage="true"] so the controller,
+   menus, and any non-stage UI keep their original sizing.
+
+   Multiplier = 1.18. Line-heights tuned to maintain visual
+   rhythm at the new size.
+   ============================================================ */
+[data-fit-stage="true"] .text-xs   { font-size: 0.885rem;  line-height: 1.18rem; }   /* 0.75  → 0.885  */
+[data-fit-stage="true"] .text-sm   { font-size: 1.033rem;  line-height: 1.475rem; }  /* 0.875 → 1.033  */
+[data-fit-stage="true"] .text-base { font-size: 1.18rem;   line-height: 1.77rem; }   /* 1.00  → 1.18   */
+[data-fit-stage="true"] .text-lg   { font-size: 1.328rem;  line-height: 1.918rem; }  /* 1.125 → 1.328  */
+[data-fit-stage="true"] .text-xl   { font-size: 1.475rem;  line-height: 2.065rem; }  /* 1.25  → 1.475  */
+[data-fit-stage="true"] .text-2xl  { font-size: 1.77rem;   line-height: 2.36rem; }   /* 1.5   → 1.77   */
+[data-fit-stage="true"] .text-3xl  { font-size: 2.213rem;  line-height: 2.655rem; }  /* 1.875 → 2.213  */
+[data-fit-stage="true"] .text-4xl  { font-size: 2.655rem;  line-height: 2.95rem; }   /* 2.25  → 2.655  */
+[data-fit-stage="true"] .text-5xl  { font-size: 3.54rem;   line-height: 1; }         /* 3.00  → 3.54   */
+[data-fit-stage="true"] .text-6xl  { font-size: 4.425rem;  line-height: 1; }         /* 3.75  → 4.425  */
+[data-fit-stage="true"] .text-7xl  { font-size: 5.31rem;   line-height: 1; }         /* 4.50  → 5.31   */
+[data-fit-stage="true"] .text-8xl  { font-size: 7.08rem;   line-height: 1; }         /* 6.00  → 7.08   */
+[data-fit-stage="true"] .text-9xl  { font-size: 9.44rem;   line-height: 1; }         /* 8.00  → 9.44   */
+
+/* v1.2 — Presenter webcam toggle squiggle. Fires only when camera is off
+   (data-state="off"). Long rest segments mean the wiggle pulses ~once
+   every 6s rather than constantly. See `mem://features/presenter-webcam-overlay`. */
+@keyframes presenter-cam-squiggle {
+  0%, 70%, 100% { transform: translate(0, 0) rotate(0deg); }
+  78%           { transform: translate(-1px, 0) rotate(-3deg); }
+  86%           { transform: translate(1px, -1px) rotate(2.5deg); }
+  94%           { transform: translate(-0.5px, 0) rotate(-1.5deg); }
+}
+.presenter-cam-button[data-state="off"] {
+  animation: presenter-cam-squiggle 6s ease-in-out infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .presenter-cam-button[data-state="off"] { animation: none; }
+}
+:root[data-reduce-motion="true"] .presenter-cam-button[data-state="off"] {
+  animation: none;
+}
+
+/* ============================================================
+   Webcam tray "Live" dot pulse
+   ============================================================
+   Drives the small ember dot tucked into the corner of the
+   minimized webcam tray icon (PresenterWebcamOverlay.tsx, tray
+   phase). The dot breathes its opacity + glow halo so the
+   audience can see at a glance that the camera is still live
+   even though the chrome has collapsed to the 40×40 tile.
+
+   Kept subtle (opacity 1 → 0.45 → 1, soft 8–14px glow swing) so
+   it never reads as an alert. Matches the visual language of
+   the in-card "Live" dot but with a slightly slower cadence so
+   the tray icon feels calm rather than urgent.
+
+   Reduced-motion fallbacks pin the dot at full opacity with the
+   smaller glow — still legible as a live indicator without the
+   breathing motion. */
+@keyframes camTrayPulse {
+  0%, 100% {
+    opacity: 1;
+    box-shadow: 0 0 8px hsl(var(--ember) / 0.7);
+  }
+  50% {
+    opacity: 0.45;
+    box-shadow: 0 0 14px hsl(var(--ember) / 0.85);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  [style*="camTrayPulse"] {
+    animation: none !important;
+  }
+}
+
+/* Quick-jump rejection shake — used when Enter is pressed with an invalid
+   buffer (e.g. lone "0" or out-of-range). Subtle horizontal jiggle so the
+   reason text below is read instead of mistaken for a glitch. */
+@keyframes jump-reject-shake {
+  0%, 100% { transform: translateX(0); }
+  15% { transform: translateX(-6px); }
+  30% { transform: translateX(5px); }
+  45% { transform: translateX(-4px); }
+  60% { transform: translateX(3px); }
+  75% { transform: translateX(-2px); }
+}
+.animate-jump-reject {
+  animation: jump-reject-shake 0.45s ease-in-out;
+}
+@media (prefers-reduced-motion: reduce) {
+  .animate-jump-reject { animation: none !important; }
+}
+:root[data-reduce-motion="true"] .animate-jump-reject { animation: none !important; }
+
+/* Quick-jump confirm pulse — fired when Enter commits a valid in-range
+   slide. Pairs with the live thumbnail preview to give a satisfying
+   "got it" beat before the deck transitions away. */
+@keyframes jump-confirm-pulse {
+  0%   { transform: scale(1);    box-shadow: 0 0 0 0 hsl(var(--gold) / 0.55); }
+  40%  { transform: scale(1.06); box-shadow: 0 0 24px 6px hsl(var(--gold) / 0.55); }
+  100% { transform: scale(1);    box-shadow: 0 0 0 0 hsl(var(--gold) / 0); }
+}
+.animate-jump-confirm {
+  animation: jump-confirm-pulse 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+@media (prefers-reduced-motion: reduce) {
+  .animate-jump-confirm { animation: none !important; }
+}
+:root[data-reduce-motion="true"] .animate-jump-confirm { animation: none !important; }
+
+/* ============================================================
+   WCAG 2.2 AA — universal focus-visible affordance
+   ============================================================
+   Every focusable control gets a 2px gold ring with offset on
+   keyboard focus, regardless of whether the component sets a
+   custom focus style. This guarantees focus visibility (2.4.7)
+   and non-text contrast (1.4.11) across all interactive
+   surfaces — controller buttons, capsules, indicators, hotspots,
+   inputs, links. Mouse focus does NOT trigger the ring (we
+   use :focus-visible, not :focus), so the visual chrome stays
+   clean during pointer interaction.
+
+   Components that already paint their own focus state (e.g.
+   ClickReveal back-badge) opt-out via `[data-focus-skin]`. */
+:where(button, [role="button"], a, [role="link"], input, select, textarea, [tabindex]:not([tabindex="-1"]))
+  :focus-visible,
+:where(button, [role="button"], a, [role="link"], input, select, textarea, [tabindex]:not([tabindex="-1"]))
+  :is(:focus-visible) {
+  /* selector chain above intentionally scoped via :where so it
+     stays at specificity 0,0,0 — any component-level rule wins. */
+}
+button:focus-visible,
+[role="button"]:focus-visible,
+a:focus-visible,
+[role="link"]:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+[tabindex]:not([tabindex="-1"]):focus-visible {
+  outline: 2px solid hsl(var(--gold));
+  outline-offset: 2px;
+  border-radius: inherit;
+}
+/* Components that supply their own ring opt-out cleanly. */
+[data-focus-skin]:focus-visible {
+  outline: none;
+}
+
+/* ============================================================
+   Skip-to-content link (WCAG 2.4.1 Bypass Blocks)
+   Hidden until keyboard-focused, then docks top-left.
+   ============================================================ */
+.skip-to-content {
+  position: fixed;
+  top: 0.5rem;
+  left: 0.5rem;
+  z-index: 100;
+  padding: 0.55rem 1rem;
+  background: hsl(var(--gold));
+  color: hsl(var(--primary-foreground));
+  font-family: var(--font-display, 'Ubuntu'), system-ui, sans-serif;
+  font-weight: 600;
+  font-size: 0.875rem;
+  letter-spacing: 0.04em;
+  border-radius: 9999px;
+  box-shadow: 0 6px 18px -6px hsl(0 0% 0% / 0.6);
+  transform: translateY(-200%);
+  transition: transform 180ms var(--transition-smooth);
+}
+.skip-to-content:focus,
+.skip-to-content:focus-visible {
+  transform: translateY(0);
+  outline: 2px solid hsl(var(--cream));
+  outline-offset: 2px;
+}

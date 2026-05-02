@@ -1,0 +1,26 @@
+{
+  "slideNumber": 18,
+  "slideName": "box-diagram",
+  "slideType": "BoxDiagramSlide",
+  "transition": "FadeIn",
+  "textAnimation": "Stagger",
+  "enabled": true,
+  "showBrandHeader": true,
+  "showPresenterChip": false,
+  "narrowIdea": "Four nodes. The studio's tooling spine.",
+  "content": {
+    "eyebrow": "Proof · stack",
+    "title": "Studio toolchain",
+    "diagramNodes": [
+      { "id": "spec",   "title": "Spec",     "x": 12, "y": 30, "fields": [ { "name": "JSON" }, { "name": "Markdown" }, { "name": "Zod contracts" } ] },
+      { "id": "tokens", "title": "Tokens",   "x": 38, "y": 30, "fields": [ { "name": "Color HSL" }, { "name": "Type pair" }, { "name": "Motion" } ] },
+      { "id": "build",  "title": "Build",    "x": 64, "y": 30, "fields": [ { "name": "Vite" }, { "name": "TypeScript strict" }, { "name": "Vitest" } ] },
+      { "id": "ship",   "title": "Ship",     "x": 88, "y": 30, "fields": [ { "name": "Flag · dark launch" }, { "name": "WCAG audit" }, { "name": "Friday review" } ] }
+    ],
+    "diagramEdges": [
+      { "from": "spec",   "to": "tokens" },
+      { "from": "tokens", "to": "build"  },
+      { "from": "build",  "to": "ship"   }
+    ]
+  }
+}

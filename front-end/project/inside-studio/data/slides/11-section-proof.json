@@ -1,0 +1,15 @@
+{
+  "slideNumber": 11,
+  "slideName": "section-proof",
+  "slideType": "SectionDividerSlide",
+  "transition": "PushRight",
+  "textAnimation": "SlideUp",
+  "enabled": true,
+  "showBrandHeader": true,
+  "showPresenterChip": false,
+  "narrowIdea": "Pillar III — Proof.",
+  "content": {
+    "eyebrow": "Pillar III",
+    "title": "Proof"
+  }
+}

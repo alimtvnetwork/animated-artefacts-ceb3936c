@@ -1,0 +1,650 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://riseupasia.com/spec/slides/slide.schema.json",
+  "title": "SlideSpec",
+  "description": "Per-slide JSON contract. One file per slide lives at spec/slides/{deck}/NN-name.json. JSON is the runtime source of truth.",
+  "type": "object",
+  "required": [
+    "slideNumber",
+    "slideName",
+    "slideType",
+    "transition",
+    "textAnimation",
+    "isClickReveal",
+    "showBrandHeader",
+    "showPresenterChip",
+    "content"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "slideNumber": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "Stable identity. Drives the URL (`/{slideNumber}`). Must be unique within a deck."
+    },
+    "slideName": {
+      "type": "string",
+      "pattern": "^[a-z0-9-]+$",
+      "description": "Lowercase, hyphenated. Used in the filename `NN-{slideName}.json`."
+    },
+    "slideType": {
+      "type": "string",
+      "enum": [
+        "TitleSlide",
+        "MiddleTitleSlide",
+        "KeywordSlide",
+        "CapsuleListSlide",
+        "StepTimelineSlide",
+        "FocusTimelineSlide",
+        "AdvanceStepSlide",
+        "StepsChain3DSlide",
+        "ImageSlide",
+        "QrMeetingSlide",
+        "SectionDividerSlide",
+        "MetricGridSlide"
+      ],
+      "description": "Selects the React renderer. Each type expects a different `content` shape — see slide-types catalog. `FocusTimelineSlide` and `AdvanceStepSlide` consume Next/Prev internally — see spec/slides/11-focus-timeline.md and spec/slides/18-advance-step-cinematic.md. `MetricGridSlide` renders 2-6 headline metric cells — see spec/slides/llm/22b-metric-grid-worked-example.md."
+    },
+    "transition": {
+      "type": "string",
+      "enum": ["FadeIn", "SlideIn", "PushIn", "PushLeft", "PushRight"],
+      "description": "How the slide enters/exits the stage. Vary across the deck — never repeat the same transition on three consecutive slides."
+    },
+    "textAnimation": {
+      "type": "string",
+      "enum": ["Bounce", "FadeIn", "SlideUp", "Stagger"],
+      "description": "How text/content elements appear inside the slide once mounted."
+    },
+    "enabled": {
+      "type": "boolean",
+      "default": true,
+      "description": "Per-slide kill switch. When `false` the slide is excluded from `linearSlides`, the indicator total, and click-reveal targets. Deep-links to a disabled slide redirect to the first active slide. The file stays on disk so it can be restored by flipping back to `true`."
+    },
+    "isClickReveal": {
+      "type": "boolean",
+      "default": false,
+      "description": "When `true`, the slide is hidden from linear flow and only reachable via a parent capsule click. Requires `parentSlide`."
+    },
+    "parentSlide": {
+      "type": ["integer", "null"],
+      "minimum": 1,
+      "description": "Required when `isClickReveal: true`. Pressing Next/Prev from the click-reveal returns to this slide."
+    },
+    "showBrandHeader": {
+      "type": "boolean",
+      "default": true,
+      "description": "Render the Riseup Asia logo in the top-left band (h-24)."
+    },
+    "showPresenterChip": {
+      "type": "boolean",
+      "default": true,
+      "description": "Render the presenter pill (avatar + name) in the top-right band."
+    },
+    "brandStrip": {
+      "oneOf": [
+        { "type": "boolean", "enum": [false], "description": "Hide the deck-level brand strip on this slide." },
+        { "type": "null", "description": "Hide the deck-level brand strip on this slide." },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "logoAsset":    { "type": "string", "enum": ["riseup-asia"], "default": "riseup-asia", "description": "Registered bundled logo asset. Preferred for export/import because the renderer resolves it to the built image URL." },
+            "logo":         { "type": "string", "description": "Direct image src for the primary logo. Use only for absolute/export-safe URLs; otherwise prefer `logoAsset`." },
+            "logoAlt":      { "type": "string", "description": "Alt text. Also used as the text-only fallback when no asset can resolve." },
+            "logoHeight":   { "type": "integer", "minimum": 12, "maximum": 32, "default": 22, "description": "Logo height in px. Clamped 12–32 so it never overflows the 36px strip." },
+            "logoAlign":    { "type": "string", "enum": ["left", "center", "right"], "default": "left", "description": "Horizontal position of the logo. When `right`, the tagline (if any) automatically moves to the left edge." },
+            "padding":      { "type": "string", "enum": ["tight", "cozy", "roomy"], "default": "cozy", "description": "Horizontal padding preset applied to both edges." },
+            "tagline":      { "type": "string", "description": "Tagline pill text, e.g. \"Riseup Asia LLC \u00b7 2026 Deck\". Anchored opposite the logo." },
+            "taglineTone":  { "type": "string", "enum": ["gold", "cream", "muted"], "default": "cream" },
+            "divider":      { "type": "boolean", "default": true, "description": "Hairline gold divider under the strip." },
+            "background":   { "type": "string", "enum": ["solid", "gradient", "transparent"], "default": "solid" }
+          }
+        }
+      ],
+      "description": "Per-slide override of the deck-level branded strip. Omit to inherit `deck.brandStrip`. Set to `false` (or `null`) to hide on this slide. Pass an object to replace the deck default for this slide only."
+    },
+    "ambientBackground": {
+      "oneOf": [
+        { "type": "boolean", "enum": [false], "description": "Explicitly disable the ambient layer for this slide." },
+        { "type": "string", "enum": ["devtools", "productivity", "process", "minimal"], "description": "Named ambient preset (icon set + sensible defaults). See spec 24 §6." },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "preset":   { "type": "string", "enum": ["devtools", "productivity", "process", "minimal"], "description": "Optional preset to seed icons/accents from before applying the overrides below." },
+            "count":    { "type": "integer", "minimum": 1, "maximum": 40, "description": "Icons to scatter. Default 14." },
+            "opacity":  { "type": "number", "minimum": 0, "maximum": 1, "description": "Peak per-icon opacity. Default 0.05." },
+            "drift":    { "type": "number", "minimum": 0, "maximum": 2, "description": "Drift radius. 0 = static. Default 0.4." },
+            "glow":     { "type": "boolean", "default": false, "description": "Render the soft radial amber glow above the icons." },
+            "parallax": { "type": "number", "minimum": 0, "maximum": 60, "description": "Cursor parallax max-shift in px. 0 = off. Default 18." }
+          }
+        }
+      ],
+      "description": "Opt-in ambient background layer (spec 24). String → preset name; object → preset + overrides; `false` or omitted → no ambient layer. StepTimelineSlide always renders its own ambient layer and ignores this field."
+    },
+    "titleStyle": {
+      "type": "string",
+      "enum": ["cream", "gold", "white", "gradient"],
+      "default": "cream",
+      "description": "Title color treatment. `cream` (warm off-white, default), `white` (pure white, max contrast), `gold` (solid gold-glow). `gradient` is legacy — only use it if paired with `titleShimmer: true` so motion lives on top."
+    },
+    "titleShimmer": {
+      "type": "boolean",
+      "default": false,
+      "description": "Plays a one-shot diagonal highlight sweep across the title on entrance. Use this to add motion to a solid color instead of relying on a static gradient."
+    },
+    "notes": {
+      "type": "string",
+      "description": "Speaker-only narration shown in the Presenter view (`/present`). Plain text; newlines render as paragraph breaks. Never displayed to the audience."
+    },
+    "sound": {
+      "type": "object",
+      "description": "Optional per-slide audio cue. Synthesized in-browser (no asset). See spec/slides/21-sound-system.md.",
+      "additionalProperties": false,
+      "properties": {
+        "on":     { "type": "string", "enum": ["enter", "focus", "click"], "description": "When the cue fires. AdvanceStepSlide defaults to 'focus'; others default to 'enter'." },
+        "kind":   { "type": "string", "enum": ["whoosh", "click", "pop"], "description": "Procedural synth kind. Defaults to 'whoosh'." },
+        "volume": { "type": "number", "minimum": 0, "maximum": 1, "description": "Master gain for this cue. Defaults to 0.45." },
+        "mute":   { "type": "boolean", "description": "Hard mute for this slide regardless of `on`/`kind`." }
+      }
+    },
+    "content": {
+      "type": "object",
+      "description": "Slide-type-specific payload. See `spec/slides/00-fundamentals.md` and the slide-types catalog for the shape per `slideType`.",
+      "properties": {
+        "eyebrow":      { "type": "string", "description": "Small uppercase tracker above the title." },
+        "title":        { "type": "string", "description": "Main heading. Use `\\n` for explicit line breaks." },
+        "subtitle":     { "type": "string", "description": "One-line supporting statement under the title." },
+        "keywords":     { "type": "array",  "items": { "type": "string" }, "description": "KeywordSlide — large standalone words." },
+        "capsules":     { "type": "array",  "items": { "$ref": "#/definitions/Capsule" } },
+        "steps":        { "type": "array",  "items": { "$ref": "#/definitions/Step" }, "description": "StepTimelineSlide rows." },
+        "image":        { "type": "string", "description": "ImageSlide — relative path under the deck's images/ folder." },
+        "meetingUrl":   { "type": "string", "format": "uri", "description": "QrMeetingSlide — live URL encoded into the QR. Per-slide override of `deck.meeting.url`." },
+        "qrUrl":        { "type": "string", "format": "uri", "description": "Deprecated alias for `meetingUrl`. Kept for back-compat." },
+        "qrAsset":      { "type": "string", "description": "QrMeetingSlide — registered branded-QR slug. Wins over `meetingUrl` when both are set (treated as authored brand artwork)." },
+        "meetingLabel": { "type": "string", "description": "QrMeetingSlide — human-readable URL shown next to the QR. Per-slide override of `deck.meeting.label`." },
+        "qrStyle":      { "type": "string", "enum": ["clean", "riseup-finder"], "default": "clean", "description": "QrMeetingSlide — visual treatment for the QR. `clean` = white tile + ink modules. `riseup-finder` = adds the brand red rounded finder squares + center wordmark pill (red lives only on the white card, never on the noir background). See spec/slides/12-contact-card.md." },
+        "contactRows":  { "type": "array", "items": { "$ref": "#/definitions/ContactRow" }, "description": "QrMeetingSlide contact-card layout — vertical icon+text rows next to the QR." },
+        "cta":          { "$ref": "#/definitions/ContactCta", "description": "QrMeetingSlide — primary call-to-action. When `cta.icon` is set, the button is rendered inline as a row of the contact list (Schedule a Call pattern); otherwise it sits below the list." },
+        "socials":      { "type": "array", "items": { "$ref": "#/definitions/SocialLink" }, "description": "QrMeetingSlide contact-card layout — bare social icons rendered below the CTA." },
+        "hotspots":     { "type": "array",  "items": { "$ref": "#/definitions/Hotspot" }, "description": "Free-floating clickable regions overlaid on the slide. Independent of capsules — use to make any visual element (a word in the title, a region of an image, a step in a timeline) reveal a click-reveal slide." },
+        "metrics":      { "type": "array",  "items": { "$ref": "#/definitions/Metric" }, "minItems": 2, "maxItems": 6, "description": "MetricGridSlide cells. 2-6 entries; layout auto-derives from count (2→1×2, 3→1×3, 4→2×2, 5/6→2×3)." },
+        "animations": {
+          "type": "object",
+          "additionalProperties": false,
+          "description": "Per-text-block animation overrides. Each key targets a content block. Value is either a preset name string OR an override object `{ preset, delayMs, durationMs, easing }` that pins timing so a fade-in or bounce reproduces identically across decks. See `TextAnimationOverride` in `src/slides/textAnimations.ts` for spring-channel semantics.",
+          "properties": {
+            "eyebrow":  { "$ref": "#/definitions/AnimationValue" },
+            "title":    { "$ref": "#/definitions/AnimationValue" },
+            "subtitle": { "$ref": "#/definitions/AnimationValue" },
+            "keywords": { "$ref": "#/definitions/AnimationValue" },
+            "capsules": { "$ref": "#/definitions/AnimationValue" },
+            "steps":    { "$ref": "#/definitions/AnimationValue" }
+          }
+        },
+        "stepAmbient": { "$ref": "#/definitions/AmbientLayer", "description": "StepTimelineSlide only — JSON-driven ambient icon scatter. Knobs and/or explicit positions. v0.83." },
+        "titleAmbient": { "$ref": "#/definitions/AmbientLayer", "description": "TitleSlide only — JSON-driven hero ambient. v0.83." },
+        "headerOffsetPx": { "type": "integer", "minimum": -160, "maximum": 160, "description": "StepTimelineSlide only — horizontal nudge applied ONLY to the eyebrow + title block (not steps). Positive = right, negative = left. Range [-160, 160]. v0.85." },
+        "topOffsetPx": { "type": "integer", "minimum": -160, "maximum": 160, "description": "StepTimelineSlide only — VERTICAL nudge applied ONLY to the eyebrow + title block. Vertical companion to `headerOffsetPx`. Positive = down, negative = up. Range [-160, 160]. Step rows have their own `step.topOffsetPx`. v0.144." },
+        "stepTiming": {
+          "oneOf": [
+            { "type": "string", "enum": ["instant", "snappy", "smooth", "cinematic", "dramatic"], "description": "Named step animation preset shorthand." },
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "preset": { "type": "string", "enum": ["instant", "snappy", "smooth", "cinematic", "dramatic"] },
+                "enter": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "durationMs": { "type": "integer", "minimum": 0, "maximum": 4000 },
+                    "delayMs":    { "type": "integer", "minimum": 0, "maximum": 4000 },
+                    "easing": {
+                      "oneOf": [
+                        { "type": "string", "enum": ["linear", "easeIn", "easeOut", "easeInOut", "expoIn", "expoOut", "expoInOut", "circIn", "circOut", "circInOut", "backIn", "backOut", "backInOut"] },
+                        { "type": "array", "items": { "type": "number" }, "minItems": 4, "maxItems": 4 }
+                      ]
+                    }
+                  }
+                },
+                "exit": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "durationMs": { "type": "integer", "minimum": 0, "maximum": 4000 },
+                    "delayMs":    { "type": "integer", "minimum": 0, "maximum": 4000 },
+                    "easing": {
+                      "oneOf": [
+                        { "type": "string", "enum": ["linear", "easeIn", "easeOut", "easeInOut", "expoIn", "expoOut", "expoInOut", "circIn", "circOut", "circInOut", "backIn", "backOut", "backInOut"] },
+                        { "type": "array", "items": { "type": "number" }, "minItems": 4, "maxItems": 4 }
+                      ]
+                    }
+                  }
+                },
+                "baseDelayMs": { "type": "integer", "minimum": 0, "maximum": 4000, "description": "Delay (ms) before the FIRST step row's reveal animation starts. Default 300. v0.145." },
+                "staggerMs":   { "type": "integer", "minimum": 0, "maximum": 2000, "description": "Additional delay (ms) added per row index — row `i` waits `baseDelayMs + i * staggerMs`. Default 180. Set 0 for simultaneous reveal. v0.145." }
+              }
+            }
+          ],
+          "description": "StepTimelineSlide only — slide-level enter/exit timing for every step row. String → preset shorthand; object → preset + per-direction overrides + reveal-order cadence (`baseDelayMs` / `staggerMs`). Per-step `step.enter` / `step.exit` win on top. Default 'smooth'. v0.90 — spec 49. v0.145 — order fields."
+        },
+        "transitionTiming": {
+          "type": "object",
+          "additionalProperties": false,
+          "description": "Slide-level entrance/exit timing override. The `transition` enum sets the SHAPE of the motion; this block sets the TIMING. All fields optional — omitted ones fall back to the deck-wide default (550ms, expo-out cubic [0.22, 1, 0.36, 1]). Required for blind-AI reproducibility — without this, two renderers can play the same transition at different speeds. v0.114.",
+          "properties": {
+            "durationMs": { "type": "integer", "minimum": 0, "maximum": 4000, "description": "Animation length in ms. Clamped to [0, 4000]. Default 550." },
+            "delayMs":    { "type": "integer", "minimum": 0, "maximum": 4000, "description": "Pre-animation hold in ms. Clamped to [0, 4000]. Default 0." },
+            "easing": {
+              "oneOf": [
+                { "type": "string", "enum": ["linear", "easeIn", "easeOut", "easeInOut", "expoIn", "expoOut", "expoInOut", "circIn", "circOut", "circInOut", "backIn", "backOut", "backInOut"] },
+                { "type": "array", "items": { "type": "number" }, "minItems": 4, "maxItems": 4, "description": "Cubic-bezier tuple [x1, y1, x2, y2]." }
+              ],
+              "description": "Named easing OR a cubic-bezier tuple. Default `[0.22, 1, 0.36, 1]` (expo-out)."
+            }
+          }
+        },
+        "capsuleLayout": {
+          "type": "object",
+          "additionalProperties": false,
+          "description": "CapsuleListSlide only — explicit layout knobs for the capsule row. When omitted, the slide falls back to the legacy flex-wrap auto-flow with 16px gap, opacity 1. Required for blind-AI reproducibility of label-capsule rows. v0.114. v0.146 — added rowGapPx, verticalAlign, capsuleOpacity.",
+          "properties": {
+            "columns":        { "type": "integer", "minimum": 1, "maximum": 6, "description": "When set, the row uses an equal-width CSS grid with this many columns instead of flex-wrap." },
+            "gapPx":          { "type": "integer", "minimum": 0, "maximum": 96, "description": "Column gap in px (and row gap when `rowGapPx` is omitted). Default 16." },
+            "rowGapPx":       { "type": "integer", "minimum": 0, "maximum": 96, "description": "Vertical gap between WRAPPED rows in px. Falls back to `gapPx` when omitted. v0.146." },
+            "align":          { "type": "string", "enum": ["start", "center", "end", "between"], "default": "start", "description": "Horizontal alignment within the row. `between` only meaningful with the legacy flex-wrap path." },
+            "verticalAlign":  { "type": "string", "enum": ["start", "center", "end", "stretch"], "default": "center", "description": "Cross-axis alignment of capsules within the row. v0.146." },
+            "capsuleOpacity": { "type": "number", "minimum": 0, "maximum": 1, "default": 1, "description": "Resting opacity for every capsule. Click-reveal dimming multiplies on top. Default 1. v0.146." }
+          }
+        },
+        "metricLayout": {
+          "type": "object",
+          "additionalProperties": false,
+          "description": "MetricGridSlide only — explicit grid overrides. When omitted, the grid auto-derives from `metrics.length` (2→1×2, 3→1×3, 4→2×2, 5/6→2×3) with default gaps and value sizes. v0.114.",
+          "properties": {
+            "columns":    { "type": "integer", "minimum": 1, "maximum": 6, "description": "Explicit column count." },
+            "rows":       { "type": "integer", "minimum": 1, "maximum": 6, "description": "Explicit row count." },
+            "gapXPx":     { "type": "integer", "minimum": 0, "maximum": 160, "description": "Horizontal gap between cells in px. Default 48." },
+            "gapYPx":     { "type": "integer", "minimum": 0, "maximum": 160, "description": "Vertical gap between cells in px. Default 56." },
+            "valueSize":  { "type": "string", "description": "Headline value font size — CSS clamp() string or single value (e.g. `\"7rem\"`). Default `\"clamp(4rem, 9vw, 9rem)\"`." }
+          }
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "definitions": {
+    "AmbientLayer": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "iconPool":     { "type": "array", "items": { "type": "string" }, "description": "Slugs from ambientIconRegistry (e.g. vscode, github-mark, code2)." },
+        "count":        { "type": "integer", "minimum": 1, "maximum": 40 },
+        "opacity":      { "type": "number", "minimum": 0, "maximum": 1 },
+        "drift":        { "type": "number", "minimum": 0, "maximum": 2 },
+        "parallax":     { "type": "number", "minimum": 0, "maximum": 60 },
+        "sizeRange":    { "type": "array", "items": { "type": "number" }, "minItems": 2, "maxItems": 2 },
+        "accents":      { "type": "object", "additionalProperties": { "type": "string" } },
+        "floatIndexes": { "type": "array", "items": { "type": "integer", "minimum": 0 } },
+        "glow":         { "type": "boolean" },
+        "positions": {
+          "type": "array",
+          "description": "Explicit per-icon placements. When present, replaces the seeded scatter so the layout reproduces 1:1 in any renderer.",
+          "items": {
+            "type": "object",
+            "required": ["icon", "top", "left"],
+            "additionalProperties": false,
+            "properties": {
+              "icon":   { "type": "string", "description": "Slug from ambientIconRegistry." },
+              "top":    { "type": "number", "minimum": 0, "maximum": 100 },
+              "left":   { "type": "number", "minimum": 0, "maximum": 100 },
+              "size":   { "type": "number", "minimum": 8, "maximum": 240 },
+              "accent": { "type": "string", "description": "Hex color override." },
+              "float":  { "type": "boolean" }
+            }
+          }
+        }
+      }
+    },
+    "AnimationPreset": {
+      "type": "string",
+     "enum": ["fadeIn", "slideUp", "slideInLeft", "slideInRight", "pushLeft", "pushRight", "bounce", "stagger", "cinematicCapsules", "none"],
+     "description": "Reusable text-animation preset. `fadeIn` is the safe default. `slideInLeft` / `slideInRight` enter from the side. `pushLeft` / `pushRight` are stronger versions for hero blocks. `bounce` is a springy scale-in for a single hero element. `stagger` matches `fadeIn` but signals to parent containers to space children further apart. `cinematicCapsules` is a designer-grade blur→focus + slide-up + spring overshoot intended for capsule rows. `none` skips animation entirely."
+    },
+    "AnimationValue": {
+      "oneOf": [
+        { "$ref": "#/definitions/AnimationPreset" },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["preset"],
+          "description": "Override form. Pins the preset's timing so two slides using the same preset reproduce identically. `delayMs` always applies. `durationMs` and `easing` apply to tween channels; spring channels (used by `bounce`, `cinematicCapsules`) ignore them and follow physics.",
+          "properties": {
+            "preset":     { "$ref": "#/definitions/AnimationPreset" },
+            "delayMs":    { "type": "integer", "minimum": 0, "maximum": 4000, "description": "Delay before the block animates, ms. Stacks with parent stagger." },
+            "durationMs": { "type": "integer", "minimum": 0, "maximum": 4000, "description": "Tween duration, ms. Ignored by spring channels (bounce/cinematicCapsules/titleSlide)." },
+            "easing": {
+              "oneOf": [
+                { "type": "string", "enum": ["linear", "easeIn", "easeOut", "easeInOut", "expoIn", "expoOut", "expoInOut", "circIn", "circOut", "circInOut", "backIn", "backOut", "backInOut"] },
+                { "type": "array", "items": { "type": "number" }, "minItems": 4, "maxItems": 4, "description": "Cubic-bezier control points [x1, y1, x2, y2]." }
+              ],
+              "description": "Easing curve. Replaces the preset's default."
+            }
+          }
+        }
+      ]
+    },
+    "CapsuleExpand": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "Shared inline-expand payload (spec 22 §3 / spec 26). Used by Capsule.expand, Step.expand, Hotspot.expand.",
+      "properties": {
+        "eyebrow":  { "type": "string" },
+        "title":    { "type": "string" },
+        "body":     { "type": "string" },
+        "capsules": { "type": "array", "items": { "$ref": "#/definitions/Capsule" }, "maxItems": 6 },
+        "cta": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["text"],
+          "properties": {
+            "text":               { "type": "string" },
+            "href":               { "type": "string" },
+            "onClickRevealSlide": { "type": "integer", "minimum": 1 }
+          }
+        }
+      }
+    },
+    "Hotspot": {
+      "type": "object",
+      "required": ["x", "y", "width", "height"],
+      "additionalProperties": false,
+      "description": "Free-floating click-reveal region. Must declare at least one of `revealSlide` (navigate) or `expand` (inline card). Spec 26.",
+      "properties": {
+        "revealSlide": { "type": "integer", "minimum": 1, "description": "Target slide number to navigate to on click. Optional when `expand` is set." },
+        "expand":      { "$ref": "#/definitions/CapsuleExpand", "description": "Inline expanding-card payload. When set, click opens the card on the same slide." },
+        "x":           { "type": "number", "minimum": 0, "maximum": 100, "description": "Left edge as % of stage width." },
+        "y":           { "type": "number", "minimum": 0, "maximum": 100, "description": "Top edge as % of stage height." },
+        "width":       { "type": "number", "minimum": 0, "maximum": 100, "description": "Width as % of stage width." },
+        "height":      { "type": "number", "minimum": 0, "maximum": 100, "description": "Height as % of stage height." },
+        "label":       { "type": "string", "description": "Accessible label (screen readers + tooltip)." },
+        "style":       { "type": "string", "enum": ["outline", "ghost"], "default": "ghost", "description": "`ghost` (default) is invisible until hover. `outline` shows a faint dashed box — useful while authoring." }
+      }
+    },
+    "Metric": {
+      "type": "object",
+      "required": ["value", "label"],
+      "additionalProperties": false,
+      "properties": {
+        "value":   { "type": "string", "minLength": 1, "description": "Headline value rendered huge. Free-form string so authors keep control of units / prefixes / suffixes (e.g. '$4.2M', '99.9%', '<10ms')." },
+        "label":   { "type": "string", "minLength": 1, "description": "Short label rendered under the value." },
+        "caption": { "type": "string", "description": "Optional one-line caption rendered under the label." },
+        "accent":  { "type": "string", "enum": ["gold", "ember", "cream", "ink", "outline", "violet", "teal", "rose", "sky"], "default": "gold", "description": "Accent color token applied to the value glyph." }
+      }
+    },
+    "Capsule": {
+      "type": "object",
+      "required": ["text", "color"],
+      "additionalProperties": false,
+      "properties": {
+        "text":             { "type": "string" },
+        "color":            { "type": "string", "enum": ["gold", "ember", "cream", "ink", "outline", "violet", "teal", "rose", "sky"], "description": "Solid capsule color token. v0.25 added violet/teal/rose/sky for chromatic variety on multi-capsule slides." },
+        "clickRevealSlide": { "type": "integer", "minimum": 1, "description": "Legacy: navigate to a click-reveal slide. Superseded by `expand` when both are present. See spec 22." },
+        "hoverText":        { "type": "string", "maxLength": 28, "description": "Hover label-flip target. Resting label rotates out, this rotates in. See spec 22 §2." },
+        "expand":           { "$ref": "#/definitions/CapsuleExpand", "description": "Inline expanding-card payload — see CapsuleExpand. Wins over `clickRevealSlide` when both are present." }
+      }
+    },
+    "Step": {
+      "type": "object",
+      "required": ["label", "title", "subtitle"],
+      "additionalProperties": false,
+      "properties": {
+        "label":    { "type": "string", "description": "e.g. 'Step 1'." },
+        "title":    { "type": "string" },
+        "subtitle": { "type": "string" },
+        "description": { "type": "string", "description": "Long-form copy revealed when the step is the active/focused row in StepTimeline / FocusTimeline / AdvanceStep. Optional." },
+        "capsule":  { "$ref": "#/definitions/Capsule" },
+        "revealSlide": { "type": "integer", "minimum": 1, "description": "Spec 26 — navigate-style click-reveal target. Right detail panel auto-renders an 'Open' pill when set. Pair with destination slide's `isClickReveal: true` + `parentSlide`." },
+        "expand":      { "$ref": "#/definitions/CapsuleExpand", "description": "Spec 26 — inline expanding-card payload. Wins over `revealSlide` when both are set." },
+        "revealLabel": { "type": "string", "description": "Spec 26 — override label for the auto-rendered click-reveal CTA pill (e.g. 'See discovery details'). Defaults to 'Open details' (expand) or 'Open step page' (revealSlide)." },
+        "leftOffsetPx":  { "type": "integer", "minimum": 0, "maximum": 80,  "description": "Per-step left padding (0–80) snapping the row to a guide. Triggers cinematic per-row reveal when > 0. Spec 40 §Reveal mode." },
+        "rightOffsetPx": { "type": "integer", "minimum": 0, "maximum": 160, "description": "Per-step right padding (0–160) snapping the row's right edge to a guide. Independent of leftOffsetPx; does NOT trigger reveal mode. v0.86 — spec 40 §Right-edge snap." },
+        "topOffsetPx":   { "type": "integer", "minimum": -160, "maximum": 160, "description": "Per-step VERTICAL nudge in px (range -160..+160). Positive shifts the row down, negative up. Applied as transform: translateY so neighbours keep their natural slot. v0.90 — spec 49." },
+        "enter": {
+          "type": "object",
+          "additionalProperties": false,
+          "description": "Per-step ENTER timing override. Wins over slide-level `content.stepTiming`. v0.90 — spec 49. v0.144 — `offsetPx` pins the row's enter motion distance for reproducibility.",
+          "properties": {
+            "durationMs": { "type": "integer", "minimum": 0, "maximum": 4000 },
+            "delayMs":    { "type": "integer", "minimum": 0, "maximum": 4000 },
+            "offsetPx":   { "type": "integer", "minimum": -200, "maximum": 200, "description": "Translate-Y distance the row travels during enter, px. Positive starts BELOW its slot, negative ABOVE. Overlaid on the reveal mode's X motion. Omit to use the reveal-mode default (no Y motion)." },
+            "easing": {
+              "oneOf": [
+                { "type": "string", "enum": ["linear", "easeIn", "easeOut", "easeInOut", "expoIn", "expoOut", "expoInOut", "circIn", "circOut", "circInOut", "backIn", "backOut", "backInOut"] },
+                { "type": "array", "items": { "type": "number" }, "minItems": 4, "maxItems": 4 }
+              ]
+            }
+          }
+        },
+        "exit": {
+          "type": "object",
+          "additionalProperties": false,
+          "description": "Per-step EXIT timing override. Mirrors `enter`. v0.90 — spec 49.",
+          "properties": {
+            "durationMs": { "type": "integer", "minimum": 0, "maximum": 4000 },
+            "delayMs":    { "type": "integer", "minimum": 0, "maximum": 4000 },
+            "offsetPx":   { "type": "integer", "minimum": -200, "maximum": 200, "description": "Translate-Y distance the row travels during exit, px. Positive ends BELOW its slot, negative ABOVE. Only takes effect when the row is wrapped in AnimatePresence." },
+            "easing": {
+              "oneOf": [
+                { "type": "string", "enum": ["linear", "easeIn", "easeOut", "easeInOut", "expoIn", "expoOut", "expoInOut", "circIn", "circOut", "circInOut", "backIn", "backOut", "backInOut"] },
+                { "type": "array", "items": { "type": "number" }, "minItems": 4, "maxItems": 4 }
+              ]
+            }
+          }
+        },
+        "cta": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["text"],
+          "description": "Per-step primary CTA pill rendered in the StepTimeline detail panel. Click plays the deck-wide click sound and either follows `href`, routes to `revealSlide`, or fires the deck onCta handler.",
+          "properties": {
+            "text":         { "type": "string", "description": "Visible label, e.g. \"Learn more\"." },
+            "href":         { "type": "string", "description": "Optional external URL. Opens in a new tab when set." },
+            "revealSlide":  { "type": "integer", "minimum": 1, "description": "Optional click-reveal target slide number." },
+            "variant":      { "type": "string", "enum": ["gold", "outline"], "default": "gold", "description": "Visual style." }
+          }
+        },
+        "revealMode": {
+          "type": "string",
+          "enum": ["fade", "slide", "pushLeft", "timelineLand"],
+          "description": "Per-step reveal SHAPE — independent of `enter` (which controls tempo). 'fade' = opacity only; 'slide' = legacy x:-24→0 + fade; 'pushLeft' = enter from the right (x:+24→0 + fade); 'timelineLand' = cinematic lands-onto-guide reveal (no longer requires leftOffsetPx > 0). Omit for legacy auto: leftOffsetPx>0 ⇒ timelineLand, else slide. Spec 53."
+        }
+      }
+    },
+    
+    "ContactRow": {
+      "type": "object",
+      "required": ["icon", "text"],
+      "additionalProperties": false,
+      "properties": {
+        "icon": { "type": "string", "enum": ["pin", "mail", "phone", "globe", "calendar"], "description": "Lucide icon slug rendered inside the amber-tinted tile." },
+        "text": { "type": "string", "description": "Visible text. Use `\\n` for an explicit line break (address blocks)." },
+        "href": { "type": "string", "description": "Optional link target — when present the row becomes an anchor (mailto:, tel:, https:)." }
+      }
+    },
+    "ContactCta": {
+      "type": "object",
+      "required": ["text", "href"],
+      "additionalProperties": false,
+      "properties": {
+        "text":    { "type": "string" },
+        "href":    { "type": "string" },
+        "variant": { "type": "string", "enum": ["gold", "outline"], "default": "gold" },
+        "icon":    { "type": "string", "enum": ["pin", "mail", "phone", "globe", "calendar"], "description": "When set, the button is rendered inline as a row of the contact list with this icon (Schedule a Call pattern)." }
+      }
+    },
+    "SocialLink": {
+      "type": "object",
+      "required": ["icon", "href"],
+      "additionalProperties": false,
+      "properties": {
+        "icon":  { "type": "string", "enum": ["linkedin", "mail", "github", "twitter", "globe", "facebook"] },
+        "href":  { "type": "string" },
+        "label": { "type": "string", "description": "Accessible label override; defaults to the icon name." }
+      }
+    }
+  },
+  "discriminator": { "propertyName": "slideType" },
+  "oneOf": [
+    {
+      "title": "TitleSlideVariant",
+      "properties": {
+        "slideType": { "const": "TitleSlide" },
+        "content": {
+          "type": "object",
+          "required": ["title"]
+        }
+      },
+      "required": ["slideType"]
+    },
+    {
+      "title": "MiddleTitleSlideVariant",
+      "properties": {
+        "slideType": { "const": "MiddleTitleSlide" },
+        "content": {
+          "type": "object",
+          "required": ["title"]
+        }
+      },
+      "required": ["slideType"]
+    },
+    {
+      "title": "SectionDividerSlideVariant",
+      "properties": {
+        "slideType": { "const": "SectionDividerSlide" },
+        "content": {
+          "type": "object",
+          "required": ["title"]
+        }
+      },
+      "required": ["slideType"]
+    },
+    {
+      "title": "KeywordSlideVariant",
+      "properties": {
+        "slideType": { "const": "KeywordSlide" },
+        "content": {
+          "type": "object",
+          "required": ["title", "keywords"],
+          "properties": {
+            "keywords": { "type": "array", "minItems": 3 }
+          }
+        }
+      },
+      "required": ["slideType"]
+    },
+    {
+      "title": "CapsuleListSlideVariant",
+      "properties": {
+        "slideType": { "const": "CapsuleListSlide" },
+        "content": {
+          "type": "object",
+          "required": ["title", "capsules"],
+          "properties": {
+            "capsules": { "type": "array", "minItems": 3 }
+          }
+        }
+      },
+      "required": ["slideType"]
+    },
+    {
+      "title": "StepTimelineSlideVariant",
+      "properties": {
+        "slideType": { "const": "StepTimelineSlide" },
+        "content": {
+          "type": "object",
+          "required": ["title", "steps"],
+          "properties": {
+            "steps": { "type": "array", "minItems": 3, "maxItems": 6 }
+          }
+        }
+      },
+      "required": ["slideType"]
+    },
+    {
+      "title": "FocusTimelineSlideVariant",
+      "properties": {
+        "slideType": { "const": "FocusTimelineSlide" },
+        "content": {
+          "type": "object",
+          "required": ["title", "steps"]
+        }
+      },
+      "required": ["slideType"]
+    },
+    {
+      "title": "AdvanceStepSlideVariant",
+      "properties": {
+        "slideType": { "const": "AdvanceStepSlide" },
+        "content": {
+          "type": "object",
+          "required": ["title", "steps"]
+        }
+      },
+      "required": ["slideType"]
+    },
+    {
+      "title": "StepsChain3DSlideVariant",
+      "properties": {
+        "slideType": { "const": "StepsChain3DSlide" },
+        "content": {
+          "type": "object",
+          "required": ["title", "steps"]
+        }
+      },
+      "required": ["slideType"]
+    },
+    {
+      "title": "ImageSlideVariant",
+      "properties": {
+        "slideType": { "const": "ImageSlide" },
+        "content": {
+          "type": "object",
+          "required": ["image"]
+        }
+      },
+      "required": ["slideType"]
+    },
+    {
+      "title": "QrMeetingSlideVariant",
+      "properties": {
+        "slideType": { "const": "QrMeetingSlide" },
+        "content": {
+          "type": "object",
+          "anyOf": [
+            { "required": ["meetingUrl"] },
+            { "required": ["qrUrl"] },
+            { "required": ["qrAsset"] }
+          ]
+        }
+      },
+      "required": ["slideType"]
+    },
+    {
+      "title": "MetricGridSlideVariant",
+      "properties": {
+        "slideType": { "const": "MetricGridSlide" },
+        "content": {
+          "type": "object",
+          "required": ["title", "metrics"],
+          "properties": {
+            "metrics": { "type": "array", "minItems": 2, "maxItems": 6 }
+          }
+        }
+      },
+      "required": ["slideType"]
+    }
+  ]
+}
+

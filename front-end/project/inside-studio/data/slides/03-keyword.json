@@ -1,0 +1,16 @@
+{
+  "slideNumber": 3,
+  "slideName": "keyword",
+  "slideType": "KeywordSlide",
+  "transition": "PushIn",
+  "textAnimation": "Bounce",
+  "enabled": true,
+  "showBrandHeader": true,
+  "showPresenterChip": false,
+  "narrowIdea": "Three words. Read the room.",
+  "content": {
+    "eyebrow": "What we obsess over",
+    "title": "Three words",
+    "keywords": ["Clarity", "Cadence", "Restraint"]
+  }
+}

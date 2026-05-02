@@ -1,0 +1,17 @@
+{
+  "slideNumber": 12,
+  "slideName": "image",
+  "slideType": "ImageSlide",
+  "transition": "FadeIn",
+  "textAnimation": "FadeIn",
+  "enabled": true,
+  "showBrandHeader": true,
+  "showPresenterChip": false,
+  "narrowIdea": "One image. The studio at work.",
+  "content": {
+    "eyebrow": "Studio · Friday review",
+    "title": "Where decks come alive",
+    "image": "/assets/brand/alim-presenter.png",
+    "caption": "MD ALIM UL KARIM, mid-rehearsal"
+  }
+}
