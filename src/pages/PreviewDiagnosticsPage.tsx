@@ -12,17 +12,35 @@ import {
   useSoftAssetFailures,
 } from "@/slides/loader";
 import type { CapturedError } from "@/components/RuntimeErrorOverlay";
-import rootBootRcaMd from "../../spec/22-slides-issues/01-root-boot-watchdog-rca.md?raw";
+// Eagerly load every issue/RCA markdown file in spec/22-slides-issues/.
+// `eager: true` inlines them into the bundle so the "Copy RCA + timeline"
+// button is fully synchronous. Add a new `.md` to that folder and it
+// automatically shows up in the copied report.
+const RCA_MODULES = import.meta.glob<string>(
+  "../../spec/22-slides-issues/*.md",
+  { eager: true, query: "?raw", import: "default" },
+);
 
-const RCA_DOCS: ReadonlyArray<{ path: string; title: string; body: string }> = [
-  {
-    path: "spec/22-slides-issues/01-root-boot-watchdog-rca.md",
-    title: "Root boot watchdog false blank-root on /",
-    body: rootBootRcaMd,
-  },
-];
+interface RcaDoc {
+  readonly path: string;
+  readonly slug: string;
+  readonly title: string;
+  readonly body: string;
+}
 
-const REPO_BASE_URL = "https://github.com/"; // links resolve relative to repo root in most viewers
+function deriveTitle(slug: string, body: string): string {
+  const h1 = body.match(/^#\s+(.+?)\s*$/m);
+  if (h1) return h1[1].replace(/^\d+\s*[—–-]\s*/, "");
+  return slug.replace(/^\d+-/, "").replace(/-/g, " ");
+}
+
+const RCA_DOCS: readonly RcaDoc[] = Object.entries(RCA_MODULES)
+  .map(([file, body]) => {
+    const path = file.replace(/^\.\.\/\.\.\//, "");
+    const slug = path.split("/").pop()!.replace(/\.md$/, "");
+    return { path, slug, title: deriveTitle(slug, body), body };
+  })
+  .sort((a, b) => a.slug.localeCompare(b.slug));
 
 /**
  * /preview-diagnostics (v0.191).
