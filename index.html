@@ -221,9 +221,20 @@
           if (overlayKind || document.querySelector('[data-allow-blank="true"]')) return;
           if (!isBlank()) return;
           // Cold-start grace: if main hasn't even loaded yet, the bundle is
-          // still downloading/compiling. Re-arm once instead of false-firing.
-          if (!mainLoaded && attempt < 2) {
-            marks.push({ name: "watchdog-deferred", at: Math.round(performance.now() - bootStartedAt), detail: `attempt=${attempt}` });
+          // still downloading/compiling (Lovable sandbox cold starts can take
+          // 200s+). Keep deferring indefinitely until either the bundle lands
+          // or React paints — never false-fire blank-root while the network
+          // is provably still working.
+          if (!mainLoaded) {
+            marks.push({ name: "watchdog-deferred", at: Math.round(performance.now() - bootStartedAt), detail: `attempt=${attempt} reason=main-not-loaded` });
+            window.setTimeout(() => fireWatchdog(attempt + 1), WATCHDOG_TIMEOUT_MS);
+            return;
+          }
+          // Main loaded but React still hasn't painted. Give it one more
+          // grace window before declaring blank — HMR / Suspense can stall
+          // briefly after the bundle lands.
+          if (!rendered && attempt < 3) {
+            marks.push({ name: "watchdog-deferred", at: Math.round(performance.now() - bootStartedAt), detail: `attempt=${attempt} reason=not-painted` });
             window.setTimeout(() => fireWatchdog(attempt + 1), WATCHDOG_TIMEOUT_MS);
             return;
           }
