@@ -57,6 +57,24 @@ function RouteFallback() {
   );
 }
 
+/**
+ * Signals to the index.html boot watchdog that a real route has mounted
+ * inside React. Combined with the slide-render confirmation, this makes
+ * the watchdog's blank-detection multi-signal instead of relying solely
+ * on a DOM scan of #root.
+ */
+function RouteMountBeacon() {
+  const location = useLocation();
+  useEffect(() => {
+    const w = window as unknown as {
+      __previewBoot__?: { markRouteMounted?: (path: string) => void };
+    };
+    w.__previewBoot__?.markRouteMounted?.(location.pathname + location.search);
+    document.documentElement.setAttribute("data-route-mounted", location.pathname);
+  }, [location.pathname, location.search]);
+  return null;
+}
+
 const queryClient = new QueryClient();
 
 /**
