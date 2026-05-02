@@ -1,6 +1,6 @@
 import { lazy, Suspense, useEffect } from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Navigate, Route, Routes, useLocation, useParams } from "react-router-dom";
+import { BrowserRouter, Navigate, Route, Routes, useLocation, useNavigate, useParams } from "react-router-dom";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 // Hot path: SlideDeckPage is what `/N` (the canonical deck route) renders,
@@ -44,6 +44,8 @@ import { BlankScreenFallback } from "./components/BlankScreenFallback";
 function RouteFallback() {
   return (
     <div
+      data-non-empty="true"
+      data-route-fallback="true"
       aria-hidden="true"
       style={{
         position: 'fixed',
@@ -74,6 +76,7 @@ function SlideAliasRedirect() {
 }
 
 function RootSlideQueryRedirect() {
+  const navigate = useNavigate();
   const { search } = useLocation();
   const params = new URLSearchParams(search);
   const param = params.get("slide");
@@ -84,9 +87,9 @@ function RootSlideQueryRedirect() {
   const target = `${path}${nextSearch ? `?${nextSearch}` : ""}`;
   useEffect(() => {
     if (`${window.location.pathname}${window.location.search}` !== target) {
-      window.location.replace(target);
+      navigate(target, { replace: true });
     }
-  }, [target]);
+  }, [navigate, target]);
   return <RouteFallback />;
 }
 
