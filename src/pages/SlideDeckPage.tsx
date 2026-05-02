@@ -698,7 +698,7 @@ export default function SlideDeckPage() {
     if (current !== slide.slideNumber || currentUrl !== canonical) {
       navigate(canonical, { replace: true });
     }
-  }, [slide, current, navigate, location.search]);
+  }, [slide, current, navigate, location.pathname, location.search]);
 
   // Controller hover/auto-hide
   function showController() {
