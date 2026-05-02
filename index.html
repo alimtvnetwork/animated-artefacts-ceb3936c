@@ -157,6 +157,16 @@
             marks.push({ name, at: Math.round(performance.now() - bootStartedAt), detail });
           },
           getTimeline: () => formatTimeline(),
+          getStatus: () => ({
+            mainLoaded,
+            rendered,
+            watchdogFiredAt,
+            watchdogTimeoutMs: WATCHDOG_TIMEOUT_MS,
+            elapsedMs: Math.round(performance.now() - bootStartedAt),
+            rootEmpty: rootIsEmpty(),
+            overlayKind,
+            marks: marks.slice(),
+          }),
         };
         window.addEventListener("error", (ev) => {
           if (!ev.message && !ev.error) return;
