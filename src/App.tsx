@@ -75,22 +75,18 @@ function SlideAliasRedirect() {
 
 function RootSlideQueryRedirect() {
   const { search } = useLocation();
+  const params = new URLSearchParams(search);
+  const param = params.get("slide");
+  const n = param === null ? 1 : Number(param);
+  const path = Number.isFinite(n) && n >= 1 ? `/${Math.floor(n)}` : "/1";
+  params.delete("slide");
+  const nextSearch = params.toString();
+  const target = `${path}${nextSearch ? `?${nextSearch}` : ""}`;
   useEffect(() => {
-    const param = new URLSearchParams(search).get("slide");
-    const n = param === null ? 1 : Number(param);
-    const target = Number.isFinite(n) && n >= 1 ? `/${Math.floor(n)}` : "/1";
-    if (window.location.pathname !== target || window.location.search) {
+    if (`${window.location.pathname}${window.location.search}` !== target) {
       window.location.replace(target);
     }
-  }, [search]);
-  const param = new URLSearchParams(search).get("slide");
-  if (param !== null) {
-    const n = Number(param);
-    if (Number.isFinite(n) && n >= 1) {
-      return <RouteFallback />;
-    }
-  }
-  // No `?slide=N` provided → preserve original behaviour: jump to slide 1.
+  }, [target]);
   return <RouteFallback />;
 }
 
