@@ -15,7 +15,46 @@
   </head>
 
   <body>
-    <div id="root"></div>
+    <style>
+      html, body { background: #0D0D0D; margin: 0; }
+      #root { min-height: 100vh; }
+      .boot-splash {
+        position: fixed; inset: 0; display: flex; align-items: center; justify-content: center;
+        flex-direction: column; gap: 28px; background: radial-gradient(ellipse at center, #1a1208 0%, #0D0D0D 70%);
+        color: #F0D78C; font-family: Ubuntu, system-ui, -apple-system, sans-serif;
+        z-index: 1; opacity: 1; transition: opacity .35s ease;
+      }
+      .boot-splash[data-fading="true"] { opacity: 0; pointer-events: none; }
+      .boot-splash__mark {
+        font-size: 28px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase;
+        background: linear-gradient(135deg, #C9A84C 0%, #F0D78C 50%, #C9A84C 100%);
+        -webkit-background-clip: text; background-clip: text; color: transparent;
+        animation: bootShimmer 2.4s ease-in-out infinite;
+      }
+      .boot-splash__sub { font-size: 12px; letter-spacing: .3em; color: #C9A84C99; text-transform: uppercase; font-family: Inter, system-ui, sans-serif; }
+      .boot-splash__bar { width: 180px; height: 2px; background: #C9A84C22; border-radius: 2px; overflow: hidden; }
+      .boot-splash__bar::after {
+        content: ""; display: block; width: 40%; height: 100%;
+        background: linear-gradient(90deg, transparent, #C9A84C, transparent);
+        animation: bootSlide 1.4s cubic-bezier(.4,0,.2,1) infinite;
+      }
+      .boot-splash__error { max-width: 520px; padding: 0 24px; text-align: center; color: #F0D78C; font-family: Inter, system-ui, sans-serif; }
+      .boot-splash__error h2 { margin: 0 0 12px; font-family: Ubuntu, sans-serif; font-size: 22px; color: #E85D3A; letter-spacing: .01em; }
+      .boot-splash__error p { margin: 0 0 18px; font-size: 14px; line-height: 1.6; color: #C9A84CCC; }
+      .boot-splash__error button { background: #C9A84C; color: #0D0D0D; border: 0; border-radius: 6px; padding: 10px 18px; font-weight: 700; font-family: inherit; cursor: pointer; letter-spacing: .04em; }
+      .boot-splash__error button:hover { background: #F0D78C; }
+      @keyframes bootShimmer { 0%,100% { opacity: .7; } 50% { opacity: 1; } }
+      @keyframes bootSlide { 0% { transform: translateX(-100%); } 100% { transform: translateX(350%); } }
+      @media (prefers-reduced-motion: reduce) {
+        .boot-splash__mark { animation: none; }
+        .boot-splash__bar::after { animation: none; width: 100%; opacity: .6; }
+      }
+    </style>
+    <div id="root"><div class="boot-splash" data-non-empty="true" id="__boot_splash__">
+      <div class="boot-splash__mark">Riseup Asia</div>
+      <div class="boot-splash__bar" aria-hidden="true"></div>
+      <div class="boot-splash__sub">Loading presentation</div>
+    </div></div>
     <script>
       (() => {
         const KEY = "__runtimeErrors__";
