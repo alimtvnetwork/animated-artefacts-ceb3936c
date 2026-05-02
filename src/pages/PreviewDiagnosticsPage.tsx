@@ -432,7 +432,7 @@ function Section({ title, children }: { title: string; children: React.ReactNode
       </div>
     </section>
   );
-});
+}
 
 function KeyValueGrid({ entries }: { entries: ReadonlyArray<[string, unknown]> }) {
   return (
