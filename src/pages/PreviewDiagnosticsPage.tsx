@@ -280,6 +280,10 @@ export default function PreviewDiagnosticsPage(): JSX.Element {
           </div>
         </header>
 
+        <Section title="Live boot status">
+          <BootStatusPanel status={bootStatus} route={location.pathname + location.search} />
+        </Section>
+
         <Section title="Bundle status">
           <KeyValueGrid entries={Object.entries(bundle)} />
         </Section>
