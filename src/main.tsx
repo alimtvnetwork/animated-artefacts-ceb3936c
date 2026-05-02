@@ -102,6 +102,11 @@ function renderFatalAssetError(err: Error): void {
 // hundred ms; the asset audit still runs and, if it fails in strict mode,
 // REPLACES the React tree with the fatal overlay.
 createRoot(rootEl).render(<App />);
+// Signal first React commit so the index.html boot watchdog stands down
+// even if asset audits / preloads are still mid-flight.
+queueMicrotask(() => {
+  requestAnimationFrame(() => previewBoot?.markRendered?.());
+});
 
 const fileCheck: Promise<unknown> = useSoftAssetFailures
   ? reportDeclaredAssetFiles(deck)
