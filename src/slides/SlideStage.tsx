@@ -219,7 +219,7 @@ export const SlideStage = forwardRef<FocusTimelineHandle, Props>(function SlideS
     // When speed === 1 we omit the override so we don't shadow per-component
     // transition configs (each child still wins on its own duration tuning).
     <MotionConfig transition={speed === 1 ? undefined : { duration: 0.5 / speed }}>
-    <div className="relative h-full w-full overflow-hidden noise">
+    <div className="relative h-full w-full overflow-hidden noise" data-slide-stage="true" data-non-empty="true">
       {showStageAmbient && <div aria-hidden="true" className={ambientClass} />}
       {ambient && (
         <AmbientBackground

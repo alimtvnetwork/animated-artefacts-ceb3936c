@@ -210,6 +210,16 @@ export default function SlideDeckPage() {
     };
   }, [current]);
 
+  // Confirm to index.html boot watchdog that an actual slide has rendered.
+  // Combined with the route-mount beacon and DOM heuristics, this stops
+  // false-positive blank-root reports when the deck is healthy.
+  useEffect(() => {
+    const w = window as unknown as {
+      __previewBoot__?: { markSlideRendered?: (id: string) => void };
+    };
+    w.__previewBoot__?.markSlideRendered?.(String(current));
+  }, [current]);
+
 
   // Resolve the requested slide; if it's missing OR disabled, fall back to the first active slide.
   const slide = useMemo(() => {

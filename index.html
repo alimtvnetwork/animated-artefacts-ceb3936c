@@ -48,6 +48,10 @@
         let overlayKind = null;
         let mainLoaded = false;
         let rendered = false;
+        let routeMounted = false;
+        let routeMountedPath = null;
+        let slideRendered = false;
+        let slideRenderedId = null;
         let watchdogFiredAt = null;
         const WATCHDOG_TIMEOUT_MS = 8000;
         const bootStartedAt = performance.now();
@@ -88,12 +92,43 @@
           if (err.stack) console.error(`[runtime-error ${err.correlationId}] stack:\n${err.stack}`);
           render(err, false);
         };
-        const rootIsEmpty = () => {
+
+        // Stronger blank detection — combines:
+        //   1. DOM presence: meaningful nodes inside #root (text or media)
+        //   2. Explicit non-empty markers: [data-non-empty]
+        //   3. Route mount confirmation: [data-route-mounted] or markRouteMounted()
+        //   4. Slide render confirmation: [data-slide-stage] / [data-slide-rendered]
+        //      or markSlideRendered()
+        //   5. React first-paint signal: markRendered()
+        // The watchdog only fires when ALL of these say "nothing rendered".
+        const domHasContent = () => {
           const root = document.getElementById("root");
-          if (!root) return true;
-          if ((root.textContent || "").replace(/\s+/g, "").trim().length > 0) return false;
-          return !root.querySelector("img,canvas,svg,video,iframe,[data-non-empty]");
+          if (!root) return false;
+          if ((root.textContent || "").replace(/\s+/g, "").trim().length > 0) return true;
+          return !!root.querySelector("img,canvas,svg,video,iframe,[data-non-empty]");
         };
+        const domHasRouteMount = () =>
+          !!document.querySelector("[data-route-mounted],[data-slide-stage],[data-slide-rendered]");
+        const isBlank = () => {
+          if (rendered) return false;
+          if (routeMounted) return false;
+          if (slideRendered) return false;
+          if (domHasRouteMount()) return false;
+          if (domHasContent()) return false;
+          return true;
+        };
+        const rootIsEmpty = () => !domHasContent();
+        const blankReason = () => {
+          const reasons = [];
+          if (!mainLoaded) reasons.push("main-bundle-not-loaded");
+          if (!rendered) reasons.push("react-not-painted");
+          if (!routeMounted) reasons.push("no-route-mounted");
+          if (!slideRendered) reasons.push("no-slide-rendered");
+          if (!domHasRouteMount()) reasons.push("no-route-dom-marker");
+          if (!domHasContent()) reasons.push("root-empty");
+          return reasons.join(", ") || "unknown";
+        };
+
         const css = (node, styles) => Object.assign(node.style, styles);
         const formatTimeline = () => {
           const perf = typeof performance !== "undefined" ? performance : null;
@@ -123,7 +158,7 @@
           css(title, { margin: "0 0 12px", color: blank ? "hsl(42 70% 55%)" : "hsl(14 80% 57%)", fontFamily: "Ubuntu,system-ui,sans-serif", fontSize: "24px", letterSpacing: ".01em" });
           const why = document.createElement("p");
           why.textContent = blank
-            ? (mainLoaded ? "The app module loaded, but #root stayed empty. The deck route probably returned no visible UI or is still blocked before first paint." : "The app bundle did not mount React. The most likely cause is an import-time/module-graph crash before App.tsx can render its React error overlay.")
+            ? `Blank-detection signals failed: ${blankReason()}.`
             : "This happened before or during preview boot, so the browser-level overlay painted outside React.";
           css(why, { margin: "0 0 18px", color: "hsl(42 25% 78%)" });
           const meta = document.createElement("div");
@@ -153,6 +188,16 @@
             rendered = true;
             marks.push({ name: "react-painted", at: Math.round(performance.now() - bootStartedAt), detail });
           },
+          markRouteMounted: (path) => {
+            routeMounted = true;
+            routeMountedPath = path || location.pathname;
+            marks.push({ name: "route-mounted", at: Math.round(performance.now() - bootStartedAt), detail: routeMountedPath });
+          },
+          markSlideRendered: (slideId) => {
+            slideRendered = true;
+            slideRenderedId = slideId != null ? String(slideId) : null;
+            marks.push({ name: "slide-rendered", at: Math.round(performance.now() - bootStartedAt), detail: slideRenderedId || undefined });
+          },
           mark: (name, detail) => {
             marks.push({ name, at: Math.round(performance.now() - bootStartedAt), detail });
           },
@@ -160,10 +205,16 @@
           getStatus: () => ({
             mainLoaded,
             rendered,
+            routeMounted,
+            routeMountedPath,
+            slideRendered,
+            slideRenderedId,
             watchdogFiredAt,
             watchdogTimeoutMs: WATCHDOG_TIMEOUT_MS,
             elapsedMs: Math.round(performance.now() - bootStartedAt),
             rootEmpty: rootIsEmpty(),
+            blank: isBlank(),
+            blankReason: blankReason(),
             overlayKind,
             marks: marks.slice(),
           }),
@@ -178,11 +229,11 @@
         });
         window.setTimeout(() => {
           if (overlayKind || document.querySelector('[data-allow-blank="true"]')) return;
-          if (rendered) return;
-          if (!rootIsEmpty()) return;
+          if (!isBlank()) return;
           const at = Date.now();
           watchdogFiredAt = at;
-          const err = { id: nextId++, correlationId: id(), kind: "blank-root", message: "#root is still empty after preview boot watchdog timeout.", source: "index.html boot watchdog", at, atIso: new Date(at).toISOString(), url: location.href };
+          const reason = blankReason();
+          const err = { id: nextId++, correlationId: id(), kind: "blank-root", message: `#root is still empty after preview boot watchdog timeout (signals failed: ${reason}).`, source: "index.html boot watchdog", at, atIso: new Date(at).toISOString(), url: location.href };
           window[KEY] = [...(window[KEY] || []), err];
           console.error(`[runtime-error ${err.correlationId}] blank-root: ${err.message}`);
           console.error(`[runtime-error ${err.correlationId}] boot timeline:\n${formatTimeline()}`);
@@ -190,7 +241,7 @@
         }, WATCHDOG_TIMEOUT_MS);
         new MutationObserver(() => {
           const overlay = document.querySelector('[data-runtime-error-overlay="true"]');
-          if (overlayKind === "blank" && overlay && !rootIsEmpty()) overlay.remove();
+          if (overlayKind === "blank" && overlay && !isBlank()) overlay.remove();
         }).observe(document.documentElement, { childList: true, subtree: true });
       })();
     </script>
