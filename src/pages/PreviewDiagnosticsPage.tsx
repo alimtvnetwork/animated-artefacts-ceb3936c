@@ -530,34 +530,36 @@ export default function PreviewDiagnosticsPage(): JSX.Element {
 
 // ─────────────────────────────────────────────── small primitives ───────
 
-function Section({ title, children }: { title: string; children: React.ReactNode }) {
-  return (
-    <section style={{ marginBottom: 32 }}>
-      <h2
-        className="slide-eyebrow"
-        style={{
-          margin: "0 0 12px",
-          fontSize: 12,
-          letterSpacing: "0.12em",
-          textTransform: "uppercase",
-          color: "hsl(var(--muted-foreground))",
-        }}
-      >
-        {title}
-      </h2>
-      <div
-        style={{
-          background: "hsl(var(--card))",
-          border: "1px solid hsl(var(--border))",
-          borderRadius: 10,
-          padding: 18,
-        }}
-      >
-        {children}
-      </div>
-    </section>
-  );
-}
+const Section = React.forwardRef<HTMLElement, { title: string; children: React.ReactNode }>(
+  function Section({ title, children }, ref) {
+    return (
+      <section ref={ref} style={{ marginBottom: 32 }}>
+        <h2
+          className="slide-eyebrow"
+          style={{
+            margin: "0 0 12px",
+            fontSize: 12,
+            letterSpacing: "0.12em",
+            textTransform: "uppercase",
+            color: "hsl(var(--muted-foreground))",
+          }}
+        >
+          {title}
+        </h2>
+        <div
+          style={{
+            background: "hsl(var(--card))",
+            border: "1px solid hsl(var(--border))",
+            borderRadius: 10,
+            padding: 18,
+          }}
+        >
+          {children}
+        </div>
+      </section>
+    );
+  },
+);
 
 function KeyValueGrid({ entries }: { entries: ReadonlyArray<[string, unknown]> }) {
   return (
