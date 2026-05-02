@@ -136,6 +136,7 @@ const App = () => (
       <RuntimeErrorBoundary>
       <PresenterWebcamProvider>
       <BrowserRouter>
+        <RouteMountBeacon />
         {/* Render-time diff between the live SlideStage and the
             SlidePreview (presenter / thumbnail) for the active slide.
             Activates via `?debug=brandstrip` or Ctrl/Cmd+Shift+B. Mounted
