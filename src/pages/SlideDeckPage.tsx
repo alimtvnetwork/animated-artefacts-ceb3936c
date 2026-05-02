@@ -693,22 +693,30 @@ export default function SlideDeckPage() {
     }
   }, [requested, current, navigate, location.search]);
 
-  // Re-sync URL when the resolved slide differs from `current` (out-of-range
-  // or disabled URL fell back to linearSlides[0]). Click-reveal URLs are
-  // intentionally preserved so deep links to expanded views still work.
+  // Canonicalize the URL to `/N` ONLY after the deck has confirmed it
+  // mounted the resolved slide (i.e. `current === slide.slideNumber`,
+  // which only holds after React has re-rendered with that value). We use
+  // `history.replaceState` instead of router `navigate` so the change is
+  // in-place — no redirect hop, no extra render cycle, no chance of
+  // stalling startup. Click-reveal URLs are intentionally preserved.
   useEffect(() => {
     if (!slide) return;
     if (slide.isClickReveal) return;
+    if (current !== slide.slideNumber) {
+      // Resolved slide differs from URL — sync state first; canonicalize
+      // on the next pass once React has actually mounted the new slide.
+      setCurrent(slide.slideNumber);
+      return;
+    }
     const params = new URLSearchParams(location.search);
     params.delete('slide');
     const nextSearch = params.toString();
     const canonical = `/${slide.slideNumber}${nextSearch ? `?${nextSearch}` : ''}`;
     const currentUrl = `${location.pathname}${location.search}`;
-    if (current !== slide.slideNumber) setCurrent(slide.slideNumber);
-    if (current !== slide.slideNumber || currentUrl !== canonical) {
-      navigate(canonical, { replace: true });
+    if (currentUrl !== canonical) {
+      window.history.replaceState(window.history.state, '', canonical);
     }
-  }, [slide, current, navigate, location.pathname, location.search]);
+  }, [slide, current, location.pathname, location.search]);
 
   // Controller hover/auto-hide
   function showController() {
