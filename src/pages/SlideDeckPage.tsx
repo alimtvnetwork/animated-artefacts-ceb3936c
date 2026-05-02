@@ -34,7 +34,10 @@ export default function SlideDeckPage() {
   const location = useLocation();
   // v0.230 — webcam ctx for Shift+I (toggle on/off) and Shift+M (minimize).
   const webcam = usePresenterWebcam();
-  const requested = parseInt(params.slideNumber ?? '1', 10);
+  const slideParam = params.slideNumber;
+  const slideQuery = new URLSearchParams(location.search).get('slide');
+  const rawRequested = slideParam ?? slideQuery ?? '1';
+  const requested = parseInt(rawRequested, 10);
   const initial = Number.isNaN(requested) ? 1 : requested;
   // v0.124 — `?scrub=1` opens the in-deck animation scrubber on first paint.
   // Also exposed as a keyboard shortcut (Shift+S) so authors can flip it on
@@ -667,7 +670,10 @@ export default function SlideDeckPage() {
       const fallback = linearSlides[0]?.slideNumber ?? 1;
       if (fallback !== current) {
         setCurrent(fallback);
-        navigate(`/${fallback}${location.search}`, { replace: true });
+        const params = new URLSearchParams(location.search);
+        params.delete('slide');
+        const nextSearch = params.toString();
+        navigate(`/${fallback}${nextSearch ? `?${nextSearch}` : ''}`, { replace: true });
       }
       return;
     }
@@ -675,7 +681,7 @@ export default function SlideDeckPage() {
       setDirection(requested > current ? 'forward' : 'backward');
       setCurrent(requested);
     }
-  }, [requested]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [requested, current, navigate, location.search]);
 
   // Re-sync URL when the resolved slide differs from `current` (out-of-range
   // or disabled URL fell back to linearSlides[0]). Click-reveal URLs are
