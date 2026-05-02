@@ -33,7 +33,7 @@ import { ContractIssuesOverlay } from "./slides/components/ContractIssuesOverlay
 import { RuntimeImageQAOverlay } from "./slides/components/RuntimeImageQAOverlay";
 import { BrokenAssetOverlay } from "./slides/components/BrokenAssetOverlay";
 import { RuntimeErrorOverlay, RuntimeErrorBoundary } from "./components/RuntimeErrorOverlay";
-import { BlankScreenFallback } from "./components/BlankScreenFallback";
+
 
 /**
  * Lazy-route fallback. Token-themed transparent shell so the brief
@@ -106,10 +106,9 @@ const App = () => (
           never silently goes blank. Mounted FIRST so it paints over
           everything else. Opt-out: `?errorOverlay=off`. */}
       <RuntimeErrorOverlay />
-      {/* v0.190 — friendly empty-state when the route mounts but
-          renders nothing visible. Yields to RuntimeErrorOverlay when
-          a real error is captured. Opt-out: `?blankFallback=off`. */}
-      <BlankScreenFallback />
+      {/* Friendly blank-screen fallback removed per design: no
+          loading/holding screen should appear. If the bundle truly
+          fails, the index.html watchdog renders the error report. */}
       {/* Boot-time audit receipt: lists every BrandStrip field stripped from
           localStorage / bundled manifests so the user can verify the
           root-cause fix actually ran. Renders nothing when nothing was
