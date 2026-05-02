@@ -161,9 +161,10 @@ export const availableDeckSlugs: readonly string[] = Object.freeze(
  *  `'showcase'` (the canonical demo deck). Unknown slugs also fall back so
  *  a typo never prevents boot. */
 function resolveActiveSlug(): string {
-  const fallback = bundledDecks.has('showcase')
-    ? 'showcase'
-    : (availableDeckSlugs[0] ?? 'showcase');
+  const preferred = 'session-4-ai-coding';
+  const fallback = bundledDecks.has(preferred)
+    ? preferred
+    : (bundledDecks.has('showcase') ? 'showcase' : (availableDeckSlugs[0] ?? 'showcase'));
   if (typeof window === 'undefined') return fallback;
   try {
     const requested = new URLSearchParams(window.location.search).get('deck');
