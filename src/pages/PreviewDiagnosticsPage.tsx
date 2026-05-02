@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import {
   activeDeckSlug,
   availableDeckSlugs,
@@ -75,15 +75,49 @@ function formatBytes(n: number): string {
   return `${(n / 1024 / 1024).toFixed(2)} MB`;
 }
 
+interface BootMark {
+  readonly name: string;
+  readonly at: number;
+  readonly detail?: string;
+}
+interface BootStatus {
+  readonly mainLoaded: boolean;
+  readonly rendered: boolean;
+  readonly watchdogFiredAt: number | null;
+  readonly watchdogTimeoutMs: number;
+  readonly elapsedMs: number;
+  readonly rootEmpty: boolean;
+  readonly overlayKind: "blank" | "error" | null;
+  readonly marks: readonly BootMark[];
+}
+
+function getBootStatus(): BootStatus | null {
+  if (typeof window === "undefined") return null;
+  const w = window as unknown as { __previewBoot__?: { getStatus?: () => BootStatus } };
+  const fn = w.__previewBoot__?.getStatus;
+  return typeof fn === "function" ? fn() : null;
+}
+
+function derivePhase(s: BootStatus | null): { label: string; tone: "ok" | "warn" | "info" | "err" } {
+  if (!s) return { label: "Boot API unavailable", tone: "warn" };
+  if (s.watchdogFiredAt) return { label: "Watchdog fired (blank-root)", tone: "err" };
+  if (s.rendered) return { label: "React painted ✓", tone: "ok" };
+  if (s.mainLoaded) return { label: "Bundle loaded · waiting for first paint", tone: "info" };
+  return { label: "Booting · loading bundle", tone: "info" };
+}
+
 export default function PreviewDiagnosticsPage(): JSX.Element {
   const [tick, setTick] = useState(0);
   const [now, setNow] = useState(() => new Date());
+  const [bootStatus, setBootStatus] = useState<BootStatus | null>(() => getBootStatus());
+  const location = useLocation();
 
   useEffect(() => {
     document.title = "Preview diagnostics · Riseup Asia";
     const id = window.setInterval(() => {
       setNow(new Date());
-    }, 1000);
+      setBootStatus(getBootStatus());
+    }, 500);
     return () => window.clearInterval(id);
   }, []);
 
@@ -245,6 +279,10 @@ export default function PreviewDiagnosticsPage(): JSX.Element {
             </button>
           </div>
         </header>
+
+        <Section title="Live boot status">
+          <BootStatusPanel status={bootStatus} route={location.pathname + location.search} />
+        </Section>
 
         <Section title="Bundle status">
           <KeyValueGrid entries={Object.entries(bundle)} />
@@ -573,3 +611,74 @@ const correlationPill: React.CSSProperties = {
   fontSize: 11,
   letterSpacing: "0.06em",
 };
+
+function BootStatusPanel({ status, route }: { status: BootStatus | null; route: string }) {
+  const phase = derivePhase(status);
+  const toneColor =
+    phase.tone === "ok" ? "hsl(140 60% 55%)"
+    : phase.tone === "err" ? "hsl(14 80% 60%)"
+    : phase.tone === "warn" ? "hsl(42 70% 55%)"
+    : "hsl(200 70% 65%)";
+  const elapsed = status ? `${status.elapsedMs} ms` : "—";
+  const watchdog = status
+    ? status.watchdogFiredAt
+      ? `fired @ ${new Date(status.watchdogFiredAt).toLocaleTimeString()}`
+      : status.rendered
+        ? "stood down (React painted)"
+        : `armed · ${Math.max(0, status.watchdogTimeoutMs - status.elapsedMs)} ms remaining`
+    : "—";
+
+  const entries: Array<[string, unknown]> = [
+    ["phase", phase.label],
+    ["mountedRoute", route],
+    ["elapsedSinceBoot", elapsed],
+    ["mainLoaded", status?.mainLoaded ?? "—"],
+    ["reactPainted", status?.rendered ?? "—"],
+    ["rootEmpty", status?.rootEmpty ?? "—"],
+    ["overlayKind", status?.overlayKind ?? "none"],
+    ["watchdog", watchdog],
+  ];
+
+  return (
+    <div>
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          gap: 10,
+          marginBottom: 14,
+          padding: "8px 12px",
+          borderRadius: 6,
+          border: `1px solid ${toneColor}`,
+          background: "hsl(0 0% 5%)",
+        }}
+      >
+        <span
+          style={{
+            width: 10,
+            height: 10,
+            borderRadius: "50%",
+            background: toneColor,
+            boxShadow: `0 0 8px ${toneColor}`,
+          }}
+        />
+        <span style={{ fontWeight: 600, fontSize: 14 }}>{phase.label}</span>
+        <span style={{ marginLeft: "auto", fontSize: 12, color: "hsl(var(--muted-foreground))", fontFamily: "ui-monospace, Menlo, monospace" }}>
+          updates every 500 ms
+        </span>
+      </div>
+      <KeyValueGrid entries={entries} />
+      {status && status.marks.length > 0 && (
+        <>
+          <div style={{ height: 12 }} />
+          <SubLabel>Boot timeline ({status.marks.length} marks)</SubLabel>
+          <pre style={preStyle}>
+            {status.marks
+              .map((m) => `${String(m.at).padStart(5, " ")} ms  ${m.name}${m.detail ? ` — ${m.detail}` : ""}`)
+              .join("\n")}
+          </pre>
+        </>
+      )}
+    </div>
+  );
+}
