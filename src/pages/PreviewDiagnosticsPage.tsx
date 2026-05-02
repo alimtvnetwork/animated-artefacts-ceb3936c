@@ -75,15 +75,49 @@ function formatBytes(n: number): string {
   return `${(n / 1024 / 1024).toFixed(2)} MB`;
 }
 
+interface BootMark {
+  readonly name: string;
+  readonly at: number;
+  readonly detail?: string;
+}
+interface BootStatus {
+  readonly mainLoaded: boolean;
+  readonly rendered: boolean;
+  readonly watchdogFiredAt: number | null;
+  readonly watchdogTimeoutMs: number;
+  readonly elapsedMs: number;
+  readonly rootEmpty: boolean;
+  readonly overlayKind: "blank" | "error" | null;
+  readonly marks: readonly BootMark[];
+}
+
+function getBootStatus(): BootStatus | null {
+  if (typeof window === "undefined") return null;
+  const w = window as unknown as { __previewBoot__?: { getStatus?: () => BootStatus } };
+  const fn = w.__previewBoot__?.getStatus;
+  return typeof fn === "function" ? fn() : null;
+}
+
+function derivePhase(s: BootStatus | null): { label: string; tone: "ok" | "warn" | "info" | "err" } {
+  if (!s) return { label: "Boot API unavailable", tone: "warn" };
+  if (s.watchdogFiredAt) return { label: "Watchdog fired (blank-root)", tone: "err" };
+  if (s.rendered) return { label: "React painted ✓", tone: "ok" };
+  if (s.mainLoaded) return { label: "Bundle loaded · waiting for first paint", tone: "info" };
+  return { label: "Booting · loading bundle", tone: "info" };
+}
+
 export default function PreviewDiagnosticsPage(): JSX.Element {
   const [tick, setTick] = useState(0);
   const [now, setNow] = useState(() => new Date());
+  const [bootStatus, setBootStatus] = useState<BootStatus | null>(() => getBootStatus());
+  const location = useLocation();
 
   useEffect(() => {
     document.title = "Preview diagnostics · Riseup Asia";
     const id = window.setInterval(() => {
       setNow(new Date());
-    }, 1000);
+      setBootStatus(getBootStatus());
+    }, 500);
     return () => window.clearInterval(id);
   }, []);
 
