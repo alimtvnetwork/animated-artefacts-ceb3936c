@@ -12,6 +12,17 @@ import {
   useSoftAssetFailures,
 } from "@/slides/loader";
 import type { CapturedError } from "@/components/RuntimeErrorOverlay";
+import rootBootRcaMd from "../../spec/22-slides-issues/01-root-boot-watchdog-rca.md?raw";
+
+const RCA_DOCS: ReadonlyArray<{ path: string; title: string; body: string }> = [
+  {
+    path: "spec/22-slides-issues/01-root-boot-watchdog-rca.md",
+    title: "Root boot watchdog false blank-root on /",
+    body: rootBootRcaMd,
+  },
+];
+
+const REPO_BASE_URL = "https://github.com/"; // links resolve relative to repo root in most viewers
 
 /**
  * /preview-diagnostics (v0.191).
