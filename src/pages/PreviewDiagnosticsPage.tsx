@@ -589,25 +589,28 @@ function KeyValueGrid({ entries }: { entries: ReadonlyArray<[string, unknown]> }
   );
 }
 
-function Callout({ tone, children }: { tone: "ok" | "warn" | "info"; children: React.ReactNode }) {
-  const accent =
-    tone === "ok" ? "hsl(140 50% 50%)" : tone === "warn" ? "hsl(38 70% 55%)" : "hsl(200 70% 60%)";
-  return (
-    <div
-      style={{
-        marginTop: 14,
-        padding: "10px 14px",
-        background: "hsl(0 0% 6% / 0.4)",
-        border: `1px solid ${accent}`,
-        borderRadius: 6,
-        fontSize: 13,
-        color: "hsl(var(--foreground))",
-      }}
-    >
-      {children}
-    </div>
-  );
-}
+const Callout = React.forwardRef<HTMLDivElement, { tone: "ok" | "warn" | "info"; children: React.ReactNode }>(
+  function Callout({ tone, children }, ref) {
+    const accent =
+      tone === "ok" ? "hsl(140 50% 50%)" : tone === "warn" ? "hsl(38 70% 55%)" : "hsl(200 70% 60%)";
+    return (
+      <div
+        ref={ref}
+        style={{
+          marginTop: 14,
+          padding: "10px 14px",
+          background: "hsl(0 0% 6% / 0.4)",
+          border: `1px solid ${accent}`,
+          borderRadius: 6,
+          fontSize: 13,
+          color: "hsl(var(--foreground))",
+        }}
+      >
+        {children}
+      </div>
+    );
+  },
+);
 
 function SubLabel({ children }: { children: React.ReactNode }) {
   return (
