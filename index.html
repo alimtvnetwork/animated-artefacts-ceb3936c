@@ -48,6 +48,8 @@
         let overlayKind = null;
         let mainLoaded = false;
         let rendered = false;
+        let watchdogFiredAt = null;
+        const WATCHDOG_TIMEOUT_MS = 8000;
         const bootStartedAt = performance.now();
         const marks = [{ name: "script-start", at: 0, detail: `path=${location.pathname}` }];
 
