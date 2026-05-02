@@ -30,6 +30,9 @@
         let nextId = 1;
         let overlayKind = null;
         let mainLoaded = false;
+        let rendered = false;
+        const bootStartedAt = performance.now();
+        const marks = [{ name: "script-start", at: 0, detail: `path=${location.pathname}` }];
 
         const id = () => "err_" + Array.from({ length: 6 }, () => alphabet[Math.floor(Math.random() * alphabet.length)]).join("");
         const asText = (value) => {
@@ -73,6 +76,18 @@
           return !root.querySelector("img,canvas,svg,video,iframe,[data-non-empty]");
         };
         const css = (node, styles) => Object.assign(node.style, styles);
+        const formatTimeline = () => {
+          const perf = typeof performance !== "undefined" ? performance : null;
+          const paints = perf?.getEntriesByType?.("paint") || [];
+          const rows = marks.map((entry) => {
+            const suffix = entry.detail ? ` — ${entry.detail}` : "";
+            return `${String(entry.at).padStart(5, " ")} ms  ${entry.name}${suffix}`;
+          });
+          for (const paint of paints) {
+            rows.push(`${String(Math.round(paint.startTime)).padStart(5, " ")} ms  paint:${paint.name}`);
+          }
+          return rows.join("\n");
+        };
         const render = (err, blank) => {
           if (new URLSearchParams(location.search).get("errorOverlay") === "off") return;
           if (document.querySelector('[data-runtime-error-overlay="true"]')) return;
@@ -98,16 +113,32 @@
           const msg = document.createElement("pre");
           msg.textContent = `${err.message}${err.stack ? "\n\n" + err.stack : ""}`;
           css(msg, { whiteSpace: "pre-wrap", wordBreak: "break-word", margin: "0 0 18px", padding: "16px", border: "1px solid hsl(14 80% 57% / .55)", borderRadius: "6px", background: "hsl(0 0% 6%)", color: "hsl(42 25% 84%)", maxHeight: "55vh", overflow: "auto" });
+          const timeline = document.createElement("pre");
+          timeline.textContent = `Boot timeline\n${formatTimeline()}`;
+          css(timeline, { whiteSpace: "pre-wrap", wordBreak: "break-word", margin: "0 0 18px", padding: "16px", border: "1px solid hsl(42 25% 35% / .55)", borderRadius: "6px", background: "hsl(0 0% 5%)", color: "hsl(42 25% 84%)", maxHeight: "32vh", overflow: "auto" });
           const row = document.createElement("div");
           css(row, { display: "flex", gap: "10px", flexWrap: "wrap" });
           const button = (label, fn) => { const b = document.createElement("button"); b.type = "button"; b.textContent = label; b.onclick = fn; css(b, { cursor: "pointer", background: "hsl(42 70% 50%)", color: "hsl(0 0% 8%)", border: "0", borderRadius: "6px", padding: "9px 14px", fontFamily: "inherit", fontWeight: "700" }); return b; };
-          row.append(button("Retry", () => location.reload()), button("Diagnostics", () => location.assign("/preview-diagnostics")), button("Copy error", () => navigator.clipboard?.writeText(JSON.stringify(err, null, 2))));
-          box.append(title, why, meta, msg, row);
+          row.append(button("Retry", () => location.reload()), button("Diagnostics", () => location.assign("/preview-diagnostics")), button("Copy error", () => navigator.clipboard?.writeText(JSON.stringify(err, null, 2))), button("Copy timeline", () => navigator.clipboard?.writeText(formatTimeline())));
+          box.append(title, why, meta, msg, timeline, row);
           wrap.append(box);
           document.body.append(wrap);
         };
 
-        window[BOOT] = { markMainLoaded: () => { mainLoaded = true; } };
+        window[BOOT] = {
+          markMainLoaded: () => {
+            mainLoaded = true;
+            marks.push({ name: "main-loaded", at: Math.round(performance.now() - bootStartedAt) });
+          },
+          markRendered: (detail) => {
+            rendered = true;
+            marks.push({ name: "react-painted", at: Math.round(performance.now() - bootStartedAt), detail });
+          },
+          mark: (name, detail) => {
+            marks.push({ name, at: Math.round(performance.now() - bootStartedAt), detail });
+          },
+          getTimeline: () => formatTimeline(),
+        };
         window.addEventListener("error", (ev) => {
           if (!ev.message && !ev.error) return;
           const source = firstFrame(stackOf(ev.error), ev.filename ? `${shortPath(ev.filename)}:${ev.lineno || "?"}:${ev.colno || "?"}` : undefined);
@@ -118,11 +149,13 @@
         });
         window.setTimeout(() => {
           if (overlayKind || document.querySelector('[data-allow-blank="true"]')) return;
+          if (rendered) return;
           if (!rootIsEmpty()) return;
           const at = Date.now();
           const err = { id: nextId++, correlationId: id(), kind: "blank-root", message: "#root is still empty after preview boot watchdog timeout.", source: "index.html boot watchdog", at, atIso: new Date(at).toISOString(), url: location.href };
           window[KEY] = [...(window[KEY] || []), err];
           console.error(`[runtime-error ${err.correlationId}] blank-root: ${err.message}`);
+          console.error(`[runtime-error ${err.correlationId}] boot timeline:\n${formatTimeline()}`);
           render(err, true);
         }, 8000);
         new MutationObserver(() => {
