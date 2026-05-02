@@ -181,12 +181,13 @@
           if (rendered) return;
           if (!rootIsEmpty()) return;
           const at = Date.now();
+          watchdogFiredAt = at;
           const err = { id: nextId++, correlationId: id(), kind: "blank-root", message: "#root is still empty after preview boot watchdog timeout.", source: "index.html boot watchdog", at, atIso: new Date(at).toISOString(), url: location.href };
           window[KEY] = [...(window[KEY] || []), err];
           console.error(`[runtime-error ${err.correlationId}] blank-root: ${err.message}`);
           console.error(`[runtime-error ${err.correlationId}] boot timeline:\n${formatTimeline()}`);
           render(err, true);
-        }, 8000);
+        }, WATCHDOG_TIMEOUT_MS);
         new MutationObserver(() => {
           const overlay = document.querySelector('[data-runtime-error-overlay="true"]');
           if (overlayKind === "blank" && overlay && !rootIsEmpty()) overlay.remove();
