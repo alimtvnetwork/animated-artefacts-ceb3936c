@@ -36,12 +36,15 @@ applyTheme(getInitialTheme(deckTheme, activeDeckSlug));
 // Same idea for the preset settings (title scale, rule thickness/color, body
 // font) — stamp the CSS vars on <html> before React paints.
 applyPresetSettings(getPresetSettings());
+previewBoot?.mark?.("theme-applied", `deck=${activeDeckSlug}`);
 
 // Boot-time asset preload (spec 25). Synchronously injects `<link rel=preload>`
 // for brand chrome + slide #1 assets so the first paint never waits on them;
 // defers the rest of the deck to `requestIdleCallback` so later slides land
 // instantly when the user navigates.
+previewBoot?.mark?.("preload-start", `slides=${allSlides.length}`);
 preloadDeckAssets(deck, allSlides);
+previewBoot?.mark?.("preload-end");
 
 const rootEl = document.getElementById("root")!;
 
