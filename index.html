@@ -99,17 +99,53 @@
           if (err.stack) console.error(`[runtime-error ${err.correlationId}] stack:\n${err.stack}`);
           render(err, false);
         };
+        const splashEl = () => document.getElementById("__boot_splash__");
+        const rootHasReact = () => {
+          const root = document.getElementById("root");
+          if (!root) return false;
+          // React's first commit either replaces the splash or adds a sibling.
+          // Anything inside #root that ISN'T the splash counts as a real render.
+          for (const child of Array.from(root.children)) {
+            if (child.id !== "__boot_splash__") return true;
+          }
+          return false;
+        };
         const rootIsEmpty = () => {
           const root = document.getElementById("root");
           if (!root) return true;
-          if ((root.textContent || "").replace(/\s+/g, "").trim().length > 0) return false;
-          return !root.querySelector("img,canvas,svg,video,iframe,[data-non-empty]");
+          return !rootHasReact();
         };
-        const css = (node, styles) => Object.assign(node.style, styles);
+        const fadeOutSplash = () => {
+          const s = splashEl();
+          if (!s) return;
+          s.setAttribute("data-fading", "true");
+          window.setTimeout(() => s.remove(), 400);
+        };
+        const renderInSplash = (err) => {
+          const s = splashEl();
+          if (!s) return false;
+          s.innerHTML =
+            '<div class="boot-splash__error">' +
+              '<h2>' + (mainLoaded ? "Preview rendered nothing" : "Preview failed to start") + '</h2>' +
+              '<p>' + (mainLoaded
+                ? "The app loaded but the deck never painted. Reload to retry, or open diagnostics for the error trace."
+                : "The app bundle did not mount. This usually means a module-graph crash before React could start.") + '</p>' +
+              '<div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap">' +
+                '<button type="button" data-act="reload">Reload</button>' +
+                '<button type="button" data-act="diag" style="background:transparent;color:#C9A84C;border:1px solid #C9A84C66">Diagnostics</button>' +
+              '</div>' +
+              '<p style="margin-top:18px;font-size:11px;color:#C9A84C66;letter-spacing:.08em">' + err.correlationId + ' · ' + err.kind + '</p>' +
+            '</div>';
+          s.querySelector('[data-act="reload"]').onclick = () => location.reload();
+          s.querySelector('[data-act="diag"]').onclick = () => location.assign("/preview-diagnostics");
+          return true;
+        };
         const render = (err, blank) => {
           if (new URLSearchParams(location.search).get("errorOverlay") === "off") return;
           if (document.querySelector('[data-runtime-error-overlay="true"]')) return;
           overlayKind = blank ? "blank" : "error";
+          // Prefer the in-splash brand-themed error UI for blank-root timeouts.
+          if (blank && renderInSplash(err)) return;
           const wrap = document.createElement("div");
           wrap.setAttribute("data-runtime-error-overlay", "true");
           wrap.setAttribute("role", blank ? "status" : "alert");
@@ -141,9 +177,14 @@
         };
 
         let rendered = false;
+        const onRendered = () => {
+          if (rendered) return;
+          rendered = true;
+          fadeOutSplash();
+        };
         window[BOOT] = {
           markMainLoaded: () => { mainLoaded = true; },
-          markRendered: () => { rendered = true; },
+          markRendered: () => onRendered(),
         };
         window.addEventListener("error", (ev) => {
           if (!ev.message && !ev.error) return;
@@ -155,24 +196,24 @@
         });
         const watchdogId = window.setTimeout(() => {
           if (rendered || overlayKind || document.querySelector('[data-allow-blank="true"]')) return;
-          if (!rootIsEmpty()) { rendered = true; return; }
+          if (rootHasReact()) { onRendered(); return; }
           const at = Date.now();
           const err = { id: nextId++, correlationId: id(), kind: "blank-root", message: "#root is still empty after preview boot watchdog timeout.", source: "index.html boot watchdog", at, atIso: new Date(at).toISOString(), url: location.href };
           window[KEY] = [...(window[KEY] || []), err];
           console.error(`[runtime-error ${err.correlationId}] blank-root: ${err.message}`);
           render(err, true);
         }, 15000);
-        // Cancel watchdog the moment React paints anything into #root.
+        // Detect React's first commit by watching for non-splash children in #root.
         const renderObserver = new MutationObserver(() => {
           const overlay = document.querySelector('[data-runtime-error-overlay="true"]');
-          if (overlayKind === "blank" && overlay && !rootIsEmpty()) overlay.remove();
-          if (!rendered && !rootIsEmpty()) {
-            rendered = true;
+          if (overlayKind === "blank" && overlay && rootHasReact()) overlay.remove();
+          if (!rendered && rootHasReact()) {
             window.clearTimeout(watchdogId);
             renderObserver.disconnect();
+            onRendered();
           }
         });
-        renderObserver.observe(document.documentElement, { childList: true, subtree: true });
+        renderObserver.observe(document.getElementById("root"), { childList: true, subtree: true });
       })();
     </script>
     <script type="module" src="/src/main.tsx"></script>
