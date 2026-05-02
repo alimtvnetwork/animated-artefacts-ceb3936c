@@ -1,4 +1,4 @@
-import { lazy, Suspense } from "react";
+import { lazy, Suspense, useEffect } from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Navigate, Route, Routes, useLocation, useParams } from "react-router-dom";
 import { Toaster as Sonner } from "@/components/ui/sonner";
@@ -75,15 +75,19 @@ function SlideAliasRedirect() {
 
 function RootSlideQueryRedirect() {
   const { search } = useLocation();
-  const param = new URLSearchParams(search).get("slide");
-  if (param !== null) {
-    const n = Number(param);
-    if (Number.isFinite(n) && n >= 1) {
-      return <Navigate to={`/${Math.floor(n)}`} replace />;
+  const params = new URLSearchParams(search);
+  const param = params.get("slide");
+  const n = param === null ? 1 : Number(param);
+  const path = Number.isFinite(n) && n >= 1 ? `/${Math.floor(n)}` : "/1";
+  params.delete("slide");
+  const nextSearch = params.toString();
+  const target = `${path}${nextSearch ? `?${nextSearch}` : ""}`;
+  useEffect(() => {
+    if (`${window.location.pathname}${window.location.search}` !== target) {
+      window.location.replace(target);
     }
-  }
-  // No `?slide=N` provided → preserve original behaviour: jump to slide 1.
-  return <Navigate to="/1" replace />;
+  }, [target]);
+  return <RouteFallback />;
 }
 
 const App = () => (
