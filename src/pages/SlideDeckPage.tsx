@@ -694,23 +694,18 @@ export default function SlideDeckPage() {
   }, [requested, current, navigate, location.search]);
 
   // Canonicalize the URL to `/N` ONLY after the deck has confirmed it
-  // mounted a real slide. We swap to `history.replaceState` so the change
-  // is in-place — no router-level navigate hop, no extra render cycle, no
-  // chance of stalling boot. Click-reveal URLs are intentionally preserved.
-  const deckMountedRef = useRef(false);
+  // mounted the resolved slide (i.e. `current === slide.slideNumber`,
+  // which only holds after React has re-rendered with that value). We use
+  // `history.replaceState` instead of router `navigate` so the change is
+  // in-place — no redirect hop, no extra render cycle, no chance of
+  // stalling startup. Click-reveal URLs are intentionally preserved.
   useEffect(() => {
     if (!slide) return;
     if (slide.isClickReveal) return;
     if (current !== slide.slideNumber) {
+      // Resolved slide differs from URL — sync state first; canonicalize
+      // on the next pass once React has actually mounted the new slide.
       setCurrent(slide.slideNumber);
-      return; // wait for the next pass after `current` flips
-    }
-    // Defer canonicalization until after the first paint of the resolved
-    // slide so an in-flight bundle/route never gets pulled out from under
-    // a partially-mounted tree.
-    if (!deckMountedRef.current) {
-      deckMountedRef.current = true;
-      // Skip this tick — let the slide paint, then re-run via the dep array.
       return;
     }
     const params = new URLSearchParams(location.search);
