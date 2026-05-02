@@ -53,7 +53,14 @@
         let slideRendered = false;
         let slideRenderedId = null;
         let watchdogFiredAt = null;
-        const WATCHDOG_TIMEOUT_MS = 8000;
+        // Dev hosts (Vite cold-start, lovableproject.com sandbox) routinely
+        // take 10–20s for first paint. Use a generous timeout there and
+        // allow a manual override via `?watchdog=N` (ms).
+        const isDevHost = /localhost|127\.0\.0\.1|lovableproject\.com|lovable\.app/i.test(location.hostname);
+        const overrideMs = parseInt(new URLSearchParams(location.search).get("watchdog") || "", 10);
+        const WATCHDOG_TIMEOUT_MS = Number.isFinite(overrideMs) && overrideMs > 0
+          ? overrideMs
+          : (isDevHost ? 25000 : 8000);
         const bootStartedAt = performance.now();
         const marks = [{ name: "script-start", at: 0, detail: `path=${location.pathname}` }];
 
