@@ -232,9 +232,10 @@
           if (rendered || overlayKind || document.querySelector('[data-allow-blank="true"]')) return;
           if (rootHasReact()) { onRendered(); return; }
           const at = Date.now();
-          const err = { id: nextId++, correlationId: id(), kind: "blank-root", message: "#root is still empty after preview boot watchdog timeout.", source: "index.html boot watchdog", at, atIso: new Date(at).toISOString(), url: location.href };
+          mark("watchdog-fired");
+          const err = { id: nextId++, correlationId: id(), kind: "blank-root", message: "#root is still empty after preview boot watchdog timeout.", source: "index.html boot watchdog", at, atIso: new Date(at).toISOString(), url: location.href, marks: marks.slice() };
           window[KEY] = [...(window[KEY] || []), err];
-          console.error(`[runtime-error ${err.correlationId}] blank-root: ${err.message}`);
+          console.error(`[runtime-error ${err.correlationId}] blank-root: ${err.message}\nBoot timeline:\n${formatMarks()}`);
           render(err, true);
         }, 15000);
         // Detect React's first commit by watching for non-splash children in #root.
