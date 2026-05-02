@@ -12,6 +12,11 @@
       "qrAsset": "riseup-meeting"
     },
     "assets": {
+      "audio": {
+        "whoosh": "/sounds/fade_swoosh_v4.mp3",
+        "click": "/sounds/click.mp3",
+        "zoom": "/sounds/zoom.mp3"
+      },
       "qr": {
         "riseup-meeting": "/assets/brand/meeting-qr.png"
       },
