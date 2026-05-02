@@ -482,10 +482,9 @@ function Callout({ tone, children }: { tone: "ok" | "warn" | "info"; children: R
   );
 }
 
-const SubLabel = React.forwardRef<HTMLDivElement, { children: React.ReactNode }>(function SubLabel({ children }, ref) {
+function SubLabel({ children }: { children: React.ReactNode }) {
   return (
     <div
-      ref={ref}
       style={{
         margin: "12px 0 6px",
         color: "hsl(42 25% 60%)",
@@ -497,7 +496,7 @@ const SubLabel = React.forwardRef<HTMLDivElement, { children: React.ReactNode }>
       {children}
     </div>
   );
-});
+}
 
 const btn: React.CSSProperties = {
   background: "hsl(var(--card))",
