@@ -1,0 +1,26 @@
+{
+  "slideNumber": 10,
+  "slideName": "meeting",
+  "slideType": "QrMeetingSlide",
+  "transition": "FadeIn",
+  "textAnimation": "Stagger",
+  "enabled": true,
+  "showBrandHeader": true,
+  "showPresenterChip": true,
+  "titleStyle": "gold",
+  "titleShimmer": true,
+  "content": {
+    "eyebrow": "Stay in touch",
+    "title": "Scan to book a 1:1",
+    "subtitle": "Free, 30 minutes, no forms.",
+    "qrAsset": "riseup-meeting",
+    "meetingLabel": "meet.rasia.pro/intro-call",
+    "capsules": [
+      { "text": "Riseup Asia LLC", "color": "gold" },
+      { "text": "30-min intro", "color": "ember" },
+      { "text": "Free", "color": "cream" },
+      { "text": "MD ALIM UL KARIM", "color": "outline" }
+    ]
+  },
+  "notes": "Hold for 10 seconds. Don't talk over the silence — that's when bookings happen."
+}

@@ -1,0 +1,29 @@
+{
+  "slideNumber": 3,
+  "slideName": "recap",
+  "slideType": "CapsuleListSlide",
+  "transition": "PushLeft",
+  "textAnimation": "Stagger",
+  "enabled": true,
+  "showBrandHeader": true,
+  "showPresenterChip": true,
+  "titleStyle": "white",
+  "titleShimmer": true,
+  "content": {
+    "eyebrow": "Sessions 1-3",
+    "title": "What we covered",
+    "animations": { "capsules": "cinematicCapsules" },
+    "capsules": [
+      { "text": "Write a spec", "color": "gold", "hoverText": "The brief that bends the model" },
+      { "text": "Audit a spec", "color": "ember", "hoverText": "Find the holes early" },
+      { "text": "Gap analysis", "color": "cream", "hoverText": "Spec vs. reality" },
+      { "text": "Research", "color": "outline", "hoverText": "Frame before you build" },
+      { "text": "Lovable + GitHub", "color": "ink", "hoverText": "Source of truth in one place" },
+      { "text": "Workspace transfer", "color": "teal", "hoverText": "Move work across accounts" },
+      { "text": "Make a presentation", "color": "violet", "hoverText": "Like this one" },
+      { "text": "Design systems", "color": "rose", "hoverText": "Tokens, theming, consistency" },
+      { "text": "Memory & MD files", "color": "sky", "hoverText": "Teach the model your rules" }
+    ]
+  },
+  "notes": "Quick recap of the prerequisite stack. Hover any capsule to show the one-liner — useful if someone joined late."
+}

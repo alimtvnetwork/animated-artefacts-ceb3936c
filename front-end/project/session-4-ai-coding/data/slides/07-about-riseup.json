@@ -1,0 +1,74 @@
+{
+  "slideNumber": 7,
+  "slideName": "about-riseup",
+  "slideType": "CapsuleListSlide",
+  "transition": "PushIn",
+  "textAnimation": "Stagger",
+  "enabled": true,
+  "showBrandHeader": true,
+  "showPresenterChip": true,
+  "titleStyle": "gold",
+  "titleShimmer": true,
+  "content": {
+    "eyebrow": "Quick context",
+    "title": "What Riseup Asia does",
+    "animations": { "capsules": "cinematicCapsules" },
+    "capsules": [
+      {
+        "text": "Tech partner",
+        "color": "gold",
+        "hoverText": "Co-build your software company",
+        "expand": {
+          "eyebrow": "Service · Tech partner",
+          "title": "Be your tech partner",
+          "body": "If you're starting a software company, we can sit on the technical side and ship with you.",
+          "capsules": [
+            { "text": "Co-build", "color": "gold" },
+            { "text": "Long-term", "color": "ember" }
+          ]
+        }
+      },
+      {
+        "text": "Closer",
+        "color": "ember",
+        "hoverText": "Help close your deal",
+        "expand": {
+          "eyebrow": "Service · Closer",
+          "title": "Close the deal with you",
+          "body": "When a prospect needs technical proof to sign, we join the conversation and close it.",
+          "capsules": [
+            { "text": "Pre-sales", "color": "gold" },
+            { "text": "Demo", "color": "ember" }
+          ]
+        }
+      },
+      {
+        "text": "NDA-ready",
+        "color": "cream",
+        "hoverText": "Sign before we start",
+        "expand": {
+          "eyebrow": "Trust · NDA",
+          "title": "NDA before discovery",
+          "body": "If your idea is sensitive, we sign before the first call. Classified work stays classified.",
+          "capsules": [
+            { "text": "Confidential", "color": "gold" }
+          ]
+        }
+      },
+      {
+        "text": "Complimentary help",
+        "color": "outline",
+        "hoverText": "Free guidance, real",
+        "expand": {
+          "eyebrow": "Help · Free",
+          "title": "Complimentary help",
+          "body": "Reach out for free guidance. We answer when we can.",
+          "capsules": [
+            { "text": "Open door", "color": "gold" }
+          ]
+        }
+      }
+    ]
+  },
+  "notes": "Cover the gap from the Thursday session — when Jane asked what we do, the answer was thin. This is the structured version."
+}

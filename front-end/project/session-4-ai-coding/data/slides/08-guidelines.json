@@ -1,0 +1,27 @@
+{
+  "slideNumber": 8,
+  "slideName": "guidelines",
+  "slideType": "KeywordSlide",
+  "transition": "PushLeft",
+  "textAnimation": "Stagger",
+  "enabled": true,
+  "showBrandHeader": true,
+  "showPresenterChip": true,
+  "titleStyle": "white",
+  "titleShimmer": true,
+  "content": {
+    "eyebrow": "Just released",
+    "title": "Coding guidelines",
+    "keywords": [
+      "Spec-first",
+      "Strict rules",
+      "Less hallucination"
+    ],
+    "capsules": [
+      { "text": "Engineering hygiene", "color": "gold" },
+      { "text": "Steer the model", "color": "ember" },
+      { "text": "Fewer headaches", "color": "cream" }
+    ]
+  },
+  "notes": "Frame why guidelines matter. AI hallucinates and fakes. Strict rules + spec channel it to the right answer."
+}
