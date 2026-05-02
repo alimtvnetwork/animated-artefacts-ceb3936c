@@ -12,6 +12,17 @@ import {
   useSoftAssetFailures,
 } from "@/slides/loader";
 import type { CapturedError } from "@/components/RuntimeErrorOverlay";
+import rootBootRcaMd from "../../spec/22-slides-issues/01-root-boot-watchdog-rca.md?raw";
+
+const RCA_DOCS: ReadonlyArray<{ path: string; title: string; body: string }> = [
+  {
+    path: "spec/22-slides-issues/01-root-boot-watchdog-rca.md",
+    title: "Root boot watchdog false blank-root on /",
+    body: rootBootRcaMd,
+  },
+];
+
+const REPO_BASE_URL = "https://github.com/"; // links resolve relative to repo root in most viewers
 
 /**
  * /preview-diagnostics (v0.191).
@@ -248,6 +259,50 @@ export default function PreviewDiagnosticsPage(): JSX.Element {
     void navigator.clipboard?.writeText(body);
   };
 
+  const handleCopyRca = () => {
+    const status = bootStatus;
+    const marks = status?.marks ?? [];
+    const baseMark = marks.find((m) => m.name === "script-start")?.at ?? marks[0]?.at ?? 0;
+    const lines: string[] = [
+      "# Latest root-cause analysis & boot timeline",
+      `Generated: ${new Date().toISOString()}`,
+      `URL: ${typeof window !== "undefined" ? window.location.href : "—"}`,
+      "",
+      "## Spec files",
+      ...RCA_DOCS.map((d) => `- [${d.title}](${d.path})`),
+      "",
+      "## Live boot timeline",
+      status
+        ? [
+            `phase: ${derivePhase(status).label}`,
+            `mainLoaded: ${status.mainLoaded}`,
+            `rendered: ${status.rendered}`,
+            `watchdogFiredAt: ${status.watchdogFiredAt ?? "—"}`,
+            `elapsedMs: ${status.elapsedMs}`,
+            `rootEmpty: ${status.rootEmpty}`,
+            "",
+            marks.length === 0
+              ? "  (no marks recorded)"
+              : marks
+                  .map((m) => {
+                    const offset = Math.max(0, Math.round(m.at - baseMark));
+                    return `  +${String(offset).padStart(5, " ")}ms  ${m.name}${m.detail ? `  — ${m.detail}` : ""}`;
+                  })
+                  .join("\n"),
+          ].join("\n")
+        : "  (boot API unavailable)",
+      "",
+      ...RCA_DOCS.flatMap((d) => [
+        `## ${d.title}`,
+        `_Source: ${d.path}_`,
+        "",
+        d.body.trim(),
+        "",
+      ]),
+    ];
+    void navigator.clipboard?.writeText(lines.join("\n"));
+  };
+
   return (
     <main
       data-non-empty
@@ -276,6 +331,14 @@ export default function PreviewDiagnosticsPage(): JSX.Element {
             </button>
             <button type="button" onClick={handleCopyReport} style={btn}>
               Copy report
+            </button>
+            <button
+              type="button"
+              onClick={handleCopyRca}
+              style={{ ...btn, borderColor: "hsl(42 70% 55%)", color: "hsl(42 100% 96%)" }}
+              title="Copy latest RCA + live boot timeline + spec links"
+            >
+              Copy RCA + timeline
             </button>
           </div>
         </header>
