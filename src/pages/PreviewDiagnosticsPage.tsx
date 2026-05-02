@@ -332,6 +332,14 @@ export default function PreviewDiagnosticsPage(): JSX.Element {
             <button type="button" onClick={handleCopyReport} style={btn}>
               Copy report
             </button>
+            <button
+              type="button"
+              onClick={handleCopyRca}
+              style={{ ...btn, borderColor: "hsl(42 70% 55%)", color: "hsl(42 100% 96%)" }}
+              title="Copy latest RCA + live boot timeline + spec links"
+            >
+              Copy RCA + timeline
+            </button>
           </div>
         </header>
 
