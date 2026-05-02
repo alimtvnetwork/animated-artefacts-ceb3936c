@@ -14,7 +14,11 @@ import {
 import { markVerificationPassFinished } from "./slides/brokenAssetReport";
 import { runRuntimeImageQA, logRuntimeImageQAReport } from "./slides/runtimeImageQA";
 
-type PreviewBootState = { markMainLoaded?: () => void; markRendered?: () => void };
+type PreviewBootState = {
+  markMainLoaded?: () => void;
+  markRendered?: () => void;
+  mark?: (name: string, detail?: string) => void;
+};
 const previewBoot = (window as unknown as { __previewBoot__?: PreviewBootState }).__previewBoot__;
 previewBoot?.markMainLoaded?.();
 
@@ -32,12 +36,15 @@ applyTheme(getInitialTheme(deckTheme, activeDeckSlug));
 // Same idea for the preset settings (title scale, rule thickness/color, body
 // font) — stamp the CSS vars on <html> before React paints.
 applyPresetSettings(getPresetSettings());
+previewBoot?.mark?.("theme-applied", `deck=${activeDeckSlug}`);
 
 // Boot-time asset preload (spec 25). Synchronously injects `<link rel=preload>`
 // for brand chrome + slide #1 assets so the first paint never waits on them;
 // defers the rest of the deck to `requestIdleCallback` so later slides land
 // instantly when the user navigates.
+previewBoot?.mark?.("preload-start", `slides=${allSlides.length}`);
 preloadDeckAssets(deck, allSlides);
+previewBoot?.mark?.("preload-end");
 
 const rootEl = document.getElementById("root")!;
 
@@ -101,6 +108,7 @@ function renderFatalAssetError(err: Error): void {
 // land first). Mounting React first lets the watchdog clear within a few
 // hundred ms; the asset audit still runs and, if it fails in strict mode,
 // REPLACES the React tree with the fatal overlay.
+previewBoot?.mark?.("react-render-call");
 createRoot(rootEl).render(<App />);
 // Signal first React commit so the index.html boot watchdog stands down
 // even if asset audits / preloads are still mid-flight.
