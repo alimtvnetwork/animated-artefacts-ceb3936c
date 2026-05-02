@@ -14,7 +14,11 @@ import {
 import { markVerificationPassFinished } from "./slides/brokenAssetReport";
 import { runRuntimeImageQA, logRuntimeImageQAReport } from "./slides/runtimeImageQA";
 
-type PreviewBootState = { markMainLoaded?: () => void; markRendered?: () => void };
+type PreviewBootState = {
+  markMainLoaded?: () => void;
+  markRendered?: () => void;
+  mark?: (name: string, detail?: string) => void;
+};
 const previewBoot = (window as unknown as { __previewBoot__?: PreviewBootState }).__previewBoot__;
 previewBoot?.markMainLoaded?.();
 
