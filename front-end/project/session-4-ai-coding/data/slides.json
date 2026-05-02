@@ -1,0 +1,52 @@
+{
+  "Name": "Session 4 — AI Coding for Non-Coders",
+  "config": {
+    "deckSlug": "session-4-ai-coding",
+    "presenter": "MD ALIM UL KARIM",
+    "theme": "noir-gold",
+    "preset": "premium",
+    "controllerPosition": "BottomCenter",
+    "meeting": {
+      "url": "https://meet.rasia.pro/intro-call",
+      "label": "meet.rasia.pro/intro-call",
+      "qrAsset": "riseup-meeting"
+    },
+    "assets": {
+      "qr": {
+        "riseup-meeting": "/assets/brand/meeting-qr.png"
+      },
+      "brand": {
+        "logo": "/assets/brand/riseup-asia-logo.png",
+        "logo-trimmed": "/assets/brand/riseup-asia-logo-trimmed.png",
+        "presenter": "/assets/brand/alim-presenter.png"
+      },
+      "icons": {
+        "terminal": "terminal",
+        "code2": "code2",
+        "git-branch": "git-branch",
+        "boxes": "boxes",
+        "github-mark": "github-mark",
+        "vscode": "vscode",
+        "clipboard": "clipboard",
+        "book": "book",
+        "user-check": "user-check",
+        "message-square": "message-square",
+        "cloud": "cloud",
+        "database": "database"
+      }
+    },
+    "transitionTiming": { "durationMs": 560, "easing": "expoOut" }
+  },
+  "Slides": [
+    { "title": "01 · Title",            "path": "./slides/01-title.json" },
+    { "title": "02 · TOC (3D chain)",   "path": "./slides/02-toc-3d.json" },
+    { "title": "03 · Recap",            "path": "./slides/03-recap.json" },
+    { "title": "04 · Mindset",          "path": "./slides/04-mindset.json" },
+    { "title": "05 · What we ship",     "path": "./slides/05-ship-today.json" },
+    { "title": "06 · References",       "path": "./slides/06-references.json" },
+    { "title": "07 · Riseup Asia",      "path": "./slides/07-about-riseup.json" },
+    { "title": "08 · Guidelines",       "path": "./slides/08-guidelines.json" },
+    { "title": "09 · Your call",        "path": "./slides/09-your-call.json" },
+    { "title": "10 · Meeting",          "path": "./slides/10-meeting.json" }
+  ]
+}

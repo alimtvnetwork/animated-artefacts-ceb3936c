@@ -1,0 +1,63 @@
+{
+  "slideNumber": 5,
+  "slideName": "ship-today",
+  "slideType": "CapsuleListSlide",
+  "transition": "SlideIn",
+  "textAnimation": "Stagger",
+  "enabled": true,
+  "showBrandHeader": true,
+  "showPresenterChip": true,
+  "titleStyle": "white",
+  "titleShimmer": false,
+  "content": {
+    "eyebrow": "Hands-on today",
+    "title": "Two CLIs and a map",
+    "animations": { "capsules": "cinematicCapsules" },
+    "capsules": [
+      {
+        "text": "Movie CLI",
+        "color": "gold",
+        "hoverText": "Search & browse from terminal",
+        "expand": {
+          "eyebrow": "CLI · Movie",
+          "title": "Movie CLI",
+          "body": "Search films, fetch metadata, all from the command line. Built live with AI guardrails.",
+          "capsules": [
+            { "text": "v8", "color": "gold" },
+            { "text": "TypeScript", "color": "ember" },
+            { "text": "GitHub", "color": "cream" }
+          ]
+        }
+      },
+      {
+        "text": "Alarm CLI",
+        "color": "ember",
+        "hoverText": "Schedule from terminal",
+        "expand": {
+          "eyebrow": "CLI · Alarm",
+          "title": "Alarm CLI",
+          "body": "Set, list, and cancel alarms without leaving the shell. Small surface, real product.",
+          "capsules": [
+            { "text": "v3", "color": "gold" },
+            { "text": "Cross-platform", "color": "ember" }
+          ]
+        }
+      },
+      {
+        "text": "Gitmap",
+        "color": "cream",
+        "hoverText": "Visualise a repo's history",
+        "expand": {
+          "eyebrow": "Tool · Gitmap",
+          "title": "Gitmap",
+          "body": "Map a repo's structure and history visually. Today we may add one feature live — your call.",
+          "capsules": [
+            { "text": "v13", "color": "gold" },
+            { "text": "Open feature", "color": "ember" }
+          ]
+        }
+      }
+    ]
+  },
+  "notes": "These three projects anchor the build portion. Hover or click to show what each does. We will probably touch Gitmap in the open-direction slot."
+}

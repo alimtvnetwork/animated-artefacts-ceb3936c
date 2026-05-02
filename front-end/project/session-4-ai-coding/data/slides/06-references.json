@@ -1,0 +1,67 @@
+{
+  "slideNumber": 6,
+  "slideName": "references",
+  "slideType": "CapsuleListSlide",
+  "transition": "PushRight",
+  "textAnimation": "Stagger",
+  "enabled": true,
+  "showBrandHeader": true,
+  "showPresenterChip": true,
+  "titleStyle": "white",
+  "titleShimmer": true,
+  "content": {
+    "eyebrow": "Source of truth",
+    "title": "Reference repos",
+    "animations": { "capsules": "cinematicCapsules" },
+    "capsules": [
+      {
+        "text": "gitmap-v13",
+        "color": "gold",
+        "hoverText": "github.com/alimtvnetwork/gitmap-v13",
+        "expand": {
+          "eyebrow": "Repo · Gitmap",
+          "title": "alimtvnetwork/gitmap-v13",
+          "body": "Latest Gitmap iteration. Today's open-direction candidate.",
+          "capsules": [
+            { "text": "GitHub", "color": "gold" },
+            { "text": "v13", "color": "ember" }
+          ]
+        }
+      },
+      {
+        "text": "movie-cli-v8",
+        "color": "ember",
+        "hoverText": "github.com/alimtvnetwork/movie-cli-v8",
+        "expand": {
+          "eyebrow": "Repo · Movie CLI",
+          "title": "alimtvnetwork/movie-cli-v8",
+          "body": "Movie CLI eighth iteration. Read along while we build.",
+          "capsules": [
+            { "text": "GitHub", "color": "gold" },
+            { "text": "v8", "color": "ember" }
+          ]
+        }
+      },
+      {
+        "text": "alarm-app-v3",
+        "color": "cream",
+        "hoverText": "github.com/alimtvnetwork/alarm-app-v3",
+        "expand": {
+          "eyebrow": "Repo · Alarm",
+          "title": "alimtvnetwork/alarm-app-v3",
+          "body": "Alarm CLI third iteration. Smallest project of the three.",
+          "capsules": [
+            { "text": "GitHub", "color": "gold" },
+            { "text": "v3", "color": "ember" }
+          ]
+        }
+      },
+      {
+        "text": "Presentation",
+        "color": "outline",
+        "hoverText": "present-v1.riseup-asia.com"
+      }
+    ]
+  },
+  "notes": "All four links the audience needs. Read out the URLs once, then move on — the slide stays as a visual anchor."
+}

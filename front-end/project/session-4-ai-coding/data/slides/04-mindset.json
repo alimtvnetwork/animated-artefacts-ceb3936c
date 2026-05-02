@@ -1,0 +1,27 @@
+{
+  "slideNumber": 4,
+  "slideName": "mindset",
+  "slideType": "KeywordSlide",
+  "transition": "PushIn",
+  "textAnimation": "Bounce",
+  "enabled": true,
+  "showBrandHeader": true,
+  "showPresenterChip": true,
+  "titleStyle": "gold",
+  "titleShimmer": true,
+  "content": {
+    "eyebrow": "Mindset",
+    "title": "Bad becomes master",
+    "keywords": [
+      "Try",
+      "Ask",
+      "Repeat"
+    ],
+    "capsules": [
+      { "text": "Blocker · Not trying", "color": "ember" },
+      { "text": "Blocker · Fear", "color": "ember" },
+      { "text": "Background irrelevant", "color": "gold" }
+    ]
+  },
+  "notes": "The personal note: every time I was bad at something, I became a master of it. Two blockers — not trying, and fear. Programming background does not matter."
+}

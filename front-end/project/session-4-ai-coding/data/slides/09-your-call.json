@@ -1,0 +1,52 @@
+{
+  "slideNumber": 9,
+  "slideName": "your-call",
+  "slideType": "CapsuleListSlide",
+  "transition": "SlideIn",
+  "textAnimation": "Stagger",
+  "enabled": true,
+  "showBrandHeader": true,
+  "showPresenterChip": true,
+  "titleStyle": "gold",
+  "titleShimmer": true,
+  "content": {
+    "eyebrow": "Open mic",
+    "title": "Where do we go next?",
+    "animations": { "capsules": "cinematicCapsules" },
+    "capsules": [
+      {
+        "text": "Add a Gitmap feature",
+        "color": "gold",
+        "hoverText": "Pick one, ship it live",
+        "expand": {
+          "eyebrow": "Path A",
+          "title": "Add a Gitmap feature",
+          "body": "Pre-baked path. We choose one feature together and ship it during the session.",
+          "capsules": [
+            { "text": "Live", "color": "gold" },
+            { "text": "Concrete", "color": "ember" }
+          ]
+        }
+      },
+      {
+        "text": "Your idea",
+        "color": "ember",
+        "hoverText": "Bring it now",
+        "expand": {
+          "eyebrow": "Path B",
+          "title": "Bring your idea",
+          "body": "Anything you've been stuck on. We open the editor and start.",
+          "capsules": [
+            { "text": "Open", "color": "gold" }
+          ]
+        }
+      },
+      {
+        "text": "Vote in chat",
+        "color": "outline",
+        "hoverText": "Say A or B"
+      }
+    ]
+  },
+  "notes": "Pause here. Read the chat. The session bends to whichever path the room picks."
+}

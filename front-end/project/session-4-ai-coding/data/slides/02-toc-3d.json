@@ -1,0 +1,96 @@
+{
+  "slideNumber": 2,
+  "slideName": "toc-3d",
+  "slideType": "StepsChain3DSlide",
+  "transition": "FadeIn",
+  "textAnimation": "SlideUp",
+  "enabled": true,
+  "showBrandHeader": true,
+  "showPresenterChip": true,
+  "titleStyle": "white",
+  "titleShimmer": false,
+  "sound": { "on": "focus", "kind": "whoosh", "volume": 0.6 },
+  "content": {
+    "eyebrow": "Today",
+    "title": "Session outline",
+    "steps": [
+      {
+        "label": "01",
+        "title": "Recap",
+        "subtitle": "What we already know",
+        "capsule": { "text": "Sessions 1-3", "color": "gold" },
+        "description": {
+          "title": "Recap & prerequisites",
+          "bullets": [
+            "Spec, audit, gap analysis",
+            "Lovable + GitHub link",
+            "Workspace transfer",
+            "Design systems & memory"
+          ],
+          "meta": "5 min"
+        }
+      },
+      {
+        "label": "02",
+        "title": "Mindset",
+        "subtitle": "Bad becomes master",
+        "capsule": { "text": "Reset", "color": "ember" },
+        "description": {
+          "title": "The mastery loop",
+          "bullets": [
+            "Two blockers: not trying & fear",
+            "Try, ask, repeat",
+            "Background does not matter"
+          ],
+          "meta": "3 min"
+        }
+      },
+      {
+        "label": "03",
+        "title": "Build",
+        "subtitle": "Two CLIs live",
+        "capsule": { "text": "Hands-on", "color": "cream" },
+        "description": {
+          "title": "Build along",
+          "bullets": [
+            "Movie CLI",
+            "Alarm CLI",
+            "Gitmap walkthrough"
+          ],
+          "meta": "30-40 min"
+        }
+      },
+      {
+        "label": "04",
+        "title": "Guardrails",
+        "subtitle": "Steer the model",
+        "capsule": { "text": "Rules", "color": "gold" },
+        "description": {
+          "title": "Coding guidelines",
+          "bullets": [
+            "Spec-first",
+            "Strict rules tame hallucinations",
+            "Less debugging later"
+          ],
+          "meta": "10 min"
+        }
+      },
+      {
+        "label": "05",
+        "title": "Your call",
+        "subtitle": "Direction next",
+        "capsule": { "text": "Open", "color": "outline" },
+        "description": {
+          "title": "What's next?",
+          "bullets": [
+            "Add a Gitmap feature",
+            "Bring your own idea",
+            "Vote in the room"
+          ],
+          "meta": "Last 10 min"
+        }
+      }
+    ]
+  },
+  "notes": "Walk the chain end-to-end before clicking. Then advance step-by-step — each click triggers the cinematic zoom. This IS the outline of today's session."
+}
