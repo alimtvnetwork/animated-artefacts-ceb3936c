@@ -94,10 +94,16 @@ interface BootMark {
 interface BootStatus {
   readonly mainLoaded: boolean;
   readonly rendered: boolean;
+  readonly routeMounted?: boolean;
+  readonly routeMountedPath?: string | null;
+  readonly slideRendered?: boolean;
+  readonly slideRenderedId?: string | null;
   readonly watchdogFiredAt: number | null;
   readonly watchdogTimeoutMs: number;
   readonly elapsedMs: number;
   readonly rootEmpty: boolean;
+  readonly blank?: boolean;
+  readonly blankReason?: string;
   readonly overlayKind: "blank" | "error" | null;
   readonly marks: readonly BootMark[];
 }
