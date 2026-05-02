@@ -63,6 +63,23 @@
         let nextId = 1;
         let overlayKind = null;
         let mainLoaded = false;
+        const bootStart = performance.now();
+        const marks = [{ name: "script-start", at: 0 }];
+        const mark = (name, detail) => {
+          const at = performance.now() - bootStart;
+          marks.push({ name, at, detail });
+        };
+        const formatMarks = () => {
+          if (marks.length === 0) return "(no boot marks recorded)";
+          let prev = 0;
+          const lines = marks.map((m) => {
+            const delta = m.at - prev;
+            prev = m.at;
+            const detail = m.detail ? "  " + m.detail : "";
+            return `  +${delta.toFixed(0).padStart(5)}ms  ${String(m.at.toFixed(0)).padStart(6)}ms  ${m.name}${detail}`;
+          });
+          return ["       Δ        t   milestone", ...lines].join("\n");
+        };
 
         const id = () => "err_" + Array.from({ length: 6 }, () => alphabet[Math.floor(Math.random() * alphabet.length)]).join("");
         const asText = (value) => {
