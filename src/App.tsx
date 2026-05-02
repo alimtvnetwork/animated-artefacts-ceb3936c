@@ -1,6 +1,6 @@
 import { lazy, Suspense, useEffect } from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Navigate, Route, Routes, useLocation, useNavigate, useParams } from "react-router-dom";
+import { BrowserRouter, Navigate, Route, Routes, useParams } from "react-router-dom";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 // Hot path: SlideDeckPage is what `/N` (the canonical deck route) renders,
@@ -75,24 +75,6 @@ function SlideAliasRedirect() {
   return <Navigate to={`/${Math.floor(n)}`} replace />;
 }
 
-function RootSlideQueryRedirect() {
-  const navigate = useNavigate();
-  const { search } = useLocation();
-  const params = new URLSearchParams(search);
-  const param = params.get("slide");
-  const n = param === null ? 1 : Number(param);
-  const path = Number.isFinite(n) && n >= 1 ? `/${Math.floor(n)}` : "/1";
-  params.delete("slide");
-  const nextSearch = params.toString();
-  const target = `${path}${nextSearch ? `?${nextSearch}` : ""}`;
-  useEffect(() => {
-    if (`${window.location.pathname}${window.location.search}` !== target) {
-      navigate(target, { replace: true });
-    }
-  }, [navigate, target]);
-  return <RouteFallback />;
-}
-
 const App = () => (
   <QueryClientProvider client={queryClient}>
     {/* v0.211 — `delayDuration={150}` so chrome/controller tooltips appear
@@ -154,7 +136,7 @@ const App = () => (
         <AlignmentGuideOverlay />
         <Suspense fallback={<RouteFallback />}>
         <Routes>
-          <Route path="/" element={<RootSlideQueryRedirect />} />
+          <Route path="/" element={<SlideDeckPage />} />
           <Route path="/present" element={<PresenterPage />} />
           <Route path="/builder" element={<BuilderPage />} />
           <Route path="/style-guide" element={<StyleGuidePage />} />
