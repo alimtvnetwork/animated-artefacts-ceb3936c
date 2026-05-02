@@ -259,6 +259,50 @@ export default function PreviewDiagnosticsPage(): JSX.Element {
     void navigator.clipboard?.writeText(body);
   };
 
+  const handleCopyRca = () => {
+    const status = bootStatus;
+    const marks = status?.marks ?? [];
+    const baseMark = marks.find((m) => m.name === "script-start")?.at ?? marks[0]?.at ?? 0;
+    const lines: string[] = [
+      "# Latest root-cause analysis & boot timeline",
+      `Generated: ${new Date().toISOString()}`,
+      `URL: ${typeof window !== "undefined" ? window.location.href : "—"}`,
+      "",
+      "## Spec files",
+      ...RCA_DOCS.map((d) => `- [${d.title}](${d.path})`),
+      "",
+      "## Live boot timeline",
+      status
+        ? [
+            `phase: ${derivePhase(status).label}`,
+            `mainLoaded: ${status.mainLoaded}`,
+            `rendered: ${status.rendered}`,
+            `watchdogFiredAt: ${status.watchdogFiredAt ?? "—"}`,
+            `elapsedMs: ${status.elapsedMs}`,
+            `rootEmpty: ${status.rootEmpty}`,
+            "",
+            marks.length === 0
+              ? "  (no marks recorded)"
+              : marks
+                  .map((m) => {
+                    const offset = Math.max(0, Math.round(m.at - baseMark));
+                    return `  +${String(offset).padStart(5, " ")}ms  ${m.name}${m.detail ? `  — ${m.detail}` : ""}`;
+                  })
+                  .join("\n"),
+          ].join("\n")
+        : "  (boot API unavailable)",
+      "",
+      ...RCA_DOCS.flatMap((d) => [
+        `## ${d.title}`,
+        `_Source: ${d.path}_`,
+        "",
+        d.body.trim(),
+        "",
+      ]),
+    ];
+    void navigator.clipboard?.writeText(lines.join("\n"));
+  };
+
   return (
     <main
       data-non-empty
