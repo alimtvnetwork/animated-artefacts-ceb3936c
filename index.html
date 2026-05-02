@@ -234,9 +234,16 @@
         window.addEventListener("unhandledrejection", (ev) => {
           capture("unhandledrejection", asText(ev.reason), stackOf(ev.reason), firstFrame(stackOf(ev.reason)));
         });
-        window.setTimeout(() => {
+        const fireWatchdog = (attempt) => {
           if (overlayKind || document.querySelector('[data-allow-blank="true"]')) return;
           if (!isBlank()) return;
+          // Cold-start grace: if main hasn't even loaded yet, the bundle is
+          // still downloading/compiling. Re-arm once instead of false-firing.
+          if (!mainLoaded && attempt < 2) {
+            marks.push({ name: "watchdog-deferred", at: Math.round(performance.now() - bootStartedAt), detail: `attempt=${attempt}` });
+            window.setTimeout(() => fireWatchdog(attempt + 1), WATCHDOG_TIMEOUT_MS);
+            return;
+          }
           const at = Date.now();
           watchdogFiredAt = at;
           const reason = blankReason();
@@ -245,7 +252,8 @@
           console.error(`[runtime-error ${err.correlationId}] blank-root: ${err.message}`);
           console.error(`[runtime-error ${err.correlationId}] boot timeline:\n${formatTimeline()}`);
           render(err, true);
-        }, WATCHDOG_TIMEOUT_MS);
+        };
+        window.setTimeout(() => fireWatchdog(1), WATCHDOG_TIMEOUT_MS);
         new MutationObserver(() => {
           const overlay = document.querySelector('[data-runtime-error-overlay="true"]');
           if (overlayKind === "blank" && overlay && !isBlank()) overlay.remove();
