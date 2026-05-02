@@ -14,8 +14,9 @@ import {
 import { markVerificationPassFinished } from "./slides/brokenAssetReport";
 import { runRuntimeImageQA, logRuntimeImageQAReport } from "./slides/runtimeImageQA";
 
-type PreviewBootState = { markMainLoaded?: () => void };
-(window as unknown as { __previewBoot__?: PreviewBootState }).__previewBoot__?.markMainLoaded?.();
+type PreviewBootState = { markMainLoaded?: () => void; markRendered?: () => void };
+const previewBoot = (window as unknown as { __previewBoot__?: PreviewBootState }).__previewBoot__;
+previewBoot?.markMainLoaded?.();
 
 // Apply the theme before first paint. Resolution order (see getInitialTheme):
 // `?theme=<id>` URL param > `?testMode=1` deck-declared theme > localStorage > default.
