@@ -611,3 +611,74 @@ const correlationPill: React.CSSProperties = {
   fontSize: 11,
   letterSpacing: "0.06em",
 };
+
+function BootStatusPanel({ status, route }: { status: BootStatus | null; route: string }) {
+  const phase = derivePhase(status);
+  const toneColor =
+    phase.tone === "ok" ? "hsl(140 60% 55%)"
+    : phase.tone === "err" ? "hsl(14 80% 60%)"
+    : phase.tone === "warn" ? "hsl(42 70% 55%)"
+    : "hsl(200 70% 65%)";
+  const elapsed = status ? `${status.elapsedMs} ms` : "—";
+  const watchdog = status
+    ? status.watchdogFiredAt
+      ? `fired @ ${new Date(status.watchdogFiredAt).toLocaleTimeString()}`
+      : status.rendered
+        ? "stood down (React painted)"
+        : `armed · ${Math.max(0, status.watchdogTimeoutMs - status.elapsedMs)} ms remaining`
+    : "—";
+
+  const entries: Array<[string, unknown]> = [
+    ["phase", phase.label],
+    ["mountedRoute", route],
+    ["elapsedSinceBoot", elapsed],
+    ["mainLoaded", status?.mainLoaded ?? "—"],
+    ["reactPainted", status?.rendered ?? "—"],
+    ["rootEmpty", status?.rootEmpty ?? "—"],
+    ["overlayKind", status?.overlayKind ?? "none"],
+    ["watchdog", watchdog],
+  ];
+
+  return (
+    <div>
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          gap: 10,
+          marginBottom: 14,
+          padding: "8px 12px",
+          borderRadius: 6,
+          border: `1px solid ${toneColor}`,
+          background: "hsl(0 0% 5%)",
+        }}
+      >
+        <span
+          style={{
+            width: 10,
+            height: 10,
+            borderRadius: "50%",
+            background: toneColor,
+            boxShadow: `0 0 8px ${toneColor}`,
+          }}
+        />
+        <span style={{ fontWeight: 600, fontSize: 14 }}>{phase.label}</span>
+        <span style={{ marginLeft: "auto", fontSize: 12, color: "hsl(var(--muted-foreground))", fontFamily: "ui-monospace, Menlo, monospace" }}>
+          updates every 500 ms
+        </span>
+      </div>
+      <KeyValueGrid entries={entries} />
+      {status && status.marks.length > 0 && (
+        <>
+          <div style={{ height: 12 }} />
+          <SubLabel>Boot timeline ({status.marks.length} marks)</SubLabel>
+          <pre style={preStyle}>
+            {status.marks
+              .map((m) => `${String(m.at).padStart(5, " ")} ms  ${m.name}${m.detail ? ` — ${m.detail}` : ""}`)
+              .join("\n")}
+          </pre>
+        </>
+      )}
+    </div>
+  );
+}
