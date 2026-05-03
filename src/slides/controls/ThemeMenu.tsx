@@ -480,7 +480,7 @@ export function ThemeMenu({ onClose, onChange }: Props) {
                 role="menuitemradio"
                 aria-checked={isActive}
                 style={{ ['--tw-ring-color' as string]: 'hsl(var(--gold) / 0.55)' }}
-                className={`group flex-1 min-w-0 flex items-center gap-3 px-3 py-2.5 rounded-xl transition text-left focus-visible:outline-none focus-visible:ring-2 active:bg-[hsl(0_0%_100%/0.22)] ${
+                className={`group flex-1 min-w-0 flex items-center gap-2 px-2 py-1.5 rounded-lg transition text-left focus-visible:outline-none focus-visible:ring-2 active:bg-[hsl(0_0%_100%/0.22)] ${
                   isActive
                     ? 'bg-[hsl(0_0%_100%/0.18)] ring-1 ring-gold/55'
                     : 'hover:bg-[hsl(0_0%_100%/0.12)] focus-visible:bg-[hsl(0_0%_100%/0.12)]'
