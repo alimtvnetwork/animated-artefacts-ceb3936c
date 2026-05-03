@@ -293,6 +293,20 @@ const ChecklistContent = z.object({
   progressColor: z.enum(['gold', 'ember', 'cream']).optional(),
 }).passthrough();
 
+const Tile = z.object({
+  name: z.string().min(1),
+  tag: z.string().optional(),
+  desc: z.string().optional(),
+  url: z.string().url().optional(),
+  glyph: z.string().optional(),
+  cta: z.string().optional(),
+}).passthrough();
+const TileContent = z.object({
+  title: z.string().min(1),
+  tiles: z.array(Tile).min(2).max(4),
+  tilesCaption: z.string().optional(),
+}).passthrough();
+
 /**
  * Public registry of every per-slideType content contract — the SAME zod
  * schemas the runtime validator uses. Exposed so external consumers (the
