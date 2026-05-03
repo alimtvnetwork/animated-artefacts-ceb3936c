@@ -486,11 +486,11 @@ export function ThemeMenu({ onClose, onChange }: Props) {
                     : 'hover:bg-[hsl(0_0%_100%/0.12)] focus-visible:bg-[hsl(0_0%_100%/0.12)]'
                 }`}
               >
-                <div className="flex -space-x-1">
+                <div className="flex -space-x-1 shrink-0">
                   {t.swatch.map((hex, i) => (
                     <span
                       key={i}
-                      className="h-5 w-5 rounded-full ring-2"
+                      className="h-4 w-4 rounded-full ring-2"
                       style={{
                         backgroundColor: hex,
                         boxShadow: '0 0 0 2px hsl(var(--chrome-bg))',
