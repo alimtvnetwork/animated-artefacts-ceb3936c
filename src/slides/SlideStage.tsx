@@ -29,6 +29,7 @@ import { DataTableSlide } from './types/DataTableSlide';
 import { NumberCalloutSlide } from './types/NumberCalloutSlide';
 import { EquationSlide } from './types/EquationSlide';
 import { ChecklistSlide } from './types/ChecklistSlide';
+import { TileSlide } from './types/TileSlide';
 import { BrandHeader } from './components/BrandHeader';
 import { AmbientBackground } from './components/AmbientBackground';
 import { HotspotLayer } from './components/HotspotLayer';
