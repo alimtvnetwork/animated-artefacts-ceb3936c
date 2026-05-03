@@ -11,6 +11,8 @@ full `spec/` tree. Each file is a self-contained delta.
 | 03 | Session 4 GitHub link CTAs + About slide white title | 2026-05-03 |
 | 04 | Session 4 Slide 09 rebuilt as LayoutSlide ("Where do we go from here?") | 2026-05-03 |
 | 05 | TileSlide added to slide system + slide 5 converted | 2026-05-03 |
+| 06 | LayoutSlide brand-aligned padding + compact card variant | 2026-05-03 |
+| 07 | `.slide-card.is-compact` hugs content (no row stretch) | 2026-05-03 |
 
 ## Conventions
 
