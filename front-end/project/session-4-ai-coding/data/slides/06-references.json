@@ -25,7 +25,8 @@
           "capsules": [
             { "text": "GitHub", "color": "gold" },
             { "text": "v13", "color": "ember" }
-          ]
+          ],
+          "cta": { "text": "Open repo →", "href": "https://github.com/alimtvnetwork/gitmap-v13" }
         }
       },
       {
@@ -39,7 +40,8 @@
           "capsules": [
             { "text": "GitHub", "color": "gold" },
             { "text": "v8", "color": "ember" }
-          ]
+          ],
+          "cta": { "text": "Open repo →", "href": "https://github.com/alimtvnetwork/movie-cli-v8" }
         }
       },
       {
@@ -53,13 +55,20 @@
           "capsules": [
             { "text": "GitHub", "color": "gold" },
             { "text": "v3", "color": "ember" }
-          ]
+          ],
+          "cta": { "text": "Open repo →", "href": "https://github.com/alimtvnetwork/alarm-app-v3" }
         }
       },
       {
         "text": "Presentation",
         "color": "outline",
-        "hoverText": "present-v1.riseup-asia.com"
+        "hoverText": "present-v1.riseup-asia.com",
+        "expand": {
+          "eyebrow": "Deck · Live URL",
+          "title": "present-v1.riseup-asia.com",
+          "body": "This presentation. Open it in your own tab to follow along or revisit later.",
+          "cta": { "text": "Open deck →", "href": "https://present-v1.riseup-asia.com" }
+        }
       }
     ]
   },
