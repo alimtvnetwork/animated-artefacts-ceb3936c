@@ -75,6 +75,7 @@ export function LayoutSlide({ spec }: { spec: SlideSpec }) {
   const reduced = useReducedMotion();
   const preset: LayoutGridPreset = c.layout ?? 'split-2-equal';
   const slots = c.layoutSlots ?? [];
+  const verticalAlign = c.layoutVerticalAlign ?? 'start';
 
   return (
     <section
@@ -87,6 +88,7 @@ export function LayoutSlide({ spec }: { spec: SlideSpec }) {
         // lines up under the wordmark across all viewport widths.
         paddingLeft: 'var(--brand-inset-x)',
         paddingRight: 'var(--brand-inset-x)',
+        justifyContent: verticalAlign === 'center' ? 'center' : undefined,
       }}
     >
       <motion.header
@@ -104,7 +106,7 @@ export function LayoutSlide({ spec }: { spec: SlideSpec }) {
         initial={reduced ? false : { opacity: 0, y: 16 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, delay: 0.15 }}
-        className={`flex-1 min-h-0 ${GRID_CLASS[preset]}`}
+        className={`${verticalAlign === 'center' ? 'flex-none' : 'flex-1 min-h-0'} ${GRID_CLASS[preset]}`}
       >
         {slots.map((slot, i) => <Slot key={i} slot={slot} idx={i} />)}
       </motion.div>
