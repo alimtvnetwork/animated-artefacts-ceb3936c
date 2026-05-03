@@ -500,12 +500,12 @@ export function ThemeMenu({ onClose, onChange }: Props) {
                   ))}
                 </div>
                 <div className="flex-1 min-w-0">
-                  <div className="text-sm flex items-center gap-2">
-                    {t.label}
-                    {isActive && <Check className="h-3.5 w-3.5 text-gold" />}
+                  <div className="text-[12px] flex items-center gap-1.5 truncate">
+                    <span className="truncate">{t.label}</span>
+                    {isActive && <Check className="h-3 w-3 text-gold shrink-0" />}
                     {custom && (
                       <span
-                        className="ml-auto inline-flex items-center px-1.5 py-0.5 rounded-md text-[10px] font-semibold tracking-wide uppercase"
+                        className="ml-auto inline-flex items-center px-1 py-0.5 rounded text-[9px] font-semibold tracking-wide uppercase shrink-0"
                         style={{
                           background: 'hsl(var(--gold) / 0.18)',
                           color: 'hsl(var(--gold))',
@@ -517,7 +517,7 @@ export function ThemeMenu({ onClose, onChange }: Props) {
                     )}
                   </div>
                   <div
-                    className="text-xs truncate transition-colors"
+                    className="text-[10.5px] leading-snug truncate transition-colors"
                     style={{
                       color: isActive
                         ? 'hsl(var(--chrome-fg))'
