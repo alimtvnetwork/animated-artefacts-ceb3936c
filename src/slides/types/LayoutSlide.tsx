@@ -30,6 +30,9 @@ function Slot({ slot, idx }: { slot: LayoutSlotSpec; idx: number }) {
   const kind = slot.kind ?? 'card';
   const variantCls =
     slot.variant && slot.variant !== 'default' ? ` is-${slot.variant}` : '';
+  const spanStyle: React.CSSProperties = {};
+  if (slot.colSpan && slot.colSpan > 1) spanStyle.gridColumn = `span ${slot.colSpan}`;
+  if (slot.rowSpan && slot.rowSpan > 1) spanStyle.gridRow = `span ${slot.rowSpan}`;
 
   const inner = (
     <>
@@ -53,16 +56,16 @@ function Slot({ slot, idx }: { slot: LayoutSlotSpec; idx: number }) {
 
   if (kind === 'codeblock') {
     return (
-      <div>
+      <div style={spanStyle}>
         {slot.title && <h3 className="font-display text-2xl font-bold mb-3 text-foreground">{slot.title}</h3>}
         <pre className="slide-codeblock"><code>{slot.code ?? ''}</code></pre>
       </div>
     );
   }
   if (kind === 'plain') {
-    return <div className="px-2">{inner}</div>;
+    return <div className="px-2 flex flex-col justify-center" style={spanStyle}>{inner}</div>;
   }
-  return <div className={`slide-card${variantCls}`}>{inner}</div>;
+  return <div className={`slide-card${variantCls}`} style={spanStyle}>{inner}</div>;
 }
 
 export function LayoutSlide({ spec }: { spec: SlideSpec }) {
