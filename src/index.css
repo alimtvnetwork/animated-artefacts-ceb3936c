@@ -2247,6 +2247,10 @@ html[data-export-cmyk="true"] .handout-stage {
   .slide-card.is-success { border-color: hsl(152 60% 40% / 0.55); }
   .slide-card.is-danger  { border-color: hsl(var(--destructive) / 0.55); }
   .slide-card.is-accent  { border-color: hsl(var(--gold) / 0.55); }
+  /* Slim variant — tighter padding for compact card stacks (e.g. Plan A/B). */
+  .slide-card.is-compact { padding: 1.25rem 1.5rem; border-radius: 1rem; }
+  .slide-card.is-compact h3 { font-size: 1.5rem; margin-bottom: 0.5rem; }
+  .slide-card.is-compact .slide-eyebrow { margin-bottom: 0.5rem; }
 
   /* --- Generic data table. Themed header row, alt-row striping. --- */
   .slide-table {

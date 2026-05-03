@@ -34,6 +34,7 @@ function Slot({ slot, idx }: { slot: LayoutSlotSpec; idx: number }) {
   const spanStyle: React.CSSProperties = {};
   if (slot.colSpan && slot.colSpan > 1) spanStyle.gridColumn = `span ${slot.colSpan}`;
   if (slot.rowSpan && slot.rowSpan > 1) spanStyle.gridRow = `span ${slot.rowSpan}`;
+  const compactCls = slot.compact ? ' is-compact' : '';
 
   const inner = (
     <>
@@ -64,9 +65,9 @@ function Slot({ slot, idx }: { slot: LayoutSlotSpec; idx: number }) {
     );
   }
   if (kind === 'plain') {
-    return <div className="px-2 flex flex-col justify-center" style={spanStyle}>{inner}</div>;
+    return <div className="flex flex-col justify-center" style={spanStyle}>{inner}</div>;
   }
-  return <div className={`slide-card${variantCls}`} style={spanStyle}>{inner}</div>;
+  return <div className={`slide-card${variantCls}${compactCls}`} style={spanStyle}>{inner}</div>;
 }
 
 export function LayoutSlide({ spec }: { spec: SlideSpec }) {
@@ -79,7 +80,14 @@ export function LayoutSlide({ spec }: { spec: SlideSpec }) {
     <section
       role="region"
       aria-label={`Layout: ${c.title ?? spec.slideName}`}
-      className="relative h-full w-full overflow-hidden flex flex-col px-24 py-20"
+      className="relative h-full w-full overflow-hidden flex flex-col py-20"
+      style={{
+        // v0.214 — align section's left/right with the BrandHeader logo
+        // (same `--brand-inset-x` token used by BrandHeader). Headline now
+        // lines up under the wordmark across all viewport widths.
+        paddingLeft: 'var(--brand-inset-x)',
+        paddingRight: 'var(--brand-inset-x)',
+      }}
     >
       <motion.header
         initial={reduced ? false : { opacity: 0, y: 12 }}

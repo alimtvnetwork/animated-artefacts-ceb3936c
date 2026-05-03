@@ -25,14 +25,16 @@
         "kind": "card",
         "eyebrow": "Plan A",
         "title": "Add a feature to Gitmap",
-        "body": "Continue where we left off."
+        "body": "Continue where we left off.",
+        "compact": true
       },
       {
         "kind": "card",
         "eyebrow": "Plan B",
         "title": "Your idea",
         "body": "Bring something — we'll build it together.",
-        "colSpan": 1
+        "colSpan": 1,
+        "compact": true
       }
     ]
   },

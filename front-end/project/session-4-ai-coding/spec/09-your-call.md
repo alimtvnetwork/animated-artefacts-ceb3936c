@@ -1,35 +1,23 @@
-# 09 — Where do we go from here?
+# Slide 09 — Where do we go from here?
 
-- **Type**: `LayoutSlide`
-- **Layout**: `split-2-equal` with `rowSpan: 2` on the left plain text → left column holds the framing copy, right column stacks two equal "Plan A / Plan B" cards.
-- **Theme**: noir-gold (any theme — title locked white).
-- **Transition**: `SlideIn` · **Text**: `Stagger`.
+**Type**: `LayoutSlide` (`split-2-equal`)
+**Title color**: white
+**Transition**: SlideIn · **Text**: Stagger
 
-## Purpose
-Hand the wheel to the audience. The left column is a calm, single-voice
-ask ("yours to steer"). The right column lists exactly two concrete paths
-as cards with a `Plan A` / `Plan B` eyebrow. No capsule expand panel —
-the cards ARE the affordance.
+## Layout
+- Left column (`kind: plain`, `rowSpan: 2`) — calm "yours to steer" ask.
+- Right column — two stacked compact cards:
+  - Plan A · "Add a feature to Gitmap"
+  - Plan B · "Your idea"
 
-## Layout map
+Both right cards use `compact: true` (see
+`updates/spec/06-layout-slide-brand-aligned-and-compact.md`) so the
+right column reads as a Plan A/B *list* rather than two hero panels.
 
-```
-┌──────────────────────────┬─────────────────────────────┐
-│                          │  PLAN A                     │
-│  I want to be upfront…   │  Add a feature to Gitmap    │
-│  yours to steer.         │  Continue where we left off │
-│                          ├─────────────────────────────┤
-│  (sub copy)              │  PLAN B                     │
-│                          │  Your idea                  │
-│                          │  Bring something — …        │
-└──────────────────────────┴─────────────────────────────┘
-```
+## Alignment
+Section padding uses `var(--brand-inset-x)`, so the eyebrow + headline
+share the BrandHeader logo's left edge at every viewport width.
 
-## Speaker notes
+## Notes
 Pause. Read the chat. Whichever path the room picks, the next 20 minutes
-bend to it. Don't oversell Plan A — both are equal weight on the slide.
-
-## Authoring rules
-- Title is `white` (deck-wide rule for middle headlines).
-- Card eyebrows use Plan A / Plan B — short, neutral, no emoji.
-- Body line per card ≤ 6 words.
+bend to it.
