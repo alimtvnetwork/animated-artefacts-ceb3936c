@@ -476,6 +476,49 @@
 }
 .checklist-rows { list-style: none; padding: 0; margin: 0; max-width: 1100px; }
 .checklist-row-li { margin: 0.4rem 0; }
+
+/* TileSlide ----------------------------------------------------------- */
+.tile-card {
+  background: linear-gradient(135deg,
+    hsl(var(--card)) 0%,
+    hsl(var(--background)) 100%);
+  border: 1px solid hsl(var(--gold) / 0.20);
+  box-shadow: 0 30px 80px -20px hsl(0 0% 0% / 0.85);
+  transition: transform 500ms cubic-bezier(0.22, 1, 0.36, 1),
+              border-color 500ms ease,
+              box-shadow 500ms ease;
+  text-decoration: none;
+  color: inherit;
+}
+a.tile-card:hover,
+a.tile-card:focus-visible {
+  transform: translateY(-8px);
+  border-color: hsl(var(--gold) / 0.60);
+  box-shadow: 0 40px 90px -20px hsl(0 0% 0% / 0.9),
+              0 0 60px -10px hsl(var(--gold) / 0.25);
+}
+.tile-card__glow {
+  position: absolute;
+  top: -2.5rem;
+  right: -2.5rem;
+  width: 10rem;
+  height: 10rem;
+  border-radius: 9999px;
+  background: hsl(var(--gold) / 0.05);
+  filter: blur(40px);
+  transition: background 700ms ease;
+  pointer-events: none;
+}
+.tile-card:hover .tile-card__glow,
+.tile-card:focus-visible .tile-card__glow {
+  background: hsl(var(--gold) / 0.18);
+}
+@media (prefers-reduced-motion: reduce) {
+  .tile-card,
+  .tile-card__glow,
+  a.tile-card:hover { transition: none; transform: none; }
+}
+
 .checklist-row {
   width: 100%;
   display: flex;

@@ -29,6 +29,7 @@ import { DataTableSlide } from './types/DataTableSlide';
 import { NumberCalloutSlide } from './types/NumberCalloutSlide';
 import { EquationSlide } from './types/EquationSlide';
 import { ChecklistSlide } from './types/ChecklistSlide';
+import { TileSlide } from './types/TileSlide';
 import { BrandHeader } from './components/BrandHeader';
 import { AmbientBackground } from './components/AmbientBackground';
 import { HotspotLayer } from './components/HotspotLayer';
@@ -139,6 +140,7 @@ function renderSlideBody({ slide, onCapsuleClickReveal, highlightReveal, onOpenE
     case 'NumberCalloutSlide': return <NumberCalloutSlide spec={slide} />;
     case 'EquationSlide': return <EquationSlide spec={slide} />;
     case 'ChecklistSlide': return <ChecklistSlide spec={slide} />;
+    case 'TileSlide': return <TileSlide spec={slide} />;
     default: return <TitleSlide spec={slide} />;
   }
 }

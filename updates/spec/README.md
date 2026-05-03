@@ -10,6 +10,7 @@ full `spec/` tree. Each file is a self-contained delta.
 | 02 | ThemeMenu compaction | 2026-05-03 |
 | 03 | Session 4 GitHub link CTAs + About slide white title | 2026-05-03 |
 | 04 | Session 4 Slide 09 rebuilt as LayoutSlide ("Where do we go from here?") | 2026-05-03 |
+| 05 | TileSlide added to slide system + slide 5 converted | 2026-05-03 |
 
 ## Conventions
 

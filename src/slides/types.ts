@@ -838,6 +838,21 @@ export interface SlideContent {
   items?: ChecklistItemSpec[];
   /** `ChecklistSlide` only — color of the progress bar fill. */
   progressColor?: 'gold' | 'ember' | 'cream';
+
+  /** `TileSlide` only — clickable tile cards (2–4). */
+  tiles?: TileSpec[];
+  /** `TileSlide` only — small italic caption under the grid. */
+  tilesCaption?: string;
+}
+
+/** A single tile in `TileSlide`. */
+export interface TileSpec {
+  name: string;
+  tag?: string;
+  desc?: string;
+  url?: string;
+  glyph?: string;
+  cta?: string;
 }
 
 /** A single row in `ChecklistSlide`. Keywords-first; `detail` is one line ≤80 chars. */

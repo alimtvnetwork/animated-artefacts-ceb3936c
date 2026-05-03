@@ -97,6 +97,12 @@ export const SlideType = {
    * progress bar tracks completion. Resolves ambiguity #32. ≤7 items.
    */
   ChecklistSlide: 'ChecklistSlide',
+  /**
+   * TileSlide — N (2–4) clickable cards in a row. Each tile = glyph + name +
+   * tag + desc + external URL. Used for project lists / repo galleries.
+   * See `updates/spec/05-tile-slide.md`.
+   */
+  TileSlide: 'TileSlide',
 } as const;
 export type SlideTypeValue = typeof SlideType[keyof typeof SlideType];
 

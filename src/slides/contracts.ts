@@ -51,6 +51,7 @@ export const REQUIRED_FIELDS: Record<string, readonly string[]> = {
   NumberCalloutSlide:    ['number'],
   EquationSlide:         ['tex|equationHtml'],
   ChecklistSlide:        ['title', 'items'],
+  TileSlide:             ['title', 'tiles'],
 } as const;
 
 // ---------- Shared sub-contracts ----------
@@ -292,6 +293,20 @@ const ChecklistContent = z.object({
   progressColor: z.enum(['gold', 'ember', 'cream']).optional(),
 }).passthrough();
 
+const Tile = z.object({
+  name: z.string().min(1),
+  tag: z.string().optional(),
+  desc: z.string().optional(),
+  url: z.string().url().optional(),
+  glyph: z.string().optional(),
+  cta: z.string().optional(),
+}).passthrough();
+const TileContent = z.object({
+  title: z.string().min(1),
+  tiles: z.array(Tile).min(2).max(4),
+  tilesCaption: z.string().optional(),
+}).passthrough();
+
 /**
  * Public registry of every per-slideType content contract — the SAME zod
  * schemas the runtime validator uses. Exposed so external consumers (the
@@ -327,6 +342,7 @@ export const SLIDE_CONTENT_CONTRACTS = {
   NumberCalloutSlide:    NumberCalloutContent,
   EquationSlide:         EquationContent,
   ChecklistSlide:        ChecklistContent,
+  TileSlide:             TileContent,
 } as const;
 
 /** Bump on any breaking change to a per-type content contract. Drives the
@@ -369,6 +385,7 @@ export const SlideContract = z.discriminatedUnion('slideType', [
   make('NumberCalloutSlide', NumberCalloutContent),
   make('EquationSlide', EquationContent),
   make('ChecklistSlide', ChecklistContent),
+  make('TileSlide', TileContent),
 ]);
 
 export interface SlideValidationIssue {
