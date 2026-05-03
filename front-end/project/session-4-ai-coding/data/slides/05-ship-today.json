@@ -1,7 +1,7 @@
 {
   "slideNumber": 5,
   "slideName": "ship-today",
-  "slideType": "CapsuleListSlide",
+  "slideType": "TileSlide",
   "transition": "SlideIn",
   "textAnimation": "Stagger",
   "enabled": true,
@@ -9,58 +9,37 @@
   "showPresenterChip": true,
   "titleStyle": "white",
   "titleShimmer": false,
+  "narrowIdea": "Three real projects on the bench — pick one and we ship it live.",
   "content": {
-    "eyebrow": "Hands-on today",
-    "title": "Two CLIs and a map",
-    "animations": { "capsules": "cinematicCapsules" },
-    "capsules": [
+    "eyebrow": "Today's goal",
+    "title": "We'll build two CLIs along the way.",
+    "tiles": [
       {
-        "text": "Movie CLI",
-        "color": "gold",
-        "hoverText": "Search & browse from terminal",
-        "expand": {
-          "eyebrow": "CLI · Movie",
-          "title": "Movie CLI",
-          "body": "Search films, fetch metadata, all from the command line. Built live with AI guardrails.",
-          "capsules": [
-            { "text": "v8", "color": "gold" },
-            { "text": "TypeScript", "color": "ember" },
-            { "text": "GitHub", "color": "cream" }
-          ],
-          "cta": { "text": "View on GitHub →", "href": "https://github.com/alimtvnetwork/movie-cli-v8" }
-        }
+        "name": "Alarm CLI",
+        "tag": "alarm-app-v3",
+        "desc": "A terminal alarm clock. Schedules, notifications, snooze.",
+        "url": "https://github.com/alimtvnetwork/alarm-app-v3",
+        "glyph": "⏰",
+        "cta": "View on GitHub"
       },
       {
-        "text": "Alarm CLI",
-        "color": "ember",
-        "hoverText": "Schedule from terminal",
-        "expand": {
-          "eyebrow": "CLI · Alarm",
-          "title": "Alarm CLI",
-          "body": "Set, list, and cancel alarms without leaving the shell. Small surface, real product.",
-          "capsules": [
-            { "text": "v3", "color": "gold" },
-            { "text": "Cross-platform", "color": "ember" }
-          ],
-          "cta": { "text": "View on GitHub →", "href": "https://github.com/alimtvnetwork/alarm-app-v3" }
-        }
+        "name": "Movie CLI",
+        "tag": "movie-cli-v8",
+        "desc": "Search, browse and surface movie data right from the terminal.",
+        "url": "https://github.com/alimtvnetwork/movie-cli-v8",
+        "glyph": "🎬",
+        "cta": "View on GitHub"
       },
       {
-        "text": "Gitmap",
-        "color": "cream",
-        "hoverText": "Visualise a repo's history",
-        "expand": {
-          "eyebrow": "Tool · Gitmap",
-          "title": "Gitmap",
-          "body": "Map a repo's structure and history visually. Today we may add one feature live — your call.",
-          "capsules": [
-            { "text": "v13", "color": "gold" },
-            { "text": "Open feature", "color": "ember" }
-          ],
-          "cta": { "text": "View on GitHub →", "href": "https://github.com/alimtvnetwork/gitmap-v13" }
-        }
+        "name": "Gitmap",
+        "tag": "gitmap-v13",
+        "desc": "Map your repos visually. Today's candidate for a new feature.",
+        "url": "https://github.com/alimtvnetwork/gitmap-v13",
+        "glyph": "🌐",
+        "cta": "View on GitHub"
       }
-    ]
+    ],
+    "tilesCaption": "Click any tile to open the repo."
   },
-  "notes": "These three projects anchor the build portion. Hover or click to show what each does. We will probably touch Gitmap in the open-direction slot."
+  "notes": "Three real projects — Gitmap is the most likely candidate for a live feature add."
 }
