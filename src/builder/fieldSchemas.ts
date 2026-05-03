@@ -396,6 +396,21 @@ export const SLIDE_TYPE_SCHEMAS: Record<SlideTypeValue, SlideTypeSchema> = {
       ],
     },
   },
+  TileSlide: {
+    label: 'Tile grid',
+    blurb: 'N (2–4) clickable tile cards in a row. Each links to an external URL.',
+    fields: ['eyebrow', 'title', 'subtitle'],
+    defaults: {
+      eyebrow: "Today's goal",
+      title: "We'll build two CLIs along the way.",
+      tiles: [
+        { name: 'Alarm CLI', tag: 'alarm-app-v3', desc: 'A terminal alarm clock. Schedules, notifications, snooze.', url: 'https://github.com/', glyph: '⏰' },
+        { name: 'Movie CLI', tag: 'movie-cli-v8', desc: 'Search, browse and surface movie data right from the terminal.', url: 'https://github.com/', glyph: '🎬' },
+        { name: 'Gitmap',    tag: 'gitmap-v13',   desc: "Map your repos visually. Today's candidate for a new feature.", url: 'https://github.com/', glyph: '🌐' },
+      ],
+      tilesCaption: 'Click any tile to open the link.',
+    },
+  },
 };
 
 /** Ordered list of slide-type keys for the picker. */
