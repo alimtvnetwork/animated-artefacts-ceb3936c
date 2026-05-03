@@ -16,7 +16,9 @@ export function KeywordSlide({ spec }: { spec: SlideSpec }) {
   return (
     <motion.div variants={container} initial="initial" animate="animate" className="flex h-full flex-col items-center justify-center text-center px-8 pt-32 pb-20">
       {c.eyebrow && <motion.span variants={eyebrowV} className="text-xs tracking-[0.4em] uppercase text-gold/90 mb-6">{c.eyebrow}</motion.span>}
-      {c.title && <motion.h2 variants={titleV} className="slide-title-content text-foreground/60 mb-10">{c.title}</motion.h2>}
+      {/* Middle title is locked to white across every theme — the colored
+          keywords below carry the brand accent, the title stays a calm anchor. */}
+      {c.title && <motion.h2 variants={titleV} className="slide-title-content text-white/75 mb-10">{c.title}</motion.h2>}
       {c.keywords && (
         <motion.div variants={keywordsV} className="flex flex-wrap gap-x-12 gap-y-4 justify-center">
           {c.keywords.map((k, i) => (
