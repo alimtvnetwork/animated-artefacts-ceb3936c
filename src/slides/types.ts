@@ -906,6 +906,9 @@ export interface LayoutSlotSpec {
   codeLanguage?: string;
   /** Visual modifier on `.slide-card` — adds a colored border. */
   variant?: 'default' | 'success' | 'danger' | 'accent';
+  /** Optional CSS grid spans applied to the slot wrapper. */
+  colSpan?: number;
+  rowSpan?: number;
 }
 
 /**
