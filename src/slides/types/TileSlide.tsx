@@ -30,15 +30,17 @@ export function TileSlide({ spec }: { spec: SlideSpec }) {
     <section
       role="region"
       aria-label={`Tiles: ${c.title ?? spec.slideName}`}
-      className="relative h-full w-full overflow-hidden flex flex-col px-24 pt-32 pb-20"
+      className="relative h-full w-full overflow-hidden flex flex-col justify-end px-24 pt-20 pb-24"
     >
-      <header className="mb-8">
+      {/* Header sits directly above the tiles (close-coupled) and is left-aligned
+          to share the same x-axis as the brand logo (px-24). See updates/spec/10-tile-slide-header-bottom-aligned.md */}
+      <header className="mb-6">
         {c.eyebrow && <p className="slide-eyebrow mb-3">{c.eyebrow}</p>}
         {c.title && <h2 className={`slide-title-content ${titleClassFor(spec)}`}>{c.title}</h2>}
         {c.subtitle && <p className="slide-subtitle mt-3">{c.subtitle}</p>}
       </header>
 
-      <div className={`flex-1 grid ${gridClassFor(tiles.length)} gap-6 content-center`}>
+      <div className={`grid ${gridClassFor(tiles.length)} gap-6`}>
         {tiles.map((t, i) => {
           const Wrapper: React.ElementType = t.url ? 'a' : 'div';
           const linkProps = t.url
