@@ -7,7 +7,7 @@
   "enabled": true,
   "showBrandHeader": true,
   "showPresenterChip": true,
-  "titleStyle": "gold",
+  "titleStyle": "white",
   "titleShimmer": true,
   "content": {
     "eyebrow": "Quick context",
