@@ -293,10 +293,10 @@ export function ThemeMenu({ onClose, onChange }: Props) {
       style={{ color: 'hsl(var(--chrome-fg))' }}
       className="absolute bottom-full mb-3 right-0 w-64 rounded-2xl controller-pill p-1.5 shadow-2xl"
     >
-      <div className="flex items-center justify-between px-3 py-2">
-        <div className="flex items-center gap-2">
-          <Palette className="h-4 w-4 text-gold" />
-          <span className="text-sm font-medium">Theme</span>
+      <div className="flex items-center justify-between px-2 py-1.5">
+        <div className="flex items-center gap-1.5">
+          <Palette className="h-3.5 w-3.5 text-gold" />
+          <span className="text-[12px] font-medium">Theme</span>
         </div>
         <div className="flex items-center gap-1">
           <input
