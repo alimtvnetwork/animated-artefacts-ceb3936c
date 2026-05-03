@@ -9,6 +9,7 @@ full `spec/` tree. Each file is a self-contained delta.
 | 01 | KeywordSlide text colors locked to white | 2026-05-03 |
 | 02 | ThemeMenu compaction | 2026-05-03 |
 | 03 | Session 4 GitHub link CTAs + About slide white title | 2026-05-03 |
+| 04 | Session 4 Slide 09 rebuilt as LayoutSlide ("Where do we go from here?") | 2026-05-03 |
 
 ## Conventions
 
