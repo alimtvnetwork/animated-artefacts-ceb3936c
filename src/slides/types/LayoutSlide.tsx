@@ -1,3 +1,4 @@
+import * as React from 'react';
 import { motion, useReducedMotion } from 'framer-motion';
 import type { SlideSpec, LayoutSlotSpec, LayoutGridPreset } from '../types';
 import { titleClassFor } from '../preset';
