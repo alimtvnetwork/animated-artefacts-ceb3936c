@@ -352,7 +352,7 @@ export function ThemeMenu({ onClose, onChange }: Props) {
         </div>
       </div>
       <p
-        className="px-3 pb-2 text-xs"
+        className="px-2 pb-1.5 text-[10.5px] leading-snug"
         style={{ color: 'hsl(var(--chrome-fg-muted))' }}
       >
         Switch palettes live. Saved with the deck on export.
