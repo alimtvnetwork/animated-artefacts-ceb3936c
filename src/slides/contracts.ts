@@ -385,6 +385,7 @@ export const SlideContract = z.discriminatedUnion('slideType', [
   make('NumberCalloutSlide', NumberCalloutContent),
   make('EquationSlide', EquationContent),
   make('ChecklistSlide', ChecklistContent),
+  make('TileSlide', TileContent),
 ]);
 
 export interface SlideValidationIssue {
