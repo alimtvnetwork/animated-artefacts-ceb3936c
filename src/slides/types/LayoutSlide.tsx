@@ -80,7 +80,14 @@ export function LayoutSlide({ spec }: { spec: SlideSpec }) {
     <section
       role="region"
       aria-label={`Layout: ${c.title ?? spec.slideName}`}
-      className="relative h-full w-full overflow-hidden flex flex-col px-24 py-20"
+      className="relative h-full w-full overflow-hidden flex flex-col py-20"
+      style={{
+        // v0.214 — align section's left/right with the BrandHeader logo
+        // (same `--brand-inset-x` token used by BrandHeader). Headline now
+        // lines up under the wordmark across all viewport widths.
+        paddingLeft: 'var(--brand-inset-x)',
+        paddingRight: 'var(--brand-inset-x)',
+      }}
     >
       <motion.header
         initial={reduced ? false : { opacity: 0, y: 12 }}
