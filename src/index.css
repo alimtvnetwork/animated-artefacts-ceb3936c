@@ -2248,9 +2248,14 @@ html[data-export-cmyk="true"] .handout-stage {
   .slide-card.is-danger  { border-color: hsl(var(--destructive) / 0.55); }
   .slide-card.is-accent  { border-color: hsl(var(--gold) / 0.55); }
   /* Slim variant — tighter padding for compact card stacks (e.g. Plan A/B). */
-  .slide-card.is-compact { padding: 1.25rem 1.5rem; border-radius: 1rem; }
-  .slide-card.is-compact h3 { font-size: 1.5rem; margin-bottom: 0.5rem; }
-  .slide-card.is-compact .slide-eyebrow { margin-bottom: 0.5rem; }
+  .slide-card.is-compact {
+    padding: 1rem 1.25rem;
+    border-radius: 0.875rem;
+    align-self: start; /* don't stretch to fill grid row */
+  }
+  .slide-card.is-compact h3 { font-size: 1.25rem; margin-bottom: 0.25rem; }
+  .slide-card.is-compact .slide-eyebrow { margin-bottom: 0.25rem; }
+  .slide-card.is-compact p { font-size: 0.95rem; line-height: 1.4; margin-bottom: 0; }
 
   /* --- Generic data table. Themed header row, alt-row striping. --- */
   .slide-table {
