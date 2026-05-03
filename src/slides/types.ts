@@ -795,6 +795,12 @@ export interface SlideContent {
    */
   layout?: LayoutGridPreset;
   /**
+   * `LayoutSlide` only — vertical placement of the header + grid block.
+   * Use `'center'` when the slide should sit in the visual middle instead of
+   * hanging from the top chrome. Default `'start'`.
+   */
+  layoutVerticalAlign?: 'start' | 'center';
+  /**
    * `LayoutSlide` only — child slot content. Each entry becomes one cell of
    * the chosen grid (in document order). Markdown-style emphasis is NOT
    * supported — keep entries to short, single-paragraph keywords-first
