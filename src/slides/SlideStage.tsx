@@ -140,6 +140,7 @@ function renderSlideBody({ slide, onCapsuleClickReveal, highlightReveal, onOpenE
     case 'NumberCalloutSlide': return <NumberCalloutSlide spec={slide} />;
     case 'EquationSlide': return <EquationSlide spec={slide} />;
     case 'ChecklistSlide': return <ChecklistSlide spec={slide} />;
+    case 'TileSlide': return <TileSlide spec={slide} />;
     default: return <TitleSlide spec={slide} />;
   }
 }
