@@ -924,6 +924,8 @@ export interface LayoutSlotSpec {
   /** Optional CSS grid spans applied to the slot wrapper. */
   colSpan?: number;
   rowSpan?: number;
+  /** Render with reduced padding/typography (slim card). Default false. */
+  compact?: boolean;
 }
 
 /**
