@@ -34,6 +34,7 @@ function Slot({ slot, idx }: { slot: LayoutSlotSpec; idx: number }) {
   const spanStyle: React.CSSProperties = {};
   if (slot.colSpan && slot.colSpan > 1) spanStyle.gridColumn = `span ${slot.colSpan}`;
   if (slot.rowSpan && slot.rowSpan > 1) spanStyle.gridRow = `span ${slot.rowSpan}`;
+  const compactCls = slot.compact ? ' is-compact' : '';
 
   const inner = (
     <>
