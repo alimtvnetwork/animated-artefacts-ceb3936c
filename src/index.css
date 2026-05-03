@@ -2392,6 +2392,19 @@ html[data-export-cmyk="true"] .handout-stage {
   .slide-grid-card-3x3   { display: grid; grid-template-columns: 1fr 1fr 1fr;    gap: calc(var(--slide-grid-gutter) - 0.5rem); }
   .slide-grid-centered   { display: flex; flex-direction: column; align-items: center; justify-content: center; }
 
+  /* When a 2-equal / 5-7 / 4-8 / 3-9 / 12-col grid contains compact cards,
+     pack rows to content (don't distribute free vertical space) so stacked
+     compact cards stay visually together instead of spreading apart. */
+  .slide-grid-2-equal:has(.slide-card.is-compact),
+  .slide-grid-5-7:has(.slide-card.is-compact),
+  .slide-grid-4-8:has(.slide-card.is-compact),
+  .slide-grid-3-9:has(.slide-card.is-compact),
+  .slide-grid-12-column:has(.slide-card.is-compact) {
+    grid-auto-rows: min-content;
+    align-content: start;
+    row-gap: 1rem;
+  }
+
   /* Stage-level wrapper applied by SlideStage when a slide opts in via
      `content.gridPreset`. Just enforces the shared horizontal/vertical
      padding tokens; the actual grid layout comes from the chained
