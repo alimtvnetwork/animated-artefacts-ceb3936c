@@ -26,7 +26,8 @@
             { "text": "v8", "color": "gold" },
             { "text": "TypeScript", "color": "ember" },
             { "text": "GitHub", "color": "cream" }
-          ]
+          ],
+          "cta": { "text": "View on GitHub →", "href": "https://github.com/alimtvnetwork/movie-cli-v8" }
         }
       },
       {
@@ -40,7 +41,8 @@
           "capsules": [
             { "text": "v3", "color": "gold" },
             { "text": "Cross-platform", "color": "ember" }
-          ]
+          ],
+          "cta": { "text": "View on GitHub →", "href": "https://github.com/alimtvnetwork/alarm-app-v3" }
         }
       },
       {
@@ -54,7 +56,8 @@
           "capsules": [
             { "text": "v13", "color": "gold" },
             { "text": "Open feature", "color": "ember" }
-          ]
+          ],
+          "cta": { "text": "View on GitHub →", "href": "https://github.com/alimtvnetwork/gitmap-v13" }
         }
       }
     ]
