@@ -65,9 +65,9 @@ function Slot({ slot, idx }: { slot: LayoutSlotSpec; idx: number }) {
     );
   }
   if (kind === 'plain') {
-    return <div className="px-2 flex flex-col justify-center" style={spanStyle}>{inner}</div>;
+    return <div className="flex flex-col justify-center" style={spanStyle}>{inner}</div>;
   }
-  return <div className={`slide-card${variantCls}`} style={spanStyle}>{inner}</div>;
+  return <div className={`slide-card${variantCls}${compactCls}`} style={spanStyle}>{inner}</div>;
 }
 
 export function LayoutSlide({ spec }: { spec: SlideSpec }) {
