@@ -51,6 +51,7 @@ export const REQUIRED_FIELDS: Record<string, readonly string[]> = {
   NumberCalloutSlide:    ['number'],
   EquationSlide:         ['tex|equationHtml'],
   ChecklistSlide:        ['title', 'items'],
+  TileSlide:             ['title', 'tiles'],
 } as const;
 
 // ---------- Shared sub-contracts ----------
