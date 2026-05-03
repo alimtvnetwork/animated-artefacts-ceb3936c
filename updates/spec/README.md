@@ -18,6 +18,7 @@ full `spec/` tree. Each file is a self-contained delta.
 | 10 | TileSlide header bottom-aligned + close to tiles, brand x-axis | 2026-05-03 |
 | 11 | TileSlide horizontal padding uses `--brand-inset-x` (not `px-24`) | 2026-05-03 |
 | 12 | TileSlide content block vertically CENTERED (supersedes #10 `justify-end`) | 2026-05-03 |
+| 13 | **AI Blind-Authoring Guide for Slide Layouts (Part 1/N)** — 3-axis model, TileSlide/LayoutSlide canonical contract, lever map, anti-patterns | 2026-05-03 |
 
 ## Conventions
 
