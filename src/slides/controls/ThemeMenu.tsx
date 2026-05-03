@@ -291,12 +291,12 @@ export function ThemeMenu({ onClose, onChange }: Props) {
       // GitHub Light would flip the menu text to dark ink and make it
       // invisible against the dark pill background.
       style={{ color: 'hsl(var(--chrome-fg))' }}
-      className="absolute bottom-full mb-3 right-0 w-72 rounded-2xl controller-pill p-2 shadow-2xl"
+      className="absolute bottom-full mb-3 right-0 w-64 rounded-2xl controller-pill p-1.5 shadow-2xl"
     >
-      <div className="flex items-center justify-between px-3 py-2">
-        <div className="flex items-center gap-2">
-          <Palette className="h-4 w-4 text-gold" />
-          <span className="text-sm font-medium">Theme</span>
+      <div className="flex items-center justify-between px-2 py-1.5">
+        <div className="flex items-center gap-1.5">
+          <Palette className="h-3.5 w-3.5 text-gold" />
+          <span className="text-[12px] font-medium">Theme</span>
         </div>
         <div className="flex items-center gap-1">
           <input
@@ -352,7 +352,7 @@ export function ThemeMenu({ onClose, onChange }: Props) {
         </div>
       </div>
       <p
-        className="px-3 pb-2 text-xs"
+        className="px-2 pb-1.5 text-[10.5px] leading-snug"
         style={{ color: 'hsl(var(--chrome-fg-muted))' }}
       >
         Switch palettes live. Saved with the deck on export.
@@ -480,17 +480,17 @@ export function ThemeMenu({ onClose, onChange }: Props) {
                 role="menuitemradio"
                 aria-checked={isActive}
                 style={{ ['--tw-ring-color' as string]: 'hsl(var(--gold) / 0.55)' }}
-                className={`group flex-1 min-w-0 flex items-center gap-3 px-3 py-2.5 rounded-xl transition text-left focus-visible:outline-none focus-visible:ring-2 active:bg-[hsl(0_0%_100%/0.22)] ${
+                className={`group flex-1 min-w-0 flex items-center gap-2 px-2 py-1.5 rounded-lg transition text-left focus-visible:outline-none focus-visible:ring-2 active:bg-[hsl(0_0%_100%/0.22)] ${
                   isActive
                     ? 'bg-[hsl(0_0%_100%/0.18)] ring-1 ring-gold/55'
                     : 'hover:bg-[hsl(0_0%_100%/0.12)] focus-visible:bg-[hsl(0_0%_100%/0.12)]'
                 }`}
               >
-                <div className="flex -space-x-1">
+                <div className="flex -space-x-1 shrink-0">
                   {t.swatch.map((hex, i) => (
                     <span
                       key={i}
-                      className="h-5 w-5 rounded-full ring-2"
+                      className="h-4 w-4 rounded-full ring-2"
                       style={{
                         backgroundColor: hex,
                         boxShadow: '0 0 0 2px hsl(var(--chrome-bg))',
@@ -500,12 +500,12 @@ export function ThemeMenu({ onClose, onChange }: Props) {
                   ))}
                 </div>
                 <div className="flex-1 min-w-0">
-                  <div className="text-sm flex items-center gap-2">
-                    {t.label}
-                    {isActive && <Check className="h-3.5 w-3.5 text-gold" />}
+                  <div className="text-[12px] flex items-center gap-1.5 truncate">
+                    <span className="truncate">{t.label}</span>
+                    {isActive && <Check className="h-3 w-3 text-gold shrink-0" />}
                     {custom && (
                       <span
-                        className="ml-auto inline-flex items-center px-1.5 py-0.5 rounded-md text-[10px] font-semibold tracking-wide uppercase"
+                        className="ml-auto inline-flex items-center px-1 py-0.5 rounded text-[9px] font-semibold tracking-wide uppercase shrink-0"
                         style={{
                           background: 'hsl(var(--gold) / 0.18)',
                           color: 'hsl(var(--gold))',
@@ -517,7 +517,7 @@ export function ThemeMenu({ onClose, onChange }: Props) {
                     )}
                   </div>
                   <div
-                    className="text-xs truncate transition-colors"
+                    className="text-[10.5px] leading-snug truncate transition-colors"
                     style={{
                       color: isActive
                         ? 'hsl(var(--chrome-fg))'
