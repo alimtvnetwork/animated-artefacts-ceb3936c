@@ -342,6 +342,7 @@ export const SLIDE_CONTENT_CONTRACTS = {
   NumberCalloutSlide:    NumberCalloutContent,
   EquationSlide:         EquationContent,
   ChecklistSlide:        ChecklistContent,
+  TileSlide:             TileContent,
 } as const;
 
 /** Bump on any breaking change to a per-type content contract. Drives the
