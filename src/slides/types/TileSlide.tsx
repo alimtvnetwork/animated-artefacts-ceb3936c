@@ -30,7 +30,7 @@ export function TileSlide({ spec }: { spec: SlideSpec }) {
     <section
       role="region"
       aria-label={`Tiles: ${c.title ?? spec.slideName}`}
-      className="relative h-full w-full overflow-hidden flex flex-col justify-end pt-20 pb-24"
+      className="relative h-full w-full overflow-hidden flex flex-col justify-center pt-24 pb-40"
       style={{
         paddingLeft: 'var(--brand-inset-x)',
         paddingRight: 'var(--brand-inset-x)',
