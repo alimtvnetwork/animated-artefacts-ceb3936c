@@ -25,7 +25,7 @@ export function KeywordSlide({ spec }: { spec: SlideSpec }) {
             <motion.span
               key={i}
               variants={keywordsV}
-              className={`font-display ${titleColor}`}
+              className="font-display text-white"
               style={{ fontSize: 'clamp(3rem, 8vw, 7rem)', lineHeight: 1 }}
             >
               {k}
