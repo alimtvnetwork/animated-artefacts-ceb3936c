@@ -18,7 +18,8 @@
       {
         "kind": "plain",
         "title": "I want to be upfront — this part of the session is yours to steer.",
-        "body": "I have a plan, but if you have an idea you want to explore live — let's do that instead."
+        "body": "I have a plan, but if you have an idea you want to explore live — let's do that instead.",
+        "rowSpan": 2
       },
       {
         "kind": "card",
