@@ -30,7 +30,11 @@ export function TileSlide({ spec }: { spec: SlideSpec }) {
     <section
       role="region"
       aria-label={`Tiles: ${c.title ?? spec.slideName}`}
-      className="relative h-full w-full overflow-hidden flex flex-col justify-end px-24 pt-20 pb-24"
+      className="relative h-full w-full overflow-hidden flex flex-col justify-end pt-20 pb-24"
+      style={{
+        paddingLeft: 'var(--brand-inset-x)',
+        paddingRight: 'var(--brand-inset-x)',
+      }}
     >
       {/* Header sits directly above the tiles (close-coupled) and is left-aligned
           to share the same x-axis as the brand logo (px-24). See updates/spec/10-tile-slide-header-bottom-aligned.md */}
