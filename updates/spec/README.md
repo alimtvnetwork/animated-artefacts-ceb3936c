@@ -15,6 +15,7 @@ full `spec/` tree. Each file is a self-contained delta.
 | 07 | `.slide-card.is-compact` hugs content (no row stretch) | 2026-05-03 |
 | 08 | Compact cards in a grid column pack together (no spread) | 2026-05-03 |
 | 09 | LayoutSlide centered-content mode for short compare slides | 2026-05-03 |
+| 10 | TileSlide header bottom-aligned + close to tiles, brand x-axis | 2026-05-03 |
 
 ## Conventions
 
