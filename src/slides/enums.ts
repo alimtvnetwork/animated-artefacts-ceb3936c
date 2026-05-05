@@ -112,6 +112,14 @@ export const SlideType = {
    * `spec/26-slide-definitions/_patterns/blast-radius-slide.md`.
    */
   BlastRadiusSlide: 'BlastRadiusSlide',
+  /**
+   * SessionOutlineSlide — vertical numbered agenda. Title block on top, then
+   * a list of 2–8 outline rows (big index numeral · title · subtitle · meta
+   * capsule). Optional `activeIndex` highlights one row (e.g. "we are here").
+   * Use as a session/chapter outline page; pairs with BlastRadiusSlide as a
+   * chapter opener. See `spec/26-slide-definitions/_patterns/session-outline-slide.md`.
+   */
+  SessionOutlineSlide: 'SessionOutlineSlide',
 } as const;
 export type SlideTypeValue = typeof SlideType[keyof typeof SlideType];
 

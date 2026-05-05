@@ -53,6 +53,7 @@ export const REQUIRED_FIELDS: Record<string, readonly string[]> = {
   ChecklistSlide:        ['title', 'items'],
   TileSlide:             ['title', 'tiles'],
   BlastRadiusSlide:      ['title'],
+  SessionOutlineSlide:   ['title', 'items'],
 } as const;
 
 // ---------- Shared sub-contracts ----------
@@ -324,6 +325,27 @@ const BlastRadiusContent = z.object({
 }).passthrough();
 
 /**
+ * SessionOutlineContent — numbered agenda list. Required: `title` + `items`
+ * (2–8). Each item: `title` (required), `subtitle`/`meta` (one-liners),
+ * optional `capsule` (Capsule spec). `activeIndex` (0-based) optionally
+ * dims all rows except the highlighted one — useful as a "you are here"
+ * cue mid-deck. See `_patterns/session-outline-slide.md`.
+ */
+const SessionOutlineItem = z.object({
+  title: z.string().min(1).max(60),
+  subtitle: z.string().max(120).optional(),
+  meta: z.string().max(20).optional(),
+  capsule: Capsule.optional(),
+}).passthrough();
+const SessionOutlineContent = z.object({
+  title: z.string().min(1).max(80),
+  eyebrow: z.string().max(40).optional(),
+  kicker: z.string().max(160).optional(),
+  items: z.array(SessionOutlineItem).min(2).max(8),
+  activeIndex: z.number().int().min(0).max(7).optional(),
+}).passthrough();
+
+/**
  * Public registry of every per-slideType content contract — the SAME zod
  * schemas the runtime validator uses. Exposed so external consumers (the
  * `/settings` JSON-Schema export, future deck editors, CI linters) can
@@ -360,12 +382,13 @@ export const SLIDE_CONTENT_CONTRACTS = {
   ChecklistSlide:        ChecklistContent,
   TileSlide:             TileContent,
   BlastRadiusSlide:      BlastRadiusContent,
+  SessionOutlineSlide:   SessionOutlineContent,
 } as const;
 
 /** Bump on any breaking change to a per-type content contract. Drives the
  *  exported artifact's filename (`slide-types.v{N}.json`) and `version`
  *  field so downstream caches know to re-pull. */
-export const SLIDE_CONTRACTS_VERSION = 6 as const;
+export const SLIDE_CONTRACTS_VERSION = 7 as const;
 
 // ---------- Slide envelope (discriminated on slideType) ----------
 
@@ -404,6 +427,7 @@ export const SlideContract = z.discriminatedUnion('slideType', [
   make('ChecklistSlide', ChecklistContent),
   make('TileSlide', TileContent),
   make('BlastRadiusSlide', BlastRadiusContent),
+  make('SessionOutlineSlide', SessionOutlineContent),
 ]);
 
 export interface SlideValidationIssue {
