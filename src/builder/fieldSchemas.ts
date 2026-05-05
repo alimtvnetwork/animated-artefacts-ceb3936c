@@ -411,6 +411,20 @@ export const SLIDE_TYPE_SCHEMAS: Record<SlideTypeValue, SlideTypeSchema> = {
       tilesCaption: 'Click any tile to open the link.',
     },
   },
+  // BlastRadiusSlide — single oversized chrome word; eyebrow + subtitle are
+  // optional whispers. Pairs with the `ZoomOut` exit transition. See
+  // `spec/26-slide-definitions/_patterns/blast-radius-slide.md`.
+  BlastRadiusSlide: {
+    label: 'Blast radius',
+    blurb: 'Cinematic title moment — chrome word + tumbling shards + drifting particles + zoom-out exit.',
+    fields: ['eyebrow', 'title', 'subtitle'],
+    defaults: {
+      eyebrow: 'CHAPTER 03',
+      title: 'Blast Radius',
+      subtitle: 'what breaks when one secret leaks',
+    },
+    slideDefaults: { transition: 'ZoomOut' as never, showBrandHeader: false, showPresenterChip: false, brandStrip: false },
+  },
 };
 
 /** Ordered list of slide-type keys for the picker. */

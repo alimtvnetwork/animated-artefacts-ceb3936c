@@ -103,6 +103,15 @@ export const SlideType = {
    * See `updates/spec/05-tile-slide.md`.
    */
   TileSlide: 'TileSlide',
+  /**
+   * BlastRadiusSlide — cinematic single-word title moment. Chrome gradient
+   * title + tumbling SVG shards + drifting particle field + radial vignette.
+   * Pairs with the `ZoomOut` exit transition: the whole stage scales 1.0→1.18
+   * and fades over 600ms (expoIn) so the next slide feels like it arrives
+   * from behind the title. Required: `content.title`. See
+   * `spec/26-slide-definitions/_patterns/blast-radius-slide.md`.
+   */
+  BlastRadiusSlide: 'BlastRadiusSlide',
 } as const;
 export type SlideTypeValue = typeof SlideType[keyof typeof SlideType];
 
@@ -112,6 +121,13 @@ export const SlideTransition = {
   PushIn: 'PushIn',
   PushLeft: 'PushLeft',
   PushRight: 'PushRight',
+  /**
+   * ZoomOut — the cinematic outro paired with `BlastRadiusSlide`. On exit
+   * the stage scales 1.0→1.18 + fades + 4px blur over 600ms (expoIn). The
+   * entrance leg falls back to a fast scale-down + fade so it stays usable
+   * if any other slide opts in. See `spec/26-slide-definitions/_patterns/blast-radius-slide.md` §8.
+   */
+  ZoomOut: 'ZoomOut',
 } as const;
 export type SlideTransitionValue = typeof SlideTransition[keyof typeof SlideTransition];
 

@@ -617,6 +617,27 @@ export const SLIDE_FIXTURES: Record<string, SlideFixture> = {
       },
     ],
   },
+
+  BlastRadiusSlide: {
+    description: 'Cinematic single-word title moment with chrome gradient + tumbling shards + zoom-out exit.',
+    valid: {
+      ...envelope(23, 'Blast radius opener', 'BlastRadiusSlide'),
+      transition: 'ZoomOut',
+      content: {
+        eyebrow: 'CHAPTER 03',
+        title: 'Blast Radius',
+        subtitle: 'what breaks when one secret leaks',
+      },
+    } as unknown as SlideSpec,
+    invalid: [
+      {
+        description: 'rejects empty title',
+        payload: { ...envelope(23, 'Blast radius opener', 'BlastRadiusSlide'), content: { title: '' } },
+        expectPath: 'content.title',
+        expectedMessageMatch: /at least 1 character|String must contain/i,
+      },
+    ],
+  },
 };
 
 /** Convenience: every valid fixture as a flat array, in slideNumber order. */

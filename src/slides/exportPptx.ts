@@ -866,6 +866,10 @@ function renderSlide(pptx: PptxGenJS, slide: PptxGenJS.Slide, spec: SlideSpec) {
   switch (spec.slideType) {
     case SlideType.TitleSlide:
     case SlideType.MiddleTitleSlide:
+    case SlideType.BlastRadiusSlide:
+      // PPTX is static — flatten BlastRadiusSlide to the same hero layout
+      // as TitleSlide. The cinematic shards/particles/zoom-out are
+      // runtime-only; the export keeps the title legible and on-brand.
       return renderTitleOrMiddle(pptx, slide, spec);
     case SlideType.KeywordSlide:
       return renderKeyword(pptx, slide, spec);

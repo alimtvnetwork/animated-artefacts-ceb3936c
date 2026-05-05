@@ -42,6 +42,10 @@ export type PresetName = 'premium';
 const HERO_SLIDE_TYPES: ReadonlySet<SlideTypeValue> = new Set([
   'TitleSlide',
   'SectionDividerSlide',
+  // BlastRadiusSlide draws its own gradient title via inline CSS — it
+  // never reads `resolveTitleStyle()` — but listing it here keeps the
+  // contract honest for any downstream consumer that introspects HERO_SLIDE_TYPES.
+  'BlastRadiusSlide',
 ]);
 
 export type ResolvedTitleStyle = 'cream' | 'gold' | 'gradient' | 'white';

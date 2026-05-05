@@ -2615,3 +2615,107 @@ textarea:focus-visible,
   outline: 2px solid hsl(var(--cream));
   outline-offset: 2px;
 }
+
+/* ------------------------------------------------------------------ */
+/* BlastRadiusSlide — particle drift + shard tumble + title shimmer    */
+/* See spec/26-slide-definitions/_patterns/blast-radius-slide.md       */
+/* ------------------------------------------------------------------ */
+
+/* Particle drift: per-particle `--bx`/`--by` set inline; linear easing
+   so the field reads as ambient motion, not as a synchronised pulse.
+   Always-on (delay can be negative so particles begin mid-cycle). */
+@keyframes blast-drift {
+  from { transform: translate3d(0, 0, 0); opacity: var(--blast-opacity, 0.5); }
+  50%  { opacity: 1; }
+  to   { transform: translate3d(var(--bx), var(--by), 0); opacity: 0; }
+}
+
+/* Shard tumble — rotate3d on a per-shard random axis (--ax, --ay, --az).
+   Linear so the rotation never accelerates; the float layer below
+   provides the rhythmic ease-in-out parallax. */
+@keyframes blast-shard-tumble {
+  from { transform: translate3d(0, 0, 0) rotate3d(var(--ax), var(--ay), var(--az), 0deg); }
+  to   { transform: translate3d(0, 0, 0) rotate3d(var(--ax), var(--ay), var(--az), 360deg); }
+}
+
+/* Shard float — independent translate that alternates so shards drift
+   without ever escaping the frame for long. */
+@keyframes blast-shard-float {
+  0%   { transform: translate3d(0, 0, 0); }
+  50%  { transform: translate3d(var(--sx), var(--sy), 0); }
+  100% { transform: translate3d(0, 0, 0); }
+}
+
+/* Shard glint — stroke alpha pulse for 700ms, randomised per-shard delay. */
+@keyframes blast-shard-glint {
+  0%, 100% { stroke-opacity: 0.45; }
+  50%      { stroke-opacity: 0.85; }
+}
+
+/* Title settle — animate the gradient position so the chrome "falls into
+   place" once on entrance. Triggered via `animation` inline on the <h1>. */
+@keyframes blast-title-settle {
+  from { background-position: 0% 0%; }
+  to   { background-position: 100% 100%; }
+}
+
+/* Title shimmer — overlay gradient stripe sweeps across the word every
+   ~6s so the chrome never feels static between beats. The ::before
+   approach is reserved (cannot ::before clipped text reliably), so the
+   slide renders a real <span> child with this class. */
+.blast-title-shimmer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    100deg,
+    transparent 35%,
+    hsl(var(--cream) / 0.55) 50%,
+    transparent 65%
+  );
+  background-size: 220% 100%;
+  background-position: -120% 0;
+  mix-blend-mode: overlay;
+  -webkit-mask-image: linear-gradient(#000, #000);
+  animation: blast-shimmer-sweep 6s ease-in-out infinite;
+}
+
+@keyframes blast-shimmer-sweep {
+  0%   { background-position: -120% 0; opacity: 0; }
+  20%  { opacity: 1; }
+  60%  { opacity: 1; }
+  100% { background-position: 220% 0; opacity: 0; }
+}
+
+/* Compose tumble + float on each shard <g>. The two transforms are on
+   separate properties so they don't fight: tumble drives `transform`
+   on the inner <g> via animation; float drives the outer <g>. We use
+   `animation-name: a, b` here so the SVG <g> can run both simultaneously,
+   one on the outer translate, one inherited via the inner translate
+   wrapper inside the React tree. */
+.blast-shard {
+  animation:
+    blast-shard-float var(--float-dur, 12s) ease-in-out infinite alternate,
+    blast-shard-tumble var(--tumble-dur, 18s) linear infinite;
+  transform-origin: center;
+  transform-box: fill-box;
+  will-change: transform;
+}
+
+.blast-shard-edge {
+  animation: blast-shard-glint 9s ease-in-out infinite;
+  animation-delay: var(--glint-delay, 0s);
+}
+
+/* Reduced-motion: kill every BlastRadius animation. The component
+   already skips rendering particles/shards under reduced-motion, but
+   the title shimmer is still in the DOM — silence it here too. */
+@media (prefers-reduced-motion: reduce) {
+  .blast-title-shimmer,
+  .blast-particle,
+  .blast-shard,
+  .blast-shard-edge {
+    animation: none !important;
+  }
+  .blast-title-shimmer { display: none; }
+}
