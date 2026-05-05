@@ -320,7 +320,7 @@ export function ControllerBar({ current, total, onPrev, onNext, onJump, isFullsc
           {deckMenuOpen && <DeckMenu onClose={() => setDeckMenuOpen(false)} />}
         </div>
       )}
-      {/* Keyboard shortcuts dialog — opened by the hamburger item or by `?`
+      {/* Keyboard shortcuts dialog — opened by the hamburger item or by `/`
           (the dialog component owns the global key listener). Mounted here
           so it's always available regardless of controller expansion state. */}
       <KeyboardShortcutsDialog open={keyboardOpen} onOpenChange={setKeyboardOpen} />
@@ -572,7 +572,7 @@ function ControllerHamburger({
             <button type="button" onClick={onOpenKeyboardMap} className={itemBase}>
               <Keyboard className="h-4 w-4" />
               <span className="flex-1">Keyboard map</span>
-              <kbd className="text-[10px] font-mono opacity-60">?</kbd>
+              <kbd className="text-[10px] font-mono opacity-60">/</kbd>
             </button>
           </motion.div>
         )}
