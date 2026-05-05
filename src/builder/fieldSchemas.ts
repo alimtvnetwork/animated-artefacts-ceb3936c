@@ -473,4 +473,6 @@ export const SLIDE_TYPE_KEYS: SlideTypeValue[] = [
   'EquationSlide',
   'ChecklistSlide',
   'ClickRevealSlide',
+  'BlastRadiusSlide',
+  'SessionOutlineSlide',
 ];
