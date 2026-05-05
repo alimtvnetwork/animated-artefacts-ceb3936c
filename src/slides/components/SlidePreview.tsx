@@ -13,6 +13,7 @@ import { TableSlide } from '../types/TableSlide';
 import { CodeBlockSlide } from '../types/CodeBlockSlide';
 import { BoxDiagramSlide } from '../types/BoxDiagramSlide';
 import { LayoutSlide } from '../types/LayoutSlide';
+import { BlastRadiusSlide } from '../types/BlastRadiusSlide';
 import { BrandHeader } from './BrandHeader';
 import { SlidePreviewAlignmentOverlay } from './SlidePreviewAlignmentOverlay';
 
@@ -37,6 +38,7 @@ function renderBody(slide: SlideSpec) {
     case 'CodeBlockSlide':     return <CodeBlockSlide spec={slide} />;
     case 'BoxDiagramSlide':    return <BoxDiagramSlide spec={slide} />;
     case 'LayoutSlide':        return <LayoutSlide spec={slide} />;
+    case 'BlastRadiusSlide':   return <BlastRadiusSlide spec={slide} />;
     default:                   return <TitleSlide spec={slide} />;
   }
 }
