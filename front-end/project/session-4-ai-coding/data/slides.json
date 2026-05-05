@@ -52,6 +52,9 @@
     { "title": "07 · Riseup Asia",      "path": "./slides/07-about-riseup.json" },
     { "title": "08 · Guidelines",       "path": "./slides/08-guidelines.json" },
     { "title": "09 · Your call",        "path": "./slides/09-your-call.json" },
-    { "title": "10 · Meeting",          "path": "./slides/10-meeting.json" }
+    { "title": "10 · Meeting",          "path": "./slides/10-meeting.json" },
+    { "title": "11 · Session outline",        "path": "./slides/11-session-outline.json" },
+    { "title": "12 · Outline (we-are-here)",  "path": "./slides/12-session-outline-active.json" },
+    { "title": "13 · Four sessions arc",      "path": "./slides/13-multi-session-outline.json" }
   ]
 }

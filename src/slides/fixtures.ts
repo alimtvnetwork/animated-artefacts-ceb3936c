@@ -638,6 +638,37 @@ export const SLIDE_FIXTURES: Record<string, SlideFixture> = {
       },
     ],
   },
+
+  SessionOutlineSlide: {
+    description: 'Vertical numbered agenda — title block + 2–8 outline rows with index, title, subtitle, meta capsule.',
+    valid: {
+      ...envelope(24, 'Session outline', 'SessionOutlineSlide'),
+      content: {
+        eyebrow: 'TODAY',
+        title: 'Session outline',
+        kicker: 'What we will cover, in order.',
+        activeIndex: 1,
+        items: [
+          { title: 'Recap',      subtitle: 'Where we left off',  meta: '5 min',  capsule: { text: '01', color: 'gold' } },
+          { title: 'Mindset',    subtitle: 'Bad becomes master', meta: '3 min',  capsule: { text: '02', color: 'ember' } },
+          { title: 'Build',      subtitle: 'Two CLIs, live',     meta: '35 min', capsule: { text: '03', color: 'cream' } },
+          { title: 'Guardrails', subtitle: 'Steer the model',    meta: '10 min', capsule: { text: '04', color: 'gold' } },
+          { title: 'Your call',  subtitle: 'What we ship next',  meta: '10 min', capsule: { text: '05', color: 'outline' } },
+        ],
+      },
+    } as unknown as SlideSpec,
+    invalid: [
+      {
+        description: 'rejects fewer than 2 items',
+        payload: {
+          ...envelope(24, 'Session outline', 'SessionOutlineSlide'),
+          content: { title: 'Outline', items: [{ title: 'Only one' }] },
+        },
+        expectPath: 'content.items',
+        expectedMessageMatch: /at least 2|Array must contain at least 2/i,
+      },
+    ],
+  },
 };
 
 /** Convenience: every valid fixture as a flat array, in slideNumber order. */

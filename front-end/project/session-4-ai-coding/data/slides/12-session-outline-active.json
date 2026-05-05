@@ -1,0 +1,26 @@
+{
+  "slideNumber": 12,
+  "slideName": "session-outline-active",
+  "slideType": "SessionOutlineSlide",
+  "transition": "PushIn",
+  "textAnimation": "FadeIn",
+  "enabled": true,
+  "showBrandHeader": true,
+  "showPresenterChip": true,
+  "titleStyle": "white",
+  "sound": { "on": "focus", "kind": "click", "volume": 0.4 },
+  "content": {
+    "eyebrow": "WE ARE HERE",
+    "title": "Session outline — Build",
+    "kicker": "Mid-deck recap. Highlighting where we are right now.",
+    "activeIndex": 2,
+    "items": [
+      { "title": "Recap",      "subtitle": "Where we left off",  "meta": "5 min",  "capsule": { "text": "01", "color": "gold" } },
+      { "title": "Mindset",    "subtitle": "Bad becomes master", "meta": "3 min",  "capsule": { "text": "02", "color": "ember" } },
+      { "title": "Build",      "subtitle": "Two CLIs, live",     "meta": "35 min", "capsule": { "text": "03", "color": "cream" } },
+      { "title": "Guardrails", "subtitle": "Steer the model",    "meta": "10 min", "capsule": { "text": "04", "color": "gold" } },
+      { "title": "Your call",  "subtitle": "What we ship next",  "meta": "10 min", "capsule": { "text": "05", "color": "outline" } }
+    ]
+  },
+  "notes": "Use this between Build sections to re-orient the room without losing momentum."
+}

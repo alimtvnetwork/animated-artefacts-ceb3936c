@@ -31,6 +31,7 @@ import { EquationSlide } from './types/EquationSlide';
 import { ChecklistSlide } from './types/ChecklistSlide';
 import { TileSlide } from './types/TileSlide';
 import { BlastRadiusSlide } from './types/BlastRadiusSlide';
+import { SessionOutlineSlide } from './types/SessionOutlineSlide';
 import { BrandHeader } from './components/BrandHeader';
 import { AmbientBackground } from './components/AmbientBackground';
 import { HotspotLayer } from './components/HotspotLayer';
@@ -143,6 +144,7 @@ function renderSlideBody({ slide, onCapsuleClickReveal, highlightReveal, onOpenE
     case 'ChecklistSlide': return <ChecklistSlide spec={slide} />;
     case 'TileSlide': return <TileSlide spec={slide} />;
     case 'BlastRadiusSlide': return <BlastRadiusSlide spec={slide} />;
+    case 'SessionOutlineSlide': return <SessionOutlineSlide spec={slide} />;
     default: return <TitleSlide spec={slide} />;
   }
 }

@@ -1,0 +1,25 @@
+{
+  "slideNumber": 13,
+  "slideName": "multi-session-outline",
+  "slideType": "SessionOutlineSlide",
+  "transition": "FadeIn",
+  "textAnimation": "SlideUp",
+  "enabled": true,
+  "showBrandHeader": true,
+  "showPresenterChip": true,
+  "titleStyle": "white",
+  "sound": { "on": "focus", "kind": "whoosh", "volume": 0.5 },
+  "content": {
+    "eyebrow": "THE WHOLE TRACK",
+    "title": "Four sessions, one arc",
+    "kicker": "How today fits into the larger journey.",
+    "activeIndex": 3,
+    "items": [
+      { "title": "Foundations",  "subtitle": "Mindset, tooling, the spec habit",       "meta": "S1", "capsule": { "text": "DONE", "color": "outline" } },
+      { "title": "First builds", "subtitle": "Hello-world to first CLI",               "meta": "S2", "capsule": { "text": "DONE", "color": "outline" } },
+      { "title": "Real apps",    "subtitle": "Web, APIs, deploy",                      "meta": "S3", "capsule": { "text": "DONE", "color": "outline" } },
+      { "title": "AI coding",    "subtitle": "Today — non-coders shipping with AI",    "meta": "S4", "capsule": { "text": "TODAY", "color": "gold" } }
+    ]
+  },
+  "notes": "Zoom out. Reassure: today is one chapter, not the whole book."
+}
