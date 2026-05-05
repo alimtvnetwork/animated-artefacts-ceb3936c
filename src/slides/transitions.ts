@@ -48,6 +48,19 @@ export function getSlideVariants(t: SlideTransitionValue, dir: Direction): Varia
           animate: { opacity: 1, x: 0 },
           exit: { opacity: 0, x: fwd ? '8%' : '-8%' },
         };
+      case 'ZoomOut':
+        // BlastRadiusSlide outro: dolly forward through the title. The
+        // EXIT leg is the whole point — scale + fade + slight blur. The
+        // entrance leg is a fast inverse so the slide is still safe to
+        // use anywhere; in practice authors only set ZoomOut on the
+        // BlastRadius slide and let its neighbours keep their own
+        // transitions. Easing override = expoIn (slow start, hard finish)
+        // resolves via `transitionTimingByType` if the deck pins it.
+        return {
+          initial: { opacity: 0, scale: 0.96, filter: 'blur(2px)' },
+          animate: { opacity: 1, scale: 1, filter: 'blur(0px)' },
+          exit: { opacity: 0, scale: 1.18, filter: 'blur(4px)' },
+        };
       default:
         return { initial: { opacity: 0 }, animate: { opacity: 1 }, exit: { opacity: 0 } };
     }
