@@ -892,6 +892,18 @@ a.tile-card:focus-visible {
     box-shadow: 0 4px 14px -4px hsl(var(--capsule-sky-start) / 0.5), inset 0 1px 0 hsl(var(--white) / 0.25);
   }
 
+  /* Meta capsule — used for time/duration tags ("5 MIN", "30-40 MIN").
+     Backed by Radix mode-aware tokens so it auto-flips per theme:
+     dark themes → translucent dark over noir; light themes → soft gray
+     over cream. Replaces the inline `bg: hsl(var(--ink)/0.55)` +
+     `color: hsl(var(--cream)/0.85)` recipe that collapsed to gray-on-gray
+     on paper-ink (see updates/spec/15 + 16). */
+  .capsule-meta {
+    background: hsl(var(--muted));
+    color: hsl(var(--muted-foreground));
+    border: 1px solid hsl(var(--border));
+  }
+
   /* ────────────────────────────────────────────────────────────────────
      Capsule icon affordances (v0.188)
      `.capsule-icon-badge`  — circular contrast plate at the leading edge,
