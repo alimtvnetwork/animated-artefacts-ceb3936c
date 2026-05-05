@@ -425,6 +425,27 @@ export const SLIDE_TYPE_SCHEMAS: Record<SlideTypeValue, SlideTypeSchema> = {
     },
     slideDefaults: { transition: 'ZoomOut' as never, showBrandHeader: false, showPresenterChip: false, brandStrip: false },
   },
+  // SessionOutlineSlide — vertical numbered agenda. Title block + 2–8 outline
+  // rows (index numeral · title · subtitle · meta capsule). Optional
+  // `activeIndex` highlights the current row. See
+  // `spec/26-slide-definitions/_patterns/session-outline-slide.md`.
+  SessionOutlineSlide: {
+    label: 'Session outline',
+    blurb: 'Numbered agenda list — index · title · subtitle · meta capsule. Optional active-row highlight.',
+    fields: ['eyebrow', 'title', 'kicker', 'items'],
+    defaults: {
+      eyebrow: 'TODAY',
+      title: 'Session outline',
+      kicker: 'What we will cover, in order.',
+      items: [
+        { title: 'Recap',      subtitle: 'Where we left off',          meta: '5 min',  capsule: { text: '01', color: 'gold' } },
+        { title: 'Mindset',    subtitle: 'Bad becomes master',         meta: '3 min',  capsule: { text: '02', color: 'ember' } },
+        { title: 'Build',      subtitle: 'Two CLIs, live',             meta: '35 min', capsule: { text: '03', color: 'cream' } },
+        { title: 'Guardrails', subtitle: 'Steer the model',            meta: '10 min', capsule: { text: '04', color: 'gold' } },
+        { title: 'Your call',  subtitle: 'What we ship next',          meta: '10 min', capsule: { text: '05', color: 'outline' } },
+      ],
+    },
+  },
 };
 
 /** Ordered list of slide-type keys for the picker. */

@@ -30,7 +30,7 @@ import { Capsule } from '../components/Capsule';
  * See `spec/26-slide-definitions/_patterns/session-outline-slide.md`.
  */
 export function SessionOutlineSlide({ spec }: { spec: SlideSpec }) {
-  const c = spec.content as {
+  const c = spec.content as unknown as {
     eyebrow?: string;
     title: string;
     kicker?: string;
