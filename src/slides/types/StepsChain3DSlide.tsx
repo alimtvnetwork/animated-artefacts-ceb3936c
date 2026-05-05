@@ -1765,18 +1765,25 @@ export const StepsChain3DSlide = forwardRef<FocusTimelineHandle, Props>(
           {String(active + 1).padStart(2, '0')}
         </span>
         <div key={detailKey} className="w-full relative" style={{ zIndex: 1 }}>
-          {activeStep?.capsule && (
-            <span
-              className="inline-block px-4 py-1.5 rounded-full text-base font-semibold mb-4"
-              style={{
-                background: 'hsl(var(--gold))',
-                color: 'hsl(var(--ink))',
-                animation: reduced ? 'none' : `chain3d-detail-in 620ms cubic-bezier(0.16, 1, 0.3, 1) both`,
-              }}
-            >
-              {activeStep.capsule.text}
-            </span>
-          )}
+          {activeStep?.capsule && (() => {
+            // Eyebrow capsule. Tone driven by spec; paint via className so
+            // every theme (incl. paper-ink, github-light) gets its per-theme
+            // contrast override automatically. NEVER inline brand-token
+            // colors here — see updates/spec/15+16,
+            // mem://design/light-theme-capsule-fg-rule.
+            const tone = (activeStep.capsule.color ?? 'gold') as
+              | 'gold' | 'ember' | 'cream' | 'ink' | 'outline';
+            return (
+              <span
+                className={`capsule capsule-${tone} mb-4 font-semibold`}
+                style={{
+                  animation: reduced ? 'none' : `chain3d-detail-in 620ms cubic-bezier(0.16, 1, 0.3, 1) both`,
+                }}
+              >
+                {activeStep.capsule.text}
+              </span>
+            );
+          })()}
           <h3
             className="text-5xl font-display font-bold text-foreground leading-tight mb-3"
             style={{
@@ -1794,23 +1801,15 @@ export const StepsChain3DSlide = forwardRef<FocusTimelineHandle, Props>(
             // controller, programmatic) render the capsules instantly.
             const labels = deriveBullets(activeStep?.description as { bullets?: ReadonlyArray<string>; body?: unknown } | undefined);
             if (!labels || labels.length === 0) return null;
-            // Capsule color cycle — gold / ember / cream / outline — so a
-            // 4-step explanation reads as a colored taxonomy, not a wall of
-            // identical pills. Index-driven so it's deterministic per step.
+            // Capsule color cycle — gold / ember / cream / outline — so
+            // a 4-step explanation reads as a colored taxonomy. Paint via
+            // `.capsule-{tone}` classNames — NEVER inline brand-token
+            // colors. The className path has paper-ink + github-light
+            // overrides that flip text to white on dark accent stops;
+            // inline styles bypass them and produce dark-on-dark chips
+            // on light themes. See updates/spec/15+16,
+            // mem://design/light-theme-capsule-fg-rule.
             const TONES = ['gold', 'ember', 'cream', 'outline'] as const;
-            const toneStyle = (tone: typeof TONES[number]): React.CSSProperties => {
-              switch (tone) {
-                case 'gold':
-                  return { background: 'hsl(var(--gold))', color: 'hsl(var(--ink))', border: '1px solid hsl(var(--gold))' };
-                case 'ember':
-                  return { background: 'hsl(var(--ember))', color: 'hsl(var(--ink))', border: '1px solid hsl(var(--ember))' };
-                case 'cream':
-                  return { background: 'hsl(var(--cream))', color: 'hsl(var(--ink))', border: '1px solid hsl(var(--cream))' };
-                case 'outline':
-                default:
-                  return { background: 'transparent', color: 'hsl(var(--cream))', border: '1px solid hsl(var(--gold) / 0.55)' };
-              }
-            };
             return (
               <ul
                 className="mt-3 flex flex-wrap gap-2 list-none pl-0"
@@ -1821,9 +1820,8 @@ export const StepsChain3DSlide = forwardRef<FocusTimelineHandle, Props>(
                   return (
                     <li
                       key={`${active}-${clickActivationNonce}-cap-${i}`}
-                      className="inline-flex items-center px-3 py-1.5 rounded-full text-base font-medium leading-none whitespace-nowrap"
+                      className={`capsule capsule-${tone} text-base font-medium leading-none whitespace-nowrap`}
                       style={{
-                        ...toneStyle(tone),
                         animation: capsulesAnimateOnClick
                           ? `chain3d-capsule-in 420ms cubic-bezier(0.22, 1, 0.36, 1) both`
                           : 'none',
@@ -1841,11 +1839,8 @@ export const StepsChain3DSlide = forwardRef<FocusTimelineHandle, Props>(
           })()}
           {activeStep?.description?.meta && (
             <div
-              className="mt-5 inline-flex items-center gap-2 px-3 py-1 rounded-full text-sm uppercase tracking-[0.2em]"
+              className="capsule capsule-meta mt-5 text-sm uppercase tracking-[0.2em]"
               style={{
-                background: 'hsl(var(--ink) / 0.55)',
-                color: 'hsl(var(--cream) / 0.85)',
-                border: '1px solid hsl(var(--gold) / 0.35)',
                 animation: reduced ? 'none' : `chain3d-detail-in 620ms cubic-bezier(0.16, 1, 0.3, 1) both`,
                 animationDelay: reduced ? undefined : '220ms',
               }}
