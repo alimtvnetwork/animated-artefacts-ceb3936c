@@ -27,7 +27,7 @@ export const SHORTCUTS: ReadonlyArray<{
       { keys: ['F'], label: 'Toggle fullscreen' },
       { keys: ['J'], label: 'Toggle top slide jumper' },
       { keys: ['Esc'], label: 'Exit fullscreen / close overlay' },
-      { keys: ['?'], label: 'Open this keyboard map' },
+      { keys: ['/'], label: 'Open this keyboard map' },
     ],
   },
   {
@@ -70,14 +70,15 @@ interface Props {
 }
 
 /**
- * `?` keyboard listener — global, guarded against form-field focus.
+ * `/` keyboard listener — global, guarded against form-field focus.
  * Mounted alongside the dialog so callers don't need to wire it up.
+ * Single-press, no Shift required (changed from `?` 2026-05-05).
  */
-function useQuestionMarkOpener(onOpen: () => void) {
+function useSlashOpener(onOpen: () => void) {
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
-      // `?` is Shift+/ on US layouts. Accept either signal.
-      if (e.key !== '?' && !(e.key === '/' && e.shiftKey)) return;
+      // Plain `/` only — ignore Shift+/ (which is `?`) and any modified press.
+      if (e.key !== '/' || e.shiftKey || e.ctrlKey || e.metaKey || e.altKey) return;
       const target = e.target as HTMLElement | null;
       if (target) {
         const tag = target.tagName;
