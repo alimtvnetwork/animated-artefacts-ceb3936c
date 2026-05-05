@@ -2,7 +2,7 @@
   "slideNumber": 11,
   "slideName": "session-outline",
   "slideType": "SessionOutlineSlide",
-  "transition": "FadeIn",
+  "transition": "SlideIn",
   "textAnimation": "Stagger",
   "enabled": true,
   "showBrandHeader": true,
