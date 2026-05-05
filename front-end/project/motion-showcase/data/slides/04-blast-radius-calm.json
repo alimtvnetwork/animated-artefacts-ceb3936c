@@ -1,0 +1,20 @@
+{
+  "slideNumber": 4,
+  "slideName": "blast-radius-calm",
+  "slideType": "BlastRadiusSlide",
+  "transition": "ZoomOut",
+  "textAnimation": "Stagger",
+  "enabled": true,
+  "showBrandHeader": false,
+  "showPresenterChip": false,
+  "titleStyle": "white",
+  "content": {
+    "eyebrow": "QUIETER VARIANT",
+    "title": "Aftermath",
+    "subtitle": "fewer particles, slower air",
+    "particleCount": 30,
+    "shardCount": 4,
+    "gradientAngle": 160
+  },
+  "notes": "Calm density variant — proves particle/shard counts are tunable per slide."
+}

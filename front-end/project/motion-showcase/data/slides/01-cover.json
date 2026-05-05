@@ -1,0 +1,17 @@
+{
+  "slideNumber": 1,
+  "slideName": "cover",
+  "slideType": "TitleSlide",
+  "transition": "FadeIn",
+  "textAnimation": "SlideUp",
+  "enabled": true,
+  "showBrandHeader": true,
+  "showPresenterChip": true,
+  "titleStyle": "white",
+  "content": {
+    "eyebrow": "MOTION SHOWCASE",
+    "title": "New slide patterns",
+    "subtitle": "Blast Radius + Session Outline — flip through to feel the motion."
+  },
+  "notes": "Cover for the showcase deck. Move to slide 2 to see the cinematic Blast Radius opener."
+}
