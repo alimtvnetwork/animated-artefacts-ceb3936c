@@ -52,6 +52,7 @@ export const REQUIRED_FIELDS: Record<string, readonly string[]> = {
   EquationSlide:         ['tex|equationHtml'],
   ChecklistSlide:        ['title', 'items'],
   TileSlide:             ['title', 'tiles'],
+  BlastRadiusSlide:      ['title'],
 } as const;
 
 // ---------- Shared sub-contracts ----------
@@ -308,6 +309,21 @@ const TileContent = z.object({
 }).passthrough();
 
 /**
+ * BlastRadiusContent — cinematic single-word title moment. Required: title.
+ * `particleCount`/`shardCount`/`gradientAngle` are tuning knobs; sane
+ * defaults are baked into the slide so authors usually only set `title`.
+ * See `spec/26-slide-definitions/_patterns/blast-radius-slide.md` §9.
+ */
+const BlastRadiusContent = z.object({
+  title: z.string().min(1).max(40),
+  eyebrow: z.string().max(40).optional(),
+  subtitle: z.string().max(80).optional(),
+  particleCount: z.number().int().min(0).max(80).optional(),
+  shardCount: z.number().int().min(0).max(14).optional(),
+  gradientAngle: z.number().min(0).max(360).optional(),
+}).passthrough();
+
+/**
  * Public registry of every per-slideType content contract — the SAME zod
  * schemas the runtime validator uses. Exposed so external consumers (the
  * `/settings` JSON-Schema export, future deck editors, CI linters) can
@@ -343,12 +359,13 @@ export const SLIDE_CONTENT_CONTRACTS = {
   EquationSlide:         EquationContent,
   ChecklistSlide:        ChecklistContent,
   TileSlide:             TileContent,
+  BlastRadiusSlide:      BlastRadiusContent,
 } as const;
 
 /** Bump on any breaking change to a per-type content contract. Drives the
  *  exported artifact's filename (`slide-types.v{N}.json`) and `version`
  *  field so downstream caches know to re-pull. */
-export const SLIDE_CONTRACTS_VERSION = 5 as const;
+export const SLIDE_CONTRACTS_VERSION = 6 as const;
 
 // ---------- Slide envelope (discriminated on slideType) ----------
 
@@ -386,6 +403,7 @@ export const SlideContract = z.discriminatedUnion('slideType', [
   make('EquationSlide', EquationContent),
   make('ChecklistSlide', ChecklistContent),
   make('TileSlide', TileContent),
+  make('BlastRadiusSlide', BlastRadiusContent),
 ]);
 
 export interface SlideValidationIssue {
