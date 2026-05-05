@@ -1,0 +1,22 @@
+{
+  "slideNumber": 9,
+  "slideName": "focus-timeline",
+  "slideType": "FocusTimelineSlide",
+  "transition": "SlideIn",
+  "textAnimation": "SlideUp",
+  "enabled": true,
+  "showBrandHeader": true,
+  "showPresenterChip": false,
+  "narrowIdea": "All steps visible — one in limelight, neighbours dim.",
+  "content": {
+    "eyebrow": "Step family · 2 of 4",
+    "title": "Focus Timeline — zoom on one",
+    "steps": [
+      { "label": "Mon", "title": "Listen",   "subtitle": "Stakeholder interviews",      "capsule": { "text": "1:1s",    "color": "gold" } },
+      { "label": "Tue", "title": "Map",      "subtitle": "System + audience model",     "capsule": { "text": "Diagrams","color": "ember" } },
+      { "label": "Wed", "title": "Draft",    "subtitle": "One-page brief, voice intact","capsule": { "text": "Brief",   "color": "violet" } },
+      { "label": "Thu", "title": "Pressure", "subtitle": "Stress-test against goals",   "capsule": { "text": "Review",  "color": "teal" } },
+      { "label": "Fri", "title": "Sign-off", "subtitle": "Lock the spec",               "capsule": { "text": "Lock",    "color": "rose" } }
+    ]
+  }
+}

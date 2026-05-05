@@ -1,0 +1,22 @@
+{
+  "slideNumber": 8,
+  "slideName": "step-timeline",
+  "slideType": "StepTimelineSlide",
+  "transition": "PushLeft",
+  "textAnimation": "Bounce",
+  "enabled": true,
+  "showBrandHeader": true,
+  "showPresenterChip": false,
+  "narrowIdea": "Five linear steps. Side-panel detail on focus.",
+  "content": {
+    "eyebrow": "Step family · 1 of 4",
+    "title": "Step Timeline — linear arc",
+    "steps": [
+      { "label": "01", "title": "Brief",    "subtitle": "Goals · audience · constraints", "capsule": { "text": "Day 1",     "color": "gold" } },
+      { "label": "02", "title": "Spec",     "subtitle": "JSON + companion notes",         "capsule": { "text": "Week 1",    "color": "ember" } },
+      { "label": "03", "title": "Build",    "subtitle": "Tokens · components · slides",   "capsule": { "text": "Weeks 2–3", "color": "violet" } },
+      { "label": "04", "title": "Rehearse", "subtitle": "Run-through · timing · QA",      "capsule": { "text": "Week 4",    "color": "teal" } },
+      { "label": "05", "title": "Ship",     "subtitle": "Live · captioned · archived",    "capsule": { "text": "Day-of",    "color": "sky" } }
+    ]
+  }
+}

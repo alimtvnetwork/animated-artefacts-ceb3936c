@@ -15,6 +15,10 @@
     { "title": "04 · Blast Radius (calm density)", "path": "./slides/04-blast-radius-calm.json" },
     { "title": "05 · Session Outline",             "path": "./slides/05-session-outline.json" },
     { "title": "06 · Outline · We are here",       "path": "./slides/06-outline-active.json" },
-    { "title": "07 · Outline · Whole arc",         "path": "./slides/07-outline-arc.json" }
+    { "title": "07 · Outline · Whole arc",         "path": "./slides/07-outline-arc.json" },
+    { "title": "08 · Step Timeline",               "path": "./slides/08-step-timeline.json" },
+    { "title": "09 · Focus Timeline",              "path": "./slides/09-focus-timeline.json" },
+    { "title": "10 · Advance Step",                "path": "./slides/10-advance-step.json" },
+    { "title": "11 · Steps Chain 3D",              "path": "./slides/11-steps-3d.json" }
   ]
 }
