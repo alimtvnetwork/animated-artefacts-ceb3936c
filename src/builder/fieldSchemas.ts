@@ -427,24 +427,27 @@ export const SLIDE_TYPE_SCHEMAS: Record<SlideTypeValue, SlideTypeSchema> = {
   },
   // SessionOutlineSlide — vertical numbered agenda. Title block + 2–8 outline
   // rows (index numeral · title · subtitle · meta capsule). Optional
-  // `activeIndex` highlights the current row. See
-  // `spec/26-slide-definitions/_patterns/session-outline-slide.md`.
+  // `activeIndex` highlights the current row. The `kicker` + `items` fields
+  // are author-edited via the JSON spec (the in-app builder only exposes the
+  // header fields). See `spec/26-slide-definitions/_patterns/session-outline-slide.md`.
   SessionOutlineSlide: {
     label: 'Session outline',
     blurb: 'Numbered agenda list — index · title · subtitle · meta capsule. Optional active-row highlight.',
-    fields: ['eyebrow', 'title', 'kicker', 'items'],
+    fields: ['eyebrow', 'title'],
     defaults: {
       eyebrow: 'TODAY',
       title: 'Session outline',
+      // kicker + items live in JSON; not editable in the form yet but seeded
+      // here so a freshly-picked SessionOutlineSlide renders something useful.
       kicker: 'What we will cover, in order.',
       items: [
-        { title: 'Recap',      subtitle: 'Where we left off',          meta: '5 min',  capsule: { text: '01', color: 'gold' } },
-        { title: 'Mindset',    subtitle: 'Bad becomes master',         meta: '3 min',  capsule: { text: '02', color: 'ember' } },
-        { title: 'Build',      subtitle: 'Two CLIs, live',             meta: '35 min', capsule: { text: '03', color: 'cream' } },
-        { title: 'Guardrails', subtitle: 'Steer the model',            meta: '10 min', capsule: { text: '04', color: 'gold' } },
-        { title: 'Your call',  subtitle: 'What we ship next',          meta: '10 min', capsule: { text: '05', color: 'outline' } },
+        { title: 'Recap',      subtitle: 'Where we left off',  meta: '5 min',  capsule: { text: '01', color: 'gold' } },
+        { title: 'Mindset',    subtitle: 'Bad becomes master', meta: '3 min',  capsule: { text: '02', color: 'ember' } },
+        { title: 'Build',      subtitle: 'Two CLIs, live',     meta: '35 min', capsule: { text: '03', color: 'cream' } },
+        { title: 'Guardrails', subtitle: 'Steer the model',    meta: '10 min', capsule: { text: '04', color: 'gold' } },
+        { title: 'Your call',  subtitle: 'What we ship next',  meta: '10 min', capsule: { text: '05', color: 'outline' } },
       ],
-    },
+    } as unknown as Partial<SlideContent>,
   },
 };
 
