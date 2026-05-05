@@ -93,7 +93,7 @@ function useSlashOpener(onOpen: () => void) {
 }
 
 export function KeyboardShortcutsDialog({ open, onOpenChange }: Props) {
-  useQuestionMarkOpener(() => onOpenChange(true));
+  useSlashOpener(() => onOpenChange(true));
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
