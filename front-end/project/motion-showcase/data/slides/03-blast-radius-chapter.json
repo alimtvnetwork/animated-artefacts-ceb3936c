@@ -1,0 +1,21 @@
+{
+  "slideNumber": 3,
+  "slideName": "blast-radius-chapter",
+  "slideType": "BlastRadiusSlide",
+  "transition": "ZoomOut",
+  "textAnimation": "FadeIn",
+  "enabled": true,
+  "showBrandHeader": false,
+  "showPresenterChip": false,
+  "titleStyle": "white",
+  "sound": { "on": "focus", "kind": "whoosh", "volume": 0.5 },
+  "content": {
+    "eyebrow": "CHAPTER 03",
+    "title": "Detonate",
+    "subtitle": "what breaks when one secret leaks",
+    "particleCount": 55,
+    "shardCount": 6,
+    "gradientAngle": 200
+  },
+  "notes": "Chapter-mark variant — eyebrow + subtitle present. Notice gradient angle shift (200°)."
+}

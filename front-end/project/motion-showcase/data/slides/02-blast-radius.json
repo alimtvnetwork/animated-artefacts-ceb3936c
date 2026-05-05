@@ -1,0 +1,19 @@
+{
+  "slideNumber": 2,
+  "slideName": "blast-radius-hero",
+  "slideType": "BlastRadiusSlide",
+  "transition": "ZoomOut",
+  "textAnimation": "Bounce",
+  "enabled": true,
+  "showBrandHeader": false,
+  "showPresenterChip": false,
+  "titleStyle": "white",
+  "sound": { "on": "focus", "kind": "zoom", "volume": 0.6 },
+  "content": {
+    "title": "Blast Radius",
+    "particleCount": 70,
+    "shardCount": 8,
+    "gradientAngle": 180
+  },
+  "notes": "Hero version — single word, full cinematic. Pause on this slide; let the particles drift before advancing."
+}

@@ -1,0 +1,25 @@
+{
+  "slideNumber": 5,
+  "slideName": "session-outline",
+  "slideType": "SessionOutlineSlide",
+  "transition": "SlideIn",
+  "textAnimation": "Stagger",
+  "enabled": true,
+  "showBrandHeader": true,
+  "showPresenterChip": true,
+  "titleStyle": "white",
+  "sound": { "on": "focus", "kind": "whoosh", "volume": 0.5 },
+  "content": {
+    "eyebrow": "TODAY",
+    "title": "Session outline",
+    "kicker": "What we will cover, in order — narrated, not read.",
+    "items": [
+      { "title": "Recap",      "subtitle": "Where we left off",  "meta": "5 min",  "capsule": { "text": "01", "color": "gold" } },
+      { "title": "Mindset",    "subtitle": "Bad becomes master", "meta": "3 min",  "capsule": { "text": "02", "color": "ember" } },
+      { "title": "Build",      "subtitle": "Two CLIs, live",     "meta": "35 min", "capsule": { "text": "03", "color": "cream" } },
+      { "title": "Guardrails", "subtitle": "Steer the model",    "meta": "10 min", "capsule": { "text": "04", "color": "gold" } },
+      { "title": "Your call",  "subtitle": "What we ship next",  "meta": "10 min", "capsule": { "text": "05", "color": "outline" } }
+    ]
+  },
+  "notes": "Calm anchor after the cinematic Blast Radius slides. Walk top to bottom."
+}
