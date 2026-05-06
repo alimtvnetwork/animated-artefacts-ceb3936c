@@ -40,24 +40,48 @@ keep theirs too. Only users who never touched the toggle (the
 overwhelming majority) flip from "visible" → "hidden", which is what
 the spec asked for.
 
-## Why a write-on-mount migration is **not** done
+## One-time migration (second pass, 2026-05-06)
 
-We could have written `'1'` to localStorage on first load to "lock in"
-the new default, but that would silently overwrite the case where a
-user clears site data and expects the spec default again. The
-read-time resolver above is idempotent and survives clears, so it's
-the safer pattern.
+The first pass argued *against* a migration. Field feedback overruled
+that: testers who had previously opted the chip ON kept seeing it after
+the default flip because their stored `'0'` survived a deploy. The user
+explicitly asked for "hidden by default" to actually take effect on
+existing browsers.
+
+We now run a **one-shot reset** inside the `useState` initialiser,
+gated by a separate marker key so it cannot run twice:
+
+```ts
+const migrated = localStorage.getItem('riseup.topJumperHidden.migrated.v1');
+if (migrated !== '1') {
+  localStorage.removeItem('riseup.topJumperHidden');
+  localStorage.setItem('riseup.topJumperHidden.migrated.v1', '1');
+}
+```
+
+After the reset, any subsequent `J` press writes `'0'` again and the
+marker prevents further migrations — intentional opt-ins survive page
+reloads. Clearing site data resets both keys and the spec default
+re-applies on the next visit, which is the desired behaviour.
 
 ## Test
 
-Manual: open a fresh incognito window → top jumper chip is **not**
-visible. Press `J` → chip appears. Refresh → chip stays visible
-(localStorage now `'0'`). Press `J` again → chip hidden, refresh →
-still hidden.
+Automated: `src/test/topJumperDefaultHidden.test.ts` covers the
+initialiser contract (default hidden, `'1'` hidden, `'0'` shown,
+garbage/empty hidden, SSR hidden), the migration semantics
+(legacy `'0'` is reset on first load when the marker is absent;
+preserved when the marker is present), the write-path mapping, and
+spec parity (shortcuts v5 + memory feature note).
+
+Manual: in an existing browser with `riseup.topJumperHidden='0'`
+already set, refresh `/12` → chip is now **hidden** and the marker
+key is set. Press `J` → chip appears, `riseup.topJumperHidden='0'`
+again. Refresh → chip stays visible (migration does not re-run).
 
 ## Files touched
 
-- `src/pages/SlideDeckPage.tsx` — init reader (lines 77–83).
+- `src/pages/SlideDeckPage.tsx` — init reader + one-shot migration (lines 77–98).
+- `src/test/topJumperDefaultHidden.test.ts` — new regression suite.
 - `.lovable/memory/features/top-jumper-visibility-toggle.md` — default
-  + storage contract documented.
+  + storage contract + migration documented.
 - `updates/spec/17-top-jumper-default-hidden.md` — this file.
