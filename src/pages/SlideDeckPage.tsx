@@ -75,8 +75,11 @@ export default function SlideDeckPage() {
    *  "NN / NN" jumper chip is hidden for a clean fullscreen stage.
    *  Toggle via the controller's PanelTop button or the `J` shortcut. */
   const [topJumperHidden, setTopJumperHidden] = useState<boolean>(() => {
-    if (typeof window === 'undefined') return false;
-    return window.localStorage.getItem('riseup.topJumperHidden') === '1';
+    if (typeof window === 'undefined') return true;
+    // Default: hidden. Explicit '0' (user chose to show) overrides; any other
+    // value — missing key, '1', legacy strings — collapses to hidden.
+    const stored = window.localStorage.getItem('riseup.topJumperHidden');
+    return stored !== '0';
   });
   /** Persistent presenter setting — searchable left-edge slide TOC.
    *  Toggle via `Ctrl+1` / `⌘+1` (the previous `O` binding was retired
