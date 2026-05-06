@@ -6,10 +6,13 @@ type: feature
 v0.152.0.
 
 # Top jumper visibility toggle
-Presenter affordance to hide the always-visible "NN / NN" chip pinned to the top-center of the viewport. State `topJumperHidden` lives in `SlideDeckPage`, persisted to `localStorage['riseup.topJumperHidden']`.
+# Top jumper visibility toggle
+Presenter affordance for the "NN / NN" chip pinned to the top-center of the viewport. State `topJumperHidden` lives in `SlideDeckPage`, persisted to `localStorage['riseup.topJumperHidden']`.
+
+**Default (2026-05-06): HIDDEN.** The chip stays out of the way for a clean fullscreen stage; the presenter opts in only when needed. Storage contract: missing key OR `'1'` → hidden; only an explicit `'0'` (user toggled it on) shows the chip. Existing users who had explicitly hidden it keep their choice; everyone else now defaults to hidden too.
 
 Three control surfaces:
-- Controller button — `PanelTop` / `PanelTopClose` icon next to the reveal-hints toggle. Glows gold when active. Hidden when parent passes no `onToggleTopJumper`.
+- Controller hamburger dropdown — "Show / Hide top jumper" item with `PanelTop` / `PanelTopClose` icon. Glows gold when hidden.
 - Keyboard — `J` (mirrors `T` for thumb strip, `G` for grid).
 - The `<TopSlideJumper>` is conditionally rendered: `!gridOpen && !topJumperHidden`.
 
