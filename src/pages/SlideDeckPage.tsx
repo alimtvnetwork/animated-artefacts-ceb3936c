@@ -76,6 +76,21 @@ export default function SlideDeckPage() {
    *  Toggle via the controller's PanelTop button or the `J` shortcut. */
   const [topJumperHidden, setTopJumperHidden] = useState<boolean>(() => {
     if (typeof window === 'undefined') return true;
+    // One-time migration (2026-05-06): the default flipped from visible →
+    // hidden per spec 65 §2 + updates/spec/17. Users who had the previous
+    // default-visible state never wrote a localStorage key, but anyone who
+    // had toggled the chip ON in the previous regime carried `'0'` forward,
+    // which now contradicts the spec default. We reset that legacy `'0'`
+    // exactly once, marked by `riseup.topJumperHidden.migrated.v1`. Users
+    // who *intentionally* opt-in via `J` after this point will write `'0'`
+    // again and the marker keeps us from migrating a second time.
+    try {
+      const migrated = window.localStorage.getItem('riseup.topJumperHidden.migrated.v1');
+      if (migrated !== '1') {
+        window.localStorage.removeItem('riseup.topJumperHidden');
+        window.localStorage.setItem('riseup.topJumperHidden.migrated.v1', '1');
+      }
+    } catch { /* ignore quota / disabled storage */ }
     // Default: hidden. Explicit '0' (user chose to show) overrides; any other
     // value — missing key, '1', legacy strings — collapses to hidden.
     const stored = window.localStorage.getItem('riseup.topJumperHidden');
