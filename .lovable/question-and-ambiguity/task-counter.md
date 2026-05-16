@@ -7,7 +7,7 @@
 
 ## Progress
 
-`39 / 40`
+`40 / 40` — window 2 closed
 
 ## Log
 
@@ -88,3 +88,4 @@
 | 32 | 2026-05-02 | Theme JSON import/export — new `src/slides/themeManifest.ts` (serializable `SerializableTheme` schema mirroring `ThemePreset`, `buildThemeManifest`/`parseThemeManifest`/`downloadThemeManifest`, persistent `riseup.themes.custom.v1` overlay merged into `THEMES` at boot via `registerCustomThemesOnBoot()` called from `main.tsx` BEFORE `applyTheme`). Built-in ids cannot be shadowed (auto-suffixed `-imported`/`-imported-2…`). `ThemeMenu` gains Download/Upload icons in the header + "Imported" capsule + Trash2 remove button on custom rows. Picker now reads `Object.keys(THEMES)` so imports show live. Resolves the import/export gap logged in #61 ambiguity note. | [62-theme-import-export.md](./62-theme-import-export.md) |
 | 33 | 2026-05-03 | Session-4 deck: slide 7 title white (was gold). Every CLI/repo capsule on slides 5 & 6 now ships an `expand.cta` "View on GitHub →" pill linking to its `github.com/alimtvnetwork/<repo>` URL (Movie/Alarm/Gitmap + gitmap-v13/movie-cli-v8/alarm-app-v3 + Presentation deck URL). Richer card-grid (image-3) and SPEC.md code-preview (image-4) layouts logged for batch clarification — both need new slide types or LayoutSlide primitives that aren't pinned down. | [56-cli-cards-and-guidelines-code-preview.md](./56-cli-cards-and-guidelines-code-preview.md) |
 | 39 | 2026-05-05 | New `SessionOutlineSlide` slide type (vertical numbered agenda — index · title · subtitle · meta capsule, optional `activeIndex` highlight) wired across enums/contracts(v7)/SlideStage/SlidePreview/GridOverview/fixtures/exportPptx/builder/fieldSchemas. Pattern spec at `_patterns/session-outline-slide.md`. Added 3 sample pages to session-4 deck (plain, mid-deck active, multi-session arc). User said "the steps slide" + "session outline" without naming a specific prior pattern; chose to build a fresh calm-list type rather than extend an existing motion-driven step carousel. | [39-session-outline-slide.md](./39-session-outline-slide.md) |
+| 40 | 2026-05-16 | Top jumper default flipped to **hidden** (`src/pages/SlideDeckPage.tsx` init reader inverted + one-shot `riseup.topJumperHidden.migrated.v1` reset for legacy `'0' opt-ins). Regression suite `src/test/topJumperDefaultHidden.test.ts` (16 tests: default/legacy/migration/spec-parity). Memory note + `updates/spec/17-top-jumper-default-hidden.md` updated. Motion-showcase deck (slides 1–11) created earlier in the session to visualize blast-radius + session-outline + step transitions. Saved new prompt `.lovable/prompts/03-write-memory.md` + indexed in `prompts.md`. | _none_ |
