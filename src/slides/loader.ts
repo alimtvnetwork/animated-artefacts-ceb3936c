@@ -7,6 +7,7 @@ import { normalize3DBullets, type BulletNormalizationEntry } from './normalize3D
 import { initAssetRegistry, initAssetRegistrySoft, type DeckAssetPolicy } from './assetRegistry';
 import { getValidationMode, type ValidationMode } from './validationMode';
 import { detectMotionCollisions, type MotionCollisionWarning } from './motionCollisions';
+import { auditSpecConfidence, type SpecConfidenceReport } from './specConfidence';
 import {
   setActiveDeck as bindBrokenAssetDeck,
   markVerificationPassFinished,
@@ -478,6 +479,33 @@ export const motionCollisionWarnings: readonly MotionCollisionWarning[] = (() =>
   }
   return w;
 })();
+
+/**
+ * Spec-confidence report — combines contract + enum + unknown-field +
+ * motion-variety checks into one 0–100 score. Surfaced as a single boot
+ * log line so authors get a fast at-a-glance signal that everything they
+ * wrote matches the schema before render. Never throws — strict-mode
+ * gating already happens via the per-check throws above.
+ *
+ * Consumers (debug overlay, future presenter pane) can import this to
+ * render a "Spec confidence" chip without re-running the validators.
+ */
+export const specConfidence: SpecConfidenceReport = (() => {
+  const report = auditSpecConfidence(cache.slides);
+  if (typeof console !== 'undefined') {
+    const tag = report.score === 100 ? '✓' : report.band === 'poor' ? '✗' : 'ℹ';
+    console.log(
+      `[deck] ${tag} spec confidence: ${report.score}/100 (${report.band}) — ` +
+        `${report.totalSlides} slide(s), ` +
+        `contract:${report.counts.contract} ` +
+        `enum:${report.counts['unknown-enum']} ` +
+        `field:${report.counts['unknown-field']} ` +
+        `motion:${report.counts['motion-variety']}`,
+    );
+  }
+  return report;
+})();
+
 
 export function findBySlideNumber(n: number): SlideSpec | undefined {
   return allSlides.find(s => s.slideNumber === n);
