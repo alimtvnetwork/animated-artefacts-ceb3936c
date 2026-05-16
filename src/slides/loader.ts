@@ -7,6 +7,7 @@ import { normalize3DBullets, type BulletNormalizationEntry } from './normalize3D
 import { initAssetRegistry, initAssetRegistrySoft, type DeckAssetPolicy } from './assetRegistry';
 import { getValidationMode, type ValidationMode } from './validationMode';
 import { detectMotionCollisions, type MotionCollisionWarning } from './motionCollisions';
+import { auditSpecConfidence, type SpecConfidenceReport } from './specConfidence';
 import {
   setActiveDeck as bindBrokenAssetDeck,
   markVerificationPassFinished,
