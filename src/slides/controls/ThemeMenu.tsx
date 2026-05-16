@@ -1,7 +1,16 @@
 import { useEffect, useRef, useState, type MouseEvent as ReactMouseEvent } from 'react';
-import { Palette, Check, X, Bug, Copy, ClipboardCheck, Download, Upload, Trash2 } from 'lucide-react';
+import { Palette, Check, X, Bug, Copy, ClipboardCheck, Download, Upload, Trash2, Sun, RotateCcw } from 'lucide-react';
 import { toast } from 'sonner';
-import { THEMES, getStoredTheme, setTheme, type ThemeId } from '../themes';
+import {
+  THEMES,
+  getStoredTheme,
+  setTheme,
+  type ThemeId,
+  BRIGHTNESS_RANGE,
+  getStoredBrightnessOffset,
+  previewBrightnessOffset,
+  setBrightnessOffset,
+} from '../themes';
 import {
   buildThemeManifest,
   downloadThemeManifest,
