@@ -8,7 +8,7 @@ type: feature
 
 **Brand presets**
 - **`noir-gold`** — Original. Gold `#C9A84C`, cream `#F0D78C`. Restrained, editorial.
-- **`bright-gold`** — Updated default. Gold `#ffd166` (+15% L, 2026-05-16), cream `#fff1d6`. Vivid, high-contrast. Ambient `--gradient-noir` retuned 2026-05-16 to `hsl(42 75% 14%) → hsl(40 30% 6%)` for +20% more golden glow (was brown/black). See `updates/spec/21`.
+- **`bright-gold`** — Updated default. Gold `#ffd166` (+15% L, 2026-05-16), cream `#fff1d6`. Vivid, high-contrast. Ambient `--gradient-noir` was retuned twice on 2026-05-16; current version shifts the visible glow band into cleaner yellow-gold hues (`49/47/44`) with a wider hotspot to remove the brown/sepia cast while keeping deep noir edges. See `updates/spec/21` + `updates/spec/22`.
 
 **IDE / OS-inspired skins** (added v0.125.0)
 - **`vscode-dark`** — VS Code Dark+. Azure `#007acc` on `#1e1e1e`, `#d4d4d4` text.
