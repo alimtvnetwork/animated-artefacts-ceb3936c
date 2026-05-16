@@ -129,6 +129,31 @@ export function ThemeMenu({ onClose, onChange }: Props) {
   const [, setThemeListVersion] = useState(0);
   const importRef = useRef<HTMLInputElement | null>(null);
 
+  // Gold-brightness slider. `draft` is the live value the user is dragging;
+  // `saved` is the persisted baseline. Apply commits draft → saved.
+  const [brightnessDraft, setBrightnessDraft] = useState<number>(getStoredBrightnessOffset);
+  const [brightnessSaved, setBrightnessSaved] = useState<number>(getStoredBrightnessOffset);
+  const brightnessDirty = brightnessDraft !== brightnessSaved;
+
+  function handleBrightnessInput(v: number) {
+    setBrightnessDraft(v);
+    previewBrightnessOffset(v); // live preview, not persisted
+  }
+  function handleBrightnessApply() {
+    setBrightnessOffset(brightnessDraft);
+    setBrightnessSaved(brightnessDraft);
+    toast.success('Brightness applied', {
+      description: brightnessDraft === 0
+        ? 'Restored preset default.'
+        : `Gold lightness ${brightnessDraft > 0 ? '+' : ''}${brightnessDraft}%.`,
+    });
+  }
+  function handleBrightnessReset() {
+    setBrightnessDraft(0);
+    setBrightnessOffset(0);
+    setBrightnessSaved(0);
+  }
+
   // Validation-preview state. Populated after a file parses cleanly;
   // install only happens when the presenter confirms in the dialog.
   const [pendingImport, setPendingImport] = useState<{
