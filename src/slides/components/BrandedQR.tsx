@@ -313,7 +313,7 @@ function drawWordmarkPill(ctx: CanvasRenderingContext2D, size: number, text: str
   ctx.stroke();
 
   // Wordmark.
-  ctx.fillStyle = '#0d0d0d';
+  ctx.fillStyle = '#0d0d0d'; // brand-hex-ok: canvas wordmark needs literal pixels
   ctx.textAlign = 'center';
   ctx.textBaseline = 'middle';
   const fontSize = Math.round(h * 0.55);
