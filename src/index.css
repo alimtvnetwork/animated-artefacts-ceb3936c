@@ -823,11 +823,18 @@ a.tile-card:focus-visible {
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
   }
+  /* `.capsule-gold` paints the brand-accent chip. The four `--gold-on-*`
+     tokens below are **auto-derived at runtime** from the *effective*
+     `--gold` lightness (see `applyAutoContrast` in `src/slides/themes.ts`)
+     so capsules stay legible whether the presenter dimmed gold to L=35 or
+     boosted it to L=70. Defaults assume the bright-gold baseline. */
   .capsule-gold {
     background: linear-gradient(135deg, hsl(var(--gold)), hsl(var(--gold-glow)));
-    color: hsl(var(--ink));
-    border-color: hsl(var(--gold) / 0.9);
-    box-shadow: 0 4px 14px -4px hsl(var(--gold) / 0.5), inset 0 1px 0 hsl(var(--white) / 0.25);
+    color: hsl(var(--gold-on-fg, var(--ink)));
+    border-color: hsl(var(--gold) / var(--gold-on-border-alpha, 0.9));
+    box-shadow:
+      0 4px 14px -4px hsl(var(--gold) / var(--gold-on-glow-alpha, 0.5)),
+      inset 0 1px 0 hsl(var(--white) / var(--gold-on-sheen-alpha, 0.25));
   }
   /* Ember capsule — pulled toward amber (hue 22 instead of 14) so it never
      reads as a red alert chip on the noir background. Dark ink text + warm

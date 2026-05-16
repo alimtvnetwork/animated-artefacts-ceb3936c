@@ -690,6 +690,53 @@ export function applyBrightnessOffset(offset: number, id?: ThemeId) {
   const glowNext = shift(preset.vars['--gold-glow']);
   if (goldNext) root.style.setProperty('--gold', goldNext);
   if (glowNext) root.style.setProperty('--gold-glow', glowNext);
+  // Re-derive capsule/ring/glow contrast tokens off the *effective* gold.
+  // Keeps `.capsule-gold` readable across the full -15..+15 offset range
+  // AND across theme switches (vscode-dark's blue, dracula's purple, etc).
+  applyAutoContrast(goldNext ?? preset.vars['--gold']);
+}
+
+/* ------------------------------------------------------------------ */
+/* Auto-contrast — derive --gold-on-* tokens from the effective gold   */
+/* lightness so capsules, rings, and glows stay clean across themes    */
+/* and brightness offsets. Runs after every applyTheme/brightness call.*/
+/* ------------------------------------------------------------------ */
+
+interface ContrastBand {
+  fg: string;            // HSL triplet for capsule text
+  borderAlpha: number;
+  glowAlpha: number;
+  sheenAlpha: number;    // inner top-edge highlight
+}
+
+const INK_FG = '0 0% 4%';
+const CREAM_FG = '42 100% 94%';
+
+function pickContrastBand(goldL: number): ContrastBand {
+  // Below 42 — gold is dim ochre; ink text muddies. Flip to cream fg,
+  // strengthen rim + glow so the chip still pops on noir.
+  if (goldL < 42) return { fg: CREAM_FG, borderAlpha: 1.0,  glowAlpha: 0.62, sheenAlpha: 0.18 };
+  // 42–55 — sweet spot; ink reads cleanly. Defaults.
+  if (goldL < 55) return { fg: INK_FG,   borderAlpha: 0.92, glowAlpha: 0.55, sheenAlpha: 0.25 };
+  // 55–70 — bright gold; ink contrast climbs. Soften rim/sheen so the chip
+  // doesn't blow out into a flat slab.
+  if (goldL < 70) return { fg: INK_FG,   borderAlpha: 0.85, glowAlpha: 0.48, sheenAlpha: 0.30 };
+  // >=70 — near-yellow. Ink still wins for contrast; drop the rim further
+  // and pull glow back so the chip stays a chip, not a beacon.
+  return { fg: INK_FG, borderAlpha: 0.75, glowAlpha: 0.40, sheenAlpha: 0.34 };
+}
+
+/** Write `--gold-on-*` tokens from the effective gold's lightness. */
+export function applyAutoContrast(effectiveGold: string | undefined) {
+  if (typeof document === 'undefined' || !effectiveGold) return;
+  const root = document.documentElement;
+  const parsed = parseHslTriplet(effectiveGold);
+  if (!parsed) return;
+  const band = pickContrastBand(parsed.l);
+  root.style.setProperty('--gold-on-fg', band.fg);
+  root.style.setProperty('--gold-on-border-alpha', String(band.borderAlpha));
+  root.style.setProperty('--gold-on-glow-alpha', String(band.glowAlpha));
+  root.style.setProperty('--gold-on-sheen-alpha', String(band.sheenAlpha));
 }
 
 /** Live preview without persisting. Use during slider drag. */
