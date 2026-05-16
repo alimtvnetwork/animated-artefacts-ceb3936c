@@ -169,7 +169,7 @@ export function ThemeMenu({ onClose, onChange }: Props) {
     // rAF lets applyBrightnessOffset finish writing :root vars first.
     const id = requestAnimationFrame(read);
     return () => cancelAnimationFrame(id);
-  }, [brightnessDraft, brightnessSaved, activeId]);
+  }, [brightnessDraft, brightnessSaved, active]);
 
   // Validation-preview state. Populated after a file parses cleanly;
   // install only happens when the presenter confirms in the dialog.
