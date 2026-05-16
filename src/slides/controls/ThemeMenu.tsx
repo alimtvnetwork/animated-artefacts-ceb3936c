@@ -154,6 +154,23 @@ export function ThemeMenu({ onClose, onChange }: Props) {
     setBrightnessSaved(0);
   }
 
+  // Live readout of the resolved `--gold` / `--gold-glow` CSS variables.
+  // Re-reads on brightness drag, on apply, and on theme switch (activeId).
+  const [goldHsl, setGoldHsl] = useState<{ gold: string; glow: string }>({ gold: '', glow: '' });
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const read = () => {
+      const cs = getComputedStyle(document.documentElement);
+      setGoldHsl({
+        gold: cs.getPropertyValue('--gold').trim(),
+        glow: cs.getPropertyValue('--gold-glow').trim(),
+      });
+    };
+    // rAF lets applyBrightnessOffset finish writing :root vars first.
+    const id = requestAnimationFrame(read);
+    return () => cancelAnimationFrame(id);
+  }, [brightnessDraft, brightnessSaved, activeId]);
+
   // Validation-preview state. Populated after a file parses cleanly;
   // install only happens when the presenter confirms in the dialog.
   const [pendingImport, setPendingImport] = useState<{
