@@ -99,11 +99,11 @@ export const THEMES: Record<ThemeId, ThemePreset> = {
       '--foreground': '42 100% 96%',
       '--muted-foreground': '42 25% 75%',
       '--border': '42 25% 22%',
-      // 2026-05-16 (v2): user reported the glow still read brown. Pushed the hot spot to
-      // L 26% at full saturation (hue 44 — same family as --gold-glow) and added a
-      // mid-stop at 30% so there's a visible gold band before falling into noir. The
-      // surround keeps a faint warm tint. See updates/spec/21.
-      '--gradient-noir': 'radial-gradient(ellipse 90% 70% at 50% 0%, hsl(44 100% 26%) 0%, hsl(42 80% 14%) 30%, hsl(38 35% 7%) 70%)',
+      // 2026-05-16 (v3): user said the ambient still read brown, not gold. Shifted the
+      // hotspot toward a cleaner yellow-gold hue (47–49), raised saturation across the
+      // visible band, and widened the spread so slide 1 reads as gold-lit noir rather
+      // than sepia. Keep the outer falloff dark enough to preserve the premium deck mood.
+      '--gradient-noir': 'radial-gradient(ellipse 118% 82% at 50% -8%, hsl(49 100% 44%) 0%, hsl(47 96% 30%) 22%, hsl(44 82% 17%) 46%, hsl(40 24% 7%) 76%, hsl(0 0% 4%) 100%)',
     },
   },
   // ─── VS Code Dark+ — the classic Microsoft editor palette (blue accent on near-black). ───
