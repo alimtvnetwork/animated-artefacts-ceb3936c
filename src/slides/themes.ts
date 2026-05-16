@@ -88,14 +88,14 @@ export const THEMES: Record<ThemeId, ThemePreset> = {
   'bright-gold': {
     id: 'bright-gold',
     label: 'Bright Gold',
-    description: 'Updated — vivid #f3a502, near-white cream titles, max contrast.',
-    swatch: ['#0D0D0D', '#f3a502', '#fff1d6', '#E85D3A'],
+    description: 'Updated — vivid #ffbe2e gold (+15% brighter), near-white cream titles, max contrast.',
+    swatch: ['#0D0D0D', '#ffbe2e', '#fff1d6', '#E85D3A'],
     vars: {
-      '--gold': '40 96% 48%',           // #f3a502
-      '--gold-glow': '42 100% 62%',
+      '--gold': '42 100% 58%',          // ~#ffbe2e — was 40 96% 48% (#f3a502); +10pp L per 2026-05-16 brighten request
+      '--gold-glow': '44 100% 70%',     // was 42 100% 62%; lifted in step with --gold
       '--cream': '42 100% 94%',         // #fff1d6
-      '--primary': '40 96% 48%',
-      '--ring': '40 96% 48%',
+      '--primary': '42 100% 58%',
+      '--ring': '42 100% 58%',
       '--foreground': '42 100% 96%',
       '--muted-foreground': '42 25% 75%',
       '--border': '42 25% 22%',
