@@ -1,7 +1,16 @@
 import { useEffect, useRef, useState, type MouseEvent as ReactMouseEvent } from 'react';
-import { Palette, Check, X, Bug, Copy, ClipboardCheck, Download, Upload, Trash2 } from 'lucide-react';
+import { Palette, Check, X, Bug, Copy, ClipboardCheck, Download, Upload, Trash2, Sun, RotateCcw } from 'lucide-react';
 import { toast } from 'sonner';
-import { THEMES, getStoredTheme, setTheme, type ThemeId } from '../themes';
+import {
+  THEMES,
+  getStoredTheme,
+  setTheme,
+  type ThemeId,
+  BRIGHTNESS_RANGE,
+  getStoredBrightnessOffset,
+  previewBrightnessOffset,
+  setBrightnessOffset,
+} from '../themes';
 import {
   buildThemeManifest,
   downloadThemeManifest,
@@ -119,6 +128,31 @@ export function ThemeMenu({ onClose, onChange }: Props) {
   // mutated `THEMES` registry without each consumer subscribing to events.
   const [, setThemeListVersion] = useState(0);
   const importRef = useRef<HTMLInputElement | null>(null);
+
+  // Gold-brightness slider. `draft` is the live value the user is dragging;
+  // `saved` is the persisted baseline. Apply commits draft → saved.
+  const [brightnessDraft, setBrightnessDraft] = useState<number>(getStoredBrightnessOffset);
+  const [brightnessSaved, setBrightnessSaved] = useState<number>(getStoredBrightnessOffset);
+  const brightnessDirty = brightnessDraft !== brightnessSaved;
+
+  function handleBrightnessInput(v: number) {
+    setBrightnessDraft(v);
+    previewBrightnessOffset(v); // live preview, not persisted
+  }
+  function handleBrightnessApply() {
+    setBrightnessOffset(brightnessDraft);
+    setBrightnessSaved(brightnessDraft);
+    toast.success('Brightness applied', {
+      description: brightnessDraft === 0
+        ? 'Restored preset default.'
+        : `Gold lightness ${brightnessDraft > 0 ? '+' : ''}${brightnessDraft}%.`,
+    });
+  }
+  function handleBrightnessReset() {
+    setBrightnessDraft(0);
+    setBrightnessOffset(0);
+    setBrightnessSaved(0);
+  }
 
   // Validation-preview state. Populated after a file parses cleanly;
   // install only happens when the presenter confirms in the dialog.
@@ -357,6 +391,73 @@ export function ThemeMenu({ onClose, onChange }: Props) {
       >
         Switch palettes live. Saved with the deck on export.
       </p>
+
+
+      {/* Gold-brightness fine-tune. Live previews on drag; Apply commits. */}
+      <div
+        className="mx-2 mb-2 rounded-xl px-2.5 py-2"
+        style={{
+          background: 'hsl(0 0% 0% / 0.24)',
+          border: '1px solid hsl(var(--gold) / 0.22)',
+        }}
+      >
+        <div className="flex items-center justify-between mb-1">
+          <div className="flex items-center gap-1.5">
+            <Sun className="h-3.5 w-3.5 text-gold" />
+            <span className="text-[11px] font-medium">Gold brightness</span>
+          </div>
+          <span
+            className="tabular-nums text-[10.5px] font-semibold"
+            style={{ color: brightnessDirty ? 'hsl(var(--gold))' : 'hsl(var(--chrome-fg-muted))' }}
+          >
+            {brightnessDraft > 0 ? '+' : ''}{brightnessDraft}%
+          </span>
+        </div>
+        <input
+          type="range"
+          min={-BRIGHTNESS_RANGE}
+          max={BRIGHTNESS_RANGE}
+          step={1}
+          value={brightnessDraft}
+          onChange={(e) => handleBrightnessInput(Number(e.target.value))}
+          aria-label="Gold brightness offset, percentage points"
+          className="w-full accent-[hsl(var(--gold))] cursor-pointer"
+          style={{ ['--tw-ring-color' as string]: 'hsl(var(--gold) / 0.55)' }}
+        />
+        <div className="flex items-center justify-between mt-1 gap-1.5">
+          <span
+            className="text-[9.5px] uppercase tracking-wider"
+            style={{ color: 'hsl(var(--chrome-fg-subtle))' }}
+          >
+            −{BRIGHTNESS_RANGE} … +{BRIGHTNESS_RANGE}
+          </span>
+          <div className="flex items-center gap-1">
+            <button
+              onClick={handleBrightnessReset}
+              disabled={brightnessDraft === 0 && brightnessSaved === 0}
+              aria-label="Reset gold brightness"
+              title="Reset to preset default"
+              style={{ ['--tw-ring-color' as string]: 'hsl(var(--gold) / 0.55)' }}
+              className="lift-hover-subtle h-6 w-6 inline-flex items-center justify-center rounded-md text-[10px] transition hover:bg-[hsl(0_0%_100%/0.14)] focus-visible:outline-none focus-visible:ring-2 disabled:opacity-40 disabled:cursor-default disabled:hover:bg-transparent"
+            >
+              <RotateCcw className="h-3 w-3" />
+            </button>
+            <button
+              onClick={handleBrightnessApply}
+              disabled={!brightnessDirty}
+              aria-label="Apply gold brightness"
+              style={{ ['--tw-ring-color' as string]: 'hsl(var(--gold) / 0.55)' }}
+              className={`inline-flex items-center px-2 h-6 rounded-md text-[10px] font-semibold uppercase tracking-wider transition focus-visible:outline-none focus-visible:ring-2 ${
+                brightnessDirty
+                  ? 'bg-[hsl(var(--gold)/0.22)] text-gold border border-[hsl(var(--gold)/0.45)] hover:bg-[hsl(var(--gold)/0.32)]'
+                  : 'opacity-40 cursor-default border border-[hsl(0_0%_100%/0.12)]'
+              }`}
+            >
+              Apply
+            </button>
+          </div>
+        </div>
+      </div>
 
       {debug && (
         <div

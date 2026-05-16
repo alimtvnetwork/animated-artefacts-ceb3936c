@@ -643,6 +643,75 @@ export function applyTheme(id: ThemeId) {
     if (v) root.style.setProperty(k, v);
     else   root.style.removeProperty(k);
   }
+  // Re-apply any stored gold-brightness offset on top of the freshly-written
+  // preset vars (offset is preset-relative, so it has to run *after* the
+  // base values land). See `applyBrightnessOffset`.
+  applyBrightnessOffset(getStoredBrightnessOffset(), id);
+}
+
+/* ------------------------------------------------------------------ */
+/* Gold-brightness offset — fine-tune the active theme's `--gold` /    */
+/* `--gold-glow` lightness ±15pp without forking the preset.           */
+/* ------------------------------------------------------------------ */
+
+const STORAGE_KEY_BRIGHTNESS = 'riseup.theme.brightness.v1';
+/** Maximum absolute offset, in HSL lightness percentage points. */
+export const BRIGHTNESS_RANGE = 15;
+
+function clampOffset(n: number): number {
+  if (!Number.isFinite(n)) return 0;
+  return Math.max(-BRIGHTNESS_RANGE, Math.min(BRIGHTNESS_RANGE, Math.round(n)));
+}
+
+/** Read the saved brightness offset (HSL lightness pp). 0 = preset default. */
+export function getStoredBrightnessOffset(): number {
+  if (typeof window === 'undefined') return 0;
+  const raw = window.localStorage.getItem(STORAGE_KEY_BRIGHTNESS);
+  if (raw == null) return 0;
+  const n = Number.parseFloat(raw);
+  return clampOffset(n);
+}
+
+/** Mutate `--gold` + `--gold-glow` on :root by `offset` pp (preset L + offset, clamped 0..100). */
+export function applyBrightnessOffset(offset: number, id?: ThemeId) {
+  if (typeof document === 'undefined') return;
+  const root = document.documentElement;
+  const activeId = (id ?? (root.getAttribute('data-theme') as ThemeId | null)) ?? DEFAULT_THEME;
+  const preset = THEMES[activeId] ?? THEMES[DEFAULT_THEME];
+  const clamped = clampOffset(offset);
+  const shift = (raw: string | undefined): string | null => {
+    if (!raw) return null;
+    const parsed = parseHslTriplet(raw);
+    if (!parsed) return null;
+    const newL = Math.max(0, Math.min(100, parsed.l + clamped));
+    return `${parsed.h} ${parsed.s}% ${newL}%`;
+  };
+  const goldNext = shift(preset.vars['--gold']);
+  const glowNext = shift(preset.vars['--gold-glow']);
+  if (goldNext) root.style.setProperty('--gold', goldNext);
+  if (glowNext) root.style.setProperty('--gold-glow', glowNext);
+}
+
+/** Live preview without persisting. Use during slider drag. */
+export function previewBrightnessOffset(offset: number) {
+  applyBrightnessOffset(offset);
+}
+
+/** Persist + apply. Use on slider commit / Apply button. */
+export function setBrightnessOffset(offset: number) {
+  const clamped = clampOffset(offset);
+  if (typeof window !== 'undefined' && !isTestMode()) {
+    if (clamped === 0) window.localStorage.removeItem(STORAGE_KEY_BRIGHTNESS);
+    else window.localStorage.setItem(STORAGE_KEY_BRIGHTNESS, String(clamped));
+  }
+  applyBrightnessOffset(clamped);
+}
+
+/** Internal HSL triplet parser — local copy to avoid pulling ThemeMenu's. */
+function parseHslTriplet(value: string): { h: number; s: number; l: number } | null {
+  const m = value.trim().match(/^(-?\d*\.?\d+)\s+(-?\d*\.?\d+)%\s+(-?\d*\.?\d+)%$/);
+  if (!m) return null;
+  return { h: parseFloat(m[1]), s: parseFloat(m[2]), l: parseFloat(m[3]) };
 }
 
 /** Validate an unknown value as a ThemeId, returning DEFAULT_THEME if not. */
