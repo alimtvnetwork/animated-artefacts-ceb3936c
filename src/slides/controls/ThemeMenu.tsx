@@ -154,6 +154,23 @@ export function ThemeMenu({ onClose, onChange }: Props) {
     setBrightnessSaved(0);
   }
 
+  // Live readout of the resolved `--gold` / `--gold-glow` CSS variables.
+  // Re-reads on brightness drag, on apply, and on theme switch (activeId).
+  const [goldHsl, setGoldHsl] = useState<{ gold: string; glow: string }>({ gold: '', glow: '' });
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const read = () => {
+      const cs = getComputedStyle(document.documentElement);
+      setGoldHsl({
+        gold: cs.getPropertyValue('--gold').trim(),
+        glow: cs.getPropertyValue('--gold-glow').trim(),
+      });
+    };
+    // rAF lets applyBrightnessOffset finish writing :root vars first.
+    const id = requestAnimationFrame(read);
+    return () => cancelAnimationFrame(id);
+  }, [brightnessDraft, brightnessSaved, active]);
+
   // Validation-preview state. Populated after a file parses cleanly;
   // install only happens when the presenter confirms in the dialog.
   const [pendingImport, setPendingImport] = useState<{
@@ -455,6 +472,39 @@ export function ThemeMenu({ onClose, onChange }: Props) {
             >
               Apply
             </button>
+          </div>
+        </div>
+
+        {/* Live HSL readout of resolved --gold / --gold-glow tokens. */}
+        <div
+          className="mt-2 pt-2 grid grid-cols-2 gap-1.5 text-[10px] tabular-nums"
+          style={{
+            borderTop: '1px solid hsl(var(--gold) / 0.16)',
+            fontFamily: 'ui-monospace, SFMono-Regular, "JetBrains Mono", Menlo, monospace',
+            color: 'hsl(var(--chrome-fg-muted))',
+          }}
+        >
+          <div className="flex items-center gap-1.5 min-w-0">
+            <span
+              aria-hidden
+              className="h-2.5 w-2.5 rounded-full shrink-0"
+              style={{ background: 'hsl(var(--gold))', boxShadow: '0 0 6px hsl(var(--gold) / 0.6)' }}
+            />
+            <span className="shrink-0" style={{ color: 'hsl(var(--chrome-fg-subtle))' }}>--gold</span>
+            <span className="truncate" style={{ color: 'hsl(var(--chrome-fg))' }} title={goldHsl.gold}>
+              {goldHsl.gold || '—'}
+            </span>
+          </div>
+          <div className="flex items-center gap-1.5 min-w-0">
+            <span
+              aria-hidden
+              className="h-2.5 w-2.5 rounded-full shrink-0"
+              style={{ background: 'hsl(var(--gold-glow))', boxShadow: '0 0 6px hsl(var(--gold-glow) / 0.6)' }}
+            />
+            <span className="shrink-0" style={{ color: 'hsl(var(--chrome-fg-subtle))' }}>--gold-glow</span>
+            <span className="truncate" style={{ color: 'hsl(var(--chrome-fg))' }} title={goldHsl.glow}>
+              {goldHsl.glow || '—'}
+            </span>
           </div>
         </div>
       </div>
