@@ -26,6 +26,7 @@ full `spec/` tree. Each file is a self-contained delta.
 | 19 | **Brand-hex literal audit** — vitest-enforced ban on hard-coded brand hexes under `src/slides/**`; opt-out via `// brand-hex-ok:` | 2026-05-16 |
 | 20 | **Spec confidence validator** — 0–100 pre-render gate (contract / enum / field / motion-variety) wired into deck loader | 2026-05-16 |
 | 21 | **Bright-gold ambient glow +20% more golden** — `--gradient-noir` retuned to `hsl(42 75% 14%) → hsl(40 30% 6%)` (was brown-on-black) | 2026-05-16 |
+| 22 | **Bright-gold ambient glow v2** — `--gradient-noir` shifted into cleaner yellow-gold hues (`49/47/44`) with a wider, brighter hotspot to remove the brown cast | 2026-05-16 |
 
 ## Conventions
 
