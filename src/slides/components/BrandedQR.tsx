@@ -183,7 +183,7 @@ export function BrandedQR({
       errorCorrectionLevel: 'H',
       margin: 4,
       width: innerSize,
-      color: { dark: '#0d0d0d', light: '#ffffff' }, // hardcoded-white-ok: QR light modules must be pure white for scanner reliability
+      color: { dark: '#0d0d0d', light: '#ffffff' }, // hardcoded-white-ok: QR light modules must be pure white for scanner reliability // brand-hex-ok: QR dark modules need a literal pixel color (theme tokens are not resolved inside qrcode canvas)
     })
       .then(dataUrl => {
         if (cancelled || cancelledLocal) return;
