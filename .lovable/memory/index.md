@@ -31,6 +31,8 @@ Brand assets: `src/assets/brand/` (logo, alim-presenter.png). Use semantic token
 
 ## Memories
 - [House style (READ FIRST)](mem://features/house-style) — Authoritative branding + typography + capsule + animation/transition + controller rules every new slide must follow. Supersedes ad-hoc decisions.
+- [Brand-hex audit](mem://features/brand-hex-audit) — CI-enforced ban on hard-coded brand hexes under `src/slides/**`; opt-out via `// brand-hex-ok:` on canvas pixel fills. `updates/spec/19`.
+- [Spec confidence](mem://features/spec-confidence) — 0–100 pre-render gate (contract / unknown-enum / unknown-field / motion-variety) wired into `loader.ts`; `assertHighConfidence(slides, 80)`. `updates/spec/20`.
 - [Light-theme capsule fg rule](mem://design/light-theme-capsule-fg-rule) — Capsules MUST be className-driven; brand tokens change meaning per theme; full contract + decision tree + audit grep in `updates/spec/16`.
 - [LLM authoring pack](mem://features/llm-authoring-pack) — Canonical pack at `spec/slides/llm/` (files 00–27d); supersedes legacy `/spec/slides/NN-*.md`. v0.181.1 adds `27a-table-slide.md`, `27b-code-block-slide.md`, `27c-box-diagram-slide.md`, `27d-layout-slide.md` — field-by-field authoring contracts for each. `23-slide-type-contracts.md` required-fields table updated to cover MetricGrid/Table/CodeBlock/BoxDiagram/ERDiagram/LayoutSlide.
 - [No readme.txt](mem://constraints/no-readme-txt) — readme.txt renamed to readme.md on 2026-04-26; never write to readme.txt
