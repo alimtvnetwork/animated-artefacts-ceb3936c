@@ -99,10 +99,11 @@ export const THEMES: Record<ThemeId, ThemePreset> = {
       '--foreground': '42 100% 96%',
       '--muted-foreground': '42 25% 75%',
       '--border': '42 25% 22%',
-      // 2026-05-16: +20% more golden — saturation 40→75%, lightness 10→14% at the hot spot,
-      // and the surround now keeps a faint warm tint (hsl 40 30% 6%) instead of pure noir,
-      // so the ambient glow reads gold-on-black instead of brown-on-black. See updates/spec/21.
-      '--gradient-noir': 'radial-gradient(ellipse at top, hsl(42 75% 14%) 0%, hsl(40 30% 6%) 60%)',
+      // 2026-05-16 (v2): user reported the glow still read brown. Pushed the hot spot to
+      // L 26% at full saturation (hue 44 — same family as --gold-glow) and added a
+      // mid-stop at 30% so there's a visible gold band before falling into noir. The
+      // surround keeps a faint warm tint. See updates/spec/21.
+      '--gradient-noir': 'radial-gradient(ellipse 90% 70% at 50% 0%, hsl(44 100% 26%) 0%, hsl(42 80% 14%) 30%, hsl(38 35% 7%) 70%)',
     },
   },
   // ─── VS Code Dark+ — the classic Microsoft editor palette (blue accent on near-black). ───
