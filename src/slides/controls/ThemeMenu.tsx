@@ -459,7 +459,7 @@ export function ThemeMenu({ onClose, onChange }: Props) {
         </div>
       </div>
 
-
+      {debug && (
         <div
           className="mx-2 mb-2 rounded-xl px-3 py-2.5 text-[11px] leading-relaxed"
           style={{
