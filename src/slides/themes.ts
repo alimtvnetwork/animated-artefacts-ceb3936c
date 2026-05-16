@@ -99,7 +99,10 @@ export const THEMES: Record<ThemeId, ThemePreset> = {
       '--foreground': '42 100% 96%',
       '--muted-foreground': '42 25% 75%',
       '--border': '42 25% 22%',
-      '--gradient-noir': 'radial-gradient(ellipse at top, hsl(40 40% 10%) 0%, hsl(0 0% 5%) 60%)',
+      // 2026-05-16: +20% more golden — saturation 40→75%, lightness 10→14% at the hot spot,
+      // and the surround now keeps a faint warm tint (hsl 40 30% 6%) instead of pure noir,
+      // so the ambient glow reads gold-on-black instead of brown-on-black. See updates/spec/21.
+      '--gradient-noir': 'radial-gradient(ellipse at top, hsl(42 75% 14%) 0%, hsl(40 30% 6%) 60%)',
     },
   },
   // ─── VS Code Dark+ — the classic Microsoft editor palette (blue accent on near-black). ───
