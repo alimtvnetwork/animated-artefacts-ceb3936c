@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <rect x="16" y="16" width="480" height="480" rx="112" fill="#0F172A"/>
+  <g font-family="'Baloo 2','Fredoka','Nunito',system-ui,sans-serif" font-weight="900" text-anchor="middle">
+    <circle cx="140" cy="220" r="86" fill="#FF3B6B"/>
+    <text x="140" y="258" font-size="150" fill="#FFF8E7">1</text>
+    <circle cx="256" cy="220" r="86" fill="#3DB2FF"/>
+    <text x="256" y="258" font-size="150" fill="#FFF8E7">2</text>
+    <circle cx="372" cy="220" r="86" fill="#3CCB7F"/>
+    <text x="372" y="258" font-size="150" fill="#FFF8E7">3</text>
+    <text x="256" y="430" font-size="72" fill="#FFD23F" letter-spacing="2">GAME</text>
+  </g>
+</svg>
