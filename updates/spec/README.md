@@ -22,6 +22,9 @@ full `spec/` tree. Each file is a self-contained delta.
 | 14 | **AI Blind-Authoring Guide (Part 2/N)** — compact-card + grid-track mechanics, track-vs-item truth table, "stack of receipts" model, anti-patterns | 2026-05-03 |
 | 15 | **Paper & Ink contrast RCA** — slide 2 chips invisible (dark-on-dark) because StepsChain3DSlide painted capsules with inline `--gold/--ember/--cream/--ink` styles, bypassing per-theme overrides | 2026-05-05 |
 | 16 | **Light-Theme Capsule Contract** — capsules MUST use `.capsule-{tone}` classNames; brand tokens change meaning between dark/light themes; `.capsule-meta` added for time/duration tags | 2026-05-05 |
+| 18 | **Bright-gold +15% + theme brightness preview + live HSL readout** in ThemeMenu | 2026-05-16 |
+| 19 | **Brand-hex literal audit** — vitest-enforced ban on hard-coded brand hexes under `src/slides/**`; opt-out via `// brand-hex-ok:` | 2026-05-16 |
+| 20 | **Spec confidence validator** — 0–100 pre-render gate (contract / enum / field / motion-variety) wired into deck loader | 2026-05-16 |
 
 ## Conventions
 
