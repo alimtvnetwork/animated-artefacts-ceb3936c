@@ -5,7 +5,8 @@ Updated: just now
 
 ## Core
 This is a slide-presentation app for **Riseup Asia LLC** (exact spelling — never "Rise Up" or "Riseup-Asia"). Presenter: **MD ALIM UL KARIM**.
-**Two themes** ship: `noir-gold` (original — gold `#C9A84C`, cream `#F0D78C`) and `bright-gold` (default — gold `40 88% 50%` v0.36 muted, cream `#fff1d6`). Both on noir bg `#0D0D0D` with ember `#E85D3A`. Switch live via the controller's palette button; persisted with deck on export. NEVER hard-code brand hex in components — always `hsl(var(--gold))`.
+**Two themes** ship: `noir-gold` (original — gold `#C9A84C`, cream `#F0D78C`) and `bright-gold` (default — gold +15% bright as of 2026-05-16, cream `#fff1d6`). Both on noir bg `#0D0D0D` with ember `#E85D3A`. ThemeMenu has a ±15% brightness slider + live `--gold`/`--gold-glow` HSL readout (see `updates/spec/18`). Switch live via the controller's palette button; persisted with deck on export. **Brand-hex literal ban is CI-enforced** via `scripts/audit-brand-hex.ts` + vitest — always `hsl(var(--gold))`; opt-out only with `// brand-hex-ok: <reason>` (canvas pixel fills). See [brand-hex audit](mem://features/brand-hex-audit), `updates/spec/19`.
+**Spec confidence validator** runs at deck boot (`src/slides/specConfidence.ts`, logged from `loader.ts`): 0–100 score across contract / unknown-enum / unknown-field / motion-variety. `assertHighConfidence(slides, 80)` to gate new decks. See [spec confidence](mem://features/spec-confidence), `updates/spec/20`.
 Titles: **Ubuntu Bold**, sized via `clamp()` + `max-w-[92vw]` so they never clip. Body: **Inter** (Apple system fallback). Capsules: Inter Semibold.
 **Keywords-only content** — never write paragraphs. Presenter narrates; slides are visual anchors. Multiple items → colored capsule labels.
 **Spec-first**: before implementing any deck, write JSON+MD specs in `/spec/slides/{deck-name}/NN-name.{json,md}` with images alongside in `images/`. JSON is source of truth at runtime. Always update the spec when behavior changes.
@@ -30,6 +31,8 @@ Brand assets: `src/assets/brand/` (logo, alim-presenter.png). Use semantic token
 
 ## Memories
 - [House style (READ FIRST)](mem://features/house-style) — Authoritative branding + typography + capsule + animation/transition + controller rules every new slide must follow. Supersedes ad-hoc decisions.
+- [Brand-hex audit](mem://features/brand-hex-audit) — CI-enforced ban on hard-coded brand hexes under `src/slides/**`; opt-out via `// brand-hex-ok:` on canvas pixel fills. `updates/spec/19`.
+- [Spec confidence](mem://features/spec-confidence) — 0–100 pre-render gate (contract / unknown-enum / unknown-field / motion-variety) wired into `loader.ts`; `assertHighConfidence(slides, 80)`. `updates/spec/20`.
 - [Light-theme capsule fg rule](mem://design/light-theme-capsule-fg-rule) — Capsules MUST be className-driven; brand tokens change meaning per theme; full contract + decision tree + audit grep in `updates/spec/16`.
 - [LLM authoring pack](mem://features/llm-authoring-pack) — Canonical pack at `spec/slides/llm/` (files 00–27d); supersedes legacy `/spec/slides/NN-*.md`. v0.181.1 adds `27a-table-slide.md`, `27b-code-block-slide.md`, `27c-box-diagram-slide.md`, `27d-layout-slide.md` — field-by-field authoring contracts for each. `23-slide-type-contracts.md` required-fields table updated to cover MetricGrid/Table/CodeBlock/BoxDiagram/ERDiagram/LayoutSlide.
 - [No readme.txt](mem://constraints/no-readme-txt) — readme.txt renamed to readme.md on 2026-04-26; never write to readme.txt
