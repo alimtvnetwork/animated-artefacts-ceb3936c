@@ -7,7 +7,7 @@ type: reference
 # What to read (AI onboarding map)
 
 If you are an AI agent resuming this repo with **zero context**, read these
-files **in order**. Mirror of the root [`README.md`](../../README.md)
+files **in order**. Mirror of the root [`README.md`](../../../README.md)
 "🤖 For AI agents — what to read & how JSON works" section. Keep both in sync.
 
 ## 1. Orient — folder structure
