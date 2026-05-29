@@ -266,8 +266,79 @@ slides-install.ps1            ← Windows bootstrap (irm | iex)
 ```
 
 For a guided tour of the slide system itself, start at
-[`spec/slides/README.md`](spec/slides/README.md) and
-[`spec/slides/llm/00-README.md`](spec/slides/llm/00-README.md).
+[`spec/21-slides-system/README.md`](spec/21-slides-system/README.md) and
+[`spec/21-slides-system/llm/00-README.md`](spec/21-slides-system/llm/00-README.md).
+
+---
+
+## 🤖 For AI agents — what to read & how JSON works
+
+If you are an AI agent picking up this repo with **zero context**, read the
+files below **in order**. They tell you how the folders are laid out, how a
+slide JSON is structured, and how to author a new slide correctly the first
+time. A mirror of this list lives at
+[`.lovable/memory/what-to-read.md`](.lovable/memory/what-to-read.md).
+
+### 1. Orient — folder structure & where things live
+
+| Read this                                              | To understand |
+|--------------------------------------------------------|---------------|
+| [`spec/README.md`](spec/README.md)                     | Canonical spec layout — which numbered folder owns which concern. |
+| [`spec/21-slides-system/README.md`](spec/21-slides-system/README.md) | The slide-engine system docs (how slides behave). |
+| [`spec/21-slides-system/llm/00-README.md`](spec/21-slides-system/llm/00-README.md) | The AI authoring pack — entry point for everything below. |
+| [`.lovable/memory/index.md`](.lovable/memory/index.md) | Project-wide rules you MUST apply every loop (brand, themes, constraints). |
+
+**The folders that matter:**
+
+```
+spec/21-slides-system/          ← HOW the engine works (system design + schemas + LLM pack)
+  ├── 00-fundamentals.md        ← per-slide JSON fields + layout contract — start here
+  ├── slide.schema.json         ← JSON Schema (draft-07) for ONE slide — validate against this
+  ├── deck.schema.json          ← JSON Schema for a deck manifest (deck.json)
+  └── llm/                       ← the AI authoring pack (see step 2)
+spec/26-slide-definitions/      ← WHAT specific decks contain (per-deck JSON + MD specs)
+front-end/project/<deck>/data/  ← the LIVE decks the app loads at runtime
+  ├── slides.json               ← deck manifest (config + ordered slide list)
+  └── slides/NN-name.json       ← one slide per file — RUNTIME SOURCE OF TRUTH
+front-end/slide-template/       ← copy-me starter JSON, one per slideType
+src/slides/                     ← React renderer (loader.ts, contracts.ts, themes.ts)
+```
+
+### 2. Learn the JSON — structure, fields & contracts
+
+| Read this                                                                 | To understand |
+|---------------------------------------------------------------------------|---------------|
+| [`spec/21-slides-system/00-fundamentals.md`](spec/21-slides-system/00-fundamentals.md) | Every top-level slide field (`slideNumber`, `slideType`, `transition`, `enabled`, `titleStyle`, …). |
+| [`spec/21-slides-system/slide.schema.json`](spec/21-slides-system/slide.schema.json) | The machine-checkable shape of a single slide. |
+| [`spec/21-slides-system/deck.schema.json`](spec/21-slides-system/deck.schema.json) | The shape of a deck manifest (`slides.json` / `deck.json`). |
+| [`spec/21-slides-system/llm/06-json-authoring-cheatsheet.md`](spec/21-slides-system/llm/06-json-authoring-cheatsheet.md) | Every field + preset, condensed. |
+| [`spec/21-slides-system/llm/23-slide-type-contracts.md`](spec/21-slides-system/llm/23-slide-type-contracts.md) | Required + optional `content` fields **per slideType**. |
+| [`spec/21-slides-system/llm/25-json-vs-md-contract.md`](spec/21-slides-system/llm/25-json-vs-md-contract.md) | What goes in JSON (runtime) vs the sibling MD (humans/AI only). |
+| [`spec/21-slides-system/llm/CATALOG.json`](spec/21-slides-system/llm/CATALOG.json) | Machine-readable catalog of slide types, transitions, animations. |
+
+The runtime contracts are also enforced in code:
+[`src/slides/contracts.ts`](src/slides/contracts.ts) (zod) and loaded by
+[`src/slides/loader.ts`](src/slides/loader.ts).
+
+### 3. Create a new slide — the loop
+
+| Read this                                                                 | To understand |
+|---------------------------------------------------------------------------|---------------|
+| [`spec/21-slides-system/llm/15-authoring-template.md`](spec/21-slides-system/llm/15-authoring-template.md) | The fill-in-the-blanks authoring template. |
+| [`spec/21-slides-system/llm/16-voice-to-slide-protocol.md`](spec/21-slides-system/llm/16-voice-to-slide-protocol.md) | The exact plain-English → JSON prompt format. |
+| [`spec/21-slides-system/llm/22-add-new-slide-type.md`](spec/21-slides-system/llm/22-add-new-slide-type.md) | How to introduce a brand-new slideType (renderer + contract). |
+| [`spec/21-slides-system/llm/17-do-and-dont.md`](spec/21-slides-system/llm/17-do-and-dont.md) | The pitfalls to avoid. |
+| [`spec/21-slides-system/llm/18-acceptance-checklist.md`](spec/21-slides-system/llm/18-acceptance-checklist.md) | What "done" means before you ship the slide. |
+
+**The 6 steps to add a slide:**
+
+1. Pick a slideType from the contracts doc (step 2).
+2. Copy the matching starter from [`front-end/slide-template/`](front-end/slide-template/)
+   into the live deck: `front-end/project/<deck>/data/slides/NN-name.json`.
+3. Fill the `content` per its contract; keep it **keyword-only** (presenter narrates).
+4. Add a sibling `NN-name.md` with presenter notes / voice script (humans/AI only — never read at runtime).
+5. Register the slide in the deck manifest `front-end/project/<deck>/data/slides.json`.
+6. Save — Vite hot-reloads. Validate against `slide.schema.json` + `bun run test`.
 
 ---
 
