@@ -277,7 +277,7 @@ If you are an AI agent picking up this repo with **zero context**, read the
 files below **in order**. They tell you how the folders are laid out, how a
 slide JSON is structured, and how to author a new slide correctly the first
 time. A mirror of this list lives at
-[`.lovable/memory/what-to-read.md`](.lovable/memory/what-to-read.md).
+[`.lovable/memory/reference/what-to-read.md`](.lovable/memory/reference/what-to-read.md).
 
 ### 1. Orient — folder structure & where things live
 
