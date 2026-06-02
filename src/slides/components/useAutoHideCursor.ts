@@ -102,15 +102,25 @@ export function useAutoHideCursor({ active, delay = 2500 }: AutoHideCursorOption
 
   const registerActivity = useCallback((activity?: CursorActivityInput) => {
     const { kind, point } = normalizeActivity(activity);
-    const previousPoint = lastPointRef.current;
 
     if (suppressUntilMoveRef.current) {
-      const moved = point && (!previousPoint || previousPoint.x !== point.x || previousPoint.y !== point.y);
-      if (kind !== 'move' || !moved) {
+      // Stay hidden until the presenter makes a DELIBERATE move. The
+      // pointerup that ends a drag/resize (and the natural hand jitter that
+      // follows) fires a burst of `pointermove`s at ~the same spot — those
+      // must NOT re-show the cursor. We anchor on the suppression point and
+      // only wake once the pointer travels past a small threshold.
+      const anchor = suppressAnchorRef.current;
+      const moved =
+        kind === 'move' &&
+        point &&
+        anchor != null &&
+        Math.hypot(point.x - anchor.x, point.y - anchor.y) > SUPPRESS_MOVE_THRESHOLD;
+      if (!moved) {
         if (point) lastPointRef.current = point;
         return;
       }
       suppressUntilMoveRef.current = false;
+      suppressAnchorRef.current = null;
     }
 
     if (point) lastPointRef.current = point;
