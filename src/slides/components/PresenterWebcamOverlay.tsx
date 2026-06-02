@@ -1300,17 +1300,17 @@ export function PresenterWebcamOverlay() {
                 }}
                 label="Cycle frame shaping"
                 shortcut="O"
-                pressed={circleShape}
+                pressed={circleShape || haloVisible}
                 style={{
                   ...chromeBtnStyle,
-                  background: circleShape
+                  background: circleShape || haloVisible
                     ? 'hsl(var(--gold) / 0.45)'
                     : chromeBtnStyle.background,
-                  color: circleShape ? 'hsl(var(--background))' : chromeBtnStyle.color,
-                  borderColor: circleShape ? 'hsl(var(--gold))' : chromeBtnStyle.borderColor,
+                  color: circleShape || haloVisible ? 'hsl(var(--background))' : chromeBtnStyle.color,
+                  borderColor: circleShape || haloVisible ? 'hsl(var(--gold))' : chromeBtnStyle.borderColor,
                 }}
               >
-                {circleShape ? <Circle size={11} /> : <Square size={11} />}
+                {haloVisible ? <Sparkles size={11} /> : circleShape ? <Circle size={11} /> : <Square size={11} />}
               </WebcamChromeButton>
               <WebcamChromeButton
                 onPointerDown={(e) => e.stopPropagation()}
