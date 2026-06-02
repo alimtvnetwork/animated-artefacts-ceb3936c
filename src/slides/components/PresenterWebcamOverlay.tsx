@@ -1082,7 +1082,7 @@ export function PresenterWebcamOverlay() {
         />
 
         {/* Top chrome — Live + grip + chrome buttons. */}
-        {!minimized && (
+        {!minimized && !circleShape && (
           <div
             style={{
               position: 'absolute',
@@ -1118,43 +1118,40 @@ export function PresenterWebcamOverlay() {
               style={{ color: 'hsl(var(--cream) / 0.7)' }}
             />
             <div style={{ display: 'inline-flex', gap: 4, pointerEvents: 'auto' }}>
-              <button
-                type="button"
+              <WebcamChromeButton
                 onPointerDown={(e) => e.stopPropagation()}
                 onClick={(e) => {
                   e.stopPropagation();
                   shrinkSize();
                 }}
-                aria-label="Shrink camera (-)"
-                title="Shrink (-)"
+                label="Shrink camera"
+                shortcut="-"
                 style={chromeBtnStyle}
               >
                 <Minus size={11} />
-              </button>
-              <button
-                type="button"
+              </WebcamChromeButton>
+              <WebcamChromeButton
                 onPointerDown={(e) => e.stopPropagation()}
                 onClick={(e) => {
                   e.stopPropagation();
                   growSize();
                 }}
-                aria-label="Grow camera (+)"
-                title="Grow (+)"
+                label="Grow camera"
+                shortcut="+"
                 style={chromeBtnStyle}
               >
                 <Plus size={11} />
-              </button>
+              </WebcamChromeButton>
               {autoFrame.supported && (
-                <button
-                  type="button"
+                <WebcamChromeButton
                   onPointerDown={(e) => e.stopPropagation()}
                   onClick={(e) => {
                     e.stopPropagation();
                     autoFrame.toggle();
                   }}
-                  aria-label={autoFrame.enabled ? 'Disable auto-frame (f)' : 'Enable auto-frame (f)'}
-                  aria-pressed={autoFrame.enabled}
-                  title={autoFrame.enabled ? 'Auto-frame ON (f)' : 'Auto-frame OFF (f)'}
+                  label={autoFrame.enabled ? 'Auto-frame on' : 'Auto-frame off'}
+                  shortcut="F"
+                  pressed={autoFrame.enabled}
                   style={{
                     ...chromeBtnStyle,
                     background: autoFrame.enabled
@@ -1167,19 +1164,18 @@ export function PresenterWebcamOverlay() {
                   }}
                 >
                   <Focus size={11} />
-                </button>
+                </WebcamChromeButton>
               )}
               {/* v3 — halo (vignette) toggle. Sits between Focus and Expand. */}
-              <button
-                type="button"
+              <WebcamChromeButton
                 onPointerDown={(e) => e.stopPropagation()}
                 onClick={(e) => {
                   e.stopPropagation();
                   toggleHalo();
                 }}
-                aria-label={haloVisible ? 'Hide glow halo (h)' : 'Show glow halo (h)'}
-                aria-pressed={haloVisible}
-                title={haloVisible ? 'Glow halo ON — h' : 'Glow halo OFF — h'}
+                label={haloVisible ? 'Glow halo on' : 'Glow halo off'}
+                shortcut="H"
+                pressed={haloVisible}
                 style={{
                   ...chromeBtnStyle,
                   background: haloVisible
@@ -1190,21 +1186,20 @@ export function PresenterWebcamOverlay() {
                 }}
               >
                 <Sparkles size={11} />
-              </button>
+              </WebcamChromeButton>
               {/* v5 — circle/rectangle frame mode toggle. Persisted across
                 * reloads via usePresenterWebcam's CIRCLE_KEY. Icon swaps to
                 * communicate current mode at a glance: Circle = "currently
                 * round, click to make rectangular", Square vice-versa. */}
-              <button
-                type="button"
+              <WebcamChromeButton
                 onPointerDown={(e) => e.stopPropagation()}
                 onClick={(e) => {
                   e.stopPropagation();
                   cycleShapeOverlay();
                 }}
-                aria-label="Cycle frame shaping: rectangle, circle, circle + glow (o)"
-                aria-pressed={circleShape}
-                title="Frame shaping — O cycles rectangle → circle → circle + glow"
+                label="Cycle frame shaping"
+                shortcut="O"
+                pressed={circleShape}
                 style={{
                   ...chromeBtnStyle,
                   background: circleShape
@@ -1215,65 +1210,60 @@ export function PresenterWebcamOverlay() {
                 }}
               >
                 {circleShape ? <Circle size={11} /> : <Square size={11} />}
-              </button>
-              <button
-                type="button"
+              </WebcamChromeButton>
+              <WebcamChromeButton
                 onPointerDown={(e) => e.stopPropagation()}
                 onClick={(e) => {
                   e.stopPropagation();
                   void enterFullscreen();
                 }}
-                aria-label="Fullscreen camera"
-                title="Fullscreen"
+                label="Fullscreen camera"
+                shortcut="P"
                 style={chromeBtnStyle}
               >
                 <Expand size={11} />
-              </button>
-              <button
-                type="button"
+              </WebcamChromeButton>
+              <WebcamChromeButton
                 onPointerDown={(e) => e.stopPropagation()}
                 onClick={(e) => {
                   e.stopPropagation();
                   toggleMinimized();
                 }}
-                aria-label="Minimize camera (m)"
-                title="Minimize (m)"
+                label="Minimize camera"
+                shortcut="M"
                 style={chromeBtnStyle}
               >
                 <Minimize2 size={11} />
-              </button>
-              <button
-                type="button"
+              </WebcamChromeButton>
+              <WebcamChromeButton
                 onPointerDown={(e) => e.stopPropagation()}
                 onClick={(e) => {
                   e.stopPropagation();
                   hide();
                 }}
-                aria-label="Hide to tray (i)"
-                title="Hide to tray (i)"
+                label="Hide to tray"
+                shortcut="I"
                 style={chromeBtnStyle}
               >
                 <Camera size={11} />
-              </button>
-              <button
-                type="button"
+              </WebcamChromeButton>
+              <WebcamChromeButton
                 onPointerDown={(e) => e.stopPropagation()}
                 onClick={(e) => {
                   e.stopPropagation();
                   close();
                 }}
-                aria-label="Stop camera"
-                title="Stop camera (turns the indicator light off)"
+                label="Stop camera"
                 style={chromeBtnStyle}
               >
                 <X size={12} />
-              </button>
+              </WebcamChromeButton>
             </div>
           </div>
         )}
 
         {/* Resize handle — bottom-right corner, only when not minimized. */}
-        {!minimized && (
+        {!minimized && !circleShape && (
           <div
             role="slider"
             tabIndex={0}
