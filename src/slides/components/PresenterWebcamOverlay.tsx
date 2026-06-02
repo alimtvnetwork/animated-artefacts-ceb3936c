@@ -43,7 +43,6 @@ import { useAutoHideCursor } from './useAutoHideCursor';
 // rim and shadow, so we just lay it behind the masked video.
 import squirclePlateGold from '@/assets/camera-2026/04-squircle-plate-gold-shadow.png';
 import squircleMaskBlack from '@/assets/camera-2026/02-squircle-mask-black.png';
-import squirclePlateWhite from '@/assets/camera-2026/03-squircle-plate-white-shadow.png';
 import alimPresenter from '@/assets/brand/alim-presenter.png';
 
 function readStageScale(): number {
