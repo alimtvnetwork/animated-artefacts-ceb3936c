@@ -23,7 +23,7 @@ export function ImageSlide({ spec }: { spec: SlideSpec }) {
           <SlotImage
             src={c.image}
             alt={c.title ?? undefined}
-            hint={{ slideType: spec.slideType }}
+            hint={{ slideType: spec.slideType, role: c.imageRole }}
           />
         </motion.div>
       )}
