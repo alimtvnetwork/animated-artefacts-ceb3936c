@@ -11,6 +11,10 @@ map), then [`.lovable/memory/index.md`](.lovable/memory/index.md) (always-apply
 rules) and [`spec/README.md`](spec/README.md) (spec layout).
 A full reorganization plan lives in [`.lovable/reorg-plan.md`](.lovable/reorg-plan.md).
 
+This README also carries the same guidance inline — see **[📂 Folder structure](#-folder-structure-what-each-path-owns)**,
+**[📖 Which files the AI must read](#-which-files-the-ai-must-read-in-order)**, and
+**[🛠️ How the AI does common work](#️-how-the-ai-does-common-work)** (create code, add a unit test, add a feature, write specs).
+
 ## Repository map (convention over configuration)
 
 | Folder | What lives here |
@@ -24,11 +28,101 @@ A full reorganization plan lives in [`.lovable/reorg-plan.md`](.lovable/reorg-pl
 | `updates/spec/` | Per-change spec deltas (what/why/files/verify). |
 | `.lovable/` | AI brain: `memory/` rules, coding-guidelines, prompts, onboarding map, ambiguity log, `reorg-plan.md`. |
 
-> Convention: one folder = one concern, and every top-level + `spec/*` folder has
-> a `README.md` explaining what belongs there. The repo root holds only config,
-> entry files, and these top-level dirs — no build artifacts, duplicates, or loose files.
+## 📂 Folder structure (what each path owns)
+
+```text
+.
+├── README.md                       this file — repo map + AI onboarding + release log
+├── index.html                      Vite entry
+├── src/                            the React app
+│   ├── main.tsx · App.tsx          bootstrap + router
+│   ├── pages/                      routes: /N deck page, builder, presenter, settings, analytics
+│   ├── slides/                     RENDERER ENGINE
+│   │   ├── loader.ts               loads deck JSON → typed slides
+│   │   ├── contracts.ts            zod contracts per slideType (runtime gate)
+│   │   ├── themes.ts               theme registry + CSS-var tokens
+│   │   ├── types/                  one renderer component per slideType
+│   │   ├── components/             shared visual primitives (overlays, FitStage…)
+│   │   ├── controls/ · hooks/ · utils/   controller, presenter hooks, helpers
+│   │   └── transitions.ts · textAnimations.ts   animation tokens
+│   ├── builder/                    deck-builder UI + validation actions
+│   ├── components/                 shared app UI (shadcn-based)
+│   ├── hooks/ · lib/ · types/      cross-cutting helpers + shared types
+│   ├── assets/                     bundled assets (brand/, controller-reference/, camera-2026/)
+│   ├── index.css · tailwind.config.ts   DESIGN TOKENS — semantic HSL vars only
+│   └── test/                       Vitest specs (62+ files) — schema, contracts, regression
+├── front-end/                      RUNTIME deck data (loaded live by the app)
+│   ├── project/<deck>/data/slides.json       deck manifest (config + ordered list)
+│   ├── project/<deck>/data/slides/NN-name.json   one slide per file — SOURCE OF TRUTH
+│   ├── slide-template/             copy-me starter JSON, one per slideType
+│   └── themes/                     runtime theme data
+├── spec/                           canonical numbered specs (see spec/README.md)
+│   ├── 21-slides-system/           HOW the engine works: fundamentals, schemas, llm/ pack
+│   ├── 26-slide-definitions/       WHAT specific decks contain (per-deck JSON+MD)
+│   ├── 22-slides-issues/           bug reports — one numbered file each
+│   ├── 15-research/ · 27-slides-number/      research + numbering
+│   └── camera-2026/ · controller-2026/       feature spec packs
+├── updates/spec/NN-*.md            per-change spec deltas (what/why/files/verify)
+├── public/                         served as-is (sounds, reference imgs, robots.txt)
+├── scripts/ + scripts/install/     audit/check/release tooling + env installers
+├── quality/                        GENERATED evidence (audit/, metrics/, reports/) — not hand-edited
+├── legacy/                         inert/archived material — not built
+└── .lovable/                       AI brain (see below)
+    ├── what-to-read.md             onboarding map (read first)
+    ├── memory/index.md             always-apply Core rules
+    ├── memory/{constraints,design,features,preferences,reference}/   typed memory files
+    ├── coding-guidelines.md        12 hard coding rules
+    ├── prompts/ · prompts.md       operating modes (no-questions, read/write memory)
+    └── plan.md                     active roadmap
+```
+
+> Convention: one folder = one concern; every top-level and `spec/*` folder has its
+> own `README.md`. Root holds only config + entry + these dirs.
+
+## 📖 Which files the AI must read (in order)
+
+1. [`.lovable/what-to-read.md`](.lovable/what-to-read.md) — onboarding map (the canonical, fullest version of this workflow).
+2. [`.lovable/memory/index.md`](.lovable/memory/index.md) — Core rules applied on EVERY action (brand, themes, constraints).
+3. [`.lovable/coding-guidelines.md`](.lovable/coding-guidelines.md) — 12 hard coding rules (≤8-line functions, no `any`, files ≤100 lines, DRY, no inline hex).
+4. [`spec/README.md`](spec/README.md) — which numbered spec folder owns what.
+5. [`spec/21-slides-system/00-fundamentals.md`](spec/21-slides-system/00-fundamentals.md) + `slide.schema.json` / `deck.schema.json` — the JSON contract.
+6. [`src/slides/contracts.ts`](src/slides/contracts.ts) + [`src/slides/loader.ts`](src/slides/loader.ts) — runtime validation + load path.
+
+## 🛠️ How the AI does common work
+
+**Create a new slide**
+1. Pick a `slideType` from `spec/21-slides-system/llm/23-slide-type-contracts.md`.
+2. Copy a starter from `front-end/slide-template/` into `front-end/project/<deck>/data/slides/NN-name.json`.
+3. Fill `content` per its contract (keyword-only — no paragraphs).
+4. Add a sibling `NN-name.md` with presenter notes (never read at runtime).
+5. Register the slide in `front-end/project/<deck>/data/slides.json`.
+6. Save → Vite hot-reloads → validates against `slide.schema.json`.
+
+**Write code (any change)**
+- Read `.lovable/coding-guidelines.md` FIRST. Renderer lives in `src/slides/`; new visual primitives go in `src/slides/components/`.
+- Use semantic tokens from `src/index.css` / `tailwind.config.ts` — never raw hex in components.
+- Search `src/` before adding a helper (DRY). Keep files ≤100 lines, functions ≤8 lines.
+- A new `slideType` needs: renderer component in `src/slides/types/` + zod contract in `contracts.ts` + starter in `front-end/slide-template/`.
+
+**Add a unit test**
+- Tests live in `src/test/` (Vitest). Run a single file: `bunx vitest run src/test/<file>`; full suite: `bun run test`.
+- New `slideType` or contract field → extend a contract test so coverage stays green.
+
+**Add a new feature**
+1. Write the spec FIRST: behaviour rules → `spec/21-slides-system/NN-*.md`; per-change delta → `updates/spec/NN-short-title.md`.
+2. Implement per coding-guidelines.
+3. Add Vitest coverage.
+4. Pre-flight: `bunx tsc -p tsconfig.app.json --noEmit && bun run lint && bun run test && bun run build`.
+5. Record durable decisions in `.lovable/memory/{type}/<name>.md` and index them in `memory/index.md`.
+
+**Report / resolve an issue**
+- New bug → `spec/22-slides-issues/NN-short-title.md`. Resolved → append a `## Resolution` section to that same file (never move it).
+
+> Memory rule: never write files directly to `mem://` (the `.lovable/memory/` root).
+> Memory files go in a typed subfolder (`constraints` / `design` / `features` / `preferences` / `reference`).
 
 ---
+
 
 let's start now 2026-04-30 12:00
 
