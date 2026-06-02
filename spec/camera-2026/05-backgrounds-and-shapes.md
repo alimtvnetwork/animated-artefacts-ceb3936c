@@ -1,0 +1,147 @@
+# 05 — Backgrounds & Shapes (the squircle plates)
+
+> **This is the new request.** The presenter wants the camera to look *bigger*
+> and *richer* by sitting on a decorative **squircle background plate** with a
+> gold→ember rim and a soft drop shadow — the OBS-style look in the reference
+> image. This file is the complete recipe.
+
+## 1. The four shipped images (`./assets/`)
+
+| File | Pixel look | Role in the layer stack |
+|------|-----------|--------------------------|
+| `01-reference-frame-gold-rim.png` | Squircle, white interior, **gold→red glowing rim** on near-black. | The **visual target**. Do not ship it; match it. |
+| `02-squircle-mask-black.png` | Solid **black squircle** silhouette, no shadow. | The exact **shape mask** — use as `mask-image`/`clip` to cut the video into a squircle. |
+| `03-squircle-plate-white-shadow.png` | **White** squircle **with drop shadow**, transparent around it. | Neutral **background plate** placed *behind* the video. |
+| `04-squircle-plate-gold-shadow.png` | **Gold** squircle with drop shadow. | On-brand **background plate** variant. |
+
+A **squircle** is a superellipse — rounder than a rounded-rect, flatter than a
+circle. The black mask gives the precise curve so CSS and the PNG agree.
+
+## 2. The layer stack (how the background sits *beside/behind* the camera)
+
+The plate is **larger** than the video and centered behind it, so a rim of the
+plate shows on all sides — that "frame" is what makes the camera read as bigger.
+
+```text
+ z0  ── drop shadow (from the plate PNG, or CSS box-shadow)
+ z1  ── BACKGROUND PLATE   (squircle, ~+12–16% bigger than the video box)
+ z2  ── RIM / GLOW         (gold→ember ring, 6–10px, the reference look)
+ z3  ── VIDEO (masked to the squircle, mirrored, optional auto-frame transform)
+ z4  ── chrome (zoom +/- , fullscreen, focus, minimize, X) — fades on hover
+```
+
+The plate "padding" (the visible rim) is the key knob: `platePad = round(boxW * 0.07)`
+on each side → the plate box is `boxW + 2*platePad` wide. Keep it proportional so
+S/M/L/XL all look consistent.
+
+## 3. Pure-CSS squircle (preferred — no PNG at runtime)
+
+Reproduce the shape in CSS so it scales crisply and theme-tints freely. Two
+options:
+
+**a) `border-radius` superellipse approximation** (good enough, cheapest):
+```css
+.cam-squircle {            /* radius ≈ 38% of the short side reads as a squircle */
+  border-radius: 38% / 34%;
+  overflow: hidden;        /* clips the <video> */
+}
+```
+
+**b) CSS `mask-image` from the black mask PNG** (pixel-exact to the reference):
+```css
+.cam-squircle-masked {
+  -webkit-mask-image: url('/assets/camera-2026/02-squircle-mask-black.png');
+          mask-image: url('/assets/camera-2026/02-squircle-mask-black.png');
+  -webkit-mask-size: 100% 100%;  mask-size: 100% 100%;
+  -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat;
+}
+```
+
+> Use the mask approach when you need the curve to match the reference exactly;
+> use `border-radius` for the cheap path. The circle shortcut `O` overrides both
+> with `border-radius: 999px`.
+
+## 4. The plate + gold rim (CSS, theme-tokenized)
+
+Never hardcode hex — use the brand tokens (`--gold`, `--ember`, `--background`).
+The reference rim is a gold→ember gradient ring with an outer glow:
+
+```css
+.cam-plate {
+  position: absolute; inset: calc(var(--plate-pad) * -1);  /* grow beyond the video */
+  border-radius: 38% / 34%;
+  /* gold plate fill (use transparent for the white/neutral variant) */
+  background: hsl(var(--gold));
+  /* the gold→ember rim + outer glow that matches 01-reference-frame */
+  box-shadow:
+    0 0 0 6px hsl(var(--gold) / 0.0),                 /* base */
+    0 0 18px hsl(var(--gold) / 0.45),                 /* inner glow */
+    0 0 44px hsl(var(--ember) / 0.30),                /* ember bleed */
+    0 24px 48px hsl(var(--background) / 0.65);        /* drop shadow */
+}
+.cam-rim {                          /* the bright gradient ring on top of the plate */
+  position: absolute; inset: 0; border-radius: inherit; padding: 6px;
+  background: linear-gradient(135deg, hsl(var(--gold)), hsl(var(--ember)));
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor; mask-composite: exclude;  /* ring, not fill */
+}
+```
+
+## 5. Wiring into the overlay (JSX sketch)
+
+Add a plate behind the existing masked video. Keep the live `<video>` node stable
+(never remount on shape/plate change — file 02 §4).
+
+```tsx
+const platePad = Math.round(size.w * 0.07);
+<div className="cam-frame" style={{ width: size.w, height: size.h, position: 'absolute',
+                                    left: position.x, top: position.y }}>
+  {plateEnabled && <div className="cam-plate" style={{ ['--plate-pad' as any]: `${platePad}px` }} />}
+  {plateEnabled && <div className="cam-rim" />}
+  <div ref={shapeFrameRef}
+       className={circleShape ? 'cam-circle' : 'cam-squircle'}
+       style={{ position: 'relative', zIndex: 3, overflow: 'hidden' }}>
+    <video ref={bindFloatingVideo} autoPlay playsInline muted
+           style={{ width: '100%', height: '100%', objectFit: 'cover',
+                    transform: autoFrame.transform /* includes scaleX(-1) */ }} />
+  </div>
+</div>
+```
+
+Add a `plateVariant: 'none' | 'neutral' | 'gold'` flag (persist
+`riseup.webcam.plate`) and a controls/keyboard toggle if desired — mirror the
+`circleShape` pattern in file 01 §9.
+
+## 6. Using the PNGs at runtime (if you choose images over CSS)
+
+The PNGs live at `assets/camera-2026/*` (repo) and `spec/camera-2026/assets/*`
+(this spec). To render them in the React app:
+
+1. Copy the file into `src/assets/camera-2026/` **or** create a Lovable asset
+   pointer (`lovable-assets create --file … > …png.asset.json`).
+2. Import and use:
+   ```tsx
+   import plateGold from '@/assets/camera-2026/04-squircle-plate-gold-shadow.png';
+   <img src={plateGold} alt="" aria-hidden className="cam-plate-img" />
+   ```
+3. Size the plate `img` to `boxW + 2*platePad`, center it, give it
+   `z-index: 1`, `pointer-events: none`.
+
+> Prefer the CSS path (§3–§4): it theme-tints with `--gold`/`--ember`, scales
+> without blur, and adds no network/bundle weight. Use the PNGs only if a
+> designer wants the exact hand-tuned curve/shadow.
+
+## 7. Theme & contrast rules (do NOT break these)
+
+- All colors via tokens: `hsl(var(--gold))`, `hsl(var(--ember))`,
+  `hsl(var(--background))`. **No inline hex.**
+- The white plate variant must still read on light themes — on paper-ink the
+  `--background` flips, so the drop shadow must reference `--background` not a raw
+  dark value.
+- Halo (`h`) and plate are independent: halo is a vignette *around* the box;
+  plate is a solid backing *behind* it. Both can be on at once.
+- Everything animates only when `prefers-reduced-motion` is not set.
+
+Continue to [`06-implementation-steps-1-30.md`](./06-implementation-steps-1-30.md).
