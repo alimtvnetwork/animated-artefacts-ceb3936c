@@ -15,7 +15,7 @@ dependency order (state → render → controls → autoframe → backgrounds).
 | I06 | Implement tray, fullscreen, and stage-fill surfaces + unwind order | Add the remaining three surfaces with deterministic precedence for `Esc`, `[`, `]`, `m`, `1` so modes never stack incorrectly. Depends on I04/I05 geometry. | 2 h |
 | I07 | Wire keyboard shortcuts + input-focus guards | Implement the full v4 map (`i/m/f/+/-/Esc/h/1/O/P/[/]`) with guards so keys never fire while typing. Reuses the single `SHORTCUTS` source. | 1.5 h |
 | I08 | Implement `useAutoFrame` FaceDetector center-stage hook | Add face auto-framing (`f`) with graceful fallback when `FaceDetector` is absent, so the feature degrades to plain video instead of breaking. | 2 h |
-| I09 | Add squircle background plates, halo, and circle shape | Compose the decorative squircle plates (assets `02–04`), the `h` halo (default OFF), and the `O` circle toggle per `05-backgrounds-and-shapes.md`. | 1.5 h |
+| I09 | Add the CSS-only squircle rim, halo, and circle shape | ⚠️ v2: NO plate/mask PNG. Silhouette = `border-radius: 38% / 34%`, rim = `2px` gold border + layered `box-shadow`, transparent interior. Plus the `h` halo (default OFF) and `O` shape cycle per `05-backgrounds-and-shapes.md` §8. | 1.5 h |
 | I10 | Mount provider + overlay + controller button into the app | Wrap the tree in `<PresenterWebcamProvider/>`, mount `<PresenterWebcamOverlay/>` in the deck page, and wire the controller chip/dropdown. Makes the feature live end-to-end. | 1 h |
 
 **Subtotal (I01–I10): ~16.5 h.** This matches the ~16 h implementation roll-up
