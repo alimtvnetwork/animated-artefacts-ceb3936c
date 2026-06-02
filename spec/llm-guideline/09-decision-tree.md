@@ -51,3 +51,19 @@ Audience should scan a QR / contact us?
 After picking a type, copy its starter from `front-end/slide-template/`, then
 fill `content` per its contract in
 [`../21-slides-system/llm/23-slide-type-contracts.md`](../21-slides-system/llm/23-slide-type-contracts.md).
+
+## Specialized types (also registered — see `07` + `contracts.ts`)
+
+| Need | Type |
+|---|---|
+| Dense compact data grid | `DataTableSlide` |
+| A math equation (TeX) | `EquationSlide` |
+| Entity-relationship diagram | `ERDiagramSlide` |
+| Database schema diagram | `DatabaseDiagramSlide` |
+| A checklist with progress | `ChecklistSlide` |
+| One big animated number | `NumberCalloutSlide` |
+| Cinematic single-word moment | `BlastRadiusSlide` |
+| Agenda / session outline | `SessionOutlineSlide` |
+
+The **runtime registry has 25 types** (`SlideContract`, v7). The
+`slide.schema.json` enum lists only the original 12 — trust the zod contract.
