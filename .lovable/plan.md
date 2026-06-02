@@ -79,3 +79,18 @@ Remaining (beyond 60):
 - Video-portal refactor (#63) — implement only after a measured perf/desync complaint (see scoping doc).
 - StepsChain3D depth-aware marker-medallion — only if a future spec preserves no-background rule.
 - Promote a spare fade_swoosh take — repoint whoosh asset URL, no new SoundKind.
+
+## Steps 61–70 — closeout (2026-06-02)
+
+- 61. Ran FULL suite (863 tests) — caught a real regression from the steps 31–40 images[] refine (~20m)
+- 62. Root cause: `slideFixtures` ImageSlide "missing image" case expected issue at `content.image`/`required`, but the any-of refine reports at `content` ("requires image or non-empty images[]") (~15m)
+- 63. Fixed fixture expectation (expectPath `content`, message match `requires image|images[]`) — semantics correct, no schema change (~10m)
+- 64. Re-ran slideFixtures (49 tests) green (~5m)
+- 65. Confirmed image-examples deck cross-linked in spec/README §26 + §images (~10m)
+- 66–70. Closeout: plan log, suite now fully green (863 tests) (~15m)
+
+Remaining (beyond 70):
+- Video-portal refactor (#63) — deferred until measured perf/desync complaint.
+- StepsChain3D depth-aware marker-medallion — deferred (no-background rule).
+- Promote a spare fade_swoosh take — repoint whoosh asset URL, no new SoundKind.
+- motion-showcase not yet listed in spec/README deck enumeration (cosmetic).
