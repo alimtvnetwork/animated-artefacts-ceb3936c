@@ -147,6 +147,7 @@ export function useAutoHideCursor({ active, delay = 2500 }: AutoHideCursorOption
       clearTimer();
       lastPointRef.current = null;
       suppressUntilMoveRef.current = false;
+      suppressAnchorRef.current = null;
       setHidden(false);
       return;
     }
