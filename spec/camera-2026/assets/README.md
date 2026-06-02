@@ -6,11 +6,11 @@ for usage.
 
 | File | Role |
 |------|------|
-| `01-reference-frame-gold-rim.png` | Visual target — squircle camera frame with gold→ember rim on a dark slide. |
-| `02-squircle-mask-black.png` | Exact squircle outline — use as CSS `mask-image`. |
+| `01-reference-frame-gold-rim.png` | Visual target — squircle camera frame with gold→ember rim on a dark slide. Reference only. |
+| ~~`02-squircle-mask-black.png`~~ | No longer used at runtime (2026-06-02 v2) — overlay crops via `border-radius`. Shape reference only. |
 | ~~`03-squircle-plate-white-shadow.png`~~ | REMOVED 2026-06-02 — opaque white fill plate, deleted. Do not reintroduce. |
-| `04-squircle-plate-gold-shadow.png` | Gold background plate (brand variant). |
+| ~~`04-squircle-plate-gold-shadow.png`~~ | No longer used at runtime (2026-06-02 v2) — baked rim read as a thick opaque ring (rejected). Rim is now CSS-only. Reference only. |
 
-To use at runtime: copy into `src/assets/camera-2026/` (or make a Lovable asset
-pointer) and import — see spec file 05 §6. Prefer the CSS squircle/plate path so
-colors theme-tint via `--gold`/`--ember`.
+**Runtime is CSS-only.** `src/assets/camera-2026/` is empty; the overlay imports
+no plate/mask PNG. Silhouette = `border-radius`, rim = gold border + layered
+`box-shadow`, interior transparent. See spec file `05` §8 (v2).
