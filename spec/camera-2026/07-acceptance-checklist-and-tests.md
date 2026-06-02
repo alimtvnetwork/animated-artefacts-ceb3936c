@@ -32,11 +32,11 @@
 ### Shape & background (the new work)
 - [ ] `O` toggles circle↔squircle with the WAAPI pop; stream never blanks.
 - [ ] Squircle curve matches `02-squircle-mask-black.png`.
-- [ ] Background plate renders behind the video, larger by `platePad` each side.
-- [ ] Gold→ember rim + glow + drop shadow match `01-reference-frame-gold-rim.png`.
-- [ ] `plateVariant` none/neutral/gold all render and persist.
-- [ ] All plate/rim colors use `--gold`/`--ember`/`--background` tokens (no hex).
-- [ ] White/neutral plate still readable on paper-ink (light) theme.
+- [ ] Two-layer shade renders behind the video: white shadow plate at z0, gold plate at z1, masked video at z2.
+- [ ] Combined white+gold shade plus tokenized frame border/glow match `01-reference-frame-gold-rim.png`.
+- [ ] Squircle mask uses `02-squircle-mask-black.png` in rectangle mode; circle mode bypasses it cleanly.
+- [ ] No raw hex is introduced in component styling for border/glow/theme-driven colors.
+- [ ] White base plate remains readable on paper-ink (light) theme.
 
 ### Auto-frame
 - [ ] `f` toggles auto-frame only when `FaceDetector` is supported.
@@ -57,7 +57,7 @@
 | `presenterWebcamVideoStability.test.tsx` | Stream never detaches on shape/plate toggle (no remount). |
 | `useAutoFrame.test.ts` | Unsupported → `supported:false`, identity transform; EMA math. |
 | `presenterWebcamShortcuts.test.tsx` | Each key fires the right action and respects phase guards + input guard. |
-| `presenterWebcamPlate.test.tsx` (new) | Plate size = `boxW + 2*platePad`; variant persists; tokens only. |
+| `presenterWebcamPlate.test.tsx` (new) | White+gold plate stack sizes = `boxW + 2*platePad`; masked video stays above; tokenized styling only. |
 
 ### Example test skeleton
 
