@@ -87,15 +87,17 @@
 
 ## Phase E — Backgrounds, shapes & polish (steps 25–30)
 
-25. **Squircle shape.** Keep `border-radius: 38% / 34%` as the CSS fallback,
-    and on the live rectangle/squircle mode also apply the exact
-    `02-squircle-mask-black.png` as `mask-image` / `-webkit-mask-image` sized
-    `100% 100%`; circle `O` overrides with `50%`, minimized puck with `999px`.
-    (File 05 §3, §8.)
-26. **Background shade stack.** Render TWO plates behind the video, each sized
-    `boxW + 2*platePad` (`platePad = round(boxW*0.07)`): the white shadow plate
-    at `z-index:0` and the gold plate at `z-index:1`, both `pointer-events:none`.
-    The masked video frame sits above them at `z-index:2`. (File 05 §2, §5, §8.)
+25. **Squircle shape (v2).** Use `border-radius: 38% / 34%` for the squircle
+    silhouette; circle `O` overrides with `50%`, minimized puck with `999px`.
+    ~~Apply `02-squircle-mask-black.png` as `mask-image`~~ — **DROPPED in v2**: no
+    PNG mask; the border-radius alone defines the curve so the rim border isn't
+    clipped. (File 05 §8.)
+26. ~~**Background shade stack.** Render TWO plates behind the video…~~
+    **REMOVED in v2.** No plate, no `platePad`, no white/gold PNG behind the
+    video. Instead the inner frame gets the entire rim in CSS: a `2px` gold
+    border + layered `box-shadow` (ember edge + gold glow + drop shadow) over a
+    **transparent** interior, so only the live video shows inside the curve. The
+    old two-plate stack read as a thick opaque ring (rejected). (File 05 §8 v2.)
 27. **Gold→ember rim + shadow look.** Match `01-reference-frame-gold-rim.png`
     using the stacked PNG shade assets plus tokenized frame border/glow
     (`--gold` / `--background`). `plateVariant: none|neutral|gold` remains
