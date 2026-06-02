@@ -136,6 +136,7 @@ export function useAutoHideCursor({ active, delay = 2500 }: AutoHideCursorOption
     const { point } = normalizeActivity(activity);
     clearTimer();
     if (point) lastPointRef.current = point;
+    suppressAnchorRef.current = point ?? lastPointRef.current;
     suppressUntilMoveRef.current = true;
     setHidden(true);
   }, [clearTimer]);
