@@ -66,4 +66,11 @@ describe('OnboardingCoachmark', () => {
     fireEvent.click(screen.getByText('Skip'));
     expect(onDismiss).toHaveBeenCalled();
   });
+
+  it('dismisses immediately for webcam shortcuts so I/O are not blocked', () => {
+    const onDismiss = vi.fn();
+    render(<OnboardingCoachmark open onDismiss={onDismiss} />);
+    fireEvent.keyDown(window, { key: 'o' });
+    expect(onDismiss).toHaveBeenCalled();
+  });
 });
