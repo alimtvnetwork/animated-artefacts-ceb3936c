@@ -232,11 +232,11 @@ export function PresenterWebcamProvider({ children }: { children: ReactNode }) {
     if (typeof window === 'undefined') return false;
     return window.localStorage.getItem(MIN_KEY) === '1';
   });
-  const [position, setPositionState] = useState<{ x: number; y: number }>(() =>
-    clampPositionToStage(readStoredPos().x, readStoredPos().y, resolveSize(readStoredSize(), typeof window !== 'undefined' && window.localStorage.getItem(MIN_KEY) === '1')),
-  );
-    if (typeof window === 'undefined') return false;
-    return window.localStorage.getItem(MIN_KEY) === '1';
+  const [position, setPositionState] = useState<{ x: number; y: number }>(() => {
+    const storedSize = readStoredSize();
+    const storedMinimized = typeof window !== 'undefined' && window.localStorage.getItem(MIN_KEY) === '1';
+    const storedPos = readStoredPos();
+    return clampPositionToStage(storedPos.x, storedPos.y, resolveSize(storedSize, storedMinimized));
   });
   /** v3 — vignette halo visibility. Default OFF, persisted. */
   const [haloVisible, setHaloVisible] = useState<boolean>(() => {
