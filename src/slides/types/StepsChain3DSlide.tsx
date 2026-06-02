@@ -1008,10 +1008,10 @@ export const StepsChain3DSlide = forwardRef<FocusTimelineHandle, Props>(
       });
       markerRefs.current.forEach((el, i) => {
         if (!el) return;
-        const isActiveNow = i === active;
+        const m = markerDepth(Math.abs(i - active));
         el.style.transition = 'transform 200ms ease-out, opacity 200ms ease-out, background 200ms linear';
-        el.style.transform = isActiveNow ? 'scale(1)' : 'scale(0.92)';
-        el.style.opacity = isActiveNow ? '1' : '0.6';
+        el.style.transform = `scale(${m.scale})`;
+        el.style.opacity = String(m.opacity);
       });
       return;
     }
