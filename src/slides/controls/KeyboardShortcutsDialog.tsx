@@ -49,13 +49,13 @@ export const SHORTCUTS: ReadonlyArray<{
   {
     group: 'Presenter webcam',
     items: [
-      { keys: ['I'], label: 'Show / hide webcam' },
+      { keys: ['I'], label: 'Hard toggle webcam' },
       { keys: ['M'], label: 'Minimize / restore webcam' },
       { keys: ['F'], label: 'Auto-frame face' },
       { keys: ['+', '−'], label: 'Resize webcam' },
       { keys: ['H'], label: 'Toggle soft halo (default off)' },
       { keys: ['1'], label: 'Stage-fill (cover slide)' },
-      { keys: ['O'], label: 'Toggle circle / rectangle shape' },
+      { keys: ['O'], label: 'Cycle shape: rect → circle → circle + glow' },
       { keys: ['P'], label: 'Enter webcam fullscreen' },
       { keys: ['['], label: 'Exit fullscreen (plain)' },
       { keys: [']'], label: 'Cinematic 3-state cycle' },
