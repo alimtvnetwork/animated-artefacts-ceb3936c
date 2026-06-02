@@ -309,3 +309,26 @@ audibly different from the real MP3. Fix:
 4. **Race protection** — the deferred play checks `lastPlay.get(kind)`
    matches the original timestamp; if a newer same-kind call happened
    while waiting, the older one is dropped.
+
+---
+
+## Demo cue map — motion-showcase step family (2026-06-02)
+
+The four step-family slides in the `motion-showcase` deck each carry a **distinct
+registered cue** (per-slide `sound` override, `on: "focus"`) so the showcase is
+audibly different per motion family. No new MP3s shipped — all four reuse
+already-registered kinds:
+
+| Slide | Type | Cue |
+|-------|------|-----|
+| 08 step-timeline | StepTimelineSlide | `whoosh` @ 0.45 |
+| 09 focus-timeline | FocusTimelineSlide | `fadeZoom` @ 0.40 |
+| 10 advance-step | AdvanceStepSlide | `zoom` @ 0.50 |
+| 11 steps-3d | StepsChain3DSlide | `pop` @ 0.45 |
+
+Guarded by `src/test/motionShowcaseSoundCues.test.ts` (registered + mutually distinct).
+
+**Spare assets:** `public/sounds/fade_swoosh_v3.mp3` and `fade_swoosh_v4.mp3` are
+alternate swoosh takes, currently unwired. `whoosh` resolves to `fade_swoosh_v2.mp3`.
+To promote a spare take, repoint the `whoosh` asset URL in `src/slides/sound.ts` —
+do not add a new `SoundKind` just to A/B a swoosh.

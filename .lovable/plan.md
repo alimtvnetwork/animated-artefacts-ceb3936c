@@ -63,3 +63,19 @@ Remaining (beyond 50):
 - motion-showcase distinct-cue MP3s — optional polish.
 - Single-<video>-via-portal refactor (#63) — large, deferred.
 - StepsChain3D depth-aware marker-medallion — only if a future spec preserves no-background rule.
+
+## Steps 51–60 — closeout (2026-06-02)
+
+- 51. Distinct sound cues on motion-showcase step family 08–11 (whoosh/fadeZoom/zoom/pop, JSON-only) (~25m)
+- 52. JSON validated for all four slides (~5m)
+- 53. New guard test `motionShowcaseSoundCues.test.ts` — registered + mutually distinct (~20m)
+- 54. Demo cue-map table + spare-asset (fade_swoosh_v3/v4) note in sound spec 21 (~15m)
+- 55. Video-portal refactor (#63) scoping doc — decision: DEFER with full portal plan + interim rebind rule (~30m)
+- 56. Interim prevention rule recorded (new surface must join the stream-rebind loop) (~5m)
+- 57. Verify suite green (motionShowcaseSoundCues + imageExamplesDeck = 7 tests) (~10m)
+- 58–60. Closeout bundle: plan log, cross-links (~10m)
+
+Remaining (beyond 60):
+- Video-portal refactor (#63) — implement only after a measured perf/desync complaint (see scoping doc).
+- StepsChain3D depth-aware marker-medallion — only if a future spec preserves no-background rule.
+- Promote a spare fade_swoosh take — repoint whoosh asset URL, no new SoundKind.

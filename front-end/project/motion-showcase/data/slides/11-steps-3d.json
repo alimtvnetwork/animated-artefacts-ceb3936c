@@ -5,6 +5,7 @@
   "transition": "PushIn",
   "textAnimation": "Stagger",
   "enabled": true,
+  "sound": { "on": "focus", "kind": "pop", "volume": 0.45 },
   "showBrandHeader": true,
   "showPresenterChip": false,
   "narrowIdea": "Cinematic 3D chain — active forward, neighbours recede, distant blur.",

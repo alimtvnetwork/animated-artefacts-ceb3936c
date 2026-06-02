@@ -5,6 +5,7 @@
   "transition": "PushRight",
   "textAnimation": "FadeIn",
   "enabled": true,
+  "sound": { "on": "focus", "kind": "zoom", "volume": 0.5 },
   "showBrandHeader": true,
   "showPresenterChip": false,
   "narrowIdea": "Vertical reel — camera dollies through full-viewport step frames.",
