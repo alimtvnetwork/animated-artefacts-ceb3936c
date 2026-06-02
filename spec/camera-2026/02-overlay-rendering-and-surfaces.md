@@ -272,6 +272,14 @@ which the hook uses to reject same-position wakeups caused by capture release.
 The cursor reappears only on the next real mouse move over the camera and then
 re-hides on idle.
 
+> **2026-06-02 runtime safeguard:** the overlay also calls a tiny imperative
+> helper right after `hideNow(e)` that adds `cam-cursor-hidden` to the live
+> frame ref (`shapeFrameRef.current`) synchronously on gesture-end. Why: some
+> browsers keep painting the previous grab/resize cursor for a frame even
+> though React state already flipped to `hidden=true`. The helper makes the
+> release frame hide immediately; subsequent renders keep the class in sync via
+> `className={autoHideCursor.hidden ? 'cam-cursor-hidden' : undefined}`.
+
 ### 8.4 Acceptance
 
 - Move the camera, release → cursor disappears immediately.

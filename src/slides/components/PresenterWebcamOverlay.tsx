@@ -84,6 +84,11 @@ export function PresenterWebcamOverlay() {
   const fullscreenVideoRef = useRef<HTMLVideoElement | null>(null);
   const shapeFrameRef = useRef<HTMLDivElement | null>(null);
   const shapeHaloRef = useRef<HTMLDivElement | null>(null);
+  const forceHideCursorNow = useCallback(() => {
+    const frame = shapeFrameRef.current;
+    if (!frame) return;
+    frame.classList.add('cam-cursor-hidden');
+  }, []);
   const attachStreamToVideo = useCallback(
     (node: HTMLVideoElement | null) => {
       if (!node) return;
@@ -423,7 +428,8 @@ export function PresenterWebcamOverlay() {
     // After moving the camera, hide the cursor immediately (it reappears on
     // the next mouse move, then auto-hides again). See useAutoHideCursor.
     autoHideCursor.hideNow(e);
-  }, [autoHideCursor]);
+    forceHideCursorNow();
+  }, [autoHideCursor, forceHideCursorNow]);
 
   // ──────────────────────────────────────────────────────────────────
   // Resize math — only width is dragged; height stays 16:9.
@@ -465,7 +471,8 @@ export function PresenterWebcamOverlay() {
     resizeRef.current = null;
     setResizing(false);
     autoHideCursor.hideNow(e);
-  }, [autoHideCursor]);
+    forceHideCursorNow();
+  }, [autoHideCursor, forceHideCursorNow]);
 
   // ──────────────────────────────────────────────────────────────────
   // Render branching.
