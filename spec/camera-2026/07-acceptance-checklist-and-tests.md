@@ -29,14 +29,14 @@
 - [ ] `Esc` / `[` exits fullscreen; `]` runs the cinematic cycle.
 - [ ] `1` enters stage-fill; second `1`/`Esc` restores exact size+position+phase.
 
-### Shape & background (the new work)
-- [ ] `O` toggles circle↔squircle with the WAAPI pop; stream never blanks.
-- [ ] Squircle curve matches `02-squircle-mask-black.png`.
-- [ ] Two-layer shade renders behind the video: white shadow plate at z0, gold plate at z1, masked video at z2.
-- [ ] Combined white+gold shade plus tokenized frame border/glow match `01-reference-frame-gold-rim.png`.
-- [ ] Squircle mask uses `02-squircle-mask-black.png` in rectangle mode; circle mode bypasses it cleanly.
-- [ ] No raw hex is introduced in component styling for border/glow/theme-driven colors.
-- [ ] White base plate remains readable on paper-ink (light) theme.
+### Shape & rim (2026-06-02 v2 — CSS-only)
+- [ ] `O` cycles rectangle→circle→circle+glow with the WAAPI pop; stream never blanks.
+- [ ] Squircle silhouette is `border-radius: 38% / 34%` (circle `50%`, puck `999`) — NO `mask-image` PNG crop.
+- [ ] The interior is **transparent**; the live video is the only thing inside the curve (no plate, no fill).
+- [ ] Rim = `2px` gold border + layered `box-shadow` (ember edge + gold glow + drop shadow); matches reference image 3.
+- [ ] No plate/mask PNG is imported (`src/assets/camera-2026/` is empty); no `platePad`/`showPlate` in the component.
+- [ ] No raw hex is introduced; all rim colors via `--gold`/`--ember`/`--background` tokens.
+- [ ] Transparent interior reads correctly on light themes (paper-ink) — no dark-on-dark fill body.
 
 ### Auto-frame
 - [ ] `f` toggles auto-frame only when `FaceDetector` is supported.
