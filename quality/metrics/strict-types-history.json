@@ -553,5 +553,95 @@
       "@typescript-eslint/no-unsafe-call": {},
       "@typescript-eslint/no-unsafe-return": {}
     }
+  },
+  {
+    "timestamp": "2026-06-02T14:04:00.821Z",
+    "sha": "a42d519",
+    "totals": {
+      "tscErrors": 0,
+      "eslintErrors": 4,
+      "unknownUsages": 150
+    },
+    "byFile": {
+      "tscErrors": {},
+      "eslintErrors": {
+        "src/slides/jumpHistory.ts": 1,
+        "src/slides/themeManifest.ts": 2,
+        "src/slides/themes.ts": 1
+      },
+      "unknownUsages": {
+        "src/App.tsx": 1,
+        "src/builder/BoxDiagramCanvasEditor.tsx": 2,
+        "src/builder/NormalizeBulletsAction.tsx": 3,
+        "src/builder/fieldSchemas.ts": 1,
+        "src/builder/validate3DSteps.ts": 2,
+        "src/components/BlankScreenFallback.tsx": 1,
+        "src/components/RuntimeErrorOverlay.tsx": 4,
+        "src/lib/errors.ts": 4,
+        "src/main.tsx": 4,
+        "src/pages/PresenterPage.tsx": 1,
+        "src/pages/PreviewDiagnosticsPage.tsx": 5,
+        "src/pages/ReleaseChecklistPage.tsx": 2,
+        "src/pages/ReleaseIndexPage.tsx": 1,
+        "src/pages/SlideDeckPage.tsx": 2,
+        "src/slides/analytics/recorder.ts": 1,
+        "src/slides/assetRegistry.ts": 2,
+        "src/slides/brokenAssetReport.ts": 3,
+        "src/slides/capsuleLayout.ts": 2,
+        "src/slides/components/BrandStripAuditOverlay.tsx": 1,
+        "src/slides/components/ColorTokenDebugOverlay.tsx": 2,
+        "src/slides/components/PresenterWebcamOverlay.tsx": 3,
+        "src/slides/components/useAutoFrame.ts": 1,
+        "src/slides/contracts.ts": 8,
+        "src/slides/controls/DeckMenu.tsx": 1,
+        "src/slides/controls/ShortcutHint.tsx": 1,
+        "src/slides/controls/ThemeMenu.tsx": 1,
+        "src/slides/controls/TransitionInspector.tsx": 4,
+        "src/slides/densityCheck.ts": 6,
+        "src/slides/exportSchemas.ts": 2,
+        "src/slides/fixtures.ts": 25,
+        "src/slides/loader.ts": 6,
+        "src/slides/manifest.ts": 2,
+        "src/slides/motionPreferences.ts": 3,
+        "src/slides/normalize3DBullets.ts": 2,
+        "src/slides/preload.ts": 3,
+        "src/slides/sound.ts": 2,
+        "src/slides/specConfidence.ts": 4,
+        "src/slides/stepTiming.ts": 1,
+        "src/slides/sync.ts": 6,
+        "src/slides/textAnimations.ts": 4,
+        "src/slides/themeManifest.ts": 2,
+        "src/slides/themes.ts": 3,
+        "src/slides/transitionPresets.ts": 3,
+        "src/slides/transitions.ts": 1,
+        "src/slides/types/EquationSlide.tsx": 1,
+        "src/slides/types/SessionOutlineSlide.tsx": 1,
+        "src/slides/types/StepsChain3DSlide.tsx": 4,
+        "src/slides/types/TitleSlide.tsx": 2,
+        "src/slides/utils/legacyBodyToBullets.ts": 1,
+        "src/slides/validateAgainstCatalog.ts": 2,
+        "src/slides/validationMode.ts": 1
+      }
+    },
+    "eslintByRule": {
+      "@typescript-eslint/no-explicit-any": 0,
+      "@typescript-eslint/no-unsafe-assignment": 3,
+      "@typescript-eslint/no-unsafe-member-access": 0,
+      "@typescript-eslint/no-unsafe-call": 0,
+      "@typescript-eslint/no-unsafe-return": 1
+    },
+    "eslintByRuleByFile": {
+      "@typescript-eslint/no-explicit-any": {},
+      "@typescript-eslint/no-unsafe-assignment": {
+        "src/slides/jumpHistory.ts": 1,
+        "src/slides/themeManifest.ts": 1,
+        "src/slides/themes.ts": 1
+      },
+      "@typescript-eslint/no-unsafe-member-access": {},
+      "@typescript-eslint/no-unsafe-call": {},
+      "@typescript-eslint/no-unsafe-return": {
+        "src/slides/themeManifest.ts": 1
+      }
+    }
   }
 ]
