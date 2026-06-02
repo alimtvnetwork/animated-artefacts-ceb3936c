@@ -32,7 +32,7 @@ export default function SlideDeckPage() {
   const params = useParams();
   const navigate = useNavigate();
   const location = useLocation();
-  // v0.230 — webcam ctx for plain `i` (hard on/off) and `m` (minimize).
+  // Webcam ctx for stage/fullscreen/shape shortcuts handled at deck level.
   const webcam = usePresenterWebcam();
   const slideParam = params.slideNumber;
   const slideQuery = new URLSearchParams(location.search).get('slide');
@@ -581,18 +581,6 @@ export default function SlideDeckPage() {
           if (v && !getTransitionOverrideState().persist) resetTransitionOverrideState();
           return !v;
         });
-        return;
-      }
-      // v0.230 — plain `i` hard-toggles presenter camera on/off.
-      if (!e.ctrlKey && !e.metaKey && !e.altKey && !e.shiftKey && (e.key === 'I' || e.key === 'i')) {
-        e.preventDefault();
-        void webcam.toggle();
-        return;
-      }
-      // v0.230 — plain `m` minimizes / expands the camera (only when on).
-      if (!e.ctrlKey && !e.metaKey && !e.altKey && !e.shiftKey && (e.key === 'M' || e.key === 'm')) {
-        e.preventDefault();
-        if (webcam.state.phase === 'on') webcam.toggleMinimized();
         return;
       }
       if (gridOpen) return;
