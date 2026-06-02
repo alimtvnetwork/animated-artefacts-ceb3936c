@@ -24,3 +24,5 @@ dist-ssr
 *.sw?
 .gitmap/release-assets
 release-assets
+*.tsbuildinfo
+*.bak
