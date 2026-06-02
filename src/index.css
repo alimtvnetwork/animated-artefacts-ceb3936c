@@ -2522,6 +2522,18 @@ html[data-export-cmyk="true"] .handout-stage {
   }
 }
 
+/* Camera auto-hide cursor (spec/camera-2026/02 §8 + 03).
+   When the auto-hide timer fires (or right after a move/resize), the active
+   camera surface root gets `.cam-cursor-hidden`. The cursor must vanish over
+   the WHOLE surface — including chrome buttons, the drag grip and the resize
+   handle, which otherwise keep their own `cursor: pointer / grab / nwse-resize`
+   and leave a visible cursor sitting on the camera after a move. The
+   descendant `*` rule with `!important` guarantees every child hides too. */
+.cam-cursor-hidden,
+.cam-cursor-hidden * {
+  cursor: none !important;
+}
+
 /* Quick-jump rejection shake — used when Enter is pressed with an invalid
    buffer (e.g. lone "0" or out-of-range). Subtle horizontal jiggle so the
    reason text below is read instead of mistaken for a glitch. */
