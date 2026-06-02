@@ -110,3 +110,33 @@ Remaining (beyond 80):
 - StepsChain3D depth-aware marker-medallion — deferred (no-background rule).
 - Promote a spare fade_swoosh take — repoint whoosh asset URL, no new SoundKind.
 - Optional: add spec folders for motion-showcase/navy-showcase if they graduate to maintained decks.
+
+## Camera-2026 webcam track — steps 1–11 (2026-06-02)
+
+Reasoning: the presenter rejected the webcam overlay's thick opaque gold/white
+ring (images 1+2). The baked `04-…plate-gold-shadow.png` + `02-…mask-black.png`
+crop produced it. Approved look (image 3) = live video cropped to a squircle
+with a THIN gold→ember rim + soft shadow, transparent interior. The whole batch
+converts the overlay to a CSS-only rim and removes the PNG machinery.
+
+- 1.  Remove plate `<img>` + mask from the `on` card; transparent interior; CSS rim (border 2px gold/0.85 + layered ember/gold/drop box-shadow) (~25m)
+- 2.  Align the fullscreen no-stream preview frame to the same rim tokens (~10m)
+- 3.  Delete orphaned `src/assets/camera-2026/{02-mask,04-plate}.png` (dir now empty) (~5m)
+- 4.  Update `O`-morph WAAPI shape-pop keyframes to layer the new rim (no flash to old shadow) (~15m)
+- 5.  New guard test `presenterWebcamRimContract.test.ts` — no plate/mask import, no platePad/showPlate, no url() crop mask, gold border + transparent bg (4 tests) (~20m)
+- 6.  Ran rim+halo+stability tests green (17) (~5m)
+- 7.  camera-2026 README + assets/README — mark 02/04 reference-only, runtime CSS-only, dir empty (~15m)
+- 8.  spec 05 §8 v2 rewrite (CSS-only recipe) + top-of-file CURRENT-TRUTH banner marking §1–§6 historical (~20m)
+- 9.  mem://features/webcam-halo-and-stage updated to CSS-only rim (~10m)
+- 10. Full webcam suite green (25 tests) (~10m)
+- 11. Plan closeout (~5m)
+
+Estimated total: ~2h 20m.
+
+Remaining (camera-2026, beyond step 11):
+- Optional: a pixel-exact superellipse via `paint()` Houdini / SVG clip-path if
+  border-radius 38%/34% reads too round on very large sizes (not requested).
+- Reference PNGs in `spec/camera-2026/assets/` are kept for visual diffing only;
+  prune later if the spec is ever trimmed.
+- Carryover from earlier tracks: video-portal refactor (#63), StepsChain3D
+  depth-aware medallion, promote a spare fade_swoosh take — all still deferred.

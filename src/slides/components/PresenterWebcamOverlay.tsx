@@ -205,11 +205,11 @@ export function PresenterWebcamOverlay() {
     if (reduced) return;
     shapeFrameRef.current?.animate(
       [
-        { transform: 'scale(1)', boxShadow: '0 0 32px hsl(var(--gold) / 0.18), 0 12px 32px hsl(var(--background) / 0.6)' },
-        { transform: 'scale(0.965)', boxShadow: '0 0 48px hsl(var(--gold) / 0.36), 0 12px 32px hsl(var(--background) / 0.6)', offset: 0.3 },
-        { transform: 'scale(0.985)', boxShadow: '0 0 60px hsl(var(--gold) / 0.50), 0 12px 32px hsl(var(--background) / 0.6)', offset: 0.5 },
-        { transform: 'scale(1.018)', boxShadow: '0 0 44px hsl(var(--gold) / 0.30), 0 12px 32px hsl(var(--background) / 0.6)', offset: 0.7 },
-        { transform: 'scale(1)', boxShadow: '0 0 32px hsl(var(--gold) / 0.18), 0 12px 32px hsl(var(--background) / 0.6)' },
+        { transform: 'scale(1)', boxShadow: '0 0 0 1px hsl(var(--ember) / 0.25), 0 0 28px hsl(var(--gold) / 0.22), 0 16px 40px hsl(var(--background) / 0.7)' },
+        { transform: 'scale(0.965)', boxShadow: '0 0 0 1px hsl(var(--ember) / 0.35), 0 0 48px hsl(var(--gold) / 0.36), 0 16px 40px hsl(var(--background) / 0.7)', offset: 0.3 },
+        { transform: 'scale(0.985)', boxShadow: '0 0 0 1px hsl(var(--ember) / 0.45), 0 0 60px hsl(var(--gold) / 0.50), 0 16px 40px hsl(var(--background) / 0.7)', offset: 0.5 },
+        { transform: 'scale(1.018)', boxShadow: '0 0 0 1px hsl(var(--ember) / 0.3), 0 0 44px hsl(var(--gold) / 0.30), 0 16px 40px hsl(var(--background) / 0.7)', offset: 0.7 },
+        { transform: 'scale(1)', boxShadow: '0 0 0 1px hsl(var(--ember) / 0.25), 0 0 28px hsl(var(--gold) / 0.22), 0 16px 40px hsl(var(--background) / 0.7)' },
       ],
       { duration: 360, easing: 'cubic-bezier(0.22, 1, 0.36, 1)' },
     );
@@ -576,9 +576,9 @@ export function PresenterWebcamOverlay() {
               height: circleShape ? previewDiameter : previewHeight,
               borderRadius: circleShape ? '50%' : '38% / 34%',
               overflow: 'hidden',
-              border: '1.5px solid hsl(var(--gold) / 0.6)',
+              border: '2px solid hsl(var(--gold) / 0.85)',
               boxShadow:
-                '0 0 32px hsl(var(--gold) / 0.18), 0 12px 32px hsl(var(--background) / 0.6)',
+                '0 0 0 1px hsl(var(--ember) / 0.25), 0 0 28px hsl(var(--gold) / 0.22), 0 16px 40px hsl(var(--background) / 0.7)',
               background: 'linear-gradient(180deg, hsl(var(--card)), hsl(var(--background)))',
               transition:
                 'border-radius 420ms cubic-bezier(0.22, 1, 0.36, 1), left 420ms cubic-bezier(0.22, 1, 0.36, 1), top 420ms cubic-bezier(0.22, 1, 0.36, 1), width 420ms cubic-bezier(0.22, 1, 0.36, 1), height 420ms cubic-bezier(0.22, 1, 0.36, 1), box-shadow 320ms ease',

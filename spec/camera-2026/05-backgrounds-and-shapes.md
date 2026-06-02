@@ -1,9 +1,13 @@
-# 05 — Backgrounds & Shapes (the squircle plates)
+# 05 — Backgrounds & Shapes (the squircle rim)
 
-> **This is the new request.** The presenter wants the camera to look *bigger*
-> and *richer* by sitting on a decorative **squircle background plate** with a
-> gold→ember rim and a soft drop shadow — the OBS-style look in the reference
-> image. This file is the complete recipe.
+> **⚠️ CURRENT TRUTH (2026-06-02 v2): the rim is CSS-only — see [§8](#8--implemented-2026-06-02-v2--css-only-rim-no-png-platemask).**
+> The overlay imports **no** plate/mask PNG. The squircle silhouette comes from
+> `border-radius: 38% / 34%`, the rim from a `2px` gold border + layered
+> `box-shadow`, and the interior is transparent (approved look = reference
+> image 3). §1–§6 below are **historical** (the original PNG-plate request);
+> they are kept for context but the plate path was rejected — its baked
+> fill/rim read as a thick opaque ring. Do not implement §1–§6 as-is.
+
 
 ## 1. The four shipped images (`./assets/`)
 

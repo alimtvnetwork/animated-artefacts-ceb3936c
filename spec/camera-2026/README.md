@@ -60,14 +60,18 @@ at runtime, import from `src/assets/` or register a Lovable asset pointer — se
 
 | File | Role |
 |------|------|
-| `01-reference-frame-gold-rim.png` | **Reference look.** A squircle camera frame on a dark slide with a gold→ember (red) glowing rim. This is the visual target. |
-| `02-squircle-mask-black.png` | **Shape mask.** Solid black squircle silhouette — the exact rounded-superellipse outline used to clip the video / build a CSS mask. |
-| ~~`03-squircle-plate-white-shadow.png`~~ | **REMOVED 2026-06-02.** Was an opaque white fill plate behind the camera; deleted (rejected look, no value). Squircle interior must stay transparent. |
-| `04-squircle-plate-gold-shadow.png` | **Background plate (gold).** Brand-gold squircle with drop shadow — the on-brand variant of the plate. |
+| `01-reference-frame-gold-rim.png` | **Reference look only.** A squircle camera frame on a dark slide with a gold→ember (red) glowing rim. This is the visual target the CSS rim reproduces. |
+| ~~`02-squircle-mask-black.png`~~ | **No longer used at runtime (2026-06-02 v2).** Was the CSS crop mask; the overlay now crops via `border-radius`. Kept here as a shape reference only. |
+| ~~`03-squircle-plate-white-shadow.png`~~ | **REMOVED 2026-06-02.** Was an opaque white fill plate behind the camera; deleted (rejected look, no value). |
+| ~~`04-squircle-plate-gold-shadow.png`~~ | **No longer used at runtime (2026-06-02 v2).** Its baked rim + fill read as a thick opaque ring (rejected). The rim is now CSS-only (border + box-shadow). Reference only. |
 
-> A "squircle" = superellipse, between a circle and a rounded square. It is the
-> frame shape the presenter prefers (see reference image). The black mask gives
-> you the exact curve; the white/gold plates are the decorative backings.
+> **Runtime is now CSS-only.** `src/assets/camera-2026/` is empty — the overlay
+> imports **no** plate/mask PNG. The squircle silhouette comes from
+> `border-radius: 38% / 34%`, the rim from a `2px` gold border + a layered
+> `box-shadow` (ember edge + gold glow + drop shadow), and the interior stays
+> transparent. See [`05-backgrounds-and-shapes.md`](./05-backgrounds-and-shapes.md) §8 (v2).
+>
+> A "squircle" = superellipse, between a circle and a rounded square.
 
 ---
 
