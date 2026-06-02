@@ -44,6 +44,7 @@ import { useAutoHideCursor } from './useAutoHideCursor';
 import squirclePlateGold from '@/assets/camera-2026/04-squircle-plate-gold-shadow.png';
 import squircleMaskBlack from '@/assets/camera-2026/02-squircle-mask-black.png';
 import squirclePlateWhite from '@/assets/camera-2026/03-squircle-plate-white-shadow.png';
+import alimPresenter from '@/assets/brand/alim-presenter.png';
 
 function readStageScale(): number {
   if (typeof document === 'undefined') return 1;
@@ -56,6 +57,7 @@ const HALO = 28;
 const FREE_MIN_W = 160;
 const FREE_MAX_W = 960;
 const CIRCLE_CONTROL_SIZE = 44;
+const FALLBACK_PREVIEW_SIZE = { w: 420, h: 560 };
 
 function WebcamChromeButton({
   label,
