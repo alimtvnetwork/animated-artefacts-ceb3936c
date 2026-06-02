@@ -947,6 +947,7 @@ export function PresenterWebcamOverlay() {
 
       <div
         ref={shapeFrameRef}
+        className={autoHideCursor.hidden ? 'cam-cursor-hidden' : undefined}
         style={{
           position: 'absolute',
           zIndex: 1,
