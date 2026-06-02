@@ -77,6 +77,7 @@ export function PresenterWebcamOverlay() {
     toggleStage,
     circleShape,
     toggleCircleShape,
+    cycleShapeOverlay,
     cinematicExiting,
   } = usePresenterWebcam();
   const autoFrame = useAutoFrame(state.stream, /* mirrored */ true);
