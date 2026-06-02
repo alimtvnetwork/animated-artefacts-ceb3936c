@@ -132,6 +132,27 @@ function cardFilter(t: DepthTier): string {
   return t.blur > 0 ? `blur(${t.blur}px)` : 'none';
 }
 
+/**
+ * Depth-aware medallion (numeric marker) base values.
+ *
+ * The marker disc must recede with the SAME depth hierarchy as its card —
+ * a marker two steps away should read as further back than an adjacent one,
+ * not collapse to a single flat "inactive" look. We track the card tier but
+ * keep markers a touch larger/brighter than cards (they double as wayfinding
+ * waypoints on the rail), with a visibility floor so distant markers never
+ * vanish. Active marker is always full size + opacity.
+ */
+function markerDepth(distance: number): { scale: number; opacity: number } {
+  if (distance === 0) return { scale: 1.0, opacity: 1.0 };
+  const t = tierFor(distance);
+  // Map tier.scale (adjacent 0.85 → distant 0.70) into a gentle 0.90 → 0.84
+  // medallion range, and lift opacity off the card floor so wayfinding reads.
+  const scale = 0.84 + (t.scale - DEPTH.distant.scale) * 0.4;
+  const opacity = Math.max(0.42, t.opacity + 0.15);
+  return { scale: Number(scale.toFixed(3)), opacity: Number(opacity.toFixed(3)) };
+}
+
+
 /* ------------------------------------------------------------------ */
 /* Reduced motion guard — read once, observed across renders.          */
 /* ------------------------------------------------------------------ */
