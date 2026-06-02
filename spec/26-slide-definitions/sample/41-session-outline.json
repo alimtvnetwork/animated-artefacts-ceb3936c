@@ -1,0 +1,24 @@
+{
+  "$schema": "../../../21-slides-system/llm/CATALOG.json",
+  "seq": 41,
+  "type": "SessionOutlineSlide",
+  "id": "sample-41-session-outline",
+  "eyebrow": "TODAY",
+  "title": "What we'll cover",
+  "content": {
+    "eyebrow": "TODAY",
+    "title": "What we'll cover",
+    "kicker": "Four moves, forty minutes.",
+    "activeIndex": 0,
+    "items": [
+      { "title": "Recap", "subtitle": "Where we left off", "capsule": { "text": "5 min", "color": "gold" } },
+      { "title": "The problem", "subtitle": "Why it matters now", "meta": "10 min" },
+      { "title": "The build", "subtitle": "Live walkthrough", "capsule": { "text": "20 min", "color": "ember" } },
+      { "title": "Q&A", "subtitle": "Open floor", "meta": "5 min" }
+    ]
+  },
+  "transition": "FadeIn",
+  "textAnimation": "Stagger",
+  "narrowIdea": "Four moves frame the session.",
+  "densityCheck": { "items": 4, "capItems": 8 }
+}
