@@ -33,6 +33,7 @@ import {
   Circle,
   Square,
 } from 'lucide-react';
+import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 import { usePresenterWebcam } from './usePresenterWebcam';
 import { useAutoFrame } from './useAutoFrame';
 import { useAutoHideCursor } from './useAutoHideCursor';
