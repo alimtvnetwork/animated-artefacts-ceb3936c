@@ -3,8 +3,8 @@
 Beyond the common types in `01`–`06`, the runtime registry
 (`src/slides/contracts.ts` → `SlideContract`, **v7, 25 types**) supports the
 richer types below. Field names here are taken **verbatim from the zod
-contracts** — they are the runtime source of truth (the JSON-schema enum in
-`slide.schema.json` is a stale subset). Always validate with `bun run test`.
+contracts** — they are the runtime source of truth. `slide.schema.json`'s
+`slideType.enum` now lists all 25 types too. Always validate with `bun run test`.
 
 > ⚠️ The deep prose docs live in `llm/27a`–`27d` + `28`, but where a doc and the
 > zod contract disagree, **the zod contract wins**.
