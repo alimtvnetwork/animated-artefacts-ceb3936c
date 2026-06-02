@@ -51,11 +51,32 @@ describe('useAutoHideCursor', () => {
     const { result } = renderHook(() => useAutoHideCursor({ active: true, delay: 2500 }));
 
     act(() => {
-      result.current.registerActivity();
-      result.current.hideNow();
+      result.current.registerActivity({ kind: 'move', clientX: 40, clientY: 60 });
+      result.current.hideNow({ kind: 'move', clientX: 40, clientY: 60 });
     });
 
     expect(result.current.hidden).toBe(true);
+  });
+
+  it('stays hidden until the pointer actually moves after hideNow', () => {
+    const { result } = renderHook(() => useAutoHideCursor({ active: true, delay: 2500 }));
+
+    act(() => {
+      result.current.registerActivity({ kind: 'move', clientX: 120, clientY: 180 });
+      result.current.hideNow({ kind: 'move', clientX: 120, clientY: 180 });
+    });
+
+    expect(result.current.hidden).toBe(true);
+
+    act(() => {
+      result.current.registerActivity({ kind: 'move', clientX: 120, clientY: 180 });
+    });
+    expect(result.current.hidden).toBe(true);
+
+    act(() => {
+      result.current.registerActivity({ kind: 'move', clientX: 121, clientY: 180 });
+    });
+    expect(result.current.hidden).toBe(false);
   });
 
   it('resets to visible when inactive', () => {

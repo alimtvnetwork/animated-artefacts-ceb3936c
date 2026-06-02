@@ -41,6 +41,8 @@ import { useAutoHideCursor } from './useAutoHideCursor';
 // drop shadow + gold rim. The PNG already bakes the squircle curve, gold
 // rim and shadow, so we just lay it behind the masked video.
 import squirclePlateGold from '@/assets/camera-2026/04-squircle-plate-gold-shadow.png';
+import squircleMaskBlack from '@/assets/camera-2026/02-squircle-mask-black.png';
+import squirclePlateWhite from '@/assets/camera-2026/03-squircle-plate-white-shadow.png';
 
 function readStageScale(): number {
   if (typeof document === 'undefined') return 1;
@@ -398,7 +400,7 @@ export function PresenterWebcamOverlay() {
       // auto-hides again after the idle delay). The outer wrapper is
       // pointer-events:none, so this inner-frame handler is the surface's
       // real activity source.
-      autoHideCursor.registerActivity();
+      autoHideCursor.registerActivity(e);
       const d = dragRef.current;
       if (!d || d.pointerId !== e.pointerId) return;
       const scale = readStageScale();
@@ -420,7 +422,7 @@ export function PresenterWebcamOverlay() {
     setDragging(false);
     // After moving the camera, hide the cursor immediately (it reappears on
     // the next mouse move, then auto-hides again). See useAutoHideCursor.
-    autoHideCursor.hideNow();
+    autoHideCursor.hideNow(e);
   }, [autoHideCursor]);
 
   // ──────────────────────────────────────────────────────────────────
@@ -442,7 +444,7 @@ export function PresenterWebcamOverlay() {
   );
   const onResizePointerMove = useCallback(
     (e: React.PointerEvent<HTMLDivElement>) => {
-      autoHideCursor.registerActivity();
+      autoHideCursor.registerActivity(e);
       const d = resizeRef.current;
       if (!d || d.pointerId !== e.pointerId) return;
       const scale = readStageScale();
@@ -462,7 +464,7 @@ export function PresenterWebcamOverlay() {
     }
     resizeRef.current = null;
     setResizing(false);
-    autoHideCursor.hideNow();
+    autoHideCursor.hideNow(e);
   }, [autoHideCursor]);
 
   // ──────────────────────────────────────────────────────────────────
@@ -848,6 +850,8 @@ export function PresenterWebcamOverlay() {
   // spec/camera-2026/05 §2 — the decorative plate sits BEHIND the video and
   // extends ~7% beyond each edge, so a gold-rimmed, soft-shadowed border of
   // the squircle plate shows on all sides and the camera reads as bigger.
+  // The implementation uses TWO stacked plates: a lower neutral plate for the
+  // soft paper/shadow read, plus the gold plate on top for the branded rim.
   // Hidden while minimized (puck) and while in circle mode (the round crop
   // has its own ring and the squircle plate would not match its silhouette).
   const platePad = Math.round(visualWidth * 0.07);
@@ -924,24 +928,45 @@ export function PresenterWebcamOverlay() {
        * intercepts drags; aria-hidden because it is purely decorative.
        */}
       {showPlate && (
-        <img
-          src={squirclePlateGold}
-          alt=""
-          aria-hidden="true"
-          draggable={false}
-          style={{
-            position: 'absolute',
-            left: HALO - platePad,
-            top: HALO - platePad,
-            width: visualWidth + platePad * 2,
-            height: visualHeight + platePad * 2,
-            pointerEvents: 'none',
-            userSelect: 'none',
-            zIndex: 0,
-            transition:
-              'left 420ms cubic-bezier(0.22, 1, 0.36, 1), top 420ms cubic-bezier(0.22, 1, 0.36, 1), width 420ms cubic-bezier(0.22, 1, 0.36, 1), height 420ms cubic-bezier(0.22, 1, 0.36, 1)',
-          }}
-        />
+        <>
+          <img
+            src={squirclePlateWhite}
+            alt=""
+            aria-hidden="true"
+            draggable={false}
+            style={{
+              position: 'absolute',
+              left: HALO - platePad,
+              top: HALO - platePad,
+              width: visualWidth + platePad * 2,
+              height: visualHeight + platePad * 2,
+              pointerEvents: 'none',
+              userSelect: 'none',
+              zIndex: 0,
+              opacity: 0.92,
+              transition:
+                'left 420ms cubic-bezier(0.22, 1, 0.36, 1), top 420ms cubic-bezier(0.22, 1, 0.36, 1), width 420ms cubic-bezier(0.22, 1, 0.36, 1), height 420ms cubic-bezier(0.22, 1, 0.36, 1), opacity 220ms ease',
+            }}
+          />
+          <img
+            src={squirclePlateGold}
+            alt=""
+            aria-hidden="true"
+            draggable={false}
+            style={{
+              position: 'absolute',
+              left: HALO - platePad,
+              top: HALO - platePad,
+              width: visualWidth + platePad * 2,
+              height: visualHeight + platePad * 2,
+              pointerEvents: 'none',
+              userSelect: 'none',
+              zIndex: 1,
+              transition:
+                'left 420ms cubic-bezier(0.22, 1, 0.36, 1), top 420ms cubic-bezier(0.22, 1, 0.36, 1), width 420ms cubic-bezier(0.22, 1, 0.36, 1), height 420ms cubic-bezier(0.22, 1, 0.36, 1)',
+            }}
+          />
+        </>
       )}
       {/* Sharp box. */}
 
@@ -950,7 +975,7 @@ export function PresenterWebcamOverlay() {
         className={autoHideCursor.hidden ? 'cam-cursor-hidden' : undefined}
         style={{
           position: 'absolute',
-          zIndex: 1,
+          zIndex: 2,
           // Inner frame morphs INSIDE the stable outer wrapper. Offsets
           // re-center the circle horizontally/vertically over the same
           // pixel region the rectangle occupied, so the morph reads as a
@@ -961,6 +986,14 @@ export function PresenterWebcamOverlay() {
           height: visualHeight,
           borderRadius: frameRadius,
           overflow: 'hidden',
+          WebkitMaskImage: !minimized && !circleShape ? `url(${squircleMaskBlack})` : undefined,
+          maskImage: !minimized && !circleShape ? `url(${squircleMaskBlack})` : undefined,
+          WebkitMaskSize: !minimized && !circleShape ? '100% 100%' : undefined,
+          maskSize: !minimized && !circleShape ? '100% 100%' : undefined,
+          WebkitMaskRepeat: !minimized && !circleShape ? 'no-repeat' : undefined,
+          maskRepeat: !minimized && !circleShape ? 'no-repeat' : undefined,
+          WebkitMaskPosition: !minimized && !circleShape ? 'center' : undefined,
+          maskPosition: !minimized && !circleShape ? 'center' : undefined,
           background: 'hsl(var(--background))',
           border: '1.5px solid hsl(var(--gold) / 0.6)',
           boxShadow:

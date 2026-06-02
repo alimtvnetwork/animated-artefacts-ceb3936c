@@ -196,9 +196,15 @@ Behaviour contract:
    `false` (cursor visible) so non-camera phases are never affected.
 6. No animation is involved (the cursor simply toggles), so there is nothing
    to gate behind `prefers-reduced-motion`.
-7. The hook listens on `window` but **never** mutates `document.body` cursor —
-   only the camera surface roots get `cursor: none`, so the rest of the deck
-   chrome keeps its normal pointer.
+7. The hook never mutates `document.body` cursor — only the camera surface
+   roots get `cursor: none`, so the rest of the deck chrome keeps its normal
+   pointer.
+8. **2026-06-02 release-edge fix:** after `hideNow()` the hook enters a short
+   **suppressed-until-real-move** state. This prevents the cursor from waking
+   back up on the same pointer coordinates because of the release event,
+   pointer-capture teardown, or a synthetic `pointermove` emitted at gesture
+   end. The cursor may reappear only after a later `pointermove` whose
+   `clientX/clientY` differ from the last point recorded during the drag/resize.
 
 ### 8.2 Wiring in `PresenterWebcamOverlay`
 
@@ -259,9 +265,11 @@ const cursorStyle = autoHideCursor.hidden ? ('none' as const) : undefined;
 ### 8.3 Hide immediately after moving the camera
 
 After a **drag** (`onDragPointerUp`) or **resize** (`onResizePointerUp`)
-gesture completes, call `autoHideCursor.hideNow()` so the cursor vanishes the
+gesture completes, call `autoHideCursor.hideNow(e)` so the cursor vanishes the
 moment the presenter finishes moving the camera — it does not linger for the
-full idle delay. It reappears on the next mouse move (step 8.1.2) and then
+full idle delay. Passing the release event records the final pointer position,
+which the hook uses to reject same-position wakeups caused by capture release.
+The cursor reappears only on the next real mouse move over the camera and then
 re-hides on idle.
 
 ### 8.4 Acceptance
