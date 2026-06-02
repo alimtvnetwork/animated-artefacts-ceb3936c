@@ -200,7 +200,7 @@ ${llmFiles}
 
 ---
 
-## 5 · What to output
+## 6 · What to output
 
 When the human asks you to author a slide:
 
