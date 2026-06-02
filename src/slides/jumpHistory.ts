@@ -38,7 +38,7 @@ function readStorage(): number[] {
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
     if (!raw) return [];
-    const parsed = JSON.parse(raw);
+    const parsed: unknown = JSON.parse(raw);
     if (!Array.isArray(parsed)) return [];
     // Coerce + dedupe + cap defensively in case the stored payload was
     // tampered with or written by an older build.

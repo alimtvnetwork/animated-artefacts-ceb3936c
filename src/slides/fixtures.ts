@@ -456,6 +456,21 @@ export const SLIDE_FIXTURES: Record<string, SlideFixture> = {
     } as unknown as SlideSpec,
     invalid: [],
   },
+  TileSlide: {
+    description: 'Clickable tile cards in a row — glyph + name + tag + desc + CTA.',
+    valid: {
+      ...envelope(15, 'Showcase', 'TileSlide'),
+      content: {
+        title: 'Explore the projects',
+        tiles: [
+          { name: 'Repo Alpha', tag: 'TypeScript', desc: 'Core engine', url: 'https://example.com/alpha', glyph: '⚙️', cta: 'Open repo' },
+          { name: 'Repo Beta', tag: 'Docs', desc: 'Reference site', url: 'https://example.com/beta', glyph: '📚', cta: 'Read docs' },
+        ],
+        tilesCaption: 'Pick a tile to dive in',
+      },
+    } as unknown as SlideSpec,
+    invalid: [],
+  },
   CodeBlockSlide: {
     description: 'Code block — title + code body, with copy button + line emphasis.',
     valid: {

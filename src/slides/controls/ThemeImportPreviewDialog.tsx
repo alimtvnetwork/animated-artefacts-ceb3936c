@@ -156,7 +156,7 @@ function ValueCell({ value }: { value: string | null }) {
         <span
           className="h-3.5 w-3.5 shrink-0 rounded-sm border border-destructive/50"
           style={{
-            backgroundImage: 'repeating-linear-gradient(45deg,#ccc 0 4px,#fff 4px 8px)',
+            backgroundImage: 'repeating-linear-gradient(45deg,#ccc 0 4px,#fff 4px 8px)', // hardcoded-white-ok: fixed transparency checkerboard swatch, not theme content
           }}
           aria-hidden
           title="Malformed HSL triplet"
@@ -308,7 +308,7 @@ export function ThemeImportPreviewDialog({
                             backgroundColor: css ?? 'transparent',
                             backgroundImage: css
                               ? undefined
-                              : 'repeating-linear-gradient(45deg,#ccc 0 4px,#fff 4px 8px)',
+                              : 'repeating-linear-gradient(45deg,#ccc 0 4px,#fff 4px 8px)', // hardcoded-white-ok: fixed transparency checkerboard swatch, not theme content
                           }}
                           aria-hidden
                         />

@@ -186,10 +186,10 @@ export function readCustomThemes(): SerializableTheme[] {
   try {
     const raw = window.localStorage.getItem(CUSTOM_THEMES_STORAGE_KEY);
     if (!raw) return [];
-    const parsed = JSON.parse(raw);
+    const parsed: unknown = JSON.parse(raw);
     if (!Array.isArray(parsed)) return [];
-    return parsed.filter((x): x is SerializableTheme =>
-      x && typeof x === 'object' && typeof (x as SerializableTheme).id === 'string',
+    return (parsed as unknown[]).filter((x): x is SerializableTheme =>
+      !!x && typeof x === 'object' && typeof (x as SerializableTheme).id === 'string',
     );
   } catch {
     return [];

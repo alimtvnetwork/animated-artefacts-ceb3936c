@@ -878,6 +878,7 @@ function renderSlide(pptx: PptxGenJS, slide: PptxGenJS.Slide, spec: SlideSpec) {
     case SlideType.SessionOutlineSlide:
       // PPTX-static — flatten the outline list to the same step renderer
       // (numbered rows). Loses the active-row glow, keeps the agenda.
+      // falls through
     case SlideType.StepTimelineSlide:
     case SlideType.FocusTimelineSlide:
     case SlideType.AdvanceStepSlide:

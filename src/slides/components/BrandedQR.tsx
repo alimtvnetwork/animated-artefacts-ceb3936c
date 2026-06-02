@@ -218,7 +218,11 @@ export function BrandedQR({
       // "black on black" because the QR's own light modules are #ffffff
       // while the surrounding padding/ring went ink-dark. Inline literal
       // white bypasses the token entirely. See ambiguity: github-light QR.
-      style={{ width: size, height: size, background: '#ffffff' }}
+      style={{
+        width: size,
+        height: size,
+        background: '#ffffff', // hardcoded-white-ok: QR codes require an opaque white quiet-zone to stay scannable on every theme
+      }}
     >
       <img
         src={resolved}

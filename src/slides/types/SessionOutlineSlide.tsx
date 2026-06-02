@@ -93,7 +93,7 @@ export function SessionOutlineSlide({ spec }: { spec: SlideSpec }) {
         {c.kicker && (
           <motion.p
             variants={kickerV}
-            className="mt-3 text-base text-white/55"
+            className="mt-3 text-base text-[hsl(var(--white)/0.55)]"
             style={{ maxWidth: '60ch' }}
           >
             {c.kicker}
@@ -163,7 +163,7 @@ export function SessionOutlineSlide({ spec }: { spec: SlideSpec }) {
                   </div>
                   {it.subtitle && (
                     <div
-                      className="mt-1 text-white/60"
+                      className="mt-1 text-[hsl(var(--white)/0.60)]"
                       style={{ fontSize: 'clamp(1rem, 1.15vw, 1.15rem)', lineHeight: 1.35 }}
                     >
                       {it.subtitle}

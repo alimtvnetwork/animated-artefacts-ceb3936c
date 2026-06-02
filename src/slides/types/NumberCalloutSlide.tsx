@@ -12,15 +12,16 @@ export function NumberCalloutSlide({ spec }: { spec: SlideSpec }) {
   const c = spec.content;
   const reduced = useReducedMotion();
   const n = c.number;
-  if (!n) return null;
 
   const display = useCountUp({
-    from: n.from ?? 0,
-    to: n.to,
-    duration: n.duration ?? 'slow',
-    easing: n.easing ?? 'easeOutQuint',
-    decimals: n.decimals,
+    from: n?.from ?? 0,
+    to: n?.to ?? 0,
+    duration: n?.duration ?? 'slow',
+    easing: n?.easing ?? 'easeOutQuint',
+    decimals: n?.decimals,
   });
+
+  if (!n) return null;
 
   return (
     <div
