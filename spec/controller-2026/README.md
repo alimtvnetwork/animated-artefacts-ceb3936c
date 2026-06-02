@@ -30,6 +30,7 @@ It is **presenter-local runtime UI**: never exported, never part of slide JSON.
 | [`README.md`](./README.md) | This overview + glossary. |
 | [`01-controller-100-steps.md`](./01-controller-100-steps.md) | The canonical **100-step** blind-AI build order for the whole controller. |
 | [`02-implementation-steps-C01-C10.md`](./02-implementation-steps-C01-C10.md) | Code **implementation** steps **C01–C10** (maps groups A→J) with reasoning + time. |
+| [`03-test-execution-steps-CT01-CT10.md`](./03-test-execution-steps-CT01-CT10.md) | **Test / verification** steps **CT01–CT10** with reasoning + time. |
 
 ---
 
