@@ -31,6 +31,11 @@ const llmMarkdownFiles = import.meta.glob(
   { query: '?raw', import: 'default', eager: true },
 ) as Record<string, string>;
 
+const guidelineMarkdownFiles = import.meta.glob(
+  '../../spec/llm-guideline/*.md',
+  { query: '?raw', import: 'default', eager: true },
+) as Record<string, string>;
+
 const slideSchemaModules = import.meta.glob(
   '../../spec/21-slides-system/slide.schema.json',
   { query: '?raw', import: 'default', eager: true },
