@@ -947,6 +947,7 @@ export function PresenterWebcamOverlay() {
         ref={shapeFrameRef}
         style={{
           position: 'absolute',
+          zIndex: 1,
           // Inner frame morphs INSIDE the stable outer wrapper. Offsets
           // re-center the circle horizontally/vertically over the same
           // pixel region the rectangle occupied, so the morph reads as a
