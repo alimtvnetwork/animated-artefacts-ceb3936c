@@ -192,6 +192,8 @@ export function PresenterWebcamOverlay() {
     startX: number;
     baseW: number;
   } | null>(null);
+  const viewportPrefersLeftCircleControls =
+    typeof window !== 'undefined' ? window.innerWidth <= window.innerHeight : false;
 
   // 2026-05-02 — Shape-toggle pop animation. Important: do NOT use a React
   // key or conditional <video> tree for this. Shape changes only animate the
