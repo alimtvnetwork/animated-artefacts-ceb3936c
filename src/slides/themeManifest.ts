@@ -188,8 +188,8 @@ export function readCustomThemes(): SerializableTheme[] {
     if (!raw) return [];
     const parsed: unknown = JSON.parse(raw);
     if (!Array.isArray(parsed)) return [];
-    return parsed.filter((x): x is SerializableTheme =>
-      x && typeof x === 'object' && typeof (x as SerializableTheme).id === 'string',
+    return (parsed as unknown[]).filter((x): x is SerializableTheme =>
+      !!x && typeof x === 'object' && typeof (x as SerializableTheme).id === 'string',
     );
   } catch {
     return [];
