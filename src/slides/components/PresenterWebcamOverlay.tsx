@@ -1204,7 +1204,6 @@ export function PresenterWebcamOverlay() {
   // old white-filled plate PNG produced a thick opaque ring (image 1) and is
   // gone — never reintroduce a fill plate behind the video.
   const showCircleControls = !minimized && circleShape;
-  const showCircleControls = !minimized && circleShape;
   const circleControlColumnHeight = 4 * CIRCLE_CONTROL_SIZE + 3 * 10;
   const circleVisualRight = position.x + (size.w + circleDiameter) / 2;
   const circleControlsOnLeft = circleVisualRight + 64 > 1920;
