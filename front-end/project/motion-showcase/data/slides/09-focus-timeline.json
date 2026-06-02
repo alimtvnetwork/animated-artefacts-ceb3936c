@@ -5,6 +5,7 @@
   "transition": "SlideIn",
   "textAnimation": "SlideUp",
   "enabled": true,
+  "sound": { "on": "focus", "kind": "fadeZoom", "volume": 0.4 },
   "showBrandHeader": true,
   "showPresenterChip": false,
   "narrowIdea": "All steps visible — one in limelight, neighbours dim.",
