@@ -36,6 +36,11 @@ import {
 import { usePresenterWebcam } from './usePresenterWebcam';
 import { useAutoFrame } from './useAutoFrame';
 import { useAutoHideCursor } from './useAutoHideCursor';
+// spec/camera-2026/05 — decorative squircle "plate" that sits behind the
+// live camera to read as a bigger, OBS-style framed surface with a soft
+// drop shadow + gold rim. The PNG already bakes the squircle curve, gold
+// rim and shadow, so we just lay it behind the masked video.
+import squirclePlateGold from '@/assets/camera-2026/04-squircle-plate-gold-shadow.png';
 
 function readStageScale(): number {
   if (typeof document === 'undefined') return 1;
