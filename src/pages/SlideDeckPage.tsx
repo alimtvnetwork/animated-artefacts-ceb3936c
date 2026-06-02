@@ -32,7 +32,7 @@ export default function SlideDeckPage() {
   const params = useParams();
   const navigate = useNavigate();
   const location = useLocation();
-  // v0.230 — webcam ctx for Shift+I (toggle on/off) and Shift+M (minimize).
+  // Webcam ctx for stage/fullscreen/shape shortcuts handled at deck level.
   const webcam = usePresenterWebcam();
   const slideParam = params.slideNumber;
   const slideQuery = new URLSearchParams(location.search).get('slide');
@@ -45,7 +45,7 @@ export default function SlideDeckPage() {
   const [scrubberOpen, setScrubberOpen] = useState<boolean>(() =>
     new URLSearchParams(location.search).get('scrub') === '1',
   );
-  // v0.182 — `?inspect=transition` (or `Shift+I`) opens the live slide-
+  // v0.182 — `?inspect=transition` (or `Shift+R`) opens the live slide-
   // transition inspector. Closing it clears every duration/easing override.
   const [transitionInspectorOpen, setTransitionInspectorOpen] = useState<boolean>(() =>
     new URLSearchParams(location.search).get('inspect') === 'transition',
@@ -583,18 +583,6 @@ export default function SlideDeckPage() {
         });
         return;
       }
-      // v0.230 — Shift+I toggles presenter camera on/off.
-      if (e.shiftKey && (e.key === 'I' || e.key === 'i')) {
-        e.preventDefault();
-        void webcam.toggle();
-        return;
-      }
-      // v0.230 — Shift+M minimizes / expands the camera (only when on).
-      if (e.shiftKey && (e.key === 'M' || e.key === 'm')) {
-        e.preventDefault();
-        if (webcam.state.phase === 'on') webcam.toggleMinimized();
-        return;
-      }
       if (gridOpen) return;
 
       if (e.key === 'Enter') {
@@ -1063,7 +1051,7 @@ export default function SlideDeckPage() {
           onClose={() => setScrubberOpen(false)}
         />
       )}
-      {/* v0.182 — live transition inspector (Shift+I or `?inspect=transition`). */}
+      {/* v0.182 — live transition inspector (Shift+R or `?inspect=transition`). */}
       {transitionInspectorOpen && (
         <TransitionInspector
           onClose={() => {

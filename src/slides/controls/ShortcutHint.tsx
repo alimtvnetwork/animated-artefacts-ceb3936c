@@ -103,7 +103,7 @@ function copyFor(kind: ShortcutHintKind, mac: boolean): HintCopy {
   }
   return {
     keys: [{ label: 'O' }],
-    label: 'Toggle webcam shape',
+    label: 'Cycle webcam shaping',
   };
 }
 
