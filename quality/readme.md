@@ -11,4 +11,4 @@ Generated quality evidence — **not hand-edited**. Scripts in `scripts/` write 
 - Specs (those live in `spec/`, including `spec/audit/`).
 - Source code, runtime deck data, or hand-written docs.
 
-Regenerate via the matching script in `scripts/` (see `scripts/README.md`).
+Regenerate via the matching script in `scripts/` (see `scripts/readme.md`).

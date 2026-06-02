@@ -45,10 +45,10 @@ JSON, and never persisted to the deck. It is pure runtime UI driven by
 | [`09-build-log-steps-11-20.md`](./09-build-log-steps-11-20.md) | Steps **11–20** expanded — reasoning + time estimates per step. |
 | [`10-build-log-steps-21-30.md`](./10-build-log-steps-21-30.md) | Steps **21–30** expanded + whole-feature ~16 h roll-up. |
 | [`assets/`](./assets/) | The 4 reference / background images (see manifest below). |
-| [`11-test-execution-steps-T01-T10.md`](./11-test-execution-steps-T01-T10.md) | Test / acceptance execution steps **T01–T10** with reasoning + time. |
-| [`12-test-execution-steps-T11-T20.md`](./12-test-execution-steps-T11-T20.md) | Test / hardening / sign-off execution steps **T11–T20** with reasoning + time. |
-| [`13-test-execution-steps-T21-T30.md`](./13-test-execution-steps-T21-T30.md) | Regression / release / maintenance execution steps **T21–T30** with reasoning + time. |
-| [`14-implementation-steps-I01-I10.md`](./14-implementation-steps-I01-I10.md) | Actual code implementation steps **I01–I10** (files 01–05) with reasoning + time. |
+| [`11-test-execution-steps-t01-t10.md`](./11-test-execution-steps-t01-t10.md) | Test / acceptance execution steps **T01–T10** with reasoning + time. |
+| [`12-test-execution-steps-t11-t20.md`](./12-test-execution-steps-t11-t20.md) | Test / hardening / sign-off execution steps **T11–T20** with reasoning + time. |
+| [`13-test-execution-steps-t21-t30.md`](./13-test-execution-steps-t21-t30.md) | Regression / release / maintenance execution steps **T21–T30** with reasoning + time. |
+| [`14-implementation-steps-i01-i10.md`](./14-implementation-steps-i01-i10.md) | Actual code implementation steps **I01–I10** (files 01–05) with reasoning + time. |
 
 ---
 
@@ -80,7 +80,7 @@ at runtime, import from `src/assets/` or register a Lovable asset pointer — se
 
 This pack supersedes and consolidates the scattered camera docs. Keep them in sync:
 
-- `spec/21-slides-system/64-presenter-webcam.md` — original phase/size spec (v2).
+- `spec/21-slides-system/66-presenter-webcam.md` — original phase/size spec (v2).
 - `spec/21-slides-system/65-presenter-shortcuts-v5.md` — v5 shortcut additions (`O`, `P`, `[`, `]`).
 - `spec/21-slides-system/51-webcam-overlay.md` — early overlay notes.
 - `spec/15-research/01-webcam-overlay.md` — prior-art research.

@@ -61,7 +61,7 @@ for (const slug of decks) {
 
   // Also copy companion .md specs.
   for (const f of readdirSync(srcDir)) {
-    if (f.endsWith('.md') && f !== 'README.md') {
+    if (f.endsWith('.md') && f !== 'readme.md') {
       writeFileSync(join(specDir, f), readFileSync(join(srcDir, f), 'utf8'));
     }
   }

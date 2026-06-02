@@ -450,7 +450,7 @@ When an LLM ports a deck between projects, it follows §8.
 ---
 
 ## See also
-- [`00-README.md`](./00-README.md) — LLM-doc index.
+- [`00-readme.md`](./00-readme.md) — LLM-doc index.
 - [`06-json-authoring-cheatsheet.md`](./06-json-authoring-cheatsheet.md) — paste-ready JSON snippets.
 - [`13-motion-system.md`](./13-motion-system.md) — full motion contract.
 - [`23-slide-type-contracts.md`](./23-slide-type-contracts.md) — per-type field contracts.

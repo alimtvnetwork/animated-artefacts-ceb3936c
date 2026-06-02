@@ -2,7 +2,7 @@
 
 **Date:** 2026-04-26 (Asia/Kuala_Lumpur)
 **Scope:** Re-run the blind-LLM audit against the **new
-`spec/slides/llm/` pack (files 00–18 + assets/INDEX.md)**, ignoring
+`spec/slides/llm/` pack (files 00–18 + assets/index.md)**, ignoring
 all older `/spec/slides/NN-*.md` archeology. Same persona as Audit 01:
 *dumbest-but-honest* model, no chat history, no live preview.
 
@@ -43,7 +43,7 @@ Ordered by severity. Phase 17 will remediate these.
 ### G1. Empty asset folders (−0.4)
 
 `assets/canvas/`, `assets/background/`, `assets/typography/`,
-`assets/authoring/` are empty. INDEX.md lists them as "add when
+`assets/authoring/` are empty. index.md lists them as "add when
 authored," but a blind LLM reading file 07 (canvas) or file 10
 (typography) won't see a reference render. Math is documented; visual
 proof is not.
@@ -108,7 +108,7 @@ These were Audit 01 fails that are now closed:
 Same as Audit 01 (skim filename → first paragraph → look for
 contract → check for target+anti-pattern image → check supersedes
 chain). Per assumption invented → −0.5; per missing artifact → −1.
-INDEX.md absorbed the "missing supersedes chain" penalty by being
+index.md absorbed the "missing supersedes chain" penalty by being
 explicit about which folders are placeholders.
 
 ---

@@ -1,7 +1,7 @@
 /**
  * usePresenterWebcam — context + hook for the global webcam overlay.
  *
- * Spec: `spec/21-slides-system/64-presenter-webcam.md` (v2).
+ * Spec: `spec/21-slides-system/66-presenter-webcam.md` (v2).
  *
  * Phases:
  *   off → requesting → on ↔ tray ↔ fullscreen → off

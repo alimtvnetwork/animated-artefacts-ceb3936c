@@ -31,7 +31,7 @@
     "audit:motion": "bun ./scripts/motion-variety-audit.ts",
     "audit:contrast": "bun ./scripts/contrast-audit.ts",
     "badge": "bun ./scripts/update-version-badge.ts",
-    "version": "bun ./scripts/update-version-badge.ts && git add README.md",
+    "version": "bun ./scripts/update-version-badge.ts && git add readme.md",
     "release:tag-and-build": "bun ./scripts/release-tag-and-build.ts",
     "release:tag-and-build:dry": "bun ./scripts/release-tag-and-build.ts --dry-run",
     "release:notes": "bun ./scripts/extract-changelog.ts",

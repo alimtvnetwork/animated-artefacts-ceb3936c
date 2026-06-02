@@ -3,7 +3,7 @@
 **Date:** 2026-05-06
 **Scope:** `src/pages/SlideDeckPage.tsx` only (1-file change)
 **Related spec:** `spec/21-slides-system/65-presenter-shortcuts-v5.md` §2,
-`spec/21-slides-system/64-presenter-webcam.md` §"Top Talk Jumper"
+`spec/21-slides-system/66-presenter-webcam.md` §"Top Talk Jumper"
 **Memory:** `.lovable/memory/features/top-jumper-visibility-toggle.md`
 
 ## What was wrong

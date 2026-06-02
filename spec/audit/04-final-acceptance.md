@@ -25,7 +25,7 @@ and project memory updated. This is the closing report.
 | 12 | File 15 — Authoring template | ✅ | 97 lines |
 | 13 | Files 16–17 — Voice + Do/Don't | ✅ | 151 + 130 lines |
 | 14 | File 18 — Acceptance checklist | ✅ | 128 lines, 40 boxes |
-| 15 | Asset INDEX overlay | ✅ | `assets/INDEX.md` |
+| 15 | Asset INDEX overlay | ✅ | `assets/index.md` |
 | 16 | Audit 02 (pack pre-remediation) | ✅ | 8.9/10 |
 | 17 | File 19 — Remediation pack | ✅ | G1–G4 closed |
 | 18 | Audit 03 (post-remediation) | ✅ | **9.6/10**, ship gate PASSED |
@@ -54,7 +54,7 @@ Audit 03 (post-remediation 19)     ███████████████
 20 files in `spec/slides/llm/` totalling **~3,400 lines**:
 
 ```
-00-README.md                       136
+00-readme.md                       136
 01-architecture-and-files.md       152
 02-step-system-complete.md         479
 03-sound-system-complete.md        224
@@ -74,7 +74,7 @@ Audit 03 (post-remediation 19)     ███████████████
 17-do-and-dont.md                  130
 18-acceptance-checklist.md         128
 19-remediation-pack.md            ~270
-assets/INDEX.md                   ~110
+assets/index.md                   ~110
 ```
 
 Plus 4 audit reports under `spec/audit/` and 1 memory file under

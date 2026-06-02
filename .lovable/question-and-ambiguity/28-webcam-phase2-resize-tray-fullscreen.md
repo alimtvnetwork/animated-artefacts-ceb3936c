@@ -38,7 +38,7 @@ adjust — none of these are baked into the spec deeper than 1 file.
 
 ## Files
 
-- Spec: `spec/21-slides-system/64-presenter-webcam.md`
+- Spec: `spec/21-slides-system/66-presenter-webcam.md`
 - Memory: `mem://features/presenter-webcam-overlay` (updated)
 - Implementation: `src/slides/components/usePresenterWebcam.tsx`,
   `src/slides/components/PresenterWebcamOverlay.tsx`,

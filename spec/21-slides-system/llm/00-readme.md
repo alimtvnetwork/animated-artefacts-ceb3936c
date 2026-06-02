@@ -34,7 +34,7 @@ distilled current truth.
 
 | File | Phase | Purpose |
 |------|-------|---------|
-| `00-README.md`                       | —  | This file. Orientation. |
+| `00-readme.md`                       | —  | This file. Orientation. |
 | `01-architecture-and-files.md`       | —  | Project file map; what to add for a new slide. |
 | `02-step-system-complete.md`         | —  | Canonical playbook for `StepTimelineSlide`. |
 | `03-sound-system-complete.md`        | —  | Asset table + flow + wiring recipe. |

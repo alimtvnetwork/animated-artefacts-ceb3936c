@@ -11,7 +11,7 @@
 
 ## Decisions
 
-- **Source file is `readme.md` (lowercase), not `README.md`.** Confirmed by reading both: `README.md` is the public quick-start and just *links to* `readme.md` for the changelog. Script prefers lowercase, falls back to uppercase only if the lowercase doesn't exist.
+- **Source file is `readme.md` (lowercase), not `readme.md`.** Confirmed by reading both: `readme.md` is the public quick-start and just *links to* `readme.md` for the changelog. Script prefers lowercase, falls back to uppercase only if the lowercase doesn't exist.
 - **Strip the leading `## v1.1.0` heading.** The GitHub Release page already shows the tag and "Release v1.1.0" title above the body; a duplicate `## v1.1.0` reads as noise. Demoting `###` → `##` keeps the hierarchy correct after the strip.
 - **Soft-fail on missing section.** A future tag bumped before the changelog is written shouldn't block the release — workflow logs `::warning::` and publishes the verification block alone.
 
@@ -22,4 +22,4 @@
 
 ## Why no question
 
-No-questions mode active (26/40). Source file ambiguity (`readme.md` vs `README.md`) was resolved by reading the files; demote-or-keep heading depth was a judgment call (kept it simple: strip + demote = standard GitHub Release rendering).
+No-questions mode active (26/40). Source file ambiguity (`readme.md` vs `readme.md`) was resolved by reading the files; demote-or-keep heading depth was a judgment call (kept it simple: strip + demote = standard GitHub Release rendering).

@@ -45,7 +45,7 @@ The bundler produces a single `.md` with these sections, separated by `---`:
    inside a fenced ```json block (slide types, transitions, text animations,
    capsule colors, expand animations, step motion variants).
 5. **LLM pack** — every file under `spec/21-slides-system/llm/*.md`,
-   concatenated in numeric order (`00-README.md` → `28-…`). Each file is
+   concatenated in numeric order (`00-readme.md` → `28-…`). Each file is
    prefixed with `## File: NN-name.md` so the LLM can keep its bearings.
 6. **Authoring footer** — a 3-bullet "what to output" reminder (one slide JSON
    per file, must validate against the schema, keywords-only content rule,

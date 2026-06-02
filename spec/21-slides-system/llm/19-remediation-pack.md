@@ -8,7 +8,7 @@
 
 ## G1 — Reference renders for empty asset folders
 
-INDEX.md flagged `assets/canvas/`, `assets/background/`,
+index.md flagged `assets/canvas/`, `assets/background/`,
 `assets/typography/`, `assets/authoring/` as empty. Until rendered
 PNGs land, the **ASCII reference cards below** are authoritative.
 
@@ -144,7 +144,7 @@ case SlideType.MyNewSlide:
 1. Add a row to file 06's per-type template table with the JSON
    shape.
 2. Add a row to file 15 §1's decision tree mapping intent → type.
-3. Add a row to INDEX.md if the type ships with a reference image.
+3. Add a row to index.md if the type ships with a reference image.
 4. Author at least one slide instance under `spec/slides/{deck}/` so
    the type is exercised end-to-end.
 5. Bump `package.json` minor (new capability).

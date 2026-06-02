@@ -4,7 +4,7 @@
  *
  * Spec sources:
  *  - `spec/21-slides-system/65-presenter-shortcuts-v5.md` §2 — "hidden by default"
- *  - `spec/21-slides-system/64-presenter-webcam.md` §"Top Talk Jumper"
+ *  - `spec/21-slides-system/66-presenter-webcam.md` §"Top Talk Jumper"
  *  - `updates/spec/17-top-jumper-default-hidden.md` — first pass + migration
  *  - `.lovable/memory/features/top-jumper-visibility-toggle.md`
  *

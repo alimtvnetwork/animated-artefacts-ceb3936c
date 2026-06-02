@@ -7,14 +7,14 @@ type: reference
 # What to read (AI onboarding map)
 
 If you are an AI agent resuming this repo with **zero context**, read these
-files **in order**. Mirror of the root [`README.md`](../../../README.md)
+files **in order**. Mirror of the root [`readme.md`](../../../readme.md)
 "🤖 For AI agents — what to read & how JSON works" section. Keep both in sync.
 
 ## 1. Orient — folder structure
 
-- `spec/README.md` — canonical spec layout; which numbered folder owns what.
-- `spec/21-slides-system/README.md` — slide-engine system docs (how slides behave).
-- `spec/21-slides-system/llm/00-README.md` — entry point to the AI authoring pack.
+- `spec/readme.md` — canonical spec layout; which numbered folder owns what.
+- `spec/21-slides-system/readme.md` — slide-engine system docs (how slides behave).
+- `spec/21-slides-system/llm/00-readme.md` — entry point to the AI authoring pack.
 - `.lovable/memory/index.md` — project-wide rules to apply EVERY loop.
 
 Folders that matter:
@@ -37,7 +37,7 @@ legacy/                         inert/archived material (php/ placeholder) — n
 ```
 
 > Root holds only config + entry + the dirs above; every top-level + `spec/*`
-> folder has a `README.md` (convention over configuration). See root `README.md`
+> folder has a `readme.md` (convention over configuration). See root `readme.md`
 > "Repository map".
 
 ## 2. Learn the JSON — structure, fields, contracts

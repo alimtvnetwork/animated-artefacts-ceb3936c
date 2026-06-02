@@ -102,7 +102,7 @@ hover transitions to instant.
 
 2026-04-30: simpler camera box with grace-window hide.
 2026-05-01 (v2): presenter asked for resize + tray icon + fullscreen
-mode + single-key shortcuts. Spec promoted to `spec/21-slides-system/64-presenter-webcam.md`.
+mode + single-key shortcuts. Spec promoted to `spec/21-slides-system/66-presenter-webcam.md`.
 
 See [issue 27](../../../spec/22-slides-issues/27-presenter-webcam-overlay.md)
-and [spec 64](../../../spec/21-slides-system/64-presenter-webcam.md).
+and [spec 64](../../../spec/21-slides-system/66-presenter-webcam.md).

@@ -3,7 +3,7 @@
  *
  * # What this is for
  * The Reference Gallery on `/style-guide` (and the LLM authoring pack at
- * `spec/slides/llm/assets/INDEX.md`) both depend on a fixed set of PNG
+ * `spec/slides/llm/assets/index.md`) both depend on a fixed set of PNG
  * screenshots existing at known paths AND at known resolutions. A silent
  * 404 (missing file) or a re-export at the wrong size would degrade the
  * gallery without surfacing any runtime error — so we pin both invariants
@@ -62,7 +62,7 @@ export interface ReferenceAssetManifest {
  *   2. Mirror it into `spec/slides/llm/assets/{topic}/foo.png` so the
  *      LLM pack stays self-contained.
  *   3. Add an entry below + a row in `ReferenceGallery.tsx` + a row in
- *      `spec/slides/llm/assets/INDEX.md`.
+ *      `spec/slides/llm/assets/index.md`.
  */
 export const REFERENCE_ASSETS: readonly ReferenceAssetManifest[] = [
   {

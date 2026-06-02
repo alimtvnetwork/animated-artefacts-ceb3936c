@@ -8,11 +8,11 @@
 
 ```
 /spec/
-  ├── architecture/    Slides.md, architecture.md
-  ├── audit/           README.md, 01-blind-llm-gap-analysis.md, 00-phase1-inventory.md (this file)
+  ├── architecture/    slides.md, architecture.md
+  ├── audit/           readme.md, 01-blind-llm-gap-analysis.md, 00-phase1-inventory.md (this file)
   ├── issues/          22-app-issues.md
   └── slides/
-      ├── README.md
+      ├── readme.md
       ├── 00-fundamentals.md … 41-per-slide-guide-set.md  (40 numbered specs)
       ├── deck.schema.json, deck-manifest.schema.json, slide.schema.json
       ├── assets/      reference screenshots
@@ -44,7 +44,7 @@ LLM authoring pack (already exists, will be **extended** in Phases 6–14):
 
 | # | File | Lines |
 |---|------|-------|
-| 00 | `llm/00-README.md` | 121 |
+| 00 | `llm/00-readme.md` | 121 |
 | 01 | `llm/01-architecture-and-files.md` | 152 |
 | 02 | `llm/02-step-system-complete.md` | 479 |
 | 03 | `llm/03-sound-system-complete.md` | 224 |

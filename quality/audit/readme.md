@@ -14,7 +14,7 @@ Honest, file-cited delta between *what the spec says the slide system does* and 
 
 ```
 audit/
-  README.md                         (this file)
+  readme.md                         (this file)
   00-methodology.md
   01-inventory-spec.md
   02-inventory-implementation.md

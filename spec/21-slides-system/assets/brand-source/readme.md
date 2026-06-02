@@ -6,7 +6,7 @@ by the app at runtime.
 
 - `icons-image/` — raster logo masters (Logo-052…1024, light/dark).
 - `icons-svg/` — vector logos (`Logo.svg`, `Logo-Dark.svg`, `Logo-White.svg`).
-- `colors-themes/` — `Palette.md` + `Tokens.json` brand color references.
+- `colors-themes/` — `palette.md` + `Tokens.json` brand color references.
 
 ## Where the app actually loads brand assets
 Runtime brand assets live in **`src/assets/brand/`** and are rendered via the

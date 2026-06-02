@@ -8,7 +8,7 @@ log; the orientation below is the fast path for newcomers (human or AI).
 
 Read [`.lovable/what-to-read.md`](.lovable/what-to-read.md) first (the onboarding
 map), then [`.lovable/memory/index.md`](.lovable/memory/index.md) (always-apply
-rules) and [`spec/README.md`](spec/README.md) (spec layout).
+rules) and [`spec/readme.md`](spec/readme.md) (spec layout).
 A full reorganization plan lives in [`.lovable/reorg-plan.md`](.lovable/reorg-plan.md).
 
 This README also carries the same guidance inline — see **[📂 Folder structure](#-folder-structure-what-each-path-owns)**,
@@ -21,7 +21,7 @@ This README also carries the same guidance inline — see **[📂 Folder structu
 |---|---|
 | `src/` | The React app. `slides/` = renderer engine, `builder/` = deck builder UI, `pages/` = routes, `components/` = shared UI, `hooks/`, `lib/`, `types/`, `assets/` (bundled), `test/`. |
 | `front-end/` | **Runtime deck data.** `project/<deck>/data/` is what the app loads live; `slide-template/` = starter JSON per slide type; `themes/`. |
-| `spec/` | Canonical, numbered spec layout. See `spec/README.md`. System design (`21-…`), per-slide content (`26-…`), issues (`22-…`), research (`15-…`), camera/number packs. |
+| `spec/` | Canonical, numbered spec layout. See `spec/readme.md`. System design (`21-…`), per-slide content (`26-…`), issues (`22-…`), research (`15-…`), camera/number packs. |
 | `public/` | Served as-is at runtime (sounds, reference, robots.txt). |
 | `scripts/` | Audit/check tooling (TS) + `install/` (shell/ps1 installers). |
 | `quality/` | Generated quality evidence: `audit/`, `metrics/`, `reports/` (not hand-edited). |
@@ -32,7 +32,7 @@ This README also carries the same guidance inline — see **[📂 Folder structu
 
 ```text
 .
-├── README.md                       this file — repo map + AI onboarding + release log
+├── readme.md                       this file — repo map + AI onboarding + release log
 ├── index.html                      Vite entry
 ├── src/                            the React app
 │   ├── main.tsx · App.tsx          bootstrap + router
@@ -56,7 +56,7 @@ This README also carries the same guidance inline — see **[📂 Folder structu
 │   ├── project/<deck>/data/slides/NN-name.json   one slide per file — SOURCE OF TRUTH
 │   ├── slide-template/             copy-me starter JSON, one per slideType
 │   └── themes/                     runtime theme data
-├── spec/                           canonical numbered specs (see spec/README.md)
+├── spec/                           canonical numbered specs (see spec/readme.md)
 │   ├── 21-slides-system/           HOW the engine works: fundamentals, schemas, llm/ pack
 │   ├── 26-slide-definitions/       WHAT specific decks contain (per-deck JSON+MD)
 │   ├── 22-slides-issues/           bug reports — one numbered file each
@@ -77,14 +77,14 @@ This README also carries the same guidance inline — see **[📂 Folder structu
 ```
 
 > Convention: one folder = one concern; every top-level and `spec/*` folder has its
-> own `README.md`. Root holds only config + entry + these dirs.
+> own `readme.md`. Root holds only config + entry + these dirs.
 
 ## 📖 Which files the AI must read (in order)
 
 1. [`.lovable/what-to-read.md`](.lovable/what-to-read.md) — onboarding map (the canonical, fullest version of this workflow).
 2. [`.lovable/memory/index.md`](.lovable/memory/index.md) — Core rules applied on EVERY action (brand, themes, constraints).
 3. [`.lovable/coding-guidelines.md`](.lovable/coding-guidelines.md) — 12 hard coding rules (≤8-line functions, no `any`, files ≤100 lines, DRY, no inline hex).
-4. [`spec/README.md`](spec/README.md) — which numbered spec folder owns what.
+4. [`spec/readme.md`](spec/readme.md) — which numbered spec folder owns what.
 5. [`spec/21-slides-system/00-fundamentals.md`](spec/21-slides-system/00-fundamentals.md) + `slide.schema.json` / `deck.schema.json` — the JSON contract.
 6. [`src/slides/contracts.ts`](src/slides/contracts.ts) + [`src/slides/loader.ts`](src/slides/loader.ts) — runtime validation + load path.
 
@@ -255,7 +255,7 @@ v0.182.0 — PPTX export renders TableSlide, CodeBlockSlide, BoxDiagramSlide, ER
 
 v0.181.1 — LLM authoring docs for TableSlide, CodeBlockSlide, BoxDiagramSlide, LayoutSlide.
 - Added 4 field-by-field authoring contracts under `spec/slides/llm/`: `27a-table-slide.md`, `27b-code-block-slide.md`, `27c-box-diagram-slide.md`, `27d-layout-slide.md`. Each follows the established LLM-pack shape: minimal valid example → required envelope fields → `content.*` field-by-field tables → behaviors-for-free → forbidden patterns → companion `.md` brief checklist. Cross-references the existing pack (`23-slide-type-contracts.md`, `06-json-authoring-cheatsheet.md`, `27e-layout-grid-presets.md` placeholder for the deck-wide grid presets feature).
-- Updated `00-README.md` reading-order table with the four new entries (plus a missing `26-click-reveal-contract.md` row that was already on disk but not listed). Updated `23-slide-type-contracts.md` required-fields table to add rows for `MetricGridSlide`, `TableSlide`, `CodeBlockSlide`, `BoxDiagramSlide`, `ERDiagramSlide`, `LayoutSlide` so the single-source-of-truth table is current.
+- Updated `00-readme.md` reading-order table with the four new entries (plus a missing `26-click-reveal-contract.md` row that was already on disk but not listed). Updated `23-slide-type-contracts.md` required-fields table to add rows for `MetricGridSlide`, `TableSlide`, `CodeBlockSlide`, `BoxDiagramSlide`, `ERDiagramSlide`, `LayoutSlide` so the single-source-of-truth table is current.
 - Each doc covers every shipped field for that slide type as of v0.181 — including v0.179 TableSlide cell fade-in, v0.180 CodeBlockSlide copy button + line emphasis + line-numbers gutter, v0.177 BoxDiagram crow's-foot cardinality, and the v0.181 9-preset `layout` map for LayoutSlide. Forbidden lists capture the contract caps (TableSlide ≤12 rows × 8 cols, BoxDiagram ≤20 nodes, LayoutSlide ≤6 slots, CodeBlockSlide ≤30 lines guidance).
 - Verified: `bunx vitest run` 217/217 (spec-parity left alone — `spec/slides/llm/` is documentation, not deck JSON).
 
@@ -415,7 +415,7 @@ v0.115.0 — Cross-platform install scripts + strict-types CI.
 - Added `.github/workflows/ci.yml` — strict types CI on every push/PR: `tsc --noEmit` (app + node), grep guard forbidding `: any`/`<any>`/`as any` in `src/**` (excl. `ui/`+`test/`), ESLint with `@typescript-eslint/no-explicit-any: error`, Vitest, production build. Concurrency-grouped with cancel-in-progress.
 - Hardened `eslint.config.js`: `no-explicit-any: error`, `no-unsafe-function-type: error`, `no-wrapper-object-types: error`, `ban-ts-comment: error` (allow ts-expect-error with description). Tests + `src/components/ui/**` exempt. Policy: `any` is banned (unsafe escape hatch); `unknown` is allowed (type-safe, requires narrowing).
 - Fixed pre-existing `prefer-const` lint error in `src/slides/components/ConstraintInspectorPanel.tsx` (`RESOLVER_TRIPPED`).
-- Rewrote `README.md` with proper sections: one-line install (curl/irm), what gets staged, local dev, 30-second authoring guide, CI guarantees, project structure, link to LLM authoring pack.
+- Rewrote `readme.md` with proper sections: one-line install (curl/irm), what gets staged, local dev, 30-second authoring guide, CI guarantees, project structure, link to LLM authoring pack.
 - Memory: added `.lovable/memory/features/install-scripts.md` and `.lovable/memory/features/ci-strict-types.md`; updated `.lovable/memory/index.md`.
 - All checks green: 0 explicit `any` in authored source, tsc clean (app+node), 19/19 Vitest tests pass, ESLint 0 errors.
 
@@ -1445,13 +1445,13 @@ v0.81.3 — LLM authoring pack complete (Phases 13–19)
 - spec/slides/llm/16-voice-to-slide-protocol.md — six-question intake + decision tree
 - spec/slides/llm/17-do-and-dont.md — 10-section approved/forbidden matrix
 - spec/slides/llm/18-acceptance-checklist.md — 40-box pass/fail gate with scoring tiers
-- spec/slides/llm/assets/INDEX.md — annotated overlay (asset ↔ playbook)
+- spec/slides/llm/assets/index.md — annotated overlay (asset ↔ playbook)
 - spec/slides/llm/19-remediation-pack.md — Audit 02 gap closures (G1 ASCII refs, G2 new-type recipe, G3 required-fields, G4 variety matrix)
 - spec/audit/02-blind-llm-gap-analysis-v2.md — pack pre-remediation: 8.9/10
 - spec/audit/03-blind-llm-reaudit.md — pack post-remediation: 9.6/10 (ship gate ≥9.5 PASSED)
 - .lovable/memory/features/llm-authoring-pack.md — registered as canonical
 - .lovable/memory/index.md — pack added to memories list
-- spec/slides/llm/00-README.md — file 19 added to reading order
+- spec/slides/llm/00-readme.md — file 19 added to reading order
 - package.json — bumped 0.80.6 → 0.81.3
 
 let's start now 2026-04-26 18:45
@@ -1465,7 +1465,7 @@ v0.82.0 — R1 closed: rendered PNG references for empty asset folders
 - spec/slides/llm/assets/background/ambient-drift.png — default ambient preset render
 - spec/slides/llm/assets/typography/scale.png — 8-rung type ladder
 - spec/slides/llm/assets/authoring/json-flow.png — voice→JSON authoring flowchart
-- spec/slides/llm/assets/INDEX.md — sections 4–7 promoted from "empty" to populated
+- spec/slides/llm/assets/index.md — sections 4–7 promoted from "empty" to populated
 - package.json — bumped 0.81.4 → 0.82.0 (minor: new capability, R1 closed)
 
 let's start now 2026-04-26 19:25
@@ -1603,11 +1603,11 @@ v0.94.0 — Brand inset locked to 218px (was viewport-scaled clamp)
 
 let's start now 2026-04-26 17:00
 v0.95.0 — Webcam overlay: research + spec + LLM guide + memory (RESEARCH ONLY, no runtime)
-- spec/research/README.md — NEW. Establishes the `spec/research/` folder convention: pre-implementation analysis docs that answer (1) verbatim user ask, (2) what the browser actually allows, (3) how it lands in this codebase, (4) open questions, (5) recommended path. Each research doc graduates to a `spec/slides/NN-*.md` runtime spec + `spec/slides/llm/NN-*.md` LLM authoring guide once implementation lands.
+- spec/research/readme.md — NEW. Establishes the `spec/research/` folder convention: pre-implementation analysis docs that answer (1) verbatim user ask, (2) what the browser actually allows, (3) how it lands in this codebase, (4) open questions, (5) recommended path. Each research doc graduates to a `spec/slides/NN-*.md` runtime spec + `spec/slides/llm/NN-*.md` LLM authoring guide once implementation lands.
 - spec/research/01-webcam-overlay.md — NEW. Deep dive: getUserMedia browser-support matrix, PTZ vs CSS-crop vs MediaPipe trade-offs, lifecycle gotchas (single-stream rule, OS camera-indicator cleanup, iframe `allow="camera"` requirement), file forecast, draft `WebcamSpec` JSON schema, 5 open questions for user sign-off, v1/v2 split (cover crop now, MediaPipe auto-frame later).
 - spec/slides/51-webcam-overlay.md — NEW. Runtime spec stub (status: PROPOSED). Locks 7 hard rules even pre-implementation: one stream per deck, slide-level field, deck-level singleton overlay, opt-in per slide, audio always off, mirror by default, no auto-prompt, static export omits webcam.
 - spec/slides/llm/20-webcam-overlay.md — NEW. LLM authoring guide so any future AI knows the JSON shape: schema, placement rules (presets vs freeform with 218px brand-inset awareness), entrance options, zoom/crop strategies, decoration defaults (rounded/gold/shadow/mirror), pre-flight checklist + explicit "do NOT emit `content.webcam` until runtime exists" gate.
-- spec/slides/llm/00-README.md — added row for the new file 20 in the reading-order table.
+- spec/slides/llm/00-readme.md — added row for the new file 20 in the reading-order table.
 - .lovable/memory/features/webcam-overlay.md — NEW. Memory rule with frozen schema + 8 locked rules + implementation forecast. Cross-references all three docs above so future sessions discover the canonical contract.
 - .lovable/memory/index.md — added entry pointing at the new memory file.
 - package.json bumped 0.94.0 → 0.95.0 (minor: new public spec surface + LLM contract; runtime still unchanged).
@@ -1660,7 +1660,7 @@ v0.97.0 — Title slide ambient: removed video/file-text/users + relocated Figma
 - Output: `spec/audit/05-blind-llm-phase16.md` (also at `/mnt/documents/audit-16-blind-llm.md`).
 - Aggregate score: **7.8 / 10** (regression vs Audit 03's 9.6, because new subsystems entered scope: Webcam overlay, Click-Reveal/Hotspots, Accessibility, Theme-swap payload). Step/Sound/JSON shape/Acceptance still 9–10/10.
 - Top high-severity gaps surfaced: (1) Click-Reveal & Hotspot rendering rules MISSING — recommend new `21-click-reveal-and-hotspots.md`; (2) Ambient ownership conflict between file 04 §A.2 and file 08 §2 — `SlideStage` vs slide-type mounting must be picked; (3) FocusTimelineSlide carousel anatomy MISSING.
-- `spec/audit/README.md` index updated.
+- `spec/audit/readme.md` index updated.
 
 ## v0.102.0 — let's start now 2026-04-26 17:18 (UTC+8)
 - Applied Audit-16's top-3 high-severity fixes, then re-audited (Phase 17).
@@ -1669,10 +1669,10 @@ v0.97.0 — Title slide ambient: removed video/file-text/users + relocated Figma
   - `spec/slides/llm/08-background-system.md` §2 — added "Mounted by" column + ownership rule: `SlideStage` paints ink + chrome, slide-type owns ambient. Closes Audit-16 §2.2.
   - `spec/slides/llm/04-ambient-and-title-background.md` §A.2 — cross-references the same rule.
   - `spec/slides/llm/02-step-system-complete.md` §18 — added FocusTimelineSlide carousel anatomy (windowSize, layout math, autoplay, reduced-motion, sound, acceptance). Closes Audit-16 §2.3.
-  - `spec/slides/llm/00-README.md` — index now lists file 21.
+  - `spec/slides/llm/00-readme.md` — index now lists file 21.
   - `spec/slides/llm/16-voice-to-slide-protocol.md` §8 — added rule: never hallucinate hotspot coordinates; ask user or use capsule reveals (closes Phase-17's only new gap).
 - Re-audit result: `spec/audit/06-blind-llm-phase17-reaudit.md` — aggregate **9.8/10 (+2.0)**. Click-reveal 2→10, ambient 8→10, focus-carousel 8→10. **Ship gate ≥9.5 PASSED.** 22 of 40 acceptance boxes verifiable from pack alone; 18 inherently require live runtime/DOM inspection.
-- `spec/audit/README.md` index updated.
+- `spec/audit/readme.md` index updated.
 
 ## v0.103.0 — let's start now 2026-04-26 17:21 (UTC+8)
 - Spec: added `spec/slides/llm/22-add-new-slide-type.md` — end-to-end recipe for shipping a brand-new `slideType`.
@@ -1687,7 +1687,7 @@ v0.97.0 — Title slide ambient: removed video/file-text/users + relocated Figma
   8) deck JSON + MD example
 - Includes 9-box acceptance checklist (tsc, direct URL, builder thumbnail, grid, reduced-motion, sound, no raw hex, no `scale()` on text, `titleClassFor`).
 - Documents 5 common mistakes pulled from past PR history (blank grid thumbnail, stale TS server, default-case fallthrough, required-field regression, brand-header collision).
-- LLM pack index (`00-README.md`) updated; no runtime code changes.
+- LLM pack index (`00-readme.md`) updated; no runtime code changes.
 
 ## v0.104.0 — let's start now 2026-04-26 17:25 (UTC+8)
 - **NEW**: Machine-checkable per-`slideType` JSON contracts.
@@ -1700,7 +1700,7 @@ v0.97.0 — Title slide ambient: removed video/file-text/users + relocated Figma
 - `assertValidSlides()` is the strict variant — throws on first failure with named message: `[deck] Slide #N "name" (TypeSlide) failed contract:\n  • path: message`.
 - Added 7-test contract suite (`src/test/contracts.test.ts`) covering accept/reject paths for every type + REQUIRED_FIELDS audit. All pass.
 - Added `spec/slides/llm/23-slide-type-contracts.md` documenting the contract surface, required-fields table, sub-contracts, boot behavior, failure format, and the 4-step recipe for extending the contract when adding a new slideType.
-- Indexed in `00-README.md`.
+- Indexed in `00-readme.md`.
 
 ## v0.105.0 — let's start now 2026-04-26 17:32 (UTC+8)
 - **Reference imagery** — regenerated four diagrammatic proofs for the LLM authoring pack at `spec/slides/llm/assets/`:
@@ -1710,7 +1710,7 @@ v0.97.0 — Title slide ambient: removed video/file-text/users + relocated Figma
   - `authoring/json-flow.png` — 6-node flow: Voice/Text → 6-Q Intake → Template → Variety Guard → 3 Artifacts → 40-box Checklist, color-coded by stage with arrows between. Source: spec files 15, 16.
 - All four rendered with InstrumentSans + JetBrainsMono (from canvas-design skill fonts) so glyphs like `×`, `·`, `§`, `—` render correctly — earlier renders had bitmap-fallback fonts that produced `☐` boxes.
 - QA pass: visual inspection confirmed no clipping, proper margins on every canvas, all labels readable, palette consistent (Noir & Gold).
-- Index already references all four asset paths in `spec/slides/llm/assets/INDEX.md` — no doc changes needed.
+- Index already references all four asset paths in `spec/slides/llm/assets/index.md` — no doc changes needed.
 
 ## v0.106.0 — let's start now 2026-04-26 17:38 (UTC+8)
 - Spec: added `spec/slides/llm/24-collision-matrix.md` — the authoritative 5×4 `transition × textAnimation` grid for the deck's animation enums (`SlideTransition` ×5, `TextAnimation` ×4 = 20 cells).
@@ -1720,7 +1720,7 @@ v0.97.0 — Title slide ambient: removed video/file-text/users + relocated Figma
 - §4 documents three deck-wide rules the local matrix cannot enforce: 3-in-a-row transition ban (needs N-2), reduced-motion override, TitleSlide/AdvanceStepSlide internal transition remap.
 - §5 5-step authoring procedure tied to file 18 acceptance checklist box #22.
 - §6 sketches the runtime `isPairAllowed` + `neighborSafe` checker that would emit warnings in the same format as the slide-type contract violations from v0.104.0.
-- Indexed in `00-README.md`; previous §G4 retained as quick-reference (this file is now the source of truth).
+- Indexed in `00-readme.md`; previous §G4 retained as quick-reference (this file is now the source of truth).
 
 ## v0.107.0 — let's start now 2026-04-26 17:42 (UTC+8)
 - **Keyboard**: `F` now toggles fullscreen from anywhere in the deck (still respects form-field guards; allowed even when the grid overview is open). `Esc` continues to exit. `src/pages/SlideDeckPage.tsx` keydown handler.
@@ -1729,7 +1729,7 @@ v0.97.0 — Title slide ambient: removed video/file-text/users + relocated Figma
 
 ## v0.108.0 — let's start now 2026-04-27 01:36 (UTC+8)
 - **Phase 18 audit**: ran the blind-LLM re-audit against pack 00–24 + new visual assets + the consolidated `mem://features/house-style` memory. Aggregate score **9.85/10 (+0.05 vs Phase 17)** — clears the 9.5/10 ship gate with margin. Phase-17's hotspot coord-hallucination gap is closed (file 16 §8). New 10/10 sections: slide-type contracts (file 23), add-new-slide-type guide (file 22), collision matrix (file 24). Visual reference assets scored 9/10 — controller + step folders still placeholder-thin. Only authoring-time gap still open: hotspot keyboard a11y (file 21 §9 → recommended Phase-19 starting point). Acceptance checkboxes satisfiable from pack alone went 22 → 24 of 40.
-- **Files**: created `spec/audit/07-blind-llm-phase18-reaudit.md`, updated `spec/audit/README.md` index row, bumped `package.json` to 0.108.0.
+- **Files**: created `spec/audit/07-blind-llm-phase18-reaudit.md`, updated `spec/audit/readme.md` index row, bumped `package.json` to 0.108.0.
 
 ## v0.109.0 — let's start now 2026-04-27 01:42 (UTC+8)
 - **Schema discriminator**: `spec/slides/slide.schema.json` now exposes a top-level `discriminator: { propertyName: "slideType" }` block + a `oneOf` of 10 per-type variants (TitleSlide, MiddleTitleSlide, SectionDividerSlide, KeywordSlide, CapsuleListSlide, StepTimelineSlide, FocusTimelineSlide, AdvanceStepSlide, ImageSlide, QrMeetingSlide). Replaces the previous `allOf` of `if/then` blocks. Ajv 8 + `discriminator: true` now jumps straight to the matching branch and surfaces a focused error on the actual offending field — e.g. `content/keywords/minItems` for KeywordSlide — instead of cascading "must match exactly one of oneOf" against all 10 branches.

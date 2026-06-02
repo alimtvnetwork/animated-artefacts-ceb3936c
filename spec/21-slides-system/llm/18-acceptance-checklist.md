@@ -106,7 +106,7 @@
 - **30–34** = stop. Re-read the referenced file for each ❌ before
   re-submitting.
 - **< 30** = the slide does not understand the system. Restart from
-  `00-README.md` → `06-json-authoring-cheatsheet.md`.
+  `00-readme.md` → `06-json-authoring-cheatsheet.md`.
 
 ---
 

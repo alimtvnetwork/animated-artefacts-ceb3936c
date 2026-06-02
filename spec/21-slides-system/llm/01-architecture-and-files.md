@@ -49,7 +49,7 @@ mirrors the canonical project layout so you never have to guess.
 │       │   ├── NN-name.json          ← runtime source of truth
 │       │   └── NN-name.md            ← human design note
 │       └── llm/                      THIS INSTRUCTION PACK (read first)
-│           ├── 00-README.md
+│           ├── 00-readme.md
 │           ├── 01-architecture-and-files.md (this file)
 │           ├── 02-step-system-complete.md
 │           ├── 03-sound-system-complete.md

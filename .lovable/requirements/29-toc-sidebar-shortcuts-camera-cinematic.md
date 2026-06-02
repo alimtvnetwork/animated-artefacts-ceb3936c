@@ -3,7 +3,7 @@
 **Logged:** 2026-05-02 (Window 2 task 29 / 40)
 **Source:** voice message bundling six asks. See ambiguity log
 [`29-toc-sidebar-and-shortcut-rebind.md`](../question-and-ambiguity/29-toc-sidebar-and-shortcut-rebind.md).
-**Spec changes:** appended §15 to `spec/21-slides-system/64-presenter-webcam.md`.
+**Spec changes:** appended §15 to `spec/21-slides-system/66-presenter-webcam.md`.
 
 > This document is the **plain-English brief** the user explicitly asked
 > for before any code changes. Every implementation detail here is

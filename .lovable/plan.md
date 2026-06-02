@@ -16,7 +16,7 @@ Steps 1–30 shipped the four image sources (asset / SVG / Base64 / data URI), t
 **Why:** show how to place 2–3 small figures in one row via repeated `inlineThumbnail`/`iconBadge` slots. Document the density budget.
 
 ### 35. Register `image-examples` in the deck switcher / docs index — ~15 min
-**Why:** today it's only reachable via `?deck=image-examples`. Cross-link from `spec/README.md` and the LLM catalog so it's discoverable.
+**Why:** today it's only reachable via `?deck=image-examples`. Cross-link from `spec/readme.md` and the LLM catalog so it's discoverable.
 
 ### 36. JSON image-source lint / CI sanity — ~30 min
 **Why:** catch broken `image` srcs (missing asset file, malformed data URI) at build/test time. Add a test that walks every deck slide's `image` and asserts it resolves.

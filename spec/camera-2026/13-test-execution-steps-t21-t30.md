@@ -1,6 +1,6 @@
 # Test, Release & Maintenance Execution — Steps T21–T30
 
-This is the next 10 after `12-test-execution-steps-T11-T20.md`. T01–T20 covered
+This is the next 10 after `12-test-execution-steps-t11-t20.md`. T01–T20 covered
 scaffolding, automated coverage, integration, performance, and first sign-off.
 T21–T30 cover regression-proofing, release, and post-release maintenance so the
 camera feature stays healthy after it ships.

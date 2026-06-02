@@ -3,7 +3,7 @@
  * controller keys. Shown once (gated by `useOnboardingFlag`), re-openable from
  * the presenter menu ("Show intro again").
  *
- * Implements spec/controller-2026/11-build-substeps-C07.md:
+ * Implements spec/controller-2026/11-build-substeps-c07.md:
  *  - C07.2  centered card shell (Radix Dialog → focus-trap + Esc + restore)
  *  - C07.3  core key legend pulled from the single `SHORTCUTS` source
  *  - C07.4  ≤3-step story (nav → fullscreen → shortcuts + music)
