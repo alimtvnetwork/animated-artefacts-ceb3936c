@@ -220,6 +220,21 @@ const cursorStyle = autoHideCursor.hidden ? ('none' as const) : undefined;
   This contract is intentional: the cursor should reappear only when the user
   moves or interacts **over the camera surface**, not when they move the mouse
   over controller chrome, slide content, or empty stage space.
+
+  > **2026-06-02 fix — the `on` card hover-wake.** The `on` card's **outer
+  > wrapper is `pointer-events:none`** (it only carries the halo + footprint),
+  > so its `onPointerMove` never fires. The real activity source on the `on`
+  > card is the **inner draggable frame** (`pointer-events:auto`), whose
+  > `onPointerMove={onDragPointerMove}` previously called `registerActivity()`
+  > *after* the `if (!dragRef.current) return` guard — meaning a plain hover
+  > (no active drag) never woke the cursor. **`registerActivity()` must be the
+  > FIRST line of both `onDragPointerMove` and `onResizePointerMove`, before
+  > any drag/resize guard,** so every pointer move over the frame wakes the
+  > cursor; the drag/resize math still runs only when a gesture is in
+  > progress. On `pointerup` the gesture handlers call `hideNow()` so the
+  > cursor vanishes immediately after a move/resize and re-shows on the next
+  > hover, then auto-hides again after the idle delay.
+
 - `cursorStyle` is applied to every camera surface root:
   - `stage` root `style.cursor`
   - `fullscreen` root `style.cursor`

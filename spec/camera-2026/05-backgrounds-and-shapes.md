@@ -145,3 +145,35 @@ The PNGs live at `assets/camera-2026/*` (repo) and `spec/camera-2026/assets/*`
 - Everything animates only when `prefers-reduced-motion` is not set.
 
 Continue to [`06-implementation-steps-1-30.md`](./06-implementation-steps-1-30.md).
+
+## 8 — IMPLEMENTED (2026-06-02) — exact wiring in `PresenterWebcamOverlay`
+
+Status: **shipped on the live `on` card.** Blind-reimplementation recipe:
+
+1. **Assets copied into the bundle** — `02-squircle-mask-black.png`,
+   `03-squircle-plate-white-shadow.png`, `04-squircle-plate-gold-shadow.png`
+   now live in `src/assets/camera-2026/`. The overlay imports the gold plate:
+   `import squirclePlateGold from '@/assets/camera-2026/04-squircle-plate-gold-shadow.png';`
+2. **Squircle crop** — the inner frame's `borderRadius` is the §3a superellipse
+   approximation `'38% / 34%'` for the default rectangle, `'50%'` for circle
+   (`O`), `999` when minimized (puck). `overflow:hidden` clips the `<video>`.
+3. **Plate layer (the "shade")** — an `<img src={squirclePlateGold}>` is rendered
+   *before* the inner frame inside the stable outer wrapper:
+   - `platePad = Math.round(visualWidth * 0.07)` → plate grows `platePad` on every
+     side, so the gold rim + soft shadow of the PNG shows around the camera and
+     it reads as a larger framed surface.
+   - `left/top = HALO - platePad`, `width/height = visual{Width,Height} + platePad*2`.
+   - `zIndex:0`, `pointerEvents:'none'`, `aria-hidden`, `draggable={false}` — purely
+     decorative, never intercepts drag/resize.
+   - The inner frame is bumped to `zIndex:1` so the video always sits above the plate.
+   - Animated with the same 420ms cubic-bezier left/top/width/height transition as
+     the frame so the plate tracks resize/move smoothly.
+4. **Visibility gate** — `showPlate = !minimized && !circleShape`. The plate is
+   hidden in circle mode (the round crop owns its own ring and the squircle plate
+   silhouette would not match) and when minimized to a puck.
+5. **No raw hex** — the plate shade/rim ship inside the PNG; the frame's own border
+   and glow still use `hsl(var(--gold))` / `hsl(var(--background))` tokens per §7.
+
+> Future variant work (white/neutral plate `03`, a `plateVariant` toggle persisted
+> as `riseup.webcam.plate`, pure-CSS rim per §4) remains optional — the gold PNG
+> path above satisfies the "shade behind the camera" request.

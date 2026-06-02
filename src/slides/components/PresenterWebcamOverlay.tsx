@@ -36,6 +36,11 @@ import {
 import { usePresenterWebcam } from './usePresenterWebcam';
 import { useAutoFrame } from './useAutoFrame';
 import { useAutoHideCursor } from './useAutoHideCursor';
+// spec/camera-2026/05 — decorative squircle "plate" that sits behind the
+// live camera to read as a bigger, OBS-style framed surface with a soft
+// drop shadow + gold rim. The PNG already bakes the squircle curve, gold
+// rim and shadow, so we just lay it behind the masked video.
+import squirclePlateGold from '@/assets/camera-2026/04-squircle-plate-gold-shadow.png';
 
 function readStageScale(): number {
   if (typeof document === 'undefined') return 1;
@@ -388,9 +393,14 @@ export function PresenterWebcamOverlay() {
   );
   const onDragPointerMove = useCallback(
     (e: React.PointerEvent<HTMLDivElement>) => {
+      // Wake the cursor on ANY movement over the camera surface — not only
+      // while dragging — so a simple hover brings the cursor back (it then
+      // auto-hides again after the idle delay). The outer wrapper is
+      // pointer-events:none, so this inner-frame handler is the surface's
+      // real activity source.
+      autoHideCursor.registerActivity();
       const d = dragRef.current;
       if (!d || d.pointerId !== e.pointerId) return;
-      autoHideCursor.registerActivity();
       const scale = readStageScale();
       const dx = (e.clientX - d.startX) / scale;
       const dy = (e.clientY - d.startY) / scale;
@@ -432,9 +442,9 @@ export function PresenterWebcamOverlay() {
   );
   const onResizePointerMove = useCallback(
     (e: React.PointerEvent<HTMLDivElement>) => {
+      autoHideCursor.registerActivity();
       const d = resizeRef.current;
       if (!d || d.pointerId !== e.pointerId) return;
-      autoHideCursor.registerActivity();
       const scale = readStageScale();
       const dx = (e.clientX - d.startX) / scale;
       const nextW = Math.max(FREE_MIN_W, Math.min(FREE_MAX_W, d.baseW + dx));
@@ -829,7 +839,19 @@ export function PresenterWebcamOverlay() {
   const visualTop = circleShape ? position.y + (size.h - circleDiameter) / 2 : position.y;
   const visualWidth = circleShape ? circleDiameter : size.w;
   const visualHeight = circleShape ? circleDiameter : size.h;
-  const frameRadius = minimized ? 999 : circleShape ? '50%' : 12;
+  // spec/camera-2026/05 §3a — squircle = superellipse. The cheap, crisp,
+  // theme-tinting path is a border-radius superellipse approximation
+  // (38% / 34%). Circle (`O`) overrides to 50%; minimized is a puck (999).
+  const frameRadius = minimized ? 999 : circleShape ? '50%' : '38% / 34%';
+  // spec/camera-2026/05 §2 — the decorative plate sits BEHIND the video and
+  // extends ~7% beyond each edge, so a gold-rimmed, soft-shadowed border of
+  // the squircle plate shows on all sides and the camera reads as bigger.
+  // Hidden while minimized (puck) and while in circle mode (the round crop
+  // has its own ring and the squircle plate would not match its silhouette).
+  const platePad = Math.round(visualWidth * 0.07);
+  const showPlate = !minimized && !circleShape;
+
+
 
   return (
     <div
@@ -892,11 +914,40 @@ export function PresenterWebcamOverlay() {
           }}
         />
       )}
+      {/*
+       * spec/camera-2026/05 §2 + §6 — decorative squircle PLATE behind the
+       * camera. The PNG bakes the squircle curve, the gold→ember rim and the
+       * soft drop shadow, so we simply lay it behind the masked video,
+       * grown by `platePad` on every side. pointer-events:none so it never
+       * intercepts drags; aria-hidden because it is purely decorative.
+       */}
+      {showPlate && (
+        <img
+          src={squirclePlateGold}
+          alt=""
+          aria-hidden="true"
+          draggable={false}
+          style={{
+            position: 'absolute',
+            left: HALO - platePad,
+            top: HALO - platePad,
+            width: visualWidth + platePad * 2,
+            height: visualHeight + platePad * 2,
+            pointerEvents: 'none',
+            userSelect: 'none',
+            zIndex: 0,
+            transition:
+              'left 420ms cubic-bezier(0.22, 1, 0.36, 1), top 420ms cubic-bezier(0.22, 1, 0.36, 1), width 420ms cubic-bezier(0.22, 1, 0.36, 1), height 420ms cubic-bezier(0.22, 1, 0.36, 1)',
+          }}
+        />
+      )}
       {/* Sharp box. */}
+
       <div
         ref={shapeFrameRef}
         style={{
           position: 'absolute',
+          zIndex: 1,
           // Inner frame morphs INSIDE the stable outer wrapper. Offsets
           // re-center the circle horizontally/vertically over the same
           // pixel region the rectangle occupied, so the morph reads as a
