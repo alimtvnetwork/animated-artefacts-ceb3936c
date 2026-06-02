@@ -1154,11 +1154,11 @@ export function PresenterWebcamOverlay() {
                 onPointerDown={(e) => e.stopPropagation()}
                 onClick={(e) => {
                   e.stopPropagation();
-                  toggleCircleShape();
+                  cycleShapeOverlay();
                 }}
-                aria-label={circleShape ? 'Switch to rectangle frame (o)' : 'Switch to circle frame (o)'}
+                aria-label="Cycle frame shaping: rectangle, circle, circle + glow (o)"
                 aria-pressed={circleShape}
-                title={circleShape ? 'Frame: Circle — o' : 'Frame: Rectangle — o'}
+                title="Frame shaping — O cycles rectangle → circle → circle + glow"
                 style={{
                   ...chromeBtnStyle,
                   background: circleShape
