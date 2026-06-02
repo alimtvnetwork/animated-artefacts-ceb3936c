@@ -24,5 +24,6 @@ into runnable Vitest specs + manual QA. Each has reasoning + time.
 2. **T01–T10 above** — run after implementation lands. (~9 h)
 3. **Sign-off** — README status flip to "done" once acceptance checklist passes.
 
-This is the final documentation layer — after this, only *execution* (write the
-code, run these tests) remains; there are no further sets of 10 to expand.
+This is the first verification block. Continue with
+`12-test-execution-steps-T11-T20.md` for the next 10 execution / hardening
+steps.

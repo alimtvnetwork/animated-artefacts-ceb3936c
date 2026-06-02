@@ -44,6 +44,8 @@ JSON, and never persisted to the deck. It is pure runtime UI driven by
 | [`09-build-log-steps-11-20.md`](./09-build-log-steps-11-20.md) | Steps **11–20** expanded — reasoning + time estimates per step. |
 | [`10-build-log-steps-21-30.md`](./10-build-log-steps-21-30.md) | Steps **21–30** expanded + whole-feature ~16 h roll-up. |
 | [`assets/`](./assets/) | The 4 reference / background images (see manifest below). |
+| [`11-test-execution-steps-T01-T10.md`](./11-test-execution-steps-T01-T10.md) | Test / acceptance execution steps **T01–T10** with reasoning + time. |
+| [`12-test-execution-steps-T11-T20.md`](./12-test-execution-steps-T11-T20.md) | Test / hardening / sign-off execution steps **T11–T20** with reasoning + time. |
 
 ---
 
