@@ -682,6 +682,29 @@ export function PresenterWebcamOverlay() {
           pointerEvents: 'auto',
         }}
       >
+        {haloVisible && (
+          <div
+            ref={shapeHaloRef}
+            aria-hidden="true"
+            style={{
+              position: 'absolute',
+              left: '50%',
+              top: '50%',
+              width: `calc(${circleShape ? 'min(100vmin, 100vh)' : '100%'} + ${HALO * 2}px)`,
+              height: `calc(${circleShape ? 'min(100vmin, 100vh)' : '100%'} + ${HALO * 2}px)`,
+              transform: 'translate(-50%, -50%)',
+              borderRadius: circleShape ? '50%' : 28,
+              background:
+                'radial-gradient(ellipse at center, hsl(var(--gold) / 0.24) 0%, hsl(var(--gold) / 0.12) 46%, transparent 78%)',
+              WebkitMaskImage:
+                'radial-gradient(ellipse at center, hsl(0 0% 0% / 1) 30%, hsl(0 0% 0% / 0.4) 65%, hsl(0 0% 0% / 0) 100%)',
+              maskImage:
+                'radial-gradient(ellipse at center, hsl(0 0% 0% / 1) 30%, hsl(0 0% 0% / 0.4) 65%, hsl(0 0% 0% / 0) 100%)',
+              pointerEvents: 'none',
+              transition: 'width 420ms cubic-bezier(0.22, 1, 0.36, 1), height 420ms cubic-bezier(0.22, 1, 0.36, 1), border-radius 420ms cubic-bezier(0.22, 1, 0.36, 1), opacity 240ms ease',
+            }}
+          />
+        )}
         {/* Wrapper carries the pop animation so the keyframed `transform:
             scale(...)` doesn't clobber the inner <video>'s autoFrame
             transform. Wrapper also owns the border-radius + clip so the
@@ -732,6 +755,16 @@ export function PresenterWebcamOverlay() {
                 gap: 8,
               }}
         >
+          <WebcamChromeButton
+            onClick={cycleShapeOverlay}
+            label="Cycle frame shaping"
+            shortcut="O"
+            pressed={circleShape || haloVisible}
+            side={stageControlsOnLeft ? 'right' : 'left'}
+            style={circleShape ? circleChromeBtnStyle : fullscreenChromeBtnStyle}
+          >
+            {haloVisible ? <Sparkles size={16} /> : circleShape ? <Circle size={16} /> : <Square size={16} />}
+          </WebcamChromeButton>
           <WebcamChromeButton
             onClick={() => toggleStage()}
             label="Exit stage camera"
@@ -810,6 +843,29 @@ export function PresenterWebcamOverlay() {
           willChange: 'transform, opacity',
         }}
       >
+        {haloVisible && (
+          <div
+            ref={shapeHaloRef}
+            aria-hidden="true"
+            style={{
+              position: 'absolute',
+              left: '50%',
+              top: '50%',
+              width: `calc(${circleShape ? 'min(100vmin, 100vh)' : '100%'} + ${HALO * 2}px)`,
+              height: `calc(${circleShape ? 'min(100vmin, 100vh)' : '100%'} + ${HALO * 2}px)`,
+              transform: 'translate(-50%, -50%)',
+              borderRadius: circleShape ? '50%' : 28,
+              background:
+                'radial-gradient(ellipse at center, hsl(var(--gold) / 0.24) 0%, hsl(var(--gold) / 0.12) 46%, transparent 78%)',
+              WebkitMaskImage:
+                'radial-gradient(ellipse at center, hsl(0 0% 0% / 1) 30%, hsl(0 0% 0% / 0.4) 65%, hsl(0 0% 0% / 0) 100%)',
+              maskImage:
+                'radial-gradient(ellipse at center, hsl(0 0% 0% / 1) 30%, hsl(0 0% 0% / 0.4) 65%, hsl(0 0% 0% / 0) 100%)',
+              pointerEvents: 'none',
+              transition: 'width 420ms cubic-bezier(0.22, 1, 0.36, 1), height 420ms cubic-bezier(0.22, 1, 0.36, 1), border-radius 420ms cubic-bezier(0.22, 1, 0.36, 1), opacity 240ms ease',
+            }}
+          />
+        )}
         {/* Wrapper carries the pop animation so the keyframed scale
             doesn't clobber the inner <video>'s autoFrame transform.
             Mirror of the stage-fill structure above. */}
@@ -858,6 +914,16 @@ export function PresenterWebcamOverlay() {
                 gap: 8,
               }}
         >
+          <WebcamChromeButton
+            onClick={cycleShapeOverlay}
+            label="Cycle frame shaping"
+            shortcut="O"
+            pressed={circleShape || haloVisible}
+            side={fullscreenControlsOnLeft ? 'right' : 'left'}
+            style={circleShape ? circleChromeBtnStyle : fullscreenChromeBtnStyle}
+          >
+            {haloVisible ? <Sparkles size={16} /> : circleShape ? <Circle size={16} /> : <Square size={16} />}
+          </WebcamChromeButton>
           <WebcamChromeButton
             onClick={exitFullscreen}
             label="Exit fullscreen camera"
