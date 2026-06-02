@@ -33,3 +33,7 @@ Over the presenter webcam surfaces the mouse cursor must auto-hide:
 ## Spec
 Detailed in `spec/camera-2026/02-overlay-rendering-and-surfaces.md` §8 (full
 contract) and cross-referenced in `03-shortcuts-and-controls.md` header.
+
+## 2026-06-02 — hover-wake gotcha + squircle plate
+- The `on` card outer wrapper is `pointer-events:none`; the inner draggable frame is the real activity source. `registerActivity()` MUST be the first line of `onDragPointerMove` AND `onResizePointerMove`, before the drag/resize guard, or a plain hover never wakes the hidden cursor. `hideNow()` on pointerup hides instantly after a move.
+- Decorative squircle "plate" (spec/camera-2026/05 §8): `<img>` of `src/assets/camera-2026/04-squircle-plate-gold-shadow.png` rendered behind the inner frame, grown by `platePad = round(visualWidth*0.07)` per side, `zIndex:0`, `pointer-events:none`. Frame bumped to `zIndex:1`, squircle `borderRadius:'38% / 34%'`. Shown only when `!minimized && !circleShape`.
