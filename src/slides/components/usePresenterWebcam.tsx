@@ -513,6 +513,53 @@ export function PresenterWebcamProvider({ children }: { children: ReactNode }) {
   }, []);
 
   /**
+   * v6 (2026-06-02) — the `O` 3-state shaping cycle. Cycles:
+   *   rectangle → circle → circle+overlay → rectangle …
+   * "Overlay" is the glow halo. This replaces the old plain
+   * rectangle↔circle toggle so the third press reveals the shaping
+   * overlay the presenter asked for. Persists both flags via the same
+   * localStorage keys used by toggleCircleShape / toggleHalo.
+   */
+  const cycleShapeOverlay = useCallback(() => {
+    // Derive the current step from the two persisted flags:
+    //   step 0 = (circle off, halo off) → go to circle on, halo off
+    //   step 1 = (circle on,  halo off) → go to circle on, halo on
+    //   step 2 = (circle on,  halo on ) → wrap to rectangle (both off)
+    let nextCircle: boolean;
+    let nextHalo: boolean;
+    if (!circleShape && !haloVisible) {
+      nextCircle = true;
+      nextHalo = false;
+    } else if (circleShape && !haloVisible) {
+      nextCircle = true;
+      nextHalo = true;
+    } else {
+      nextCircle = false;
+      nextHalo = false;
+    }
+
+    setCircleShape(nextCircle);
+    setHaloVisible(nextHalo);
+    try {
+      window.localStorage.setItem(CIRCLE_KEY, nextCircle ? '1' : '0');
+      window.localStorage.setItem(HALO_KEY, nextHalo ? '1' : '0');
+    } catch {
+      /* quota / privacy mode — in-memory state still wins */
+    }
+
+    const label = !nextCircle
+      ? 'Webcam: rectangle'
+      : nextHalo
+        ? 'Webcam: circle + glow'
+        : 'Webcam: circle';
+    toast(label, {
+      id: 'webcam-shape',
+      description: 'Press O to cycle frame shaping.',
+      duration: 1600,
+    });
+  }, [circleShape, haloVisible]);
+
+  /**
    * Stage-fill toggle (the `1` shortcut). When entering, captures the
    * exact size + position + phase so a second `1` press atomically
    * restores all three. Ignored from off/requesting/tray/denied per
