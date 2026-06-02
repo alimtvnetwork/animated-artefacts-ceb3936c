@@ -32,6 +32,7 @@
       "enum": [
         "TitleSlide",
         "MiddleTitleSlide",
+        "SectionDividerSlide",
         "KeywordSlide",
         "CapsuleListSlide",
         "StepTimelineSlide",
@@ -40,8 +41,20 @@
         "StepsChain3DSlide",
         "ImageSlide",
         "QrMeetingSlide",
-        "SectionDividerSlide",
-        "MetricGridSlide"
+        "MetricGridSlide",
+        "TableSlide",
+        "CodeBlockSlide",
+        "BoxDiagramSlide",
+        "ERDiagramSlide",
+        "LayoutSlide",
+        "DatabaseDiagramSlide",
+        "DataTableSlide",
+        "NumberCalloutSlide",
+        "EquationSlide",
+        "ChecklistSlide",
+        "TileSlide",
+        "BlastRadiusSlide",
+        "SessionOutlineSlide"
       ],
       "description": "Selects the React renderer. Each type expects a different `content` shape — see slide-types catalog. `FocusTimelineSlide` and `AdvanceStepSlide` consume Next/Prev internally — see spec/slides/11-focus-timeline.md and spec/slides/18-advance-step-cinematic.md. `MetricGridSlide` renders 2-6 headline metric cells — see spec/slides/llm/22b-metric-grid-worked-example.md."
     },
