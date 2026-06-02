@@ -87,6 +87,38 @@ describe('Steps Chain 3D — depth/opacity/blur hierarchy', () => {
 });
 
 /* ------------------------------------------------------------------ */
+/* 1b — Depth-aware medallion (marker disc) hierarchy                 */
+/* ------------------------------------------------------------------ */
+
+describe('Steps Chain 3D — depth-aware medallion (marker) hierarchy', () => {
+  it('active marker is full size + opacity', () => {
+    expect(markerDepth(0)).toEqual({ scale: 1.0, opacity: 1.0 });
+  });
+
+  it('marker scale strictly decreases as distance grows (active → adjacent → distant)', () => {
+    const s0 = markerDepth(0).scale;
+    const s1 = markerDepth(1).scale;
+    const s2 = markerDepth(2).scale;
+    expect(s1).toBeLessThan(s0);
+    expect(s2).toBeLessThan(s1);
+  });
+
+  it('marker opacity strictly decreases with distance but never drops below the 0.42 floor', () => {
+    const o0 = markerDepth(0).opacity;
+    const o1 = markerDepth(1).opacity;
+    const o2 = markerDepth(2).opacity;
+    expect(o1).toBeLessThan(o0);
+    expect(o2).toBeLessThan(o1);
+    expect(o2).toBeGreaterThanOrEqual(0.42);
+  });
+
+  it('markers stay brighter than their card tier (wayfinding waypoints)', () => {
+    // Distant marker must not vanish like the distant card (opacity 0.30).
+    expect(markerDepth(2).opacity).toBeGreaterThan(STEPS_CHAIN_3D_DEPTH.distant.opacity);
+  });
+});
+
+/* ------------------------------------------------------------------ */
 /* 2 — Active card has no solid background fill                        */
 /* ------------------------------------------------------------------ */
 
