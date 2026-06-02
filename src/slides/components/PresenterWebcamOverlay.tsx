@@ -604,6 +604,7 @@ export function PresenterWebcamOverlay() {
       <div
         role="region"
         aria-label="Camera stage-fill"
+        className={autoHideCursor.hidden ? 'cam-cursor-hidden' : undefined}
         onPointerMove={autoHideCursor.registerActivity}
         onPointerDown={autoHideCursor.registerActivity}
         onWheel={autoHideCursor.registerActivity}
