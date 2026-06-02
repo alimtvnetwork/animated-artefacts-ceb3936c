@@ -58,6 +58,33 @@ interface StepItem {
 }
 ```
 
+## Interactive variant: `steps[]` (StepTimeline / Focus / AdvanceStep)
+
+The **static** outline family reads `items[]` (above). The **interactive**
+members (`StepTimelineSlide`, `FocusTimelineSlide`, `AdvanceStepSlide`) read
+`content.steps[]` instead — a superset of `StepItem` that adds presenter
+narration and click affordances. This is the shape used by showcase slide 3.
+
+```ts
+interface StepSpec {
+  label: string;             // "Step 1" — short index label
+  title: string;             // keywords-only headline
+  subtitle?: string;         // one supporting line
+  /** Right-panel narration. The ONLY place full sentences are allowed.
+   *  String form (Timeline/Focus) OR { title?, bullets[], meta?, body? } (3D). */
+  description?: string | { title?: string; bullets?: string[]; meta?: string; body?: string };
+  capsule?: { text: string; color: string };   // .capsule-{tone} only
+  expand?: CapsuleExpandSpec;  // inline expanding card on click
+  revealSlide?: number;        // click routes to this slide number
+  revealLabel?: string;        // accessible label for the reveal action
+}
+```
+
+Rule: `items[]` and `steps[]` are the same mental model — index + title +
+optional capsule. Pick `steps[]` only when the slide is presenter-advanced or
+needs `expand`/`revealSlide`. Never invent a third per-slide key.
+
+
 ## Field rules
 
 - `title` (slide) and `items` are the only required fields. A slide with fewer
