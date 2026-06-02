@@ -37,12 +37,10 @@ import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip
 import { usePresenterWebcam } from './usePresenterWebcam';
 import { useAutoFrame } from './useAutoFrame';
 import { useAutoHideCursor } from './useAutoHideCursor';
-// spec/camera-2026/05 — decorative squircle "plate" that sits behind the
-// live camera to read as a bigger, OBS-style framed surface with a soft
-// drop shadow + gold rim. The PNG already bakes the squircle curve, gold
-// rim and shadow, so we just lay it behind the masked video.
-import squirclePlateGold from '@/assets/camera-2026/04-squircle-plate-gold-shadow.png';
-import squircleMaskBlack from '@/assets/camera-2026/02-squircle-mask-black.png';
+// spec/camera-2026/05 — the live camera reads as a framed squircle surface
+// purely via CSS: border-radius for the silhouette, a thin gold→ember border
+// + soft glow for the rim, and a transparent interior. No plate/mask PNGs are
+// used anymore (they baked a white fill that produced a thick opaque ring).
 import alimPresenter from '@/assets/brand/alim-presenter.png';
 
 function readStageScale(): number {
@@ -1198,17 +1196,11 @@ export function PresenterWebcamOverlay() {
   // theme-tinting path is a border-radius superellipse approximation
   // (38% / 34%). Circle (`O`) overrides to 50%; minimized is a puck (999).
   const frameRadius = minimized ? 999 : circleShape ? '50%' : '38% / 34%';
-  // spec/camera-2026/05 §2 — the decorative plate sits BEHIND the video and
-  // extends ~7% beyond each edge, so a gold→ember rimmed, soft-shadowed border
-  // of the squircle plate shows on all sides and the camera reads as bigger.
-  // SINGLE transparent plate only (`04-squircle-plate-gold-shadow.png`): it
-  // bakes the squircle curve, the gold→ember rim and the soft shadow on a
-  // TRANSPARENT background. The old opaque white "paper" plate was removed —
-  // it filled the squircle white behind the video and added no value.
-  // Hidden while minimized (puck) and while in circle mode (the round crop
-  // has its own ring and the squircle plate would not match its silhouette).
-  const platePad = Math.round(visualWidth * 0.07);
-  const showPlate = !minimized && !circleShape;
+  // spec/camera-2026/05 §2 — NO decorative plate. The masked video carries
+  // its own thin gold→ember rim + soft drop shadow via CSS on the inner
+  // frame, so the squircle interior stays fully TRANSPARENT (image 3). The
+  // old white-filled plate PNG produced a thick opaque ring (image 1) and is
+  // gone — never reintroduce a fill plate behind the video.
   const showCircleControls = !minimized && circleShape;
   const circleControlColumnHeight = 4 * CIRCLE_CONTROL_SIZE + 3 * 10;
   const circleVisualRight = position.x + (size.w + circleDiameter) / 2;
@@ -1277,34 +1269,9 @@ export function PresenterWebcamOverlay() {
           }}
         />
       )}
-      {/*
-       * spec/camera-2026/05 §2 + §6 — decorative squircle PLATE behind the
-       * camera. The PNG bakes the squircle curve, the gold→ember rim and the
-       * soft drop shadow, so we simply lay it behind the masked video,
-       * grown by `platePad` on every side. pointer-events:none so it never
-       * intercepts drags; aria-hidden because it is purely decorative.
-       */}
-      {showPlate && (
-        <img
-          src={squirclePlateGold}
-          alt=""
-          aria-hidden="true"
-          draggable={false}
-          style={{
-            position: 'absolute',
-            left: HALO - platePad,
-            top: HALO - platePad,
-            width: visualWidth + platePad * 2,
-            height: visualHeight + platePad * 2,
-            pointerEvents: 'none',
-            userSelect: 'none',
-            zIndex: 1,
-            transition:
-              'left 420ms cubic-bezier(0.22, 1, 0.36, 1), top 420ms cubic-bezier(0.22, 1, 0.36, 1), width 420ms cubic-bezier(0.22, 1, 0.36, 1), height 420ms cubic-bezier(0.22, 1, 0.36, 1)',
-          }}
-        />
-      )}
+      {/* No plate — the masked video + CSS rim below carry the look. */}
       {/* Sharp box. */}
+
 
 
       <div
@@ -1323,18 +1290,12 @@ export function PresenterWebcamOverlay() {
           height: visualHeight,
           borderRadius: frameRadius,
           overflow: 'hidden',
-          WebkitMaskImage: !minimized && !circleShape ? `url(${squircleMaskBlack})` : undefined,
-          maskImage: !minimized && !circleShape ? `url(${squircleMaskBlack})` : undefined,
-          WebkitMaskSize: !minimized && !circleShape ? '100% 100%' : undefined,
-          maskSize: !minimized && !circleShape ? '100% 100%' : undefined,
-          WebkitMaskRepeat: !minimized && !circleShape ? 'no-repeat' : undefined,
-          maskRepeat: !minimized && !circleShape ? 'no-repeat' : undefined,
-          WebkitMaskPosition: !minimized && !circleShape ? 'center' : undefined,
-          maskPosition: !minimized && !circleShape ? 'center' : undefined,
-          background: 'hsl(var(--background))',
-          border: '1.5px solid hsl(var(--gold) / 0.6)',
+          // Transparent interior — the squircle silhouette comes purely from
+          // border-radius, the rim from the border + glow below (image 3).
+          background: 'transparent',
+          border: '2px solid hsl(var(--gold) / 0.85)',
           boxShadow:
-            '0 0 32px hsl(var(--gold) / 0.18), 0 12px 32px hsl(var(--background) / 0.6)',
+            '0 0 0 1px hsl(var(--ember) / 0.25), 0 0 28px hsl(var(--gold) / 0.22), 0 16px 40px hsl(var(--background) / 0.7)',
           cursor: cursorStyle ?? (dragging ? 'grabbing' : 'grab'),
           userSelect: 'none',
           touchAction: 'none',
