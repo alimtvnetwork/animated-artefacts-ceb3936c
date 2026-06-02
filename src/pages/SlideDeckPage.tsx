@@ -531,7 +531,9 @@ export default function SlideDeckPage() {
         markShortcutHintSeen('shape');
         setShapeHintOpen(false);
         if (webcam.state.phase === 'on' || webcam.state.phase === 'fullscreen' || webcam.state.phase === 'stage') {
-          webcam.toggleCircleShape();
+          // v6 (2026-06-02) — `O` is now a 3-state shaping cycle:
+          // rectangle → circle → circle+overlay(glow) → rectangle.
+          webcam.cycleShapeOverlay();
         }
         return;
       }
