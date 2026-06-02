@@ -190,7 +190,7 @@ if (failures.length > 0) {
 
 const report = lines.join('\n') + '\n';
 const outPath =
-  process.env.REFERENCE_QA_OUT ?? resolve(process.cwd(), 'reports/reference-qa.md');
+  process.env.REFERENCE_QA_OUT ?? resolve(process.cwd(), 'quality/reports/reference-qa.md');
 mkdirSync(dirname(outPath), { recursive: true });
 writeFileSync(outPath, report, 'utf8');
 

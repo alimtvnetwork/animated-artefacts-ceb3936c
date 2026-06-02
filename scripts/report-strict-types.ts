@@ -84,7 +84,7 @@ interface ESLintFileResult {
 // ──────────────────────────────────────────────────────────────────────────
 
 const REPO_ROOT = resolve(__dirname, "..");
-const HISTORY_PATH = join(REPO_ROOT, "metrics", "strict-types-history.json");
+const HISTORY_PATH = join(REPO_ROOT, "quality", "metrics", "strict-types-history.json");
 const TRACKED_ESLINT_RULES = new Set([
   "@typescript-eslint/no-explicit-any",
   "@typescript-eslint/no-unsafe-assignment",
