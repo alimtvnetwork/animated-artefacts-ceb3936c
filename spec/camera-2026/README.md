@@ -40,6 +40,9 @@ JSON, and never persisted to the deck. It is pure runtime UI driven by
 | [`05-backgrounds-and-shapes.md`](./05-backgrounds-and-shapes.md) | **The squircle plates** — how to place backgrounds beside/behind the camera. |
 | [`06-implementation-steps-1-30.md`](./06-implementation-steps-1-30.md) | The canonical **30-step** build order, blind-AI ready. |
 | [`07-acceptance-checklist-and-tests.md`](./07-acceptance-checklist-and-tests.md) | Done-criteria + the Vitest suite to write. |
+| [`08-build-log-steps-01-10.md`](./08-build-log-steps-01-10.md) | Steps **1–10** expanded — reasoning + time estimates per step. |
+| [`09-build-log-steps-11-20.md`](./09-build-log-steps-11-20.md) | Steps **11–20** expanded — reasoning + time estimates per step. |
+| [`10-build-log-steps-21-30.md`](./10-build-log-steps-21-30.md) | Steps **21–30** expanded + whole-feature ~16 h roll-up. |
 | [`assets/`](./assets/) | The 4 reference / background images (see manifest below). |
 
 ---
