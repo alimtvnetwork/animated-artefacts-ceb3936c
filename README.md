@@ -1,3 +1,35 @@
+# Riseup Asia — Slide Presentation
+
+A React + Vite slide-presentation engine. Decks are JSON-driven; the renderer
+lives in `src/slides/`. This README's lower sections are the running release
+log; the orientation below is the fast path for newcomers (human or AI).
+
+## 🤖 For AI agents — start here
+
+Read [`.lovable/what-to-read.md`](.lovable/what-to-read.md) first (the onboarding
+map), then [`.lovable/memory/index.md`](.lovable/memory/index.md) (always-apply
+rules) and [`spec/README.md`](spec/README.md) (spec layout).
+A full reorganization plan lives in [`.lovable/reorg-plan.md`](.lovable/reorg-plan.md).
+
+## Repository map (convention over configuration)
+
+| Folder | What lives here |
+|---|---|
+| `src/` | The React app. `slides/` = renderer engine, `builder/` = deck builder UI, `pages/` = routes, `components/` = shared UI, `hooks/`, `lib/`, `types/`, `assets/` (bundled), `test/`. |
+| `front-end/` | **Runtime deck data.** `project/<deck>/data/` is what the app loads live; `slide-template/` = starter JSON per slide type; `themes/`. |
+| `spec/` | Canonical, numbered spec layout. See `spec/README.md`. System design (`21-…`), per-slide content (`26-…`), issues (`22-…`), research (`15-…`), camera/number packs. |
+| `public/` | Served as-is at runtime (sounds, reference, robots.txt). |
+| `scripts/` | Audit/check tooling (TS) + `install/` (shell/ps1 installers). |
+| `quality/` | Generated quality evidence: `audit/`, `metrics/`, `reports/` (not hand-edited). |
+| `updates/spec/` | Per-change spec deltas (what/why/files/verify). |
+| `.lovable/` | AI brain: `memory/` rules, coding-guidelines, prompts, onboarding map, ambiguity log, `reorg-plan.md`. |
+
+> Convention: one folder = one concern, and every top-level + `spec/*` folder has
+> a `README.md` explaining what belongs there. The repo root holds only config,
+> entry files, and these top-level dirs — no build artifacts, duplicates, or loose files.
+
+---
+
 let's start now 2026-04-30 12:00
 
 ## v1.2.0 — Release notes (since v1.1.0)
