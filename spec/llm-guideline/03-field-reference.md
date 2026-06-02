@@ -12,7 +12,7 @@ This table is the fast lookup; the schema wins on conflict.
 |---|---|---|---|
 | `slideNumber` | int | unique per deck; maps to URL `/N` | duplicate → wrong routing |
 | `slideName` | string | lowercase-hyphenated; matches filename | mismatch confuses tooling |
-| `slideType` | enum | **12 schema types:** `TitleSlide` · `MiddleTitleSlide` · `KeywordSlide` · `CapsuleListSlide` · `StepTimelineSlide` · `FocusTimelineSlide` · `AdvanceStepSlide` · `StepsChain3DSlide` · `ImageSlide` · `QrMeetingSlide` · `SectionDividerSlide` · `MetricGridSlide`. **Extended renderer types** (`TableSlide` · `CodeBlockSlide` · `BoxDiagramSlide` · `LayoutSlide` · `TileSlide`) are documented in `27a`–`27d` + `28`. | unknown → load error |
+| `slideType` | enum | **25 runtime types** (source of truth = `src/slides/contracts.ts` → `SlideContract`, v7): `TitleSlide` · `MiddleTitleSlide` · `SectionDividerSlide` · `KeywordSlide` · `CapsuleListSlide` · `StepTimelineSlide` · `FocusTimelineSlide` · `AdvanceStepSlide` · `StepsChain3DSlide` · `ImageSlide` · `QrMeetingSlide` · `MetricGridSlide` · `TableSlide` · `CodeBlockSlide` · `BoxDiagramSlide` · `ERDiagramSlide` · `LayoutSlide` · `DatabaseDiagramSlide` · `DataTableSlide` · `NumberCalloutSlide` · `EquationSlide` · `ChecklistSlide` · `TileSlide` · `BlastRadiusSlide` · `SessionOutlineSlide`. The `slide.schema.json` enum is an older 12-type subset — when they disagree, the zod contract wins. | unknown → load error |
 | `transition` | enum | `FadeIn` · `SlideIn` · `PushIn` · `PushLeft` · `PushRight` | invalid → fails validation |
 | `textAnimation` | enum | `FadeIn` · `Bounce` · `SlideUp` · `Stagger` | invalid → fails validation |
 | `enabled` | bool | default `true`; `false` mutes the slide | — |
