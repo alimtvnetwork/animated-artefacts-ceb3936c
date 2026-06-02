@@ -1267,8 +1267,8 @@ export const StepsChain3DSlide = forwardRef<FocusTimelineHandle, Props>(
         // Spring-sampled bubble-down — same delay so the previous
         // marker's glow fades a beat after its card recedes.
         const keyframes = MARKER_CURVE.map((p) => {
-          const scale = 1.0 + (0.85 - 1.0) * p;
-          const opacity = 1.0 + (0.55 - 1.0) * p;
+          const scale = 1.0 + (baseScale - 1.0) * p;
+          const opacity = 1.0 + (baseOpacity - 1.0) * p;
           return { transform: `scale(${scale.toFixed(3)})`, opacity: opacity.toFixed(3) };
         });
         const a = el.animate(keyframes, {
