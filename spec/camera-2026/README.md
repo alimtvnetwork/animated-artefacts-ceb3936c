@@ -4,8 +4,8 @@
 > top-to-bottom and you will be able to re-implement the entire presenter
 > camera (webcam overlay) for the Riseup Asia slide-presentation app — every
 > phase, every keyboard shortcut, zoom in / zoom out, drag, resize, fullscreen,
-> stage-fill, circle/rectangle frame, face auto-framing, and the new
-> **squircle background plates** that make the camera look bigger and richer.
+> stage-fill, circle/rectangle frame, face auto-framing, and the
+> **CSS-only gold squircle rim** that frames the camera (no plate PNG; v2).
 
 This pack is **self-contained**. It quotes real code from the live
 implementation so you can reproduce it without reading `src/`. Where the live
