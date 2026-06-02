@@ -900,7 +900,7 @@ export function PresenterWebcamOverlay() {
           border: '1.5px solid hsl(var(--gold) / 0.6)',
           boxShadow:
             '0 0 32px hsl(var(--gold) / 0.18), 0 12px 32px hsl(var(--background) / 0.6)',
-          cursor: dragging ? 'grabbing' : 'grab',
+          cursor: cursorStyle ?? (dragging ? 'grabbing' : 'grab'),
           userSelect: 'none',
           touchAction: 'none',
           pointerEvents: 'auto',
