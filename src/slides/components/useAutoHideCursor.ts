@@ -100,6 +100,7 @@ export function useAutoHideCursor({ active, delay = 2500 }: AutoHideCursorOption
 
   const show = useCallback(() => {
     suppressUntilMoveRef.current = false;
+    suppressAnchorRef.current = null;
     setHidden(false);
     arm();
   }, [arm]);
