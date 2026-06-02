@@ -12,6 +12,7 @@ import type { ExpandPanelPayload } from '../components/ClickRevealExpandPanel';
 import { resolveStepEnter, resolveStepExit, resolveStepTopOffset, resolveSlideTopOffset, resolveStepRevealOrder, stepRevealDelayMs } from '../stepTiming';
 import { titleClassFor } from '../preset';
 import { Capsule } from '../components/Capsule';
+import { SlotImage } from '../components/SlotImage';
 import { toDescriptionString } from '../utils/descriptionString';
 import { stepMotionVariant } from '../utils/stepMotionVariant';
 import { useStepMotionOverride } from '../stepMotionOverride';
@@ -980,6 +981,18 @@ export const StepTimelineSlide = forwardRef<FocusTimelineHandle, StepTimelinePro
                     >
                       {isComplete ? <Check className="h-3.5 w-3.5" strokeWidth={2.5} /> : i + 1}
                     </div>
+
+                    {s.image && (
+                      <div className="shrink-0 self-center" data-step-thumbnail={i + 1}>
+                        <SlotImage
+                          src={s.image}
+                          alt={s.title}
+                          hint={{ slideType: spec.slideType, role: s.imageRole ?? 'inlineThumbnail' }}
+                        />
+                      </div>
+                    )}
+
+
 
                     <div
                       key={isActive ? `text-active-${i}-${active}` : `text-idle-${i}`}

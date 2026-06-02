@@ -1,0 +1,16 @@
+{
+  "slideNumber": 10,
+  "slideName": "image-with-caption",
+  "slideType": "ImageSlide",
+  "transition": "PushLeft",
+  "textAnimation": "SlideUp",
+  "enabled": true,
+  "isClickReveal": false,
+  "showBrandHeader": true,
+  "showPresenterChip": true,
+  "titleStyle": "white",
+  "content": {
+    "image": "/assets/examples/photo.png",
+    "caption": "A one-line caption sits under the figure — keep it short."
+  }
+}

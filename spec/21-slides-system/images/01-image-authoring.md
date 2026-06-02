@@ -54,3 +54,39 @@ JSON+MD pair under `spec/26-slide-definitions/image-examples/`.
 - Never hand-tune width/height in JSON — the slot owns sizing.
 - Alt text falls back to `content.title`; provide a real title for a11y.
 - Keep Base64/data-URI strings on a single JSON line (no wrapping).
+
+## Patterns added in batch 31–40
+
+### Caption under a figure (`ImageSlide`)
+```json
+"content": { "image": "/assets/examples/photo.png", "caption": "One short line." }
+```
+The caption renders under the figure as `.slide-caption` and feeds the image's
+alt text when no `title` is set.
+
+### Gallery row (2–3 figures)
+```json
+"content": {
+  "images": ["/assets/examples/photo.png", "/assets/examples/diagram.svg"],
+  "caption": "Each entry uses the inlineThumbnail slot."
+}
+```
+When `images[]` is present, `image` is ignored. Keep to **≤3** to respect the
+density budget.
+
+### Per-step thumbnails (`StepTimelineSlide`)
+```json
+"steps": [
+  { "label": "Step 1", "title": "Asset", "image": "/assets/examples/photo.png" }
+]
+```
+Each step may carry its own `image` (+ optional `imageRole`, default
+`inlineThumbnail`) rendered beside the row.
+
+## Size budget for inline images
+
+Inline Base64 / data-URI images live inside the JSON and bloat every load.
+`ImageSlide` logs a **dev-only warning** when an inline image exceeds ~10 KB,
+and the deck sanity test fails any inline image over 20 KB. For anything
+larger, ship the file through the `lovable-assets` CDN pipeline and reference
+its URL instead.

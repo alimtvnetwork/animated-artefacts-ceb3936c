@@ -20,3 +20,12 @@
 - Slots 2–5 share `bodyFigure` to show that *source* and *slot* are orthogonal.
 - Slots 6–7 keep the same images but change `imageRole` to show slot sizing.
 - Example assets live in `public/assets/examples/` (kept tiny on purpose).
+
+## Batch 31–40 additions
+
+| # | Slide | Demonstrates |
+|---|-------|--------------|
+| 8 | steps-with-thumbnails | `StepSpec.image` — per-step thumbnails (images + steps combo) |
+| 9 | title-hero-slot | `imageRole: "titleHero"` routing + caption |
+| 10 | image-with-caption | `content.caption` under a single figure |
+| 11 | image-gallery | `content.images[]` — 2–3 figure row |
