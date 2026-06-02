@@ -1,6 +1,6 @@
 # Test & Hardening Execution — Steps T11–T20
 
-This is the next 10 after `11-test-execution-steps-T01-T10.md`. These steps
+This is the next 10 after `11-test-execution-steps-t01-t10.md`. These steps
 cover the higher-risk integration, performance, fallback, and final sign-off
 work that should happen after the initial automated test scaffold exists.
 

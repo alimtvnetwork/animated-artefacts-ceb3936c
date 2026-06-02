@@ -232,7 +232,7 @@ function checkDeckManifests(): CheckResult {
       check: 'deck-manifest',
       severity: 'error',
       message: `Spec root not found: ${relative(ROOT, SPEC_DECKS)}`,
-      remediation: `Create at least one deck folder with a deck.json (see spec/README.md).`,
+      remediation: `Create at least one deck folder with a deck.json (see spec/readme.md).`,
     });
     return { issues };
   }

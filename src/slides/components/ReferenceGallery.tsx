@@ -8,7 +8,7 @@
  * typography ladder, JSON-flow diagram, controller pill, step-timeline
  * target/anti-pattern, presenter chip, brand wordmark. The gallery surfaces
  * all of them on `/style-guide`, grouped by topic, with a click-to-zoom
- * lightbox + the same "what to notice" caption from `INDEX.md`.
+ * lightbox + the same "what to notice" caption from `index.md`.
  *
  * # Asset pipeline
  * Source files live in `spec/slides/llm/assets/{topic}/*.png` (the canonical
@@ -20,7 +20,7 @@
  * # Adding a new reference
  *   1. Author the PNG into `spec/slides/llm/assets/{topic}/foo.png`.
  *   2. Copy it into `public/reference/{topic}/foo.png`.
- *   3. Add a row here AND in `spec/slides/llm/assets/INDEX.md`.
+ *   3. Add a row here AND in `spec/slides/llm/assets/index.md`.
  */
 import { useState } from 'react';
 import { ImageIcon, Maximize2, ExternalLink } from 'lucide-react';
@@ -33,7 +33,7 @@ interface ReferenceAsset {
   filename: string;
   /** Short title shown under the thumbnail. */
   title: string;
-  /** Single-line "what to notice" — mirrors the INDEX.md caption verbatim. */
+  /** Single-line "what to notice" — mirrors the index.md caption verbatim. */
   caption: string;
   /** Playbook files that cite this image, e.g. `02-step-system-complete.md §1`. */
   citedBy: string[];
@@ -49,7 +49,7 @@ interface ReferenceCategory {
   assets: ReferenceAsset[];
 }
 
-/** Single source of truth — must match `spec/slides/llm/assets/INDEX.md`. */
+/** Single source of truth — must match `spec/slides/llm/assets/index.md`. */
 const REFERENCE_CATEGORIES: ReferenceCategory[] = [
   {
     key: 'canvas',
@@ -174,7 +174,7 @@ const REFERENCE_CATEGORIES: ReferenceCategory[] = [
         title: 'Controller pill',
         caption:
           'Order: prev / "N/total" / next / share / fullscreen. Pill at bottom-center; hover-reveals.',
-        citedBy: ['00-README.md commandment 7'],
+        citedBy: ['00-readme.md commandment 7'],
       },
     ],
   },
@@ -198,7 +198,7 @@ export function ReferenceGallery() {
         </h2>
         <p className="text-xs text-muted-foreground max-w-2xl">
           One-click previews of every image cited by the LLM authoring pack
-          (<code className="font-mono text-gold">spec/slides/llm/assets/INDEX.md</code>).
+          (<code className="font-mono text-gold">spec/slides/llm/assets/index.md</code>).
           Click any thumbnail to zoom; the caption mirrors the "what to notice" line in the index.
         </p>
       </header>

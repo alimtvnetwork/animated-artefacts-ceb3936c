@@ -8,13 +8,13 @@ type: feature
 
 Rule: **one folder = one concern**, named so the name alone explains it.
 Root holds ONLY config + entry files + the dirs below — no build artifacts,
-duplicates, or loose files. Every top-level and `spec/*` folder has a `README.md`.
+duplicates, or loose files. Every top-level and `spec/*` folder has a `readme.md`.
 
 | Folder | Concern |
 |---|---|
 | `src/` | The React app. `slides/` engine, `builder/`, `pages/`, `components/`, `hooks/`, `lib/`, `types/`, `assets/` (bundled, incl. `brand/`), `test/`, `releases/`. |
 | `front-end/` | **Runtime deck data.** `project/<deck>/data/` = live decks; `slide-template/`; `themes/`. |
-| `spec/` | Numbered canonical specs (see `spec/README.md`): `15-research`, `21-slides-system` (system design + schemas + `llm/` pack + `assets/brand-source/`), `22-slides-issues`, `26-slide-definitions`, `27-slides-number`, `audit`, `camera-2026`, `controller-2026`. |
+| `spec/` | Numbered canonical specs (see `spec/readme.md`): `15-research`, `21-slides-system` (system design + schemas + `llm/` pack + `assets/brand-source/`), `22-slides-issues`, `26-slide-definitions`, `27-slides-number`, `audit`, `camera-2026`, `controller-2026`. |
 | `public/` | Served as-is at runtime (sounds, reference, robots.txt). |
 | `scripts/` | Audit/check/release tooling (TS) + `install/` (shell/ps1 installers). |
 | `quality/` | **Generated** quality evidence: `audit/`, `metrics/`, `reports/` — not hand-edited. |

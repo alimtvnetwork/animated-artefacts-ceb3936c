@@ -2,7 +2,7 @@
  * update-version-badge.ts
  *
  * Reads the current version from `package.json` and rewrites the
- * `<!-- BADGE:VERSION --> … <!-- /BADGE:VERSION -->` block in README.md
+ * `<!-- BADGE:VERSION --> … <!-- /BADGE:VERSION -->` block in readme.md
  * with a fresh shields.io URL. Idempotent — safe to run on every commit
  * or in CI. Themed in deck colors (gold #c9a84c on noir #0d0d0d).
  *
@@ -15,7 +15,7 @@ import { resolve } from 'node:path';
 
 const ROOT = resolve(import.meta.dirname ?? '.', '..');
 const PKG = resolve(ROOT, 'package.json');
-const README = resolve(ROOT, 'README.md');
+const README = resolve(ROOT, 'readme.md');
 
 const pkg = JSON.parse(readFileSync(PKG, 'utf8')) as { version: string };
 const version = pkg.version;
@@ -30,7 +30,7 @@ const badge =
 const readme = readFileSync(README, 'utf8');
 const block = /<!-- BADGE:VERSION -->[\s\S]*?<!-- \/BADGE:VERSION -->/;
 if (!block.test(readme)) {
-  console.error('BADGE:VERSION markers not found in README.md');
+  console.error('BADGE:VERSION markers not found in readme.md');
   process.exit(1);
 }
 

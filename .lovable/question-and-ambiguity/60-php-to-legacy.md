@@ -7,7 +7,7 @@
 Moved the root `php/` folder to `legacy/php/`.
 
 ## Reasoning
-- `php/` held only placeholder/stub files (`README.md`, `.gitkeep`,
+- `php/` held only placeholder/stub files (`readme.md`, `.gitkeep`,
   `index.php.placeholder`) — a reservation for a future PHP backend per an
   early architecture spec.
 - It is **not** referenced by `src/`, `index.html`, `vite.config.ts`, or any

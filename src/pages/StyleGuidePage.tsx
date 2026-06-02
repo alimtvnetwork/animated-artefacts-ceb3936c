@@ -235,7 +235,7 @@ export default function StyleGuidePage() {
             click-to-zoom gallery so authors don't need to dig through the
             repo for canvas / background / typography / authoring + the
             existing step / title / controller references. Source of truth
-            for paths + captions: `INDEX.md` next to those PNGs. */}
+            for paths + captions: `index.md` next to those PNGs. */}
         <ReferenceGallery />
       </main>
     </div>

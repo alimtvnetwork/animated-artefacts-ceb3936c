@@ -63,14 +63,14 @@ const tag = `v${version}`;
 
 /* ---------------- locate readme.md ---------------- */
 // Lowercase `readme.md` is the changelog file in this project; uppercase
-// `README.md` is the public quick-start. Prefer lowercase, fall back to
+// `readme.md` is the public quick-start. Prefer lowercase, fall back to
 // uppercase only if the lowercase one doesn't exist.
-const candidates = ['readme.md', 'README.md'];
+const candidates = ['readme.md', 'readme.md'];
 const readmePath = candidates
   .map(p => resolve(process.cwd(), p))
   .find(p => existsSync(p));
 if (!readmePath) {
-  console.error('extract-changelog: neither readme.md nor README.md found at project root');
+  console.error('extract-changelog: neither readme.md nor readme.md found at project root');
   process.exit(1);
 }
 const raw = readFileSync(readmePath, 'utf8');

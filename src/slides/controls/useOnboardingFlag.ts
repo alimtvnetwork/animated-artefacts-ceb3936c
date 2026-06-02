@@ -3,7 +3,7 @@
  * coachmark (`OnboardingCoachmark`) is shown. Persists in localStorage under
  * `ctrl.onboarded.v1`. Centralizing read/write keeps every dismiss path
  * (button / Esc / backdrop) consistent and the "Show intro again" menu item
- * trivial. See `spec/controller-2026/11-build-substeps-C07.md` (C07.1).
+ * trivial. See `spec/controller-2026/11-build-substeps-c07.md` (C07.1).
  */
 import { useCallback, useEffect, useState } from 'react';
 

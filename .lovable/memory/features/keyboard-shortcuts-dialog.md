@@ -22,4 +22,4 @@ type: feature
 - Showing this dialog over a builder textarea (must respect input-focus
   guard like every other shortcut in the deck).
 
-See spec/21-slides-system/64-presenter-webcam.md §15.6.
+See spec/21-slides-system/66-presenter-webcam.md §15.6.

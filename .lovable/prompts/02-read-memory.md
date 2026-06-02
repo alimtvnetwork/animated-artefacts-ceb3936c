@@ -36,8 +36,8 @@ Self-check before continuing:
 Real location: `spec/21-slides-system/`. There is **no** `spec/12-consolidated-guidelines/`.
 
 Read order:
-1. `spec/README.md` — folder map (15-research, 21-slides-system, 22-slides-issues, 26-slide-definitions, audit).
-2. `spec/21-slides-system/README.md` — system-spec table of contents.
+1. `spec/readme.md` — folder map (15-research, 21-slides-system, 22-slides-issues, 26-slide-definitions, audit).
+2. `spec/21-slides-system/readme.md` — system-spec table of contents.
 3. `spec/21-slides-system/00-fundamentals.md` — per-slide JSON contract (always read).
 4. Numbered files in `spec/21-slides-system/` **on demand** for the topic at hand (controller → `02-controller.md`, animations → `03-animation-rules.md`, themes → `07-theme-system.md`, etc.). Files 00–40+ exist; reading all of them upfront is wasteful.
 
@@ -69,7 +69,7 @@ Lookup table for THIS project (not the generic template):
 | Webcam overlay | `mem://features/webcam-halo-and-stage`, `spec/15-research/01-webcam-overlay.md` |
 | TOC sidebar / shortcuts | `mem://features/toc-sidebar`, `mem://features/keyboard-shortcuts-dialog` |
 | Bug reports | `spec/22-slides-issues/NN-*.md` (one per issue) |
-| Audit / phase gates | `audit/README.md`, `audit/00-methodology.md`, `audit/remediation-plan.md` |
+| Audit / phase gates | `audit/readme.md`, `audit/00-methodology.md`, `audit/remediation-plan.md` |
 | New deck content | `spec/26-slide-definitions/{deck}/` (spec) → `front-end/project/{deck}/` (runtime) |
 
 ---

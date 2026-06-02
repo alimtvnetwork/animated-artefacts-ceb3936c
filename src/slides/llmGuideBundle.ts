@@ -175,7 +175,7 @@ ${catalogRaw.trim()}
 ## 4 · Authoring pack — \`spec/21-slides-system/llm/\`
 
 The remainder of this document is every Markdown file from the canonical
-LLM authoring pack, concatenated in numeric order. Read \`00-README.md\`
+LLM authoring pack, concatenated in numeric order. Read \`00-readme.md\`
 first; the rest is reference material referenced from there.
 ${llmFiles}
 

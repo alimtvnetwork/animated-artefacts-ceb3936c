@@ -169,4 +169,4 @@ Reply `next` and I will append:
 
 ## 7. Index update
 
-Added to `updates/spec/README.md` as entry **13**.
+Added to `updates/spec/readme.md` as entry **13**.

@@ -22,11 +22,11 @@ duplicates, no loose files at the repo root.
 1. **Root is for config + entry only.** Allowed at root: `package.json`,
    `vite.config.ts`, `tsconfig*.json` (no `.bak`, no `.tsbuildinfo`), tailwind/
    postcss/eslint configs, `index.html`, `components.json`, `.gitignore`,
-   `README.md`, and the top-level dirs (`src/`, `spec/`, `front-end/`, `public/`,
+   `readme.md`, and the top-level dirs (`src/`, `spec/`, `front-end/`, `public/`,
    `scripts/`, `.lovable/`). Everything else gets a home.
 
 2. **Single README.** Delete the duplicate `readme.md` (byte-identical to
-   `README.md`). Lowercase variant is removed; only `README.md` survives.
+   `readme.md`). Lowercase variant is removed; only `readme.md` survives.
 
 3. **No build artifacts in git.** Remove `tsconfig.app.tsbuildinfo`,
    `tsconfig.node.tsbuildinfo`, `tsconfig.app.json.bak` and add patterns to
@@ -38,7 +38,7 @@ duplicates, no loose files at the repo root.
 
 5. **Scripts vs install scripts.** `run.ps1`, `slides-install.ps1`,
    `slides-install.sh` move into `scripts/install/`. `scripts/` keeps the audit/
-   check TS scripts. A `scripts/README.md` indexes what each script does.
+   check TS scripts. A `scripts/readme.md` indexes what each script does.
 
 6. **`metrics/` + `reports/` + `audit/` consolidate** under one
    `quality/` umbrella (`quality/metrics/`, `quality/reports/`, `quality/audit/`)
@@ -52,17 +52,17 @@ duplicates, no loose files at the repo root.
 8. **`front-end/` keeps its runtime role but gets a README.** It holds the LIVE
    decks the app loads (`front-end/project/<deck>/data/`), starter templates
    (`front-end/slide-template/`), and `front-end/themes/`. Add
-   `front-end/README.md` stating "runtime deck data — edited content here is what
+   `front-end/readme.md` stating "runtime deck data — edited content here is what
    ships." Do NOT move it (import paths depend on it).
 
 9. **`spec/` numbering stays canonical** — it is already convention-driven and
    referenced everywhere. Only fix gaps: ensure every numbered spec folder has a
-   `README.md` one-liner at its top.
+   `readme.md` one-liner at its top.
 
 10. **`updates/spec/NN-*.md` stays** as the per-change delta log; add
-    `updates/README.md` explaining the "what/why/files/verify" delta format.
+    `updates/readme.md` explaining the "what/why/files/verify" delta format.
 
-11. **`src/` layout is good — document it, don't move it.** Add `src/README.md`
+11. **`src/` layout is good — document it, don't move it.** Add `src/readme.md`
     mapping each subfolder: `slides/` (renderer engine), `builder/` (deck builder
     UI), `pages/` (routes), `components/` (shared UI), `hooks/`, `lib/`, `types/`,
     `assets/`, `test/`, `releases/`.
@@ -80,11 +80,11 @@ duplicates, no loose files at the repo root.
     `NN-kebab-case.md`; deck folders = kebab-case; slides = `NN-name.json` +
     `NN-name.md`; React files = existing project casing (do not rename code).
 
-15. **Every directory that a newcomer might open gets a `README.md`** (≤25 lines)
+15. **Every directory that a newcomer might open gets a `readme.md`** (≤25 lines)
     answering: what is this, what goes here, what does NOT go here, where to look
     next. This is the heart of "convention over configuration."
 
-16. **The onboarding contract** (`README.md` "For AI agents" section +
+16. **The onboarding contract** (`readme.md` "For AI agents" section +
     `.lovable/what-to-read.md` + `.lovable/memory/reference/what-to-read.md`)
     stays in three-way sync and is updated to reflect the new layout.
 
@@ -107,7 +107,7 @@ duplicates, no loose files at the repo root.
 ## PART B — Steps 21–100: Execution checklist
 
 ### Batch 1 — Safe deletions & root artifacts (21–30)
-21. Confirm `README.md` == `readme.md` byte-for-byte (`cmp`).
+21. Confirm `readme.md` == `readme.md` byte-for-byte (`cmp`).
 22. Delete `readme.md`.
 23. Delete `tsconfig.app.json.bak`.
 24. Delete `tsconfig.app.tsbuildinfo` and `tsconfig.node.tsbuildinfo`.
@@ -124,7 +124,7 @@ duplicates, no loose files at the repo root.
 33. Grep docs/README for those script paths; update references.
 34. Move `cam2.png`, `cam3.png`, `cam4.png` → `spec/camera-2026/assets/`.
 35. Grep for `cam2.png|cam3.png|cam4.png` references; update or confirm none.
-36. Add `scripts/README.md` (index of audit/check/install scripts).
+36. Add `scripts/readme.md` (index of audit/check/install scripts).
 37. Move root `plan.md` → `.lovable/` history or fold into this plan; decide+log.
 38. Run `bun run test`.
 39. Run `bun run build`.
@@ -137,7 +137,7 @@ duplicates, no loose files at the repo root.
 44. Move `reports/` → `quality/reports/`.
 45. Grep scripts/ for `metrics/`, `reports/`, `audit/` output paths.
 46. Update any script that writes to those paths.
-47. Add `quality/README.md` (generated quality evidence; not hand-edited).
+47. Add `quality/readme.md` (generated quality evidence; not hand-edited).
 48. Confirm `spec/audit/` (spec, not output) untouched.
 49. Run audit scripts that target moved dirs (smoke).
 50. Run `bun run test`.
@@ -148,7 +148,7 @@ duplicates, no loose files at the repo root.
 53. Grep `src/`, `vite.config.ts`, `index.html` for any `php` reference.
 54. Confirm `php/` is not imported/bundled at runtime.
 55. If dead: move `php/` → `legacy/php/` (or delete after confirmation).
-56. Add `legacy/README.md` explaining what legacy holds and that it is inert.
+56. Add `legacy/readme.md` explaining what legacy holds and that it is inert.
 57. Log decision in `.lovable/question-and-ambiguity/NN-php-legacy.md`.
 58. Run `bun run test`.
 59. Run `bun run build`.
@@ -169,14 +169,14 @@ duplicates, no loose files at the repo root.
 72. Batch 5 green ✔.
 
 ### Batch 6 — per-directory READMEs (73–84)
-73. `src/README.md` — subfolder map.
-74. `front-end/README.md` — runtime deck data warning.
-75. `public/README.md` — served-as-is assets.
-76. `scripts/README.md` — finalize (started in batch 2).
-77. `updates/README.md` — delta format.
+73. `src/readme.md` — subfolder map.
+74. `front-end/readme.md` — runtime deck data warning.
+75. `public/readme.md` — served-as-is assets.
+76. `scripts/readme.md` — finalize (started in batch 2).
+77. `updates/readme.md` — delta format.
 78. Ensure each `spec/NN-*/` has a top README (fill gaps).
-79. `quality/README.md` — finalize.
-80. `legacy/README.md` — finalize.
+79. `quality/readme.md` — finalize.
+80. `legacy/readme.md` — finalize.
 81. Verify all README links resolve (no dead relative links).
 82. Run `bun run test`.
 83. Run `bun run build`.
@@ -187,7 +187,7 @@ duplicates, no loose files at the repo root.
     legacy/, scripts/install/, single README).
 86. Update `.lovable/memory/reference/what-to-read.md` mirror.
 87. Update README "🤖 For AI agents" section to match.
-88. Update `spec/README.md` folder map if any spec dir changed.
+88. Update `spec/readme.md` folder map if any spec dir changed.
 89. Update `.lovable/memory/index.md` Core rule about folder structure.
 90. Cross-check three onboarding docs agree (diff the folder maps).
 91. Add a top-of-README "Repository map" table (one row per top-level dir).
@@ -210,9 +210,9 @@ duplicates, no loose files at the repo root.
 
 ### Progress
 - **Batch 1 (21–30) ✔** removed `readme.md` dup, `tsconfig.app.json.bak`, both `*.tsbuildinfo`; gitignored `*.tsbuildinfo`/`*.bak`. No refs broken.
-- **Batch 2 (31–40) ✔** `run.ps1`/`slides-install.{sh,ps1}` → `scripts/install/`; `cam2/3/4.png` → `spec/camera-2026/assets/`; root `plan.md` → `.lovable/history/sample-deck-expansion-plan.md`; added `scripts/README.md`. Zero references found, no new test failures (4 pre-existing webcam/TOC drift failures remain, unrelated).
-- **Batch 3 (41–52) ✔** root `audit/`+`metrics/`+`reports/` → `quality/{audit,metrics,reports}`. Updated `scripts/report-strict-types.ts` (→ quality/metrics) + `scripts/reference-qa-report.ts` (→ quality/reports); both smoke-tested, write to new paths. Added `quality/README.md`. `spec/audit/` untouched. No new test failures.
-- **Batch 4 (53–60) ✔** root `php/` (placeholder only, not built/imported/served — grep-verified) → `legacy/php/`. Added `legacy/README.md`, logged decision in `.lovable/question-and-ambiguity/60-php-to-legacy.md`, bumped task-counter (#41). Reversible (`mv legacy/php php`). No new test failures.
+- **Batch 2 (31–40) ✔** `run.ps1`/`slides-install.{sh,ps1}` → `scripts/install/`; `cam2/3/4.png` → `spec/camera-2026/assets/`; root `plan.md` → `.lovable/history/sample-deck-expansion-plan.md`; added `scripts/readme.md`. Zero references found, no new test failures (4 pre-existing webcam/TOC drift failures remain, unrelated).
+- **Batch 3 (41–52) ✔** root `audit/`+`metrics/`+`reports/` → `quality/{audit,metrics,reports}`. Updated `scripts/report-strict-types.ts` (→ quality/metrics) + `scripts/reference-qa-report.ts` (→ quality/reports); both smoke-tested, write to new paths. Added `quality/readme.md`. `spec/audit/` untouched. No new test failures.
+- **Batch 4 (53–60) ✔** root `php/` (placeholder only, not built/imported/served — grep-verified) → `legacy/php/`. Added `legacy/readme.md`, logged decision in `.lovable/question-and-ambiguity/60-php-to-legacy.md`, bumped task-counter (#41). Reversible (`mv legacy/php php`). No new test failures.
 - **Batch 5 (61–72) ✔** root `assets/` had ZERO code references. `camera-2026/*.png` were exact dupes of `spec/camera-2026/assets/` → deleted dupes, kept its README. `assets/icons/` (brand-source logos + Palette/Tokens) → `spec/21-slides-system/assets/brand-source/` + new README clarifying runtime brand assets live in `src/assets/brand/`. Removed empty root `assets/`. No stale refs, no new test failures. (No visual QA needed — assets were unreferenced reference material, not app-loaded.)
 - **Batch 6 (73–84) ✔** added READMEs to `src/`, `front-end/`, `public/`, `updates/`, `spec/22-slides-issues/`, `spec/26-slide-definitions/` (the dirs that lacked one; `quality/`, `legacy/`, `scripts/` already done in earlier batches; `spec/15/21/27/audit/camera-2026/controller-2026` already had READMEs). Each answers what-lives-here / what-does-not / where-next. No code touched, no new test failures.
 - **Batch 7 (85–94) ✔** synced onboarding docs to new layout: `.lovable/what-to-read.md` + its memory mirror `.lovable/memory/reference/what-to-read.md` now list quality/, scripts/install/, legacy/ + the "root holds only config+entry+dirs" rule. README "Repository map" already present (Batch 1). Created `.lovable/memory/features/folder-structure.md` and fixed the stale index reference (was broken `mem://features/l` pointing at nonexistent `architecture.md`/PHP layout). Added a Core repo-layout rule to `memory/index.md`. spec/README unchanged (its `audit/` = `spec/audit/`, untouched). No new test failures.

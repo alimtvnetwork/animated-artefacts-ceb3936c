@@ -3,7 +3,7 @@
 If you are an AI agent picking up this repo with **zero context**, read these
 files **in order**. This is the top-level pointer; a memory-scoped mirror lives
 at [`.lovable/memory/reference/what-to-read.md`](memory/reference/what-to-read.md)
-and the long-form version is the root [`README.md`](../README.md) — see its
+and the long-form version is the root [`readme.md`](../readme.md) — see its
 "🤖 For AI agents", "📂 Folder structure", "📖 Which files the AI must read", and
 "🛠️ How the AI does common work" sections. Keep all three in sync.
 
@@ -24,9 +24,9 @@ and the long-form version is the root [`README.md`](../README.md) — see its
 
 | Read this | To understand |
 |---|---|
-| [`spec/README.md`](../spec/README.md) | Canonical spec layout — which numbered folder owns what. |
-| [`spec/21-slides-system/README.md`](../spec/21-slides-system/README.md) | How the slide engine behaves. |
-| [`spec/21-slides-system/llm/00-README.md`](../spec/21-slides-system/llm/00-README.md) | Entry point to the AI authoring pack. |
+| [`spec/readme.md`](../spec/readme.md) | Canonical spec layout — which numbered folder owns what. |
+| [`spec/21-slides-system/readme.md`](../spec/21-slides-system/readme.md) | How the slide engine behaves. |
+| [`spec/21-slides-system/llm/00-readme.md`](../spec/21-slides-system/llm/00-readme.md) | Entry point to the AI authoring pack. |
 
 ```
 spec/21-slides-system/          HOW the engine works (system design + schemas + LLM pack)
@@ -50,8 +50,8 @@ legacy/                         inert/archived material (e.g. php/ placeholder) 
 ```
 
 > Root holds only config + entry + the dirs above. Every top-level and `spec/*`
-> folder has a `README.md` explaining what belongs there (convention over
-> configuration). See the root `README.md` "Repository map" for the one-row table.
+> folder has a `readme.md` explaining what belongs there (convention over
+> configuration). See the root `readme.md` "Repository map" for the one-row table.
 
 ## 2. Learn the JSON — structure, fields, contracts
 

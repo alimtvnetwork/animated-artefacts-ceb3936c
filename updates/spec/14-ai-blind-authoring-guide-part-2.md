@@ -186,4 +186,4 @@ If you can answer all five honestly, you will not reproduce the #07/#08 bug clas
 
 ## 8. Index update
 
-Added to `updates/spec/README.md` as entry **14**.
+Added to `updates/spec/readme.md` as entry **14**.

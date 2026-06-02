@@ -13,7 +13,7 @@ type: reference
 
 ## Reading order for any LLM touching the deck
 
-1. `00-README.md` — orientation + 10 commandments
+1. `00-readme.md` — orientation + 10 commandments
 2. `01-architecture-and-files.md` — file map
 3. `02-step-system-complete.md` — StepTimeline playbook
 4. `03-sound-system-complete.md` — sound asset table + wiring

@@ -39,7 +39,7 @@ Each phase ends with a checkpoint. User must say `next` to advance. Remaining ta
   - adds Mermaid ERD theme-token map (no hex; all `--gold`, `--cream`, `--ember`, `--surface-2`)
   - records timing constants `--dur-count-fast` (900ms) and `--dur-count-slow` (1800ms)
   - reaffirms Narrow Idea rule with per-type density caps
-- [x] Write `audit/README.md` + `audit/00-methodology.md` skeleton (folder structure + template + severity enum) so the user can see what Phase 2 will produce before it runs.
+- [x] Write `audit/readme.md` + `audit/00-methodology.md` skeleton (folder structure + template + severity enum) so the user can see what Phase 2 will produce before it runs.
 - [x] Write `.lovable/coding-guidelines.md` with the 12 rules from the request (functions <8 lines, no `any`, etc.) tailored to this codebase.
 
 ### Phase 1 — Sample deck spec (no runtime code yet)
@@ -63,7 +63,7 @@ Produce `/audit/` per the requested structure:
 
 ```
 /audit/
-  README.md                  (already in Phase 0)
+  readme.md                  (already in Phase 0)
   00-methodology.md          (already in Phase 0)
   01-inventory-spec.md
   02-inventory-implementation.md

@@ -178,7 +178,7 @@ minutes of reading because there's no top-level "current canon" file.
 
 ## 4. What we shipped to close the gaps (this commit)
 
-1. `spec/slides/llm/00-README.md` — single entry point. Tells any AI:
+1. `spec/slides/llm/00-readme.md` — single entry point. Tells any AI:
    *"Read the files in this folder in numeric order. Ignore everything
    else in /spec/slides/ until you're done."*
 2. `spec/slides/llm/01-architecture-and-files.md` — file map +

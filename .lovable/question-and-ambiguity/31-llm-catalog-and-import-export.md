@@ -51,7 +51,7 @@
    manifest auto-merge) is out of scope until requested.
 
 5. **Cross-linking.** A new doc that nobody links to is dead weight.
-   **Decision:** wire it from `00-README.md` (top-of-file pointer + table
+   **Decision:** wire it from `00-readme.md` (top-of-file pointer + table
    row), `06-json-authoring-cheatsheet.md`, and
    `23-slide-type-contracts.md` so every reasonable entry point into the
    pack surfaces the catalog.
@@ -71,7 +71,7 @@
   plus `schemas` + `portability` sections so an importing project can
   programmatically check whether every value in a deck JSON matches a
   recognised enum entry.
-- Cross-linked from `00-README.md` (added 🧭 callout after the "What this
+- Cross-linked from `00-readme.md` (added 🧭 callout after the "What this
   folder is" block + new row in the reading-order table),
   `06-json-authoring-cheatsheet.md` (top-of-file pointer), and
   `23-slide-type-contracts.md` (top-of-file pointer).
@@ -80,7 +80,7 @@
 
 - `spec/21-slides-system/llm/28-component-and-animation-catalog.md` (new)
 - `spec/21-slides-system/llm/CATALOG.json` (new)
-- `spec/21-slides-system/llm/00-README.md`
+- `spec/21-slides-system/llm/00-readme.md`
 - `spec/21-slides-system/llm/06-json-authoring-cheatsheet.md`
 - `spec/21-slides-system/llm/23-slide-type-contracts.md`
 - `.lovable/question-and-ambiguity/31-llm-catalog-and-import-export.md`

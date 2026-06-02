@@ -25,5 +25,5 @@ into runnable Vitest specs + manual QA. Each has reasoning + time.
 3. **Sign-off** — README status flip to "done" once acceptance checklist passes.
 
 This is the first verification block. Continue with
-`12-test-execution-steps-T11-T20.md` for the next 10 execution / hardening
+`12-test-execution-steps-t11-t20.md` for the next 10 execution / hardening
 steps.

@@ -10,7 +10,7 @@
  *  4. `toggleStage` is a no-op from `off` / `tray` / `requesting`
  *     (no surprise camera prompts).
  *
- * Spec: `spec/21-slides-system/64-presenter-webcam.md` §14.
+ * Spec: `spec/21-slides-system/66-presenter-webcam.md` §14.
  */
 import { act, render } from '@testing-library/react';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';

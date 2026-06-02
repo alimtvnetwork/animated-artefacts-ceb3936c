@@ -32,7 +32,7 @@ new screenshot to a `{topic}/` folder, also add a row here.
 
 | Asset | Cited by | What to notice |
 |---|---|---|
-| `assets/controller/controller-pill.png` | `00-README.md` commandment 7 | Hidden by default, hover-reveals; pill at bottom-center; order: prev / "N/total" / next / share / fullscreen. |
+| `assets/controller/controller-pill.png` | `00-readme.md` commandment 7 | Hidden by default, hover-reveals; pill at bottom-center; order: prev / "N/total" / next / share / fullscreen. |
 
 ## 4. Canvas
 

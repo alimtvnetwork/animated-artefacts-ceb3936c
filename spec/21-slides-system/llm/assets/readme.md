@@ -22,4 +22,4 @@ a new wireframe), drop it here under `{topic}/` and link it from the
 relevant playbook.
 
 For the full annotated overlay (every image ↔ playbook section ↔
-"what to notice" caption), see [`INDEX.md`](./INDEX.md).
+"what to notice" caption), see [`index.md`](./index.md).

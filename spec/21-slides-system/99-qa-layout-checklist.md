@@ -3,7 +3,7 @@
 > **When to run:** before merging any change that touches slide chrome, brand
 > header, step rails, or per-row spacing. Takes ~2 minutes per slide.
 > **Where it lives:** linked from the Builder editor sidebar (`?qa=layout`)
-> and from `spec/README.md` § Authoring workflow.
+> and from `spec/readme.md` § Authoring workflow.
 
 ## 1. Logo / brand inset (every slide with `showBrandHeader: true`)
 
@@ -82,7 +82,7 @@ Pattern:
 
 - `src/builder/SlideListSidebar.tsx` — "QA layout" link in the sidebar
   footer opens this file in a new tab via `?qa=layout`.
-- `spec/README.md` § Authoring workflow — step 5 ("review layout") links
+- `spec/readme.md` § Authoring workflow — step 5 ("review layout") links
   here.
 - `spec/22-slides-issues/25-steps-3d-layout-knobs.md` — the layout config
   this checklist depends on.

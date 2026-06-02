@@ -1,7 +1,7 @@
 # Slides — System Architecture Spec
 
 > Reference diagram: [`Slides.png`](./Slides.png)
-> Source outline: [`Slides.md`](./Slides.md)
+> Source outline: [`slides.md`](./slides.md)
 
 This document describes the **target folder structure** for the full Slides system, covering both the future PHP backend (`src/`) and the React + Canvas frontend (`front-end/`). The current Lovable project implements only a slice of `front-end/` — this spec is the canonical map for everything else as we grow.
 
@@ -147,7 +147,7 @@ Slide JSON references assets by relative path: `"image": "../assets/images/foo.j
 ```
 spec/
 ├── architecture/                # This document + diagrams
-│   ├── Slides.md
+│   ├── slides.md
 │   ├── Slides.png
 │   └── architecture.md  ← (you are here)
 └── slides/
