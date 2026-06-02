@@ -982,6 +982,18 @@ export const StepTimelineSlide = forwardRef<FocusTimelineHandle, StepTimelinePro
                       {isComplete ? <Check className="h-3.5 w-3.5" strokeWidth={2.5} /> : i + 1}
                     </div>
 
+                    {s.image && (
+                      <div className="shrink-0 self-center" data-step-thumbnail={i + 1}>
+                        <SlotImage
+                          src={s.image}
+                          alt={s.title}
+                          hint={{ slideType: spec.slideType, role: s.imageRole ?? 'inlineThumbnail' }}
+                        />
+                      </div>
+                    )}
+
+
+
                     <div
                       key={isActive ? `text-active-${i}-${active}` : `text-idle-${i}`}
                       className={`flex-1 min-w-0 pb-2 ${isActive ? 'step-text-slide' : ''}`}
