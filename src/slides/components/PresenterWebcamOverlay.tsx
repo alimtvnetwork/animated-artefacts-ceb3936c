@@ -108,6 +108,19 @@ export function PresenterWebcamOverlay() {
   const [dragging, setDragging] = useState(false);
   const [resizing, setResizing] = useState(false);
   const [trayHover, setTrayHover] = useState(false);
+
+  // ──────────────────────────────────────────────────────────────────
+  // Auto-hide the mouse cursor over the camera surfaces. The cursor
+  // disappears after ~2.5s of pointer inactivity (and immediately after a
+  // drag/resize gesture ends), reappears on the next mouse move, then hides
+  // again. Active for the live `on` card and the stage/fullscreen layers —
+  // never for tray/off so the small icon stays clickable. `cursor: none` is
+  // applied to each surface root below via `cursorStyle`.
+  // ──────────────────────────────────────────────────────────────────
+  const cursorActive =
+    state.phase === 'on' || state.phase === 'stage' || state.phase === 'fullscreen';
+  const autoHideCursor = useAutoHideCursor({ active: cursorActive });
+  const cursorStyle = autoHideCursor.hidden ? ('none' as const) : undefined;
   const dragRef = useRef<{
     pointerId: number;
     startX: number;
