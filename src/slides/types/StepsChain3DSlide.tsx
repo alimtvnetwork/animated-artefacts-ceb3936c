@@ -387,6 +387,13 @@ const inspectorBtn = (first = false): CSSProperties => ({
 /* Slide.                                                              */
 /* ------------------------------------------------------------------ */
 
+/* Click-activation variant roster (spec 61 §3.6 extension). Module-scoped
+ * so its identity is stable across renders — lets `setCauseAndAdvance` stay
+ * a zero-dependency `useCallback`. */
+type ClickVariant = 'FadeIn' | 'SlideIn' | 'PushLeft' | 'PushRight' | 'PushIn';
+const CLICK_VARIANTS: ClickVariant[] = ['FadeIn', 'SlideIn', 'PushLeft', 'PushRight', 'PushIn'];
+
+
 export const StepsChain3DSlide = forwardRef<FocusTimelineHandle, Props>(
   function StepsChain3DSlide({ spec }, ref) {
   // Re-render when the presenter changes the deck-wide step-motion lock
