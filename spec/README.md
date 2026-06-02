@@ -13,6 +13,7 @@ memory; do not renumber without updating cross-links.
 | `22-slides-issues/`     | Bug reports and behavioural issues against the running app. One file per issue, numbered. |
 | `26-slide-definitions/` | **Per-slide content.** Concrete deck definitions — one subfolder per deck (`showcase/`, `navy-showcase/`, `test-step-light/`). Each slide is a JSON spec + companion MD. JSON is the runtime source of truth. |
 | `audit/`                | Phase-gate blind-LLM audits and acceptance reports. Historical record. |
+| `camera-2026/`          | **Presenter-camera spec pack.** Blind-AI-ready, in-depth re-implementation guide for the webcam overlay (phases, shortcuts, zoom, fullscreen, auto-frame, squircle background plates). Includes reference/background images in `camera-2026/assets/`. |
 
 ## Where does my new file go?
 
