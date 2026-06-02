@@ -1,4 +1,6 @@
 import { describe, it, expect } from 'vitest';
+import { readFileSync } from 'node:fs';
+import { resolve } from 'node:path';
 import { buildLlmGuideMarkdown } from '../slides/llmGuideBundle';
 import { SLIDE_CONTENT_CONTRACTS, SLIDE_CONTRACTS_VERSION } from '../slides/contracts';
 
@@ -31,5 +33,12 @@ describe('slideType registry is the source of truth the docs cite', () => {
   it('exposes 25 runtime contracts at version 7', () => {
     expect(Object.keys(SLIDE_CONTENT_CONTRACTS)).toHaveLength(25);
     expect(SLIDE_CONTRACTS_VERSION).toBe(7);
+  });
+
+  it('slide.schema.json enum matches the runtime contract list (no drift)', () => {
+    const schemaPath = resolve(__dirname, '../../spec/21-slides-system/slide.schema.json');
+    const schema = JSON.parse(readFileSync(schemaPath, 'utf8'));
+    const enumTypes: string[] = schema.properties.slideType.enum;
+    expect([...enumTypes].sort()).toEqual(Object.keys(SLIDE_CONTENT_CONTRACTS).sort());
   });
 });
