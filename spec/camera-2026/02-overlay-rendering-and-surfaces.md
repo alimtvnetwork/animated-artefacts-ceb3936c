@@ -185,8 +185,10 @@ Behaviour contract:
 
 1. On mount (while `active`) the idle timer is armed immediately, so an
    untouched surface hides its cursor on its own after `delay`.
-2. A window-level `pointermove` / `pointerdown` / `wheel` listener (all
-   `passive`) sets `hidden = false` and **re-arms** the timer on every event.
+2. The hook exposes `registerActivity()`. The overlay must call it from the
+   **camera surface itself** on `pointermove`, `pointerdown`, and `wheel`, so
+   cursor wake-ups are scoped to actual camera interaction — unrelated mouse
+   movement elsewhere on the deck must not make the camera cursor visible.
 3. When the timer fires with no further movement, `hidden = true`.
 4. `hideNow()` clears the timer and sets `hidden = true` synchronously.
 5. When `active` flips to `false`, the timer is cleared and `hidden` resets to
@@ -209,6 +211,14 @@ const cursorStyle = autoHideCursor.hidden ? ('none' as const) : undefined;
 - `cursorActive` is **true only** for the live `on` card and the `stage` /
   `fullscreen` layers. It is **false** for `tray` / `off` / `requesting` /
   `denied` so the small tray icon and status button stay normally clickable.
+- Attach `autoHideCursor.registerActivity` directly to the active camera roots:
+  - `onPointerMove`
+  - `onPointerDown`
+  - `onWheel`
+
+  This contract is intentional: the cursor should reappear only when the user
+  moves or interacts **over the camera surface**, not when they move the mouse
+  over controller chrome, slide content, or empty stage space.
 - `cursorStyle` is applied to every camera surface root:
   - `stage` root `style.cursor`
   - `fullscreen` root `style.cursor`
@@ -230,7 +240,10 @@ re-hides on idle.
 ### 8.4 Acceptance
 
 - Move the camera, release → cursor disappears immediately.
-- Wiggle the mouse → cursor reappears, stays ~2.5s, then hides again.
+- Move the pointer over the camera again → cursor reappears, stays ~2.5s, then
+  hides again.
+- Move the pointer somewhere else in the deck (outside the camera surface) →
+  the hidden camera cursor stays hidden.
 - Repeat indefinitely; never gets stuck hidden or stuck visible.
 - Tray icon, status button, and the rest of the deck chrome keep a normal
   cursor at all times.
