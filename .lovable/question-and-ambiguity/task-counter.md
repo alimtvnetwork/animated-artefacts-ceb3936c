@@ -2,12 +2,13 @@
 
 **Mode prompt:** [`.lovable/prompts/01-no-questions.md`](../prompts/01-no-questions.md)
 **Activated:** 2026-04-28 · **Window 1 closed:** 2026-05-01 (40/40, batch-clarified #32 + M-04)
-**Window 2 opened:** 2026-05-01
+**Window 2 opened:** 2026-05-01 · **Window 2 closed:** 2026-06-02 (40/40)
+**Window 3 opened:** 2026-06-02 — reinforced by standing user rule: never ask for plan approval, just implement (see `mem://~user`).
 **Limit:** 40 tasks (resume questions at 40)
 
 ## Progress
 
-`40 / 40` — window 2 closed
+`0 / 40` — window 3 open
 
 ## Log
 
