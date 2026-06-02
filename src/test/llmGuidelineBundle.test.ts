@@ -41,4 +41,13 @@ describe('slideType registry is the source of truth the docs cite', () => {
     const enumTypes: string[] = schema.properties.slideType.enum;
     expect([...enumTypes].sort()).toEqual(Object.keys(SLIDE_CONTENT_CONTRACTS).sort());
   });
+
+  it('slide.schema.json oneOf has a content variant for every slideType', () => {
+    const schemaPath = resolve(__dirname, '../../spec/21-slides-system/slide.schema.json');
+    const schema = JSON.parse(readFileSync(schemaPath, 'utf8'));
+    const variantConsts: string[] = schema.oneOf.map(
+      (v: { properties: { slideType: { const: string } } }) => v.properties.slideType.const,
+    );
+    expect([...variantConsts].sort()).toEqual(Object.keys(SLIDE_CONTENT_CONTRACTS).sort());
+  });
 });
