@@ -35,6 +35,7 @@ import {
 } from 'lucide-react';
 import { usePresenterWebcam } from './usePresenterWebcam';
 import { useAutoFrame } from './useAutoFrame';
+import { useAutoHideCursor } from './useAutoHideCursor';
 
 function readStageScale(): number {
   if (typeof document === 'undefined') return 1;
@@ -107,6 +108,19 @@ export function PresenterWebcamOverlay() {
   const [dragging, setDragging] = useState(false);
   const [resizing, setResizing] = useState(false);
   const [trayHover, setTrayHover] = useState(false);
+
+  // ──────────────────────────────────────────────────────────────────
+  // Auto-hide the mouse cursor over the camera surfaces. The cursor
+  // disappears after ~2.5s of pointer inactivity (and immediately after a
+  // drag/resize gesture ends), reappears on the next mouse move, then hides
+  // again. Active for the live `on` card and the stage/fullscreen layers —
+  // never for tray/off so the small icon stays clickable. `cursor: none` is
+  // applied to each surface root below via `cursorStyle`.
+  // ──────────────────────────────────────────────────────────────────
+  const cursorActive =
+    state.phase === 'on' || state.phase === 'stage' || state.phase === 'fullscreen';
+  const autoHideCursor = useAutoHideCursor({ active: cursorActive });
+  const cursorStyle = autoHideCursor.hidden ? ('none' as const) : undefined;
   const dragRef = useRef<{
     pointerId: number;
     startX: number;
@@ -393,7 +407,10 @@ export function PresenterWebcamOverlay() {
     }
     dragRef.current = null;
     setDragging(false);
-  }, []);
+    // After moving the camera, hide the cursor immediately (it reappears on
+    // the next mouse move, then auto-hides again). See useAutoHideCursor.
+    autoHideCursor.hideNow();
+  }, [autoHideCursor]);
 
   // ──────────────────────────────────────────────────────────────────
   // Resize math — only width is dragged; height stays 16:9.
@@ -433,7 +450,8 @@ export function PresenterWebcamOverlay() {
     }
     resizeRef.current = null;
     setResizing(false);
-  }, []);
+    autoHideCursor.hideNow();
+  }, [autoHideCursor]);
 
   // ──────────────────────────────────────────────────────────────────
   // Render branching.
@@ -579,6 +597,7 @@ export function PresenterWebcamOverlay() {
           inset: 0,
           background: 'hsl(0 0% 0%)',
           zIndex: 65,
+          cursor: cursorStyle,
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
@@ -677,6 +696,7 @@ export function PresenterWebcamOverlay() {
           inset: 0,
           background: 'hsl(0 0% 0%)',
           zIndex: 70,
+          cursor: cursorStyle,
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
@@ -819,6 +839,7 @@ export function PresenterWebcamOverlay() {
         height: size.h + HALO * 2,
         zIndex: 60,
         opacity: 1,
+        cursor: cursorStyle,
         transformOrigin: 'top right',
         transition: 'opacity 320ms ease-out',
         pointerEvents: 'none',
@@ -879,7 +900,7 @@ export function PresenterWebcamOverlay() {
           border: '1.5px solid hsl(var(--gold) / 0.6)',
           boxShadow:
             '0 0 32px hsl(var(--gold) / 0.18), 0 12px 32px hsl(var(--background) / 0.6)',
-          cursor: dragging ? 'grabbing' : 'grab',
+          cursor: cursorStyle ?? (dragging ? 'grabbing' : 'grab'),
           userSelect: 'none',
           touchAction: 'none',
           pointerEvents: 'auto',
@@ -1130,7 +1151,7 @@ export function PresenterWebcamOverlay() {
               bottom: 0,
               width: 18,
               height: 18,
-              cursor: resizing ? 'nwse-resize' : 'nwse-resize',
+              cursor: cursorStyle ?? (resizing ? 'nwse-resize' : 'nwse-resize'),
               touchAction: 'none',
               pointerEvents: 'auto',
               display: 'flex',
