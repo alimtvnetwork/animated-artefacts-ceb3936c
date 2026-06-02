@@ -1,52 +1,60 @@
-## Next 10 — prioritized, with reasoning + time
+## Goal
 
-These are grounded in the current active surfaces (presenter webcam, StepsChain3D, motion-showcase boot, audio cues) and the open items in `spec/22-slides-issues/` and the leftover notes from the camera work.
+Re-establish the **steps-based slide spec** as the authority for showcase **slide 3**, then add a set of **image / SVG / Base64** example slides — each with JSON authoring examples that explain *how and where* images are placed. 30 steps now; you'll then call "next 10".
 
-### Tier 1 — finish what's in flight (camera + boot)
+## What I found (so the plan is grounded)
 
-1. **Register `zoom` / `whoosh` / `click` audio slugs (motion-showcase boot)** — ~20 min
-   Reasoning: the deck currently boots referencing unregistered slugs, which throws warnings and risks a silent boot failure. Either register the three slugs in the audio registry or drop the references. Highest priority because it's an active boot error.
+- The steps spec still lives at `spec/21-slides-system/steps-based-slides/` (00-overview → 06-acceptance). It defines a **shared step data model** (`title`, `items[]`, `activeIndex`, capsule rules) across `SessionOutlineSlide / StepTimelineSlide / FocusTimelineSlide / AdvanceStepSlide / StepsChain3DSlide`.
+- Default deck at `/` is **`showcase`**; **slide 3** = `front-end/project/showcase/data/slides/03-process.json` (`StepTimelineSlide`).
+- Images go through `SlotImage` → `inferImageSlot` (`imagePlacement.ts`). `content.image` is just an `<img src>`, so it already accepts a URL, an imported asset, a `data:image/png;base64,…`, or a `data:image/svg+xml,…` — but there's **no authoring doc / examples** and no explicit `imageRole` field wired.
 
-2. **Distinct audio cue MP3s** — ~30 min
-   Reasoning: every cue currently maps to `pop`. The cinematic `]` cycle and `O` shaping read as polished only with distinct whoosh/zoom/click sounds. Cheap, high perceived-quality payoff once slugs (item 1) exist.
+## Phase A — Recover & re-implement steps spec on slide 3 (steps 1–8)
 
-3. **Camera `]` cinematic-cycle regression test** — ~25 min
-   Reasoning: the 3-state phase machine (fullscreen→off squish, off→on bounce, on→fullscreen zoom) self-heals on phase, not a counter. Lock that contract with a test so future edits can't silently break it or reintroduce counter drift.
+1. Read all 7 files in `steps-based-slides/` end-to-end and diff the normative rules against the live `StepTimelineSlide.tsx`; record divergences.
+2. Reconcile the spec's `items[]`/`activeIndex` contract with slide 3's current `steps[]` shape (slide 3 uses `steps` + `expand`/`revealSlide`); decide on one canonical key and document it.
+3. Update `01-data-model.md` so the shared model explicitly covers the StepTimeline extras (`description`, `capsule`, `expand`, `revealSlide`, `revealLabel`).
+4. Rewrite showcase `03-process.json` to conform to the reconciled steps spec exactly (keywords-only, `.capsule-{tone}`, `activeIndex`, insets).
+5. Write the companion `spec/26-slide-definitions/showcase/03-process.md` explaining intent (Core spec-first rule).
+6. Add/extend a validation test asserting slide 3 matches the step data-model contract.
+7. Update `spec/21-slides-system/steps-based-slides/README.md` reading-order if any file moved/changed.
+8. Visually QA slide 3 in preview at 1920×1080 (header, rail, capsules, reduced-motion path).
 
-### Tier 2 — StepsChain3D correctness
+## Phase B — Image / SVG / Base64 support + JSON authoring contract (steps 9–18)
 
-4. **Step 23: cross-check StepsChain3D 3D-depth vs shared data model (spec #61)** — ~40 min
-   Reasoning: flagged leftover. The 3D-depth layering may diverge from the shared step model; reconcile so slide 3 ↔ slide 4 stay in parity.
+9. Audit `ImageSlide.tsx`, `SlotImage.tsx`, `imagePlacement.ts` for what `content.image` accepts today.
+10. Add an explicit `content.imageRole` field (maps to `ImageSlotId`) so authors can target `bodyFigure / titleHero / inlineThumbnail / iconBadge`; default-infer when omitted.
+11. Confirm `data:image/png;base64,…` and `data:image/svg+xml,…` render through `SlotImage` (add handling/guard if needed).
+12. Add SVG-as-React-import support note + a small inline-SVG render path for `iconBadge`-style usage.
+13. Extend the asset registry doc to cover **four** image sources: CDN/`.asset.json`, imported file, Base64 PNG, inline SVG data URI.
+14. Write a new authoring doc `spec/21-slides-system/images/01-image-authoring.md`: how to place images, which slot to pick, size constraints per slot, and one JSON example per source type.
+15. Add a JSON schema/typing note in `src/slides/types.ts` for `image` + `imageRole`.
+16. Create reusable example assets: one small PNG, one SVG file, one Base64 PNG string, one inline-SVG data URI (kept tiny, in `src/assets/examples/`).
+17. Add a CI/sanity test that every example image src resolves to a valid slot.
+18. Cross-link the new image doc from the steps README and the LLM catalog.
 
-5. **Resolve issue 24 — steps-3d-refinements** — ~45 min
-   Reasoning: open refinement backlog for the 3D chain (marker/rail polish). Bundle the small visual fixes into one pass.
+## Phase C — New example slides (steps 19–27)
 
-6. **Resolve issue 25 — steps-3d-layout-knobs** — ~40 min
-   Reasoning: exposes layout knobs so the 3D slide is tunable without code edits; reduces future one-off requests.
+19. **Slide: image from URL/asset** — `ImageSlide` using an imported PNG via `bodyFigure`. JSON + MD pair.
+20. **Slide: SVG figure** — `ImageSlide` rendering an `.svg` asset. JSON + MD.
+21. **Slide: Base64 PNG** — `ImageSlide` with inline `data:image/png;base64,…`. JSON + MD.
+22. **Slide: inline SVG data URI** — `data:image/svg+xml,…`. JSON + MD.
+23. **Slide: image + steps combo** — a step slide with `inlineThumbnail` images next to step rows. JSON + MD.
+24. **Slide: title hero image** — `TitleSlide` using `titleHero` slot. JSON + MD.
+25. **Slide: icon-badge grid** — multiple `iconBadge` SVGs as a pictogram row. JSON + MD.
+26. Register all new slides in the relevant deck `slides.json` manifest (new `image-examples` deck or appended to showcase — default: a dedicated `image-examples` deck to avoid bloating showcase).
+27. Wire deck theme + transitions so the new slides match Noir & Gold.
 
-### Tier 3 — motion + a11y
+## Phase D — Docs, tests, QA (steps 28–30)
 
-7. **Issue 23 — motion feels robotic under reduced-motion** — ~40 min
-   Reasoning: reduced-motion currently collapses to instant/flat. Add tasteful opacity-only fades so the muted path still feels intentional, not broken.
+28. Add a `motionCollisions`/validation pass so new slides pass boot validation (assets registered, slots resolve).
+29. Run the focused test suite + a typecheck; fix any failures.
+30. Visual QA every new slide (screenshot each, check layout/overflow/contrast/Base64 + SVG actually paint), then summarize what was verified.
 
-8. **Issue 26 — slide3 step-motion + slide4 step-typography follow-ups** — ~35 min
-   Reasoning: remaining deltas from the typography/motion parity work; close them out.
+## Technical notes
 
-### Tier 4 — resilience
+- Keep all capsules on `.capsule-{tone}` / `.capsule-meta` classNames (memory rule); never inline brand-token styles.
+- `content.image` stays a plain string src; `imageRole` is the only new author-facing field, defaulting to slot inference so existing slides are unaffected.
+- Example assets stay tiny to avoid repo bloat; large binaries would go through `lovable-assets` instead.
+- JSON remains the runtime source of truth; every new slide ships a JSON+MD pair per the spec-first Core rule.
 
-9. **Issue 01 — root boot watchdog RCA hardening** — ~50 min
-   Reasoning: convert the RCA into a guard so a single bad deck/slug can't blank the whole app at boot.
-
-10. **Issue 27 — presenter-webcam-overlay loose ends** — ~40 min
-    Reasoning: sweep remaining overlay edge cases (denied/tray/stage transitions) now that the shaping cycle is in place.
-
-**Estimated total: ~6 hours.**
-
-## Remaining items (beyond the next 10)
-
-- `22-app-issues.md` — long-lived multi-issue RCA log; review for any still-open sub-issues (brand strip export, presenter nav).
-- Optional: literal single-`<video>`-via-portal refactor (broad reading of #63) — large refactor, deferred.
-- Spec/doc upkeep: ensure each closed issue gets its `## Resolution` section and the memory index stays in sync.
-- No-questions window 2 is closed (40/40) — confirm whether to reopen window 3 or resume normal questions.
-
-Tell me which tier (or specific numbers) to start on and I'll implement.
+After you approve, I'll implement steps 1–30, then pause for your "next 10".
