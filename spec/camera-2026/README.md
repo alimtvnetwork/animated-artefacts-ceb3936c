@@ -19,8 +19,9 @@ While presenting slides, the speaker can overlay their **live webcam** on top of
 the deck — like an OBS / Zoom camera bubble — so the audience sees the presenter
 and the slides at once. It floats over the 1920×1080 stage, is draggable,
 resizable, can go fullscreen or fill the stage, can be a rectangle or a circle,
-and can sit on a decorative **squircle background plate** (the images shipped in
-[`./assets/`](./assets/)).
+and is framed by a **CSS-only gold→ember squircle rim** with a transparent
+interior (2026-06-02 v2 — no plate PNG; the images in [`./assets/`](./assets/)
+are visual reference only).
 
 It is **presenter-local only**: it is never exported to PPTX, never part of slide
 JSON, and never persisted to the deck. It is pure runtime UI driven by
