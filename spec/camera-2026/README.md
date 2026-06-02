@@ -4,8 +4,8 @@
 > top-to-bottom and you will be able to re-implement the entire presenter
 > camera (webcam overlay) for the Riseup Asia slide-presentation app — every
 > phase, every keyboard shortcut, zoom in / zoom out, drag, resize, fullscreen,
-> stage-fill, circle/rectangle frame, face auto-framing, and the new
-> **squircle background plates** that make the camera look bigger and richer.
+> stage-fill, circle/rectangle frame, face auto-framing, and the
+> **CSS-only gold squircle rim** that frames the camera (no plate PNG; v2).
 
 This pack is **self-contained**. It quotes real code from the live
 implementation so you can reproduce it without reading `src/`. Where the live
@@ -19,8 +19,9 @@ While presenting slides, the speaker can overlay their **live webcam** on top of
 the deck — like an OBS / Zoom camera bubble — so the audience sees the presenter
 and the slides at once. It floats over the 1920×1080 stage, is draggable,
 resizable, can go fullscreen or fill the stage, can be a rectangle or a circle,
-and can sit on a decorative **squircle background plate** (the images shipped in
-[`./assets/`](./assets/)).
+and is framed by a **CSS-only gold→ember squircle rim** with a transparent
+interior (2026-06-02 v2 — no plate PNG; the images in [`./assets/`](./assets/)
+are visual reference only).
 
 It is **presenter-local only**: it is never exported to PPTX, never part of slide
 JSON, and never persisted to the deck. It is pure runtime UI driven by
@@ -88,8 +89,8 @@ This pack supersedes and consolidates the scattered camera docs. Keep them in sy
 ## Live code map (for diffing — do not need to read to implement)
 
 ```
-src/slides/components/usePresenterWebcam.tsx   state machine + React context (688 lines)
-src/slides/components/PresenterWebcamOverlay.tsx  the rendered surfaces (1228 lines)
+src/slides/components/usePresenterWebcam.tsx   state machine + React context (744 lines)
+src/slides/components/PresenterWebcamOverlay.tsx  the rendered surfaces (1736 lines)
 src/slides/components/useAutoFrame.ts          FaceDetector center-stage hook
 src/slides/controls/PresenterWebcamButton.tsx  controller chip toggle
 src/slides/controls/ControllerBar.tsx          hosts the button + dropdown items

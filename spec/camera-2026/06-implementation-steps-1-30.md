@@ -1,9 +1,16 @@
 # 06 — Implementation Steps 1–30
 
 > The canonical build order. A blind AI can follow these 30 steps top-to-bottom
-> to ship the entire presenter camera, including the squircle background plates.
+> to ship the entire presenter camera.
 > Each step lists **what**, **where**, and **done-when**. Code for each is in
 > files 01–05; this is the spine that sequences them.
+>
+> **⚠️ SUPERSEDED (2026-06-02 v2):** steps 24–26's **plate/mask** work is
+> obsolete. The squircle rim is now **CSS-only** — silhouette via
+> `border-radius: 38% / 34%`, rim via a `2px` gold border + layered
+> `box-shadow`, transparent interior, NO plate/mask PNG and NO `platePad`. The
+> two-plate stack produced a rejected thick opaque ring. See file 05 §8 (v2).
+> Read steps 24–26 as "give the squircle its CSS rim", not "render plates".
 
 ## Phase A — Skeleton & state (steps 1–8)
 
@@ -80,15 +87,17 @@
 
 ## Phase E — Backgrounds, shapes & polish (steps 25–30)
 
-25. **Squircle shape.** Keep `border-radius: 38% / 34%` as the CSS fallback,
-    and on the live rectangle/squircle mode also apply the exact
-    `02-squircle-mask-black.png` as `mask-image` / `-webkit-mask-image` sized
-    `100% 100%`; circle `O` overrides with `50%`, minimized puck with `999px`.
-    (File 05 §3, §8.)
-26. **Background shade stack.** Render TWO plates behind the video, each sized
-    `boxW + 2*platePad` (`platePad = round(boxW*0.07)`): the white shadow plate
-    at `z-index:0` and the gold plate at `z-index:1`, both `pointer-events:none`.
-    The masked video frame sits above them at `z-index:2`. (File 05 §2, §5, §8.)
+25. **Squircle shape (v2).** Use `border-radius: 38% / 34%` for the squircle
+    silhouette; circle `O` overrides with `50%`, minimized puck with `999px`.
+    ~~Apply `02-squircle-mask-black.png` as `mask-image`~~ — **DROPPED in v2**: no
+    PNG mask; the border-radius alone defines the curve so the rim border isn't
+    clipped. (File 05 §8.)
+26. ~~**Background shade stack.** Render TWO plates behind the video…~~
+    **REMOVED in v2.** No plate, no `platePad`, no white/gold PNG behind the
+    video. Instead the inner frame gets the entire rim in CSS: a `2px` gold
+    border + layered `box-shadow` (ember edge + gold glow + drop shadow) over a
+    **transparent** interior, so only the live video shows inside the curve. The
+    old two-plate stack read as a thick opaque ring (rejected). (File 05 §8 v2.)
 27. **Gold→ember rim + shadow look.** Match `01-reference-frame-gold-rim.png`
     using the stacked PNG shade assets plus tokenized frame border/glow
     (`--gold` / `--background`). `plateVariant: none|neutral|gold` remains

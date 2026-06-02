@@ -1,5 +1,12 @@
 # 10 — Build Log: Steps 21–30 (reasoning + time)
 
+> **⚠️ HISTORICAL (pre-v2).** The plate/mask steps below (the `cam-plate` stack,
+> `platePad`, the `02-squircle-mask-black.png` crop) were **superseded on
+> 2026-06-02**. The shipped rim is **CSS-only** — `border-radius` silhouette +
+> gold border + layered `box-shadow`, transparent interior, no plate/mask PNG.
+> See [`05-backgrounds-and-shapes.md`](./05-backgrounds-and-shapes.md) §8 (v2).
+
+
 > Final-batch expansion of [`06-implementation-steps-1-30.md`](./06-implementation-steps-1-30.md).
 > Follows [`08-build-log-steps-01-10.md`](./08-build-log-steps-01-10.md) and
 > [`09-build-log-steps-11-20.md`](./09-build-log-steps-11-20.md).

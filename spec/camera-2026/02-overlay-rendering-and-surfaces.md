@@ -10,7 +10,7 @@
 
 | `state.phase` | Surface |
 |---------------|---------|
-| `on` | Draggable card with chrome (zoom +/-, fullscreen, focus, minimize, X) + bottom-right resize handle. Honors circle/halo/plate. |
+| `on` | Draggable card with chrome (zoom +/-, fullscreen, focus, minimize, X) + bottom-right resize handle. Honors circle/halo + the CSS-only gold rim (transparent interior, no plate). |
 | `tray` | 40×40 floating icon with ember pulse; hover fans out Expand / Fullscreen / Stop. Stream stays live. |
 | `fullscreen` | Fixed-position layer over the deck stage with minimal chrome; forwards nav keys to the deck. |
 | `stage` | Absolute layer covering the full 1920×1080 stage. |
@@ -101,7 +101,7 @@ useEffect(() => {
 }, [circleShape]);
 ```
 
-Circle frame = `border-radius: 999px`. Squircle frame = CSS mask (file 05).
+Circle frame = `border-radius: 50%` (puck `999`). Squircle frame = `border-radius: 38% / 34%` superellipse approximation — NO CSS mask PNG (2026-06-02 v2; see file 05 §8). Rim = `2px` gold border + layered `box-shadow`, transparent interior.
 
 ## 5. Tray surface (soft-hidden)
 
