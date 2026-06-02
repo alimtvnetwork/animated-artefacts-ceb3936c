@@ -54,10 +54,10 @@
 |-----------|---------|
 | `presenterWebcamClose.test.tsx` | `close()` stops every track; phase → `off`. |
 | `presenterWebcamHaloAndStage.test.tsx` | `h` toggles halo; `1` round-trips stage size+pos+phase. |
-| `presenterWebcamVideoStability.test.tsx` | Stream never detaches on shape/plate toggle (no remount). |
+| `presenterWebcamVideoStability.test.tsx` | Stream never detaches on shape toggle (no remount). |
 | `useAutoFrame.test.ts` | Unsupported → `supported:false`, identity transform; EMA math. |
 | `presenterWebcamShortcuts.test.tsx` | Each key fires the right action and respects phase guards + input guard. |
-| `presenterWebcamPlate.test.tsx` (new) | White+gold plate stack sizes = `boxW + 2*platePad`; masked video stays above; tokenized styling only. |
+| `presenterWebcamRimContract.test.ts` | CSS-only rim: no plate/mask PNG import, no `platePad`/`showPlate`, no `url()` crop mask, gold border + transparent interior. |
 
 ### Example test skeleton
 
