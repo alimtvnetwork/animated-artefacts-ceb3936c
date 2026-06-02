@@ -392,6 +392,7 @@ function ControllerHamburger({
   onToggleTopJumper,
   topJumperHidden,
   onOpenKeyboardMap,
+  onShowIntro,
   currentSlideNumber,
 }: HamburgerProps) {
   const colorDebugOn = useColorDebug();
