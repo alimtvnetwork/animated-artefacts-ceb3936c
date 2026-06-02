@@ -1151,7 +1151,7 @@ export function PresenterWebcamOverlay() {
               bottom: 0,
               width: 18,
               height: 18,
-              cursor: resizing ? 'nwse-resize' : 'nwse-resize',
+              cursor: cursorStyle ?? 'nwse-resize',
               touchAction: 'none',
               pointerEvents: 'auto',
               display: 'flex',
