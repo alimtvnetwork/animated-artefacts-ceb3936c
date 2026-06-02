@@ -450,7 +450,8 @@ export function PresenterWebcamOverlay() {
     }
     resizeRef.current = null;
     setResizing(false);
-  }, []);
+    autoHideCursor.hideNow();
+  }, [autoHideCursor]);
 
   // ──────────────────────────────────────────────────────────────────
   // Render branching.
