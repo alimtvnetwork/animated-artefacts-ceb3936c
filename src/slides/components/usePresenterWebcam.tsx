@@ -121,6 +121,13 @@ interface Ctx {
    *  fullscreen, and stage phases via `border-radius: 999px`. */
   circleShape: boolean;
   toggleCircleShape: () => void;
+  /** v6 (2026-06-02) — the `O` 3-state shaping cycle:
+   *    1. rectangle (circle off, halo off)
+   *    2. circle    (circle on,  halo off)
+   *    3. circle + overlay/halo (circle on, halo on)
+   *  Third press lights up the glow overlay; a fourth wraps back to
+   *  rectangle. Bound to the `O` shortcut. */
+  cycleShapeOverlay: () => void;
   /** v5 (2026-05-02) — true while the cinematic `]` cycle is squishing
    *  the fullscreen wrapper to nothing. Overlay reads this and applies
    *  the 0.8s scale+fade transform. Auto-clears when the phase flips
