@@ -41,6 +41,8 @@ import { useAutoHideCursor } from './useAutoHideCursor';
 // drop shadow + gold rim. The PNG already bakes the squircle curve, gold
 // rim and shadow, so we just lay it behind the masked video.
 import squirclePlateGold from '@/assets/camera-2026/04-squircle-plate-gold-shadow.png';
+import squircleMaskBlack from '@/assets/camera-2026/02-squircle-mask-black.png';
+import squirclePlateWhite from '@/assets/camera-2026/03-squircle-plate-white-shadow.png';
 
 function readStageScale(): number {
   if (typeof document === 'undefined') return 1;
@@ -398,7 +400,7 @@ export function PresenterWebcamOverlay() {
       // auto-hides again after the idle delay). The outer wrapper is
       // pointer-events:none, so this inner-frame handler is the surface's
       // real activity source.
-      autoHideCursor.registerActivity();
+      autoHideCursor.registerActivity(e);
       const d = dragRef.current;
       if (!d || d.pointerId !== e.pointerId) return;
       const scale = readStageScale();
@@ -420,7 +422,7 @@ export function PresenterWebcamOverlay() {
     setDragging(false);
     // After moving the camera, hide the cursor immediately (it reappears on
     // the next mouse move, then auto-hides again). See useAutoHideCursor.
-    autoHideCursor.hideNow();
+    autoHideCursor.hideNow(e);
   }, [autoHideCursor]);
 
   // ──────────────────────────────────────────────────────────────────
@@ -442,7 +444,7 @@ export function PresenterWebcamOverlay() {
   );
   const onResizePointerMove = useCallback(
     (e: React.PointerEvent<HTMLDivElement>) => {
-      autoHideCursor.registerActivity();
+      autoHideCursor.registerActivity(e);
       const d = resizeRef.current;
       if (!d || d.pointerId !== e.pointerId) return;
       const scale = readStageScale();
@@ -462,7 +464,7 @@ export function PresenterWebcamOverlay() {
     }
     resizeRef.current = null;
     setResizing(false);
-    autoHideCursor.hideNow();
+    autoHideCursor.hideNow(e);
   }, [autoHideCursor]);
 
   // ──────────────────────────────────────────────────────────────────
