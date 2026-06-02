@@ -56,6 +56,51 @@ const HALO = 28;
 const FREE_MIN_W = 160;
 const FREE_MAX_W = 960;
 
+function WebcamChromeButton({
+  label,
+  shortcut,
+  side = 'top',
+  align = 'center',
+  pressed,
+  children,
+  style,
+  onPointerDown,
+  onClick,
+}: {
+  label: string;
+  shortcut?: string;
+  side?: 'top' | 'right' | 'bottom' | 'left';
+  align?: 'start' | 'center' | 'end';
+  pressed?: boolean;
+  children: React.ReactNode;
+  style: React.CSSProperties;
+  onPointerDown?: React.PointerEventHandler<HTMLButtonElement>;
+  onClick: React.MouseEventHandler<HTMLButtonElement>;
+}) {
+  const title = shortcut ? `${label} (${shortcut})` : label;
+
+  return (
+    <Tooltip>
+      <TooltipTrigger asChild>
+        <button
+          type="button"
+          onPointerDown={onPointerDown}
+          onClick={onClick}
+          aria-label={title}
+          aria-pressed={pressed}
+          title={title}
+          style={style}
+        >
+          {children}
+        </button>
+      </TooltipTrigger>
+      <TooltipContent side={side} align={align}>
+        {title}
+      </TooltipContent>
+    </Tooltip>
+  );
+}
+
 export function PresenterWebcamOverlay() {
   const {
     state,
