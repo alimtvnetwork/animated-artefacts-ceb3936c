@@ -12,7 +12,7 @@ This table is the fast lookup; the schema wins on conflict.
 |---|---|---|---|
 | `slideNumber` | int | unique per deck; maps to URL `/N` | duplicate → wrong routing |
 | `slideName` | string | lowercase-hyphenated; matches filename | mismatch confuses tooling |
-| `slideType` | enum | **12 schema types:** `TitleSlide` · `MiddleTitleSlide` · `KeywordSlide` · `CapsuleListSlide` · `StepTimelineSlide` · `FocusTimelineSlide` · `AdvanceStepSlide` · `StepsChain3DSlide` · `ImageSlide` · `QrMeetingSlide` · `SectionDividerSlide` · `MetricGridSlide`. **Extended renderer types** (`TableSlide` · `CodeBlockSlide` · `BoxDiagramSlide` · `LayoutSlide` · `TileSlide`) are documented in `27a`–`27d` + `28`. | unknown → load error |
+| `slideType` | enum | **25 runtime types** (source of truth = `src/slides/contracts.ts` → `SlideContract`, v7): `TitleSlide` · `MiddleTitleSlide` · `SectionDividerSlide` · `KeywordSlide` · `CapsuleListSlide` · `StepTimelineSlide` · `FocusTimelineSlide` · `AdvanceStepSlide` · `StepsChain3DSlide` · `ImageSlide` · `QrMeetingSlide` · `MetricGridSlide` · `TableSlide` · `CodeBlockSlide` · `BoxDiagramSlide` · `ERDiagramSlide` · `LayoutSlide` · `DatabaseDiagramSlide` · `DataTableSlide` · `NumberCalloutSlide` · `EquationSlide` · `ChecklistSlide` · `TileSlide` · `BlastRadiusSlide` · `SessionOutlineSlide`. The `slide.schema.json` enum is an older 12-type subset — when they disagree, the zod contract wins. | unknown → load error |
 | `transition` | enum | `FadeIn` · `SlideIn` · `PushIn` · `PushLeft` · `PushRight` | invalid → fails validation |
 | `textAnimation` | enum | `FadeIn` · `Bounce` · `SlideUp` · `Stagger` | invalid → fails validation |
 | `enabled` | bool | default `true`; `false` mutes the slide | — |
@@ -43,11 +43,17 @@ This table is the fast lookup; the schema wins on conflict.
 | `ImageSlide` | `eyebrow`, `title`, `image`, `images[]`, `caption`, `imageRole` |
 | `QrMeetingSlide` | `title`, `meetingUrl`, `qrStyle`, `contactRows[]`, `cta`, `socials[]` |
 | `SectionDividerSlide` | `eyebrow`, `title` |
-| `TableSlide` *(extended, see 27a)* | `eyebrow`, `title`, `columns[]`, `rows[]` |
-| `CodeBlockSlide` *(extended, see 27b)* | `eyebrow`, `title`, `language`, `code` |
-| `BoxDiagramSlide` *(extended, see 27c)* | `eyebrow`, `title`, `boxes[]`, `arrows[]` |
-| `LayoutSlide` *(extended, see 27d)* | `eyebrow`, `title`, `regions[]` |
-| `TileSlide` *(extended, see 28)* | `eyebrow`, `title`, `tiles[]` |
+| `TableSlide` *(see 07)* | `title`, `tableColumns[] {key,label}`, `tableRows[] {name,cells}` |
+| `DataTableSlide` *(see 07)* | `title`, `dataColumns[] {key,label,align}`, `dataRows[]` |
+| `CodeBlockSlide` *(see 07)* | `title`, `code` **or** `codeTokens[]`, `codeLanguage` |
+| `EquationSlide` *(see 07)* | `title?`, `tex` **or** `equationHtml` |
+| `BoxDiagramSlide` *(see 07)* | `title`, `diagramNodes[] {id,title,x,y}`, `diagramEdges[] {from,to}` |
+| `ERDiagramSlide` / `DatabaseDiagramSlide` *(see 07)* | entities/relationships or dbEntities/diagram |
+| `LayoutSlide` *(see 07)* | `title`, `layout`, `layoutSlots[]` (1-6) |
+| `TileSlide` *(see 07)* | `title`, `tiles[] {name,tag,desc,...}` (2-4), `tilesCaption?` |
+| `ChecklistSlide` *(see 07)* | `title`, `items[] {text,detail?,capsule?}` (2-7) |
+| `NumberCalloutSlide` *(see 07)* | `number{to,from?,unit?}`, `label?`, `capsule?` |
+| `BlastRadiusSlide` / `SessionOutlineSlide` *(see 07)* | single-word title / agenda outline |
 
 For the exact, complete `content` contract of a type, always read
 [`../21-slides-system/llm/23-slide-type-contracts.md`](../21-slides-system/llm/23-slide-type-contracts.md)
