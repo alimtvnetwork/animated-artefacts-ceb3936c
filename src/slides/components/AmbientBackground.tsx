@@ -287,7 +287,9 @@ export function AmbientBackground({
       aria-hidden="true"
       className="absolute inset-0 pointer-events-none overflow-hidden"
     >
-      {/* Optional radial amber glow — same recipe as TitleSlide hero. */}
+      {/* Optional radial amber glow — same recipe as TitleSlide hero.
+          Layered: a brighter warm core on top of a soft amber wash so the
+          centre reads as a real glowing light against the near-black bg. */}
       {glow && (
         <motion.div
           className="absolute inset-0"
@@ -295,10 +297,11 @@ export function AmbientBackground({
           animate={{ opacity: 1 }}
           transition={{ duration: 0.8, ease: 'easeOut' }}
           style={{
-            background: `radial-gradient(ellipse 60% 45% at 50% 55%,
-              hsl(28 65% 10% / 0.55) 0%,
-              hsl(28 65% 10% / 0.25) 25%,
-              transparent 60%)`,
+            background: `radial-gradient(ellipse 50% 38% at 50% 52%,
+                hsl(36 80% 52% / 0.30) 0%,
+                hsl(32 78% 42% / 0.20) 22%,
+                hsl(28 70% 28% / 0.12) 42%,
+                transparent 68%)`,
           }}
         />
       )}
