@@ -656,6 +656,10 @@ export function PresenterWebcamOverlay() {
   // exact prior size+position+phase via `stageRestoreRef`.
   // ──────────────────────────────────────────────────────────────────
   if (state.phase === 'stage') {
+    const stageCircleDiameter = circleShape
+      ? Math.min(window.innerWidth, window.innerHeight)
+      : Math.min(window.innerWidth, window.innerHeight);
+    const stageControlsOnLeft = viewportPrefersLeftCircleControls;
     return (
       <div
         role="region"
@@ -707,37 +711,46 @@ export function PresenterWebcamOverlay() {
           />
         </div>
         <div
-          style={{
-            position: 'absolute',
-            top: 16,
-            right: 16,
-            display: 'flex',
-            flexDirection: 'column',
-            gap: 8,
-          }}
+          style={circleShape
+            ? {
+                position: 'absolute',
+                top: '50%',
+                [stageControlsOnLeft ? 'left' : 'right']: Math.max(20, (window.innerWidth - stageCircleDiameter) / 2 - 64),
+                transform: 'translateY(-50%)',
+                display: 'flex',
+                flexDirection: 'column',
+                gap: 10,
+              }
+            : {
+                position: 'absolute',
+                top: 16,
+                right: 16,
+                display: 'flex',
+                flexDirection: 'column',
+                gap: 8,
+              }}
         >
-          <button
-            type="button"
+          <WebcamChromeButton
             onClick={() => toggleStage()}
-            aria-label="Exit stage-fill camera (1 or Esc)"
-            title="Exit stage (1 / Esc)"
-            style={fullscreenChromeBtnStyle}
+            label="Exit stage camera"
+            shortcut="1 / Esc"
+            side={stageControlsOnLeft ? 'right' : 'left'}
+            style={circleShape ? circleChromeBtnStyle : fullscreenChromeBtnStyle}
           >
             <Minimize2 size={16} />
-          </button>
-          <button
-            type="button"
+          </WebcamChromeButton>
+          <WebcamChromeButton
             onClick={close}
-            aria-label="Stop camera"
-            title="Stop camera"
+            label="Stop camera"
+            side={stageControlsOnLeft ? 'right' : 'left'}
             style={{
-              ...fullscreenChromeBtnStyle,
+              ...(circleShape ? circleChromeBtnStyle : fullscreenChromeBtnStyle),
               color: 'hsl(var(--ember))',
               borderColor: 'hsl(var(--ember) / 0.5)',
             }}
           >
             <X size={16} />
-          </button>
+          </WebcamChromeButton>
         </div>
         <div
           aria-hidden="true"
@@ -759,6 +772,10 @@ export function PresenterWebcamOverlay() {
   }
 
   if (state.phase === 'fullscreen') {
+    const fullscreenCircleDiameter = circleShape
+      ? Math.min(window.innerWidth, window.innerHeight)
+      : Math.min(window.innerWidth, window.innerHeight);
+    const fullscreenControlsOnLeft = viewportPrefersLeftCircleControls;
     return (
       <div
         role="region"
@@ -820,55 +837,66 @@ export function PresenterWebcamOverlay() {
           />
         </div>
         <div
-          style={{
-            position: 'absolute',
-            top: 16,
-            right: 16,
-            display: 'flex',
-            flexDirection: 'column',
-            gap: 8,
-          }}
+          style={circleShape
+            ? {
+                position: 'absolute',
+                top: '50%',
+                [fullscreenControlsOnLeft ? 'left' : 'right']: Math.max(20, (window.innerWidth - fullscreenCircleDiameter) / 2 - 64),
+                transform: 'translateY(-50%)',
+                display: 'flex',
+                flexDirection: 'column',
+                gap: 10,
+              }
+            : {
+                position: 'absolute',
+                top: 16,
+                right: 16,
+                display: 'flex',
+                flexDirection: 'column',
+                gap: 8,
+              }}
         >
-          <button
-            type="button"
+          <WebcamChromeButton
             onClick={exitFullscreen}
-            aria-label="Exit fullscreen camera (Esc)"
-            title="Exit fullscreen (Esc)"
-            style={fullscreenChromeBtnStyle}
+            label="Exit fullscreen camera"
+            shortcut="Esc"
+            side={fullscreenControlsOnLeft ? 'right' : 'left'}
+            style={circleShape ? circleChromeBtnStyle : fullscreenChromeBtnStyle}
           >
             <Minimize2 size={16} />
-          </button>
+          </WebcamChromeButton>
           {autoFrame.supported && (
-            <button
-              type="button"
+            <WebcamChromeButton
               onClick={() => autoFrame.toggle()}
-              aria-label={autoFrame.enabled ? 'Disable auto-frame (f)' : 'Enable auto-frame (f)'}
-              aria-pressed={autoFrame.enabled}
-              title={autoFrame.enabled ? 'Auto-frame ON (f)' : 'Auto-frame OFF (f)'}
+              label={autoFrame.enabled ? 'Auto-frame on' : 'Auto-frame off'}
+              shortcut="F"
+              pressed={autoFrame.enabled}
+              side={fullscreenControlsOnLeft ? 'right' : 'left'}
               style={{
-                ...fullscreenChromeBtnStyle,
+                ...(circleShape ? circleChromeBtnStyle : fullscreenChromeBtnStyle),
                 background: autoFrame.enabled
                   ? 'hsl(var(--gold) / 0.85)'
-                  : fullscreenChromeBtnStyle.background,
-                color: autoFrame.enabled ? 'hsl(var(--background))' : fullscreenChromeBtnStyle.color,
+                  : circleShape ? circleChromeBtnStyle.background : fullscreenChromeBtnStyle.background,
+                color: autoFrame.enabled
+                  ? 'hsl(var(--background))'
+                  : circleShape ? circleChromeBtnStyle.color : fullscreenChromeBtnStyle.color,
               }}
             >
               <Focus size={16} />
-            </button>
+            </WebcamChromeButton>
           )}
-          <button
-            type="button"
+          <WebcamChromeButton
             onClick={close}
-            aria-label="Stop camera"
-            title="Stop camera"
+            label="Stop camera"
+            side={fullscreenControlsOnLeft ? 'right' : 'left'}
             style={{
-              ...fullscreenChromeBtnStyle,
+              ...(circleShape ? circleChromeBtnStyle : fullscreenChromeBtnStyle),
               color: 'hsl(var(--ember))',
               borderColor: 'hsl(var(--ember) / 0.5)',
             }}
           >
             <X size={16} />
-          </button>
+          </WebcamChromeButton>
         </div>
         <div
           aria-hidden="true"
