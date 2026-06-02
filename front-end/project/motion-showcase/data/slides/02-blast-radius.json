@@ -8,7 +8,7 @@
   "showBrandHeader": false,
   "showPresenterChip": false,
   "titleStyle": "white",
-  "sound": { "on": "focus", "kind": "zoom", "volume": 0.6 },
+  "sound": { "on": "focus", "kind": "pop", "volume": 0.6 },
   "content": {
     "title": "Blast Radius",
     "particleCount": 70,

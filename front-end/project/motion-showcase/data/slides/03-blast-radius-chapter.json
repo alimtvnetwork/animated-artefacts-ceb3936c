@@ -8,7 +8,7 @@
   "showBrandHeader": false,
   "showPresenterChip": false,
   "titleStyle": "white",
-  "sound": { "on": "focus", "kind": "whoosh", "volume": 0.5 },
+  "sound": { "on": "focus", "kind": "pop", "volume": 0.5 },
   "content": {
     "eyebrow": "CHAPTER 03",
     "title": "Detonate",
