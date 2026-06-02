@@ -1343,7 +1343,7 @@ export function PresenterWebcamOverlay() {
                   hide();
                 }}
                 label="Hide to tray"
-                shortcut="I"
+                shortcut="M"
                 style={chromeBtnStyle}
               >
                 <Camera size={11} />
