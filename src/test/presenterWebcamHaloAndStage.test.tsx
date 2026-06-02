@@ -133,6 +133,54 @@ describe('PresenterWebcam v3 — halo', () => {
   });
 });
 
+describe('PresenterWebcam positioning clamp', () => {
+  beforeEach(() => {
+    window.localStorage.clear();
+  });
+  afterEach(() => {
+    window.localStorage.clear();
+  });
+
+  it('clamps position using the live webcam size, not the default medium size', async () => {
+    const { stream } = makeFakeStream();
+    mockGetUserMedia(stream);
+    const captured: Captured = { ctx: null };
+
+    render(
+      <PresenterWebcamProvider>
+        <Probe captured={captured} />
+      </PresenterWebcamProvider>,
+    );
+
+    await act(async () => {
+      await captured.ctx!.show();
+    });
+
+    act(() => {
+      captured.ctx!.setSizeStep('XL');
+      captured.ctx!.setPosition(1800, 900);
+    });
+
+    expect(captured.ctx!.size).toEqual({ w: 720, h: 405 });
+    expect(captured.ctx!.position).toEqual({ x: 1200, y: 675 });
+  });
+
+  it('reclamps a stored position when a larger stored webcam size hydrates on mount', () => {
+    window.localStorage.setItem('riseup.webcam.size', JSON.stringify({ kind: 'step', id: 'XL' }));
+    window.localStorage.setItem('riseup.webcam.pos', JSON.stringify({ x: 1800, y: 900 }));
+
+    const captured: Captured = { ctx: null };
+    render(
+      <PresenterWebcamProvider>
+        <Probe captured={captured} />
+      </PresenterWebcamProvider>,
+    );
+
+    expect(captured.ctx!.size).toEqual({ w: 720, h: 405 });
+    expect(captured.ctx!.position).toEqual({ x: 1200, y: 675 });
+  });
+});
+
 describe('PresenterWebcam v3 — stage round-trip', () => {
   beforeEach(() => {
     window.localStorage.clear();
