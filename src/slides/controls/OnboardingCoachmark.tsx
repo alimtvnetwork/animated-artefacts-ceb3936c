@@ -85,6 +85,10 @@ export function OnboardingCoachmark({ open, onDismiss }: Props) {
   useEffect(() => {
     if (!open) return;
     const handler = (e: KeyboardEvent) => {
+      if (e.key === 'i' || e.key === 'I' || e.key === 'o' || e.key === 'O') {
+        onDismiss();
+        return;
+      }
       if (e.key !== 'ArrowRight') return;
       e.preventDefault();
       e.stopPropagation();
