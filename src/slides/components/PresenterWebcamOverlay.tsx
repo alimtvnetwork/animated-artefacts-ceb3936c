@@ -19,6 +19,7 @@
  * matches what the user expects on scaled FitStage viewports.
  */
 import { useCallback, useEffect, useRef, useState } from 'react';
+import { createPortal } from 'react-dom';
 import {
   GripHorizontal,
   X,
@@ -55,6 +56,8 @@ const FREE_MIN_W = 160;
 const FREE_MAX_W = 960;
 const CIRCLE_CONTROL_SIZE = 44;
 const FALLBACK_PREVIEW_SIZE = { w: 420, h: 560 };
+const STAGE_W = 1920;
+const STAGE_H = 1080;
 
 function WebcamChromeButton({
   label,
