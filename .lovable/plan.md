@@ -172,3 +172,34 @@ Remaining (camera-2026, beyond step 21):
   reads too round at XL sizes — not requested.
 - Carryover: video-portal refactor (#63), StepsChain3D depth-aware medallion,
   promote a spare fade_swoosh take — all still deferred.
+
+## Camera-2026 webcam track — steps 22–31 (2026-06-02): final pack closeout
+
+Reasoning: steps 12–21 reconciled the primary living docs; this batch sweeps the
+last stale "plate" references in the build-log / test-execution docs and the
+spec 05 §1 asset table (which still called 04 "the only shipped plate"), then
+hardens the contract test to lock the squircle radii + rim box-shadow.
+
+- 22. spec 08 build-log — HISTORICAL (pre-v2) banner (~10m)
+- 23. spec 09 build-log — HISTORICAL banner; "plate"→"CSS rim" guidance (~10m)
+- 24. spec 12 T16 manual-QA — describe CSS-only rim + "matches image 3" check (~10m)
+- 25. spec 05 §1 table — 02/04 marked Historical/REJECTED, reference-only (kills the "only shipped plate" contradiction) (~10m)
+- 26. Hardened presenterWebcamRimContract — lock border-radius 38%/34% / 50% / 999 + layered ember/gold/drop box-shadow (2 new tests) (~20m)
+- 27. Rim contract green (6 tests) (~5m)
+- 28. Verified reduced-motion guard early-returns the shape-pop WAAPI (no animation when reduced) (~5m)
+- 29. Verified minimized puck + chrome inherit the gold rim border (unconditional on frame) (~5m)
+- 30. Full suite green (869 tests, +2 from new contract assertions) (~15m)
+- 31. Plan closeout (~5m)
+
+Estimated total: ~1h 35m. The camera-2026 pack now has ZERO living doc that
+claims the plate ships; all plate text is either banner-marked HISTORICAL or
+explicitly REJECTED, and the radii + rim are test-locked.
+
+Remaining (camera-2026, beyond step 31):
+- spec 05 §1–§6 remain a banner-marked HISTORICAL recipe — could be trimmed to a
+  short "rejected approach" appendix (cosmetic, ~30m).
+- Reference PNGs in spec/camera-2026/assets/ kept for visual diffing only.
+- True pixel-exact superellipse (SVG path stroke / Houdini) only if border-radius
+  reads too round at XL sizes on a real lens feed (T16 manual check) — not requested.
+- Carryover: video-portal refactor (#63), StepsChain3D depth-aware medallion,
+  promote a spare fade_swoosh take — all still deferred.
