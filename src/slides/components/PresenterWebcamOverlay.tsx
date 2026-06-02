@@ -407,7 +407,10 @@ export function PresenterWebcamOverlay() {
     }
     dragRef.current = null;
     setDragging(false);
-  }, []);
+    // After moving the camera, hide the cursor immediately (it reappears on
+    // the next mouse move, then auto-hides again). See useAutoHideCursor.
+    autoHideCursor.hideNow();
+  }, [autoHideCursor]);
 
   // ──────────────────────────────────────────────────────────────────
   // Resize math — only width is dragged; height stays 16:9.
