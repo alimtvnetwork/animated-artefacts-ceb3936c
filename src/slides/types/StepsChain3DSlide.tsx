@@ -1239,7 +1239,6 @@ export const StepsChain3DSlide = forwardRef<FocusTimelineHandle, Props>(
       if (!el) return;
       const becomingActive = i === active && from !== active;
       const becomingInactive = i === from && from !== active;
-      const isActiveNow = i === active;
       // Depth-aware steady-state: markers that are NOT mid-transition recede
       // with the same hierarchy as their card (distant < adjacent < active).
       const baseMarker = markerDepth(Math.abs(i - active));
