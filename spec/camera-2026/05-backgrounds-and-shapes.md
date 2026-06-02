@@ -9,10 +9,16 @@
 
 | File | Pixel look | Role in the layer stack |
 |------|-----------|--------------------------|
-| `01-reference-frame-gold-rim.png` | Squircle, white interior, **gold→red glowing rim** on near-black. | The **visual target**. Do not ship it; match it. |
+| `01-reference-frame-gold-rim.png` | Squircle, white interior, **gold→red glowing rim** on near-black. | A development **reference only** — it is NOT shipped and NOT imported. The white interior is a placeholder; the live camera fills that area. |
 | `02-squircle-mask-black.png` | Solid **black squircle** silhouette, no shadow. | The exact **shape mask** — use as `mask-image`/`clip` to cut the video into a squircle. |
-| `03-squircle-plate-white-shadow.png` | **White** squircle **with drop shadow**, transparent around it. | Neutral **background plate** placed *behind* the video. |
-| `04-squircle-plate-gold-shadow.png` | **Gold** squircle with drop shadow. | On-brand **background plate** variant. |
+| `04-squircle-plate-gold-shadow.png` | **Gold→ember** squircle rim + soft drop shadow on a **fully transparent** background. | The **only** shipped background plate. Sits behind the masked video; transparent everywhere except the rim/shadow. |
+
+> **Removed (2026-06-02):** `03-squircle-plate-white-shadow.png`. It rendered an
+> opaque white squircle *behind* the video (see the rejected screenshot — a flat
+> white body around the camera) and added no value. The overlay no longer imports
+> it and the asset was deleted. Do **not** reintroduce a white/neutral fill plate.
+> The squircle interior must be **transparent** — only the live video + the gold
+> rim show.
 
 A **squircle** is a superellipse — rounder than a rounded-rect, flatter than a
 circle. The black mask gives the precise curve so CSS and the PNG agree.
