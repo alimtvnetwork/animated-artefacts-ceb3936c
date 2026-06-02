@@ -58,7 +58,7 @@ describe('useAutoHideCursor', () => {
     expect(result.current.hidden).toBe(true);
   });
 
-  it('stays hidden until the pointer actually moves after hideNow', () => {
+  it('stays hidden until the pointer actually moves past the threshold after hideNow', () => {
     const { result } = renderHook(() => useAutoHideCursor({ active: true, delay: 2500 }));
 
     act(() => {
@@ -68,13 +68,15 @@ describe('useAutoHideCursor', () => {
 
     expect(result.current.hidden).toBe(true);
 
+    // Jitter at ~same spot (within threshold) keeps it hidden.
     act(() => {
-      result.current.registerActivity({ kind: 'move', clientX: 120, clientY: 180 });
+      result.current.registerActivity({ kind: 'move', clientX: 123, clientY: 181 });
     });
     expect(result.current.hidden).toBe(true);
 
+    // A deliberate move past the threshold wakes the cursor.
     act(() => {
-      result.current.registerActivity({ kind: 'move', clientX: 121, clientY: 180 });
+      result.current.registerActivity({ kind: 'move', clientX: 140, clientY: 180 });
     });
     expect(result.current.hidden).toBe(false);
   });
