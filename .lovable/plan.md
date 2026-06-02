@@ -140,3 +140,35 @@ Remaining (camera-2026, beyond step 11):
   prune later if the spec is ever trimmed.
 - Carryover from earlier tracks: video-portal refactor (#63), StepsChain3D
   depth-aware medallion, promote a spare fade_swoosh take — all still deferred.
+
+## Camera-2026 webcam track — steps 12–21 (2026-06-02): spec-pack reconciliation
+
+Reasoning: steps 1–11 shipped the CSS-only rim + memory + spec 05 §8 v2, but the
+rest of the camera-2026 pack (acceptance checklist, overview, overlay-rendering,
+build logs, implementation steps, READMEs) still described the rejected two-plate
+stack as the shipped design. A blind re-implementer would have rebuilt the bug.
+This batch makes every living doc agree with the CSS-only truth.
+
+- 12. spec 07 §Shape&rim — replaced two-plate criteria with CSS-only rim contract (~20m)
+- 13. spec 07 — persistence line (no plate flag) + test table (drop plate test, add rim-contract test) (~15m)
+- 14. spec 00 §capabilities + spec 02 surface table & shape line → CSS-only rim (~15m)
+- 15. spec 06 top banner: steps 24–26 plate work superseded (~10m)
+- 16. README intro + "what is" para → CSS-only rim, assets reference-only (~15m)
+- 17. Full suite green (867 tests) — asset deletion broke nothing (~15m)
+- 18. Verified system specs 64/51 have no stale plate refs (mask hits are halo/circle only) (~10m)
+- 19. README live-code-map line counts refreshed (744 / 1736) (~5m)
+- 20. spec 06 step 25/26 + spec 10 build-log: inline strike-through + HISTORICAL banner (~20m)
+- 21. Rim contract re-run green + plan closeout (~5m)
+
+Estimated total: ~2h 10m. The camera-2026 pack is now internally consistent:
+every living doc points at §8 v2 (CSS-only rim); historical build logs are
+banner-marked, not silently wrong.
+
+Remaining (camera-2026, beyond step 21):
+- spec 05 §1–§6 remain as banner-marked HISTORICAL recipe; could be trimmed to a
+  short "rejected approach" appendix if the pack is ever shortened (cosmetic).
+- Reference PNGs in spec/camera-2026/assets/ kept for visual diffing only.
+- Optional pixel-exact superellipse (Houdini/SVG clip-path) if border-radius
+  reads too round at XL sizes — not requested.
+- Carryover: video-portal refactor (#63), StepsChain3D depth-aware medallion,
+  promote a spare fade_swoosh take — all still deferred.
