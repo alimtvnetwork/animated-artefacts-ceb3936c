@@ -365,6 +365,8 @@ interface HamburgerProps {
   onToggleTopJumper?: () => void;
   topJumperHidden?: boolean;
   onOpenKeyboardMap: () => void;
+  /** Clears the onboarding flag and re-opens the first-run coachmark. */
+  onShowIntro: () => void;
   /** Active slide number — used as the default scope target for the live
    *  Transition style picker (per-slide override). */
   currentSlideNumber: number;
