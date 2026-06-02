@@ -44,6 +44,7 @@ import { useAutoHideCursor } from './useAutoHideCursor';
 import squirclePlateGold from '@/assets/camera-2026/04-squircle-plate-gold-shadow.png';
 import squircleMaskBlack from '@/assets/camera-2026/02-squircle-mask-black.png';
 import squirclePlateWhite from '@/assets/camera-2026/03-squircle-plate-white-shadow.png';
+import alimPresenter from '@/assets/brand/alim-presenter.png';
 
 function readStageScale(): number {
   if (typeof document === 'undefined') return 1;
@@ -56,6 +57,7 @@ const HALO = 28;
 const FREE_MIN_W = 160;
 const FREE_MAX_W = 960;
 const CIRCLE_CONTROL_SIZE = 44;
+const FALLBACK_PREVIEW_SIZE = { w: 420, h: 560 };
 
 function WebcamChromeButton({
   label,
@@ -527,102 +529,202 @@ export function PresenterWebcamOverlay() {
   // Render branching.
   // ──────────────────────────────────────────────────────────────────
   if (state.phase === 'denied') {
+    const previewWidth = FALLBACK_PREVIEW_SIZE.w;
+    const previewHeight = FALLBACK_PREVIEW_SIZE.h;
+    const previewDiameter = Math.min(previewWidth, previewHeight);
+    const previewLeft = circleShape ? (previewWidth - previewDiameter) / 2 : 0;
+    const previewTop = circleShape ? (previewHeight - previewDiameter) / 2 : 0;
     return (
-      <div
-        role="alert"
-        aria-live="assertive"
-        style={{
-          position: 'absolute',
-          right: 32,
-          top: 32,
-          width: 360,
-          maxWidth: 'calc(100vw - 64px)',
-          zIndex: 60,
-          pointerEvents: 'auto',
-          borderRadius: 8,
-          border: '1px solid hsl(var(--destructive) / 0.45)',
-          background: 'hsl(var(--card) / 0.94)',
-          boxShadow: '0 20px 40px hsl(var(--background) / 0.45)',
-          padding: 16,
-          color: 'hsl(var(--foreground))',
-        }}
-      >
-        <div style={{ display: 'flex', alignItems: 'flex-start', gap: 12 }}>
+      <>
+        <div
+          aria-hidden="true"
+          style={{
+            position: 'absolute',
+            right: 48,
+            top: 120,
+            width: previewWidth + HALO * 2,
+            height: previewHeight + HALO * 2,
+            zIndex: 58,
+            pointerEvents: 'none',
+          }}
+        >
+          {haloVisible && (
+            <div
+              ref={shapeHaloRef}
+              style={{
+                position: 'absolute',
+                left: previewLeft,
+                top: previewTop,
+                width: (circleShape ? previewDiameter : previewWidth) + HALO * 2,
+                height: (circleShape ? previewDiameter : previewHeight) + HALO * 2,
+                borderRadius: circleShape ? '50%' : 28,
+                background:
+                  'radial-gradient(ellipse at center, hsl(var(--gold) / 0.22) 0%, hsl(var(--gold) / 0.09) 48%, transparent 76%)',
+                WebkitMaskImage:
+                  'radial-gradient(ellipse at center, hsl(0 0% 0% / 1) 30%, hsl(0 0% 0% / 0.4) 65%, hsl(0 0% 0% / 0) 100%)',
+                maskImage:
+                  'radial-gradient(ellipse at center, hsl(0 0% 0% / 1) 30%, hsl(0 0% 0% / 0.4) 65%, hsl(0 0% 0% / 0) 100%)',
+                transition:
+                  'opacity 240ms ease, left 420ms cubic-bezier(0.22, 1, 0.36, 1), top 420ms cubic-bezier(0.22, 1, 0.36, 1), width 420ms cubic-bezier(0.22, 1, 0.36, 1), height 420ms cubic-bezier(0.22, 1, 0.36, 1), border-radius 420ms cubic-bezier(0.22, 1, 0.36, 1)',
+              }}
+            />
+          )}
           <div
-            aria-hidden="true"
+            ref={shapeFrameRef}
             style={{
-              width: 28,
-              height: 28,
-              borderRadius: 999,
-              display: 'inline-flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              background: 'hsl(var(--destructive) / 0.16)',
-              color: 'hsl(var(--destructive))',
-              flex: '0 0 auto',
+              position: 'absolute',
+              left: HALO + previewLeft,
+              top: HALO + previewTop,
+              width: circleShape ? previewDiameter : previewWidth,
+              height: circleShape ? previewDiameter : previewHeight,
+              borderRadius: circleShape ? '50%' : '38% / 34%',
+              overflow: 'hidden',
+              border: '1.5px solid hsl(var(--gold) / 0.6)',
+              boxShadow:
+                '0 0 32px hsl(var(--gold) / 0.18), 0 12px 32px hsl(var(--background) / 0.6)',
+              background: 'linear-gradient(180deg, hsl(var(--card)), hsl(var(--background)))',
+              transition:
+                'border-radius 420ms cubic-bezier(0.22, 1, 0.36, 1), left 420ms cubic-bezier(0.22, 1, 0.36, 1), top 420ms cubic-bezier(0.22, 1, 0.36, 1), width 420ms cubic-bezier(0.22, 1, 0.36, 1), height 420ms cubic-bezier(0.22, 1, 0.36, 1), box-shadow 320ms ease',
             }}
           >
-            <Camera size={15} />
+            <img
+              src={alimPresenter}
+              alt="Presenter fallback preview"
+              draggable={false}
+              style={{
+                width: '100%',
+                height: '100%',
+                objectFit: 'cover',
+                transform: 'scaleX(-1)',
+                filter: 'saturate(1.02) contrast(1.02)',
+                pointerEvents: 'none',
+              }}
+            />
+            <div
+              aria-hidden="true"
+              style={{
+                position: 'absolute',
+                inset: 0,
+                background: 'linear-gradient(to top, hsl(var(--background) / 0.32), transparent 36%)',
+                pointerEvents: 'none',
+              }}
+            />
           </div>
-          <div style={{ minWidth: 0, flex: 1 }}>
+        </div>
+        <div
+          role="alert"
+          aria-live="assertive"
+          style={{
+            position: 'absolute',
+            right: 32,
+            top: 32,
+            width: 360,
+            maxWidth: 'calc(100vw - 64px)',
+            zIndex: 60,
+            pointerEvents: 'auto',
+            borderRadius: 8,
+            border: '1px solid hsl(var(--destructive) / 0.45)',
+            background: 'hsl(var(--card) / 0.94)',
+            boxShadow: '0 20px 40px hsl(var(--background) / 0.45)',
+            padding: 16,
+            color: 'hsl(var(--foreground))',
+          }}
+        >
+          <div style={{ display: 'flex', alignItems: 'flex-start', gap: 12 }}>
             <div
+              aria-hidden="true"
               style={{
-                fontSize: 11,
-                lineHeight: 1,
-                letterSpacing: '0.16em',
-                textTransform: 'uppercase',
+                width: 28,
+                height: 28,
+                borderRadius: 999,
+                display: 'inline-flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                background: 'hsl(var(--destructive) / 0.16)',
                 color: 'hsl(var(--destructive))',
-                marginBottom: 8,
-                fontWeight: 700,
+                flex: '0 0 auto',
               }}
             >
-              Camera blocked
+              <Camera size={15} />
             </div>
-            <div
-              style={{
-                fontSize: 14,
-                lineHeight: 1.45,
-                color: 'hsl(var(--foreground) / 0.9)',
-                marginBottom: 12,
-              }}
-            >
-              {state.error || 'Enable camera access in your browser site settings, then try again.'}
-            </div>
-            <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
-              <button
-                type="button"
-                onClick={() => { void show(); }}
+            <div style={{ minWidth: 0, flex: 1 }}>
+              <div
                 style={{
-                  borderRadius: 999,
-                  border: '1px solid hsl(var(--gold) / 0.55)',
-                  background: 'hsl(var(--gold) / 0.2)',
-                  color: 'hsl(var(--cream))',
-                  fontSize: 12,
-                  fontWeight: 600,
-                  padding: '8px 12px',
+                  fontSize: 11,
+                  lineHeight: 1,
+                  letterSpacing: '0.16em',
+                  textTransform: 'uppercase',
+                  color: 'hsl(var(--destructive))',
+                  marginBottom: 8,
+                  fontWeight: 700,
                 }}
               >
-                Try again
-              </button>
-              <button
-                type="button"
-                onClick={close}
+                Camera blocked
+              </div>
+              <div
                 style={{
-                  borderRadius: 999,
-                  border: '1px solid hsl(var(--border))',
-                  background: 'hsl(var(--card))',
-                  color: 'hsl(var(--foreground) / 0.82)',
-                  fontSize: 12,
-                  fontWeight: 600,
-                  padding: '8px 12px',
+                  fontSize: 14,
+                  lineHeight: 1.45,
+                  color: 'hsl(var(--foreground) / 0.9)',
+                  marginBottom: 12,
                 }}
               >
-                Dismiss
-              </button>
+                {state.error || 'Enable camera access in your browser site settings, then try again.'}
+              </div>
+              <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', marginBottom: 10 }}>
+                <button
+                  type="button"
+                  onClick={() => { void show(); }}
+                  style={{
+                    borderRadius: 999,
+                    border: '1px solid hsl(var(--gold) / 0.55)',
+                    background: 'hsl(var(--gold) / 0.2)',
+                    color: 'hsl(var(--cream))',
+                    fontSize: 12,
+                    fontWeight: 600,
+                    padding: '8px 12px',
+                  }}
+                >
+                  Try again
+                </button>
+                <button
+                  type="button"
+                  onClick={cycleShapeOverlay}
+                  style={{
+                    borderRadius: 999,
+                    border: '1px solid hsl(var(--gold) / 0.45)',
+                    background: circleShape || haloVisible ? 'hsl(var(--gold) / 0.28)' : 'hsl(var(--card))',
+                    color: circleShape || haloVisible ? 'hsl(var(--cream))' : 'hsl(var(--foreground) / 0.82)',
+                    fontSize: 12,
+                    fontWeight: 600,
+                    padding: '8px 12px',
+                  }}
+                >
+                  Shape preview (O)
+                </button>
+                <button
+                  type="button"
+                  onClick={close}
+                  style={{
+                    borderRadius: 999,
+                    border: '1px solid hsl(var(--border))',
+                    background: 'hsl(var(--card))',
+                    color: 'hsl(var(--foreground) / 0.82)',
+                    fontSize: 12,
+                    fontWeight: 600,
+                    padding: '8px 12px',
+                  }}
+                >
+                  Dismiss
+                </button>
+              </div>
+              <div style={{ fontSize: 12, color: 'hsl(var(--muted-foreground))' }}>
+                The preview still shows rectangle → circle → circle + glow even without a live camera.
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      </>
     );
   }
 

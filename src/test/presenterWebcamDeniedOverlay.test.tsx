@@ -50,6 +50,8 @@ describe('PresenterWebcamOverlay denied state', () => {
     expect(screen.getByText('Camera blocked')).toBeInTheDocument();
     expect(screen.getByText(/Camera permission denied/i)).toBeInTheDocument();
     expect(screen.getByRole('button', { name: 'Try again' })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Shape preview (O)' })).toBeInTheDocument();
     expect(screen.getByRole('button', { name: 'Dismiss' })).toBeInTheDocument();
+    expect(screen.getByAltText('Presenter fallback preview')).toBeInTheDocument();
   });
 });
