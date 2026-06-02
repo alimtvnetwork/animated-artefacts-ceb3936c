@@ -32,6 +32,7 @@ It is **presenter-local runtime UI**: never exported, never part of slide JSON.
 | [`02-implementation-steps-C01-C10.md`](./02-implementation-steps-C01-C10.md) | Code **implementation** steps **C01–C10** (maps groups A→J) with reasoning + time. |
 | [`03-test-execution-steps-CT01-CT10.md`](./03-test-execution-steps-CT01-CT10.md) | **Test / verification** steps **CT01–CT10** with reasoning + time. |
 | [`04-test-execution-steps-CT11-CT20.md`](./04-test-execution-steps-CT11-CT20.md) | **Hardening / release / maintenance** steps **CT11–CT20** with reasoning + time. |
+| [`05-build-substeps-C01.md`](./05-build-substeps-C01.md) | **C01 expanded** into 10 code-ready sub-steps **C01.1–C01.10** with files + time. |
 
 ---
 
