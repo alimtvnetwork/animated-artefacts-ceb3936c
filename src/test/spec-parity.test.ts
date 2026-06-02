@@ -137,7 +137,6 @@ describe('spec parity — UI/JSON/MD must agree per slide', () => {
       }
     }
     if (reliant.length) {
-      // eslint-disable-next-line no-console
       console.warn(`[spec-parity] Slides relying on hard-coded UI fallbacks (advisory):\n${reliant.join('\n')}`);
     }
     expect(true).toBe(true);

@@ -64,7 +64,6 @@ function runInitialiser(initial: Record<string, string>): RunResult {
     setItem: (k: string, v: string) => { store[k] = v; },
     removeItem: (k: string) => { removed.push(k); delete store[k]; },
   };
-  // eslint-disable-next-line no-new-func
   const fn = new Function('window', initBody) as (w: unknown) => boolean;
   const result = fn({ localStorage: fakeStorage });
   return { result, finalStore: store, removed };
@@ -112,7 +111,6 @@ describe('Top Slide Jumper — fresh-browser defaults', () => {
   });
 
   it('SSR / no window → HIDDEN', () => {
-    // eslint-disable-next-line no-new-func
     const fn = new Function('window', initBody) as (w: unknown) => boolean;
     expect(fn(undefined)).toBe(true);
   });

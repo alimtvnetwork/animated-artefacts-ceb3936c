@@ -99,7 +99,6 @@ function pushError(input: Omit<CapturedError, 'id' | 'at' | 'atIso' | 'url' | 'c
 function logToConsole(e: CapturedError): void {
   if (typeof console === 'undefined') return;
   const tag = `[runtime-error ${e.correlationId}]`;
-  /* eslint-disable no-console */
   console.error(`${tag} ${KIND_LABEL[e.kind]}: ${e.message}`);
   const grouper = (console.groupCollapsed ?? console.group) as ((label: string) => void) | undefined;
   if (typeof grouper === 'function') {
