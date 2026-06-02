@@ -1,0 +1,17 @@
+{
+  "slideNumber": 4,
+  "slideName": "base64-png",
+  "slideType": "ImageSlide",
+  "transition": "PushLeft",
+  "textAnimation": "SlideUp",
+  "enabled": true,
+  "isClickReveal": false,
+  "showBrandHeader": true,
+  "showPresenterChip": true,
+  "titleStyle": "white",
+  "content": {
+    "title": "Base64-encoded PNG",
+    "image": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAAVUlEQVR4nO3PQQ3AIADAQEAfQrGCqk3EHpclPQXtvGc/48eWDviqAa0BrQGtAa0BrQGtAa0BrQGtAa0BrQGtAa0BrQGtAa0BrQGtAa0BrQGtAa0B7QXfngMcgTPApQAAAABJRU5ErkJggg==",
+    "imageRole": "bodyFigure"
+  }
+}

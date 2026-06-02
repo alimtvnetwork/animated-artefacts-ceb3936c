@@ -1,0 +1,17 @@
+{
+  "slideNumber": 7,
+  "slideName": "icon-badge",
+  "slideType": "ImageSlide",
+  "transition": "PushIn",
+  "textAnimation": "FadeIn",
+  "enabled": true,
+  "isClickReveal": false,
+  "showBrandHeader": true,
+  "showPresenterChip": true,
+  "titleStyle": "white",
+  "content": {
+    "title": "iconBadge slot",
+    "image": "/assets/examples/diagram.svg",
+    "imageRole": "iconBadge"
+  }
+}

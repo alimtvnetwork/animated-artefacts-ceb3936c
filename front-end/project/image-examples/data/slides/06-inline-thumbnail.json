@@ -1,0 +1,17 @@
+{
+  "slideNumber": 6,
+  "slideName": "inline-thumbnail",
+  "slideType": "ImageSlide",
+  "transition": "SlideIn",
+  "textAnimation": "SlideUp",
+  "enabled": true,
+  "isClickReveal": false,
+  "showBrandHeader": true,
+  "showPresenterChip": true,
+  "titleStyle": "white",
+  "content": {
+    "title": "inlineThumbnail slot",
+    "image": "/assets/examples/photo.png",
+    "imageRole": "inlineThumbnail"
+  }
+}
