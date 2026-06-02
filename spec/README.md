@@ -42,3 +42,22 @@ This layout was adopted on 2026-04-28. Previously, `spec/architecture/`,
 `spec/issues/`, `spec/research/`, and a flat `spec/slides/` mixed system
 specs with per-deck content. The reorganization split system rules from
 slide content and gave research/issues their own numbered homes.
+
+## Deck inventory (runtime ↔ spec, synced 2026-06-02)
+
+Runtime decks live in `front-end/project/<slug>/data/`. `?deck=<slug>` loads one.
+
+| Slug | Slides | Spec folder | Notes |
+|------|-------:|-------------|-------|
+| `showcase` | 8 | ✅ `26-slide-definitions/showcase/` | Primary Riseup Asia deck |
+| `image-examples` | 11 | ✅ `26-slide-definitions/image-examples/` | Image/SVG/Base64 + step-thumb + gallery demos |
+| `inside-studio` | 24 | ✅ `26-slide-definitions/inside-studio/` | |
+| `session-4-ai-coding` | 13 | ✅ `26-slide-definitions/session-4-ai-coding/` | |
+| `sample` | 4 | ✅ `26-slide-definitions/sample/` | Minimal smoke deck |
+| `motion-showcase` | 11 | ⬜ none | Transition/animation + distinct sound-cue demo (spec 21 cue map) |
+| `navy-showcase` | 10 | ⬜ none | Theme demo deck |
+| `test-step-light` | 1 | ⬜ none | Single-slide step light-theme probe |
+
+Decks without a spec folder are demo/probe decks — their JSON is self-describing
+and they are not part of the spec-first authoring contract. Add a spec folder
+only if a deck becomes a maintained, content-reviewed presentation.
