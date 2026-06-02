@@ -47,6 +47,7 @@ JSON, and never persisted to the deck. It is pure runtime UI driven by
 | [`11-test-execution-steps-T01-T10.md`](./11-test-execution-steps-T01-T10.md) | Test / acceptance execution steps **T01–T10** with reasoning + time. |
 | [`12-test-execution-steps-T11-T20.md`](./12-test-execution-steps-T11-T20.md) | Test / hardening / sign-off execution steps **T11–T20** with reasoning + time. |
 | [`13-test-execution-steps-T21-T30.md`](./13-test-execution-steps-T21-T30.md) | Regression / release / maintenance execution steps **T21–T30** with reasoning + time. |
+| [`14-implementation-steps-I01-I10.md`](./14-implementation-steps-I01-I10.md) | Actual code implementation steps **I01–I10** (files 01–05) with reasoning + time. |
 
 ---
 
