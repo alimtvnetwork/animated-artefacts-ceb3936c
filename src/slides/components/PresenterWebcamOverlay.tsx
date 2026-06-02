@@ -1407,6 +1407,20 @@ export function PresenterWebcamOverlay() {
               onPointerDown={(e) => e.stopPropagation()}
               onClick={(e) => {
                 e.stopPropagation();
+                cycleShapeOverlay();
+              }}
+              label="Cycle frame shaping"
+              shortcut="O"
+              pressed={circleShape || haloVisible}
+              side={circleControlsOnLeft ? 'right' : 'left'}
+              style={circleChromeBtnStyle}
+            >
+              {haloVisible ? <Sparkles size={16} /> : circleShape ? <Circle size={16} /> : <Square size={16} />}
+            </WebcamChromeButton>
+            <WebcamChromeButton
+              onPointerDown={(e) => e.stopPropagation()}
+              onClick={(e) => {
+                e.stopPropagation();
                 toggleMinimized();
               }}
               label="Minimize camera"
