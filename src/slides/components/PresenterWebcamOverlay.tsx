@@ -55,6 +55,7 @@ function readStageScale(): number {
 const HALO = 28;
 const FREE_MIN_W = 160;
 const FREE_MAX_W = 960;
+const CIRCLE_CONTROL_SIZE = 44;
 
 function WebcamChromeButton({
   label,
@@ -910,9 +911,11 @@ export function PresenterWebcamOverlay() {
   const platePad = Math.round(visualWidth * 0.07);
   const showPlate = !minimized && !circleShape;
   const showCircleControls = !minimized && circleShape;
-  const circleControlColumnHeight = 4 * 40 + 3 * 10;
+  const circleControlColumnHeight = 4 * CIRCLE_CONTROL_SIZE + 3 * 10;
   const circleVisualRight = position.x + (size.w + circleDiameter) / 2;
   const circleControlsOnLeft = circleVisualRight + 64 > 1920;
+  const viewportPrefersLeftCircleControls =
+    typeof window !== 'undefined' ? window.innerWidth <= window.innerHeight : false;
 
 
 
