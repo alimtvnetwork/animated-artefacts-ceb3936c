@@ -170,7 +170,7 @@ useEffect(() => {
 Live file: `src/slides/components/useAutoHideCursor.ts`.
 
 ```ts
-const { hidden, hideNow, show } = useAutoHideCursor({ active, delay = 2500 });
+const { hidden, hideNow, show, registerActivity } = useAutoHideCursor({ active, delay = 2500 });
 ```
 
 | Field | Type | Meaning |
@@ -180,6 +180,7 @@ const { hidden, hideNow, show } = useAutoHideCursor({ active, delay = 2500 });
 | `hidden` | `boolean` | `true` ⇒ consumer applies `cursor: none` to the surface root. |
 | `hideNow()` | `() => void` | Force an immediate hide (no wait). Call right after a drag/resize gesture ends. |
 | `show()` | `() => void` | Force visible and re-arm the idle timer. |
+| `registerActivity()` | `() => void` | Surface-scoped activity signal; show cursor and re-arm the idle timer. |
 
 Behaviour contract:
 
