@@ -500,11 +500,7 @@ export const StepsChain3DSlide = forwardRef<FocusTimelineHandle, Props>(
       curve,
       durationMs: curve.length * FRAME_MS,
     };
-  }, [
-    content.markerSpring?.delayMs, content.markerSpring?.overshoot,
-    content.markerSpring?.damping, content.markerSpring?.stiffness, content.markerSpring?.mass,
-    springOverrides,
-  ]);
+  }, [content.markerSpring, springOverrides]);
   const steps = content.steps ?? [];
   const total = steps.length;
 
