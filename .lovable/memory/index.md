@@ -30,7 +30,7 @@ Brand assets: `src/assets/brand/` (logo, alim-presenter.png). Use semantic token
 **Capsules MUST use `.capsule-{tone}` classNames — NEVER inline `style.background`/`color` referencing brand tokens (`--gold/--ember/--cream/--ink/--white`).** Those tokens change meaning between dark/light themes (e.g. `--cream` is repurposed to ink on paper-ink/github-light), so inline styles silently break contrast on light themes. Use `.capsule-meta` for time tags. See [light-theme capsule fg rule](mem://design/light-theme-capsule-fg-rule), `updates/spec/15+16`.
 
 ## Memories
-- [What to read (AI onboarding)](mem://reference/what-to-read) — Zero-context reading order: folder structure, slide JSON structure/schema, how to author a new slide. Mirrors root README "🤖 For AI agents" section — keep both in sync.
+- [What to read (AI onboarding)](mem://reference/what-to-read) — Zero-context reading order: folder structure, slide JSON structure/schema, how to author a slide, plus how to write code/tests/features/specs. Top-level pointer at `.lovable/what-to-read.md`; long-form in root README "🤖 For AI agents" section — keep all three in sync.
 - [House style (READ FIRST)](mem://features/house-style) — Authoritative branding + typography + capsule + animation/transition + controller rules every new slide must follow. Supersedes ad-hoc decisions.
 - [Brand-hex audit](mem://features/brand-hex-audit) — CI-enforced ban on hard-coded brand hexes under `src/slides/**`; opt-out via `// brand-hex-ok:` on canvas pixel fills. `updates/spec/19`.
 - [Spec confidence](mem://features/spec-confidence) — 0–100 pre-render gate (contract / unknown-enum / unknown-field / motion-variety) wired into `loader.ts`; `assertHighConfidence(slides, 80)`. `updates/spec/20`.
