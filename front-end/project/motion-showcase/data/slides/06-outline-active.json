@@ -8,7 +8,7 @@
   "showBrandHeader": true,
   "showPresenterChip": true,
   "titleStyle": "white",
-  "sound": { "on": "focus", "kind": "click", "volume": 0.4 },
+  "sound": { "on": "focus", "kind": "pop", "volume": 0.4 },
   "content": {
     "eyebrow": "WE ARE HERE",
     "title": "Session outline — Build",
