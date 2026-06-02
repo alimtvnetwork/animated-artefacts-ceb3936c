@@ -38,9 +38,16 @@ This table is the fast lookup; the schema wins on conflict.
 | `StepTimelineSlide` | `eyebrow`, `title`, `steps[]` |
 | `AdvanceStepSlide` | `eyebrow`, `title`, `steps[]` |
 | `FocusTimelineSlide` | `eyebrow`, `title`, `direction`, `windowSize`, `steps[]` |
-| `ImageSlide` | `eyebrow`, `title`, `image` |
+| `StepsChain3DSlide` | `eyebrow`, `title`, `steps[]` (3D depth-tiered chain) |
+| `MetricGridSlide` | `eyebrow`, `title`, `metrics[]` (2-6 headline cells) |
+| `ImageSlide` | `eyebrow`, `title`, `image`, `images[]`, `caption`, `imageRole` |
 | `QrMeetingSlide` | `title`, `meetingUrl`, `qrStyle`, `contactRows[]`, `cta`, `socials[]` |
 | `SectionDividerSlide` | `eyebrow`, `title` |
+| `TableSlide` *(extended, see 27a)* | `eyebrow`, `title`, `columns[]`, `rows[]` |
+| `CodeBlockSlide` *(extended, see 27b)* | `eyebrow`, `title`, `language`, `code` |
+| `BoxDiagramSlide` *(extended, see 27c)* | `eyebrow`, `title`, `boxes[]`, `arrows[]` |
+| `LayoutSlide` *(extended, see 27d)* | `eyebrow`, `title`, `regions[]` |
+| `TileSlide` *(extended, see 28)* | `eyebrow`, `title`, `tiles[]` |
 
 For the exact, complete `content` contract of a type, always read
 [`../21-slides-system/llm/23-slide-type-contracts.md`](../21-slides-system/llm/23-slide-type-contracts.md)
