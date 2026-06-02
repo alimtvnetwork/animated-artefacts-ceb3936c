@@ -27,6 +27,8 @@ import { DeckMenu } from './DeckMenu';
 import { ThemeMenu } from './ThemeMenu';
 import { writeThemeDebugFlag } from '../manifest';
 import { KeyboardShortcutsDialog } from './KeyboardShortcutsDialog';
+import { OnboardingCoachmark } from './OnboardingCoachmark';
+import { useOnboardingFlag } from './useOnboardingFlag';
 // v5 (2026-05-02): the Radix DropdownMenu was replaced with a hover-driven
 // custom panel inside `ControllerHamburger` because the dropdown's focus
 // trap was collapsing the controller pill on click. The previous imports
