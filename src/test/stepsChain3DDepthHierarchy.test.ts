@@ -27,7 +27,7 @@
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { describe, it, expect } from 'vitest';
-import { STEPS_CHAIN_3D_DEPTH } from '../slides/types/StepsChain3DSlide';
+import { STEPS_CHAIN_3D_DEPTH, markerDepth } from '../slides/types/StepsChain3DSlide';
 import { THEMES } from '../slides/themes';
 
 const RENDERER_SRC = readFileSync(
