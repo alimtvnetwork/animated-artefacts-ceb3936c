@@ -1,8 +1,13 @@
 # 03 — Surface 1: Presenter Top Bar
 
 **File:** `src/slides/controls/PresenterTopBar.tsx`
-**Role:** Always-visible, non-interactive HUD pinned to the top-center of the
-stage. Shows the current slide number/total plus the Next/Prev keyboard hints.
+**Role:** Non-interactive HUD pinned to the top-center of the stage. Shows the
+current slide number/total plus the Next/Prev keyboard hints.
+
+> **Default: HIDDEN.** Since v0.152 (spec 65 §2) `topJumperHidden` defaults to
+> `true`, so this bar is OFF until the presenter opts in with the `J` shortcut
+> (or the controller hamburger's PanelTop toggle). The default-on, always-
+> visible counter is the **bottom-right Slide Number Badge** (Surface 2).
 
 ## When it renders
 
@@ -15,8 +20,9 @@ Mounted by `SlideDeckPage` when ALL of these are true:
 ```
 
 - Hidden in grid/overview view (`gridOpen`).
-- Hidden when the presenter chose "Hide top jumper" (the `J` shortcut /
-  controller hamburger toggle → `topJumperHidden`).
+- Hidden by default via `topJumperHidden` (persisted in `localStorage` under
+  `riseup.topJumperHidden`; `'0'` = presenter chose to show, anything else =
+  hidden). Toggle with the `J` shortcut / controller hamburger.
 - Hidden on `StepsChain3DSlide` (that slide owns the full surface).
 
 ## Props
