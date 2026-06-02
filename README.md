@@ -343,6 +343,33 @@ The runtime contracts are also enforced in code:
 
 ---
 
+## 🛠️ Working in this repo — code, tests, features, specs
+
+Beyond authoring slides, here is how to extend the project itself. Full
+checklist: [`.lovable/what-to-read.md`](.lovable/what-to-read.md) §4–§7.
+
+### Write code
+- Read [`.lovable/coding-guidelines.md`](.lovable/coding-guidelines.md) **first** — the 12 rules are enforced (functions ≤8 lines, files ≤100 lines, no `any`, no inline hex, DRY).
+- Renderer lives in [`src/slides/`](src/slides/); new visual primitives go in `src/slides/components/`.
+- Use semantic tokens from `src/index.css` / `tailwind.config.ts` — never raw colors in components.
+
+### Add a unit test
+- Tests run on **Vitest** (`bun run test`); they live in [`src/test/`](src/test/) and alongside features.
+- New slideType or contract field → extend a contract/schema test so CI stays green.
+
+### Add a new feature
+1. Spec first — behaviour → `spec/21-slides-system/NN-*.md`; per-change delta → `updates/spec/NN-short-title.md`.
+2. Implement per the coding-guidelines.
+3. Add Vitest coverage.
+4. Pre-flight: `bunx tsc -p tsconfig.app.json --noEmit && bun run lint && bun run test && bun run build`.
+5. Record durable decisions in `.lovable/memory/{type}/<name>.md` and index them in `.lovable/memory/index.md`.
+
+### Report / resolve issues
+- New bug → `spec/22-slides-issues/NN-short-title.md`.
+- Resolved → append a `## Resolution` section to that same file (never move it).
+
+---
+
 ## License & credits
 
 Presenter: **MD ALIM UL KARIM** · Org: **Riseup Asia LLC**.
