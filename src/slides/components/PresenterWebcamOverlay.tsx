@@ -526,6 +526,106 @@ export function PresenterWebcamOverlay() {
   // ──────────────────────────────────────────────────────────────────
   // Render branching.
   // ──────────────────────────────────────────────────────────────────
+  if (state.phase === 'denied') {
+    return (
+      <div
+        role="alert"
+        aria-live="assertive"
+        style={{
+          position: 'absolute',
+          right: 32,
+          top: 32,
+          width: 360,
+          maxWidth: 'calc(100vw - 64px)',
+          zIndex: 60,
+          pointerEvents: 'auto',
+          borderRadius: 8,
+          border: '1px solid hsl(var(--destructive) / 0.45)',
+          background: 'hsl(var(--card) / 0.94)',
+          boxShadow: '0 20px 40px hsl(var(--background) / 0.45)',
+          padding: 16,
+          color: 'hsl(var(--foreground))',
+        }}
+      >
+        <div style={{ display: 'flex', alignItems: 'flex-start', gap: 12 }}>
+          <div
+            aria-hidden="true"
+            style={{
+              width: 28,
+              height: 28,
+              borderRadius: 999,
+              display: 'inline-flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              background: 'hsl(var(--destructive) / 0.16)',
+              color: 'hsl(var(--destructive))',
+              flex: '0 0 auto',
+            }}
+          >
+            <Camera size={15} />
+          </div>
+          <div style={{ minWidth: 0, flex: 1 }}>
+            <div
+              style={{
+                fontSize: 11,
+                lineHeight: 1,
+                letterSpacing: '0.16em',
+                textTransform: 'uppercase',
+                color: 'hsl(var(--destructive))',
+                marginBottom: 8,
+                fontWeight: 700,
+              }}
+            >
+              Camera blocked
+            </div>
+            <div
+              style={{
+                fontSize: 14,
+                lineHeight: 1.45,
+                color: 'hsl(var(--foreground) / 0.9)',
+                marginBottom: 12,
+              }}
+            >
+              {state.error || 'Enable camera access in your browser site settings, then try again.'}
+            </div>
+            <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+              <button
+                type="button"
+                onClick={() => { void show(); }}
+                style={{
+                  borderRadius: 999,
+                  border: '1px solid hsl(var(--gold) / 0.55)',
+                  background: 'hsl(var(--gold) / 0.2)',
+                  color: 'hsl(var(--cream))',
+                  fontSize: 12,
+                  fontWeight: 600,
+                  padding: '8px 12px',
+                }}
+              >
+                Try again
+              </button>
+              <button
+                type="button"
+                onClick={close}
+                style={{
+                  borderRadius: 999,
+                  border: '1px solid hsl(var(--border))',
+                  background: 'hsl(var(--card))',
+                  color: 'hsl(var(--foreground) / 0.82)',
+                  fontSize: 12,
+                  fontWeight: 600,
+                  padding: '8px 12px',
+                }}
+              >
+                Dismiss
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   if (state.phase === 'tray') {
     // Tray surface — 40×40 icon at top-right of the box's last position.
     const trayX = position.x + size.w - 40;
