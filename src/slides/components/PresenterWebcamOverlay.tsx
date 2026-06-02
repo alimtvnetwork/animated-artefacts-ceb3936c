@@ -910,6 +910,9 @@ export function PresenterWebcamOverlay() {
   const platePad = Math.round(visualWidth * 0.07);
   const showPlate = !minimized && !circleShape;
   const showCircleControls = !minimized && circleShape;
+  const circleControlColumnHeight = 4 * 40 + 3 * 10;
+  const circleVisualRight = position.x + (size.w + circleDiameter) / 2;
+  const circleControlsOnLeft = circleVisualRight + 64 > 1920;
 
 
 
@@ -1267,8 +1270,10 @@ export function PresenterWebcamOverlay() {
           <div
             style={{
               position: 'absolute',
-              left: HALO + (size.w - circleDiameter) / 2 + circleDiameter + 12,
-              top: HALO + Math.max(10, circleDiameter / 2 - 96),
+              left: circleControlsOnLeft
+                ? HALO + (size.w - circleDiameter) / 2 - 12 - 40
+                : HALO + (size.w - circleDiameter) / 2 + circleDiameter + 12,
+              top: HALO + Math.max(10, circleDiameter / 2 - circleControlColumnHeight / 2),
               display: 'flex',
               flexDirection: 'column',
               gap: 10,
@@ -1283,7 +1288,7 @@ export function PresenterWebcamOverlay() {
               }}
               label="Grow camera"
               shortcut="+"
-              side="left"
+              side={circleControlsOnLeft ? 'right' : 'left'}
               style={circleChromeBtnStyle}
             >
               <Plus size={16} />
@@ -1296,7 +1301,7 @@ export function PresenterWebcamOverlay() {
               }}
               label="Shrink camera"
               shortcut="-"
-              side="left"
+              side={circleControlsOnLeft ? 'right' : 'left'}
               style={circleChromeBtnStyle}
             >
               <Minus size={16} />
@@ -1309,7 +1314,7 @@ export function PresenterWebcamOverlay() {
               }}
               label="Minimize camera"
               shortcut="M"
-              side="left"
+              side={circleControlsOnLeft ? 'right' : 'left'}
               style={circleChromeBtnStyle}
             >
               <Minimize2 size={16} />
@@ -1321,7 +1326,7 @@ export function PresenterWebcamOverlay() {
                 close();
               }}
               label="Stop camera"
-              side="left"
+              side={circleControlsOnLeft ? 'right' : 'left'}
               style={{
                 ...circleChromeBtnStyle,
                 background: 'hsl(var(--destructive) / 0.16)',
