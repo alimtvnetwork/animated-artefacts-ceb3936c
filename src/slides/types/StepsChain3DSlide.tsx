@@ -142,7 +142,7 @@ function cardFilter(t: DepthTier): string {
  * waypoints on the rail), with a visibility floor so distant markers never
  * vanish. Active marker is always full size + opacity.
  */
-function markerDepth(distance: number): { scale: number; opacity: number } {
+export function markerDepth(distance: number): { scale: number; opacity: number } {
   if (distance === 0) return { scale: 1.0, opacity: 1.0 };
   const t = tierFor(distance);
   // Map tier.scale (adjacent 0.85 → distant 0.70) into a gentle 0.90 → 0.84
