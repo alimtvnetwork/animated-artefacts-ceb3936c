@@ -37,7 +37,7 @@ Brand assets: `src/assets/brand/` (logo, alim-presenter.png). Use semantic token
 - [Light-theme capsule fg rule](mem://design/light-theme-capsule-fg-rule) — Capsules MUST be className-driven; brand tokens change meaning per theme; full contract + decision tree + audit grep in `updates/spec/16`.
 - [LLM authoring pack](mem://features/llm-authoring-pack) — Canonical pack at `spec/slides/llm/` (files 00–27d); supersedes legacy `/spec/slides/NN-*.md`. v0.181.1 adds `27a-table-slide.md`, `27b-code-block-slide.md`, `27c-box-diagram-slide.md`, `27d-layout-slide.md` — field-by-field authoring contracts for each. `23-slide-type-contracts.md` required-fields table updated to cover MetricGrid/Table/CodeBlock/BoxDiagram/ERDiagram/LayoutSlide.
 - [No readme.txt](mem://constraints/no-readme-txt) — readme.txt renamed to readme.md on 2026-04-26; never write to readme.txt
-- [Folder structure](mem://features/folder-structure) — Canonical PHP+frontend+spec layout (see `/spec/architecture/architecture.md` + `Slides.png`)
+- [Folder structure](mem://features/folder-structure) — Canonical repo layout (2026-06-02 reorg): root = config+entry+dirs only; `src/` `front-end/` (runtime decks) `spec/` `public/` `scripts/(install)` `quality/` (generated) `updates/spec/` `legacy/` (php placeholder) `.lovable/`. Every top-level + `spec/*` folder has a README. See `.lovable/reorg-plan.md`.
 - [Slide spec format](mem://features/slide-spec-format) — JSON schema + MD companion structure for every slide
 - [Slide types catalog](mem://features/slide-types) — props and behavior for each SlideType enum
 - [Animation system](mem://features/animations) — transition + text animation tokens and variety rules
