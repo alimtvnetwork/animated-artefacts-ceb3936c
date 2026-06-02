@@ -178,9 +178,9 @@ const { hidden, hideNow, show, registerActivity } = useAutoHideCursor({ active, 
 | `active` | `boolean` | When `false` the hook is inert and the cursor is always visible. |
 | `delay` | `number` (ms) | Idle time before the cursor hides. Default **2500ms** (“a few seconds”). |
 | `hidden` | `boolean` | `true` ⇒ consumer applies `cursor: none` to the surface root. |
-| `hideNow()` | `() => void` | Force an immediate hide (no wait). Call right after a drag/resize gesture ends. |
+| `hideNow()` | `(activity?) => void` | Force an immediate hide (no wait). Call right after a drag/resize gesture ends; may receive the release event/coordinates. |
 | `show()` | `() => void` | Force visible and re-arm the idle timer. |
-| `registerActivity()` | `() => void` | Surface-scoped activity signal; show cursor and re-arm the idle timer. |
+| `registerActivity()` | `(activity?) => void` | Surface-scoped activity signal; show cursor and re-arm the idle timer; may receive pointer/wheel coordinates. |
 
 Behaviour contract:
 
@@ -191,7 +191,7 @@ Behaviour contract:
    cursor wake-ups are scoped to actual camera interaction — unrelated mouse
    movement elsewhere on the deck must not make the camera cursor visible.
 3. When the timer fires with no further movement, `hidden = true`.
-4. `hideNow()` clears the timer and sets `hidden = true` synchronously.
+4. `hideNow(activity?)` clears the timer and sets `hidden = true` synchronously.
 5. When `active` flips to `false`, the timer is cleared and `hidden` resets to
    `false` (cursor visible) so non-camera phases are never affected.
 6. No animation is involved (the cursor simply toggles), so there is nothing
