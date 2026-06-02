@@ -19,6 +19,7 @@
  * matches what the user expects on scaled FitStage viewports.
  */
 import { useCallback, useEffect, useRef, useState } from 'react';
+import { createPortal } from 'react-dom';
 import {
   GripHorizontal,
   X,
@@ -55,6 +56,8 @@ const FREE_MIN_W = 160;
 const FREE_MAX_W = 960;
 const CIRCLE_CONTROL_SIZE = 44;
 const FALLBACK_PREVIEW_SIZE = { w: 420, h: 560 };
+const STAGE_W = 1920;
+const STAGE_H = 1080;
 
 function WebcamChromeButton({
   label,
@@ -860,8 +863,8 @@ export function PresenterWebcamOverlay() {
   // ──────────────────────────────────────────────────────────────────
   if (state.phase === 'stage') {
     const stageCircleDiameter = circleShape
-      ? Math.min(window.innerWidth, window.innerHeight)
-      : Math.min(window.innerWidth, window.innerHeight);
+      ? Math.min(STAGE_W, STAGE_H)
+      : Math.min(STAGE_W, STAGE_H);
     const stageControlsOnLeft = viewportPrefersLeftCircleControls;
     return (
       <div
@@ -941,7 +944,7 @@ export function PresenterWebcamOverlay() {
             ? {
                 position: 'absolute',
                 top: '50%',
-                [stageControlsOnLeft ? 'left' : 'right']: Math.max(20, (window.innerWidth - stageCircleDiameter) / 2 - 64),
+              [stageControlsOnLeft ? 'left' : 'right']: Math.max(20, (STAGE_W - stageCircleDiameter) / 2 - 64),
                 transform: 'translateY(-50%)',
                 display: 'flex',
                 flexDirection: 'column',
@@ -1012,7 +1015,7 @@ export function PresenterWebcamOverlay() {
       ? Math.min(window.innerWidth, window.innerHeight)
       : Math.min(window.innerWidth, window.innerHeight);
     const fullscreenControlsOnLeft = viewportPrefersLeftCircleControls;
-    return (
+    return createPortal(
       <div
         role="region"
         aria-label="Camera fullscreen"
@@ -1182,7 +1185,8 @@ export function PresenterWebcamOverlay() {
         >
           → / Enter advances slides · ← exits · Esc exits
         </div>
-      </div>
+      </div>,
+      document.body,
     );
   }
 
