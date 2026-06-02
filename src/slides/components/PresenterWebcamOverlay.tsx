@@ -393,9 +393,14 @@ export function PresenterWebcamOverlay() {
   );
   const onDragPointerMove = useCallback(
     (e: React.PointerEvent<HTMLDivElement>) => {
+      // Wake the cursor on ANY movement over the camera surface — not only
+      // while dragging — so a simple hover brings the cursor back (it then
+      // auto-hides again after the idle delay). The outer wrapper is
+      // pointer-events:none, so this inner-frame handler is the surface's
+      // real activity source.
+      autoHideCursor.registerActivity();
       const d = dragRef.current;
       if (!d || d.pointerId !== e.pointerId) return;
-      autoHideCursor.registerActivity();
       const scale = readStageScale();
       const dx = (e.clientX - d.startX) / scale;
       const dy = (e.clientY - d.startY) / scale;
