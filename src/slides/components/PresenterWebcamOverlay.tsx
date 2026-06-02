@@ -1284,47 +1284,27 @@ export function PresenterWebcamOverlay() {
        * intercepts drags; aria-hidden because it is purely decorative.
        */}
       {showPlate && (
-        <>
-          <img
-            src={squirclePlateWhite}
-            alt=""
-            aria-hidden="true"
-            draggable={false}
-            style={{
-              position: 'absolute',
-              left: HALO - platePad,
-              top: HALO - platePad,
-              width: visualWidth + platePad * 2,
-              height: visualHeight + platePad * 2,
-              pointerEvents: 'none',
-              userSelect: 'none',
-              zIndex: 0,
-              opacity: 0.92,
-              transition:
-                'left 420ms cubic-bezier(0.22, 1, 0.36, 1), top 420ms cubic-bezier(0.22, 1, 0.36, 1), width 420ms cubic-bezier(0.22, 1, 0.36, 1), height 420ms cubic-bezier(0.22, 1, 0.36, 1), opacity 220ms ease',
-            }}
-          />
-          <img
-            src={squirclePlateGold}
-            alt=""
-            aria-hidden="true"
-            draggable={false}
-            style={{
-              position: 'absolute',
-              left: HALO - platePad,
-              top: HALO - platePad,
-              width: visualWidth + platePad * 2,
-              height: visualHeight + platePad * 2,
-              pointerEvents: 'none',
-              userSelect: 'none',
-              zIndex: 1,
-              transition:
-                'left 420ms cubic-bezier(0.22, 1, 0.36, 1), top 420ms cubic-bezier(0.22, 1, 0.36, 1), width 420ms cubic-bezier(0.22, 1, 0.36, 1), height 420ms cubic-bezier(0.22, 1, 0.36, 1)',
-            }}
-          />
-        </>
+        <img
+          src={squirclePlateGold}
+          alt=""
+          aria-hidden="true"
+          draggable={false}
+          style={{
+            position: 'absolute',
+            left: HALO - platePad,
+            top: HALO - platePad,
+            width: visualWidth + platePad * 2,
+            height: visualHeight + platePad * 2,
+            pointerEvents: 'none',
+            userSelect: 'none',
+            zIndex: 1,
+            transition:
+              'left 420ms cubic-bezier(0.22, 1, 0.36, 1), top 420ms cubic-bezier(0.22, 1, 0.36, 1), width 420ms cubic-bezier(0.22, 1, 0.36, 1), height 420ms cubic-bezier(0.22, 1, 0.36, 1)',
+          }}
+        />
       )}
       {/* Sharp box. */}
+
 
       <div
         ref={shapeFrameRef}
