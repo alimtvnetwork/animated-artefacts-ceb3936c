@@ -112,7 +112,6 @@ function logToConsole(e: CapturedError): void {
     if (e.componentStack) console.error('componentStack:\n' + e.componentStack.trim());
     console.groupEnd?.();
   }
-  /* eslint-enable no-console */
 }
 
 function clearErrors(): void {
