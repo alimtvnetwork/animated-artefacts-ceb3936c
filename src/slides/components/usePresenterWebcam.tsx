@@ -692,6 +692,7 @@ export function PresenterWebcamProvider({ children }: { children: ReactNode }) {
       toggleStage,
       circleShape,
       toggleCircleShape,
+      cycleShapeOverlay,
       cinematicExiting,
       runCinematicCycle,
     }),
