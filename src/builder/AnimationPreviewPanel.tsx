@@ -70,7 +70,8 @@ export function AnimationPreviewPanel({ slide, width }: Props) {
   // Re-replay when the user picks a new slide so they see its entrance
   // immediately rather than landing mid-animation (or post-animation).
   useEffect(() => {
-    if (slide) setReplayKey(k => k + 1);
+    if (slide?.slideNumber == null) return;
+    setReplayKey(k => k + 1);
   }, [slide?.slideNumber, slide?.transition, slide?.textAnimation]);
 
   // Build the MotionConfig transition override. We scale `duration` directly;
