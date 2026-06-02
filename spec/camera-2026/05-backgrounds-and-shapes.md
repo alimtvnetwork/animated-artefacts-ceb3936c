@@ -116,9 +116,9 @@ const platePad = Math.round(size.w * 0.07);
 </div>
 ```
 
-Add a `plateVariant: 'none' | 'neutral' | 'gold'` flag (persist
-`riseup.webcam.plate`) and a controls/keyboard toggle if desired — mirror the
-`circleShape` pattern in file 01 §9.
+A `plateVariant` flag is **not** shipped. The only states are plate ON (gold,
+transparent interior) when `showPlate` is true, and OFF (circle/minimized). A
+white/neutral fill plate is forbidden — the squircle interior stays transparent.
 
 ## 6. Using the PNGs at runtime (if you choose images over CSS)
 
