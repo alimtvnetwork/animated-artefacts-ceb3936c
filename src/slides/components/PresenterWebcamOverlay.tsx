@@ -863,8 +863,8 @@ export function PresenterWebcamOverlay() {
   // ──────────────────────────────────────────────────────────────────
   if (state.phase === 'stage') {
     const stageCircleDiameter = circleShape
-      ? Math.min(window.innerWidth, window.innerHeight)
-      : Math.min(window.innerWidth, window.innerHeight);
+      ? Math.min(STAGE_W, STAGE_H)
+      : Math.min(STAGE_W, STAGE_H);
     const stageControlsOnLeft = viewportPrefersLeftCircleControls;
     return (
       <div
@@ -944,7 +944,7 @@ export function PresenterWebcamOverlay() {
             ? {
                 position: 'absolute',
                 top: '50%',
-                [stageControlsOnLeft ? 'left' : 'right']: Math.max(20, (window.innerWidth - stageCircleDiameter) / 2 - 64),
+              [stageControlsOnLeft ? 'left' : 'right']: Math.max(20, (STAGE_W - stageCircleDiameter) / 2 - 64),
                 transform: 'translateY(-50%)',
                 display: 'flex',
                 flexDirection: 'column',
@@ -1015,7 +1015,7 @@ export function PresenterWebcamOverlay() {
       ? Math.min(window.innerWidth, window.innerHeight)
       : Math.min(window.innerWidth, window.innerHeight);
     const fullscreenControlsOnLeft = viewportPrefersLeftCircleControls;
-    return (
+    return createPortal(
       <div
         role="region"
         aria-label="Camera fullscreen"
@@ -1185,7 +1185,8 @@ export function PresenterWebcamOverlay() {
         >
           → / Enter advances slides · ← exits · Esc exits
         </div>
-      </div>
+      </div>,
+      document.body,
     );
   }
 
