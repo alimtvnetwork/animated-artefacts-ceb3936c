@@ -3,8 +3,9 @@
 If you are an AI agent picking up this repo with **zero context**, read these
 files **in order**. This is the top-level pointer; a memory-scoped mirror lives
 at [`.lovable/memory/reference/what-to-read.md`](memory/reference/what-to-read.md)
-and the long-form version is the root [`README.md`](../README.md)
-"🤖 For AI agents" section. Keep all three in sync.
+and the long-form version is the root [`README.md`](../README.md) — see its
+"🤖 For AI agents", "📂 Folder structure", "📖 Which files the AI must read", and
+"🛠️ How the AI does common work" sections. Keep all three in sync.
 
 > Rule: never create files directly in `mem://` (the `.lovable/memory/` root).
 > Memory files go in a typed subfolder (`memory/{constraints|design|features|preferences|reference}/`).
