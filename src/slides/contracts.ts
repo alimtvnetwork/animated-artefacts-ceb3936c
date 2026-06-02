@@ -38,7 +38,7 @@ export const REQUIRED_FIELDS: Record<string, readonly string[]> = {
   FocusTimelineSlide:  ['title', 'steps'],
   AdvanceStepSlide:    ['title', 'steps'],
   StepsChain3DSlide:   ['title', 'steps'],
-  ImageSlide:          ['image'],
+  ImageSlide:          ['image|images'], // any-of: single figure OR gallery row
   QrMeetingSlide:      ['meetingUrl|qrUrl|qrAsset'], // any-of
   MetricGridSlide:     ['title', 'metrics'],
   TableSlide:          ['title', 'tableColumns', 'tableRows'],
