@@ -95,6 +95,42 @@ describe('PresenterWebcam v3 — halo', () => {
     );
     expect(captured.ctx!.haloVisible).toBe(true);
   });
+
+  it('cycleShapeOverlay runs rectangle → circle → circle+glow → rectangle and persists both flags', () => {
+    const captured: Captured = { ctx: null };
+    render(
+      <PresenterWebcamProvider>
+        <Probe captured={captured} />
+      </PresenterWebcamProvider>,
+    );
+
+    expect(captured.ctx!.circleShape).toBe(false);
+    expect(captured.ctx!.haloVisible).toBe(false);
+
+    act(() => {
+      captured.ctx!.cycleShapeOverlay();
+    });
+    expect(captured.ctx!.circleShape).toBe(true);
+    expect(captured.ctx!.haloVisible).toBe(false);
+    expect(window.localStorage.getItem('riseup.webcam.circle')).toBe('1');
+    expect(window.localStorage.getItem('riseup.webcam.halo')).toBe('0');
+
+    act(() => {
+      captured.ctx!.cycleShapeOverlay();
+    });
+    expect(captured.ctx!.circleShape).toBe(true);
+    expect(captured.ctx!.haloVisible).toBe(true);
+    expect(window.localStorage.getItem('riseup.webcam.circle')).toBe('1');
+    expect(window.localStorage.getItem('riseup.webcam.halo')).toBe('1');
+
+    act(() => {
+      captured.ctx!.cycleShapeOverlay();
+    });
+    expect(captured.ctx!.circleShape).toBe(false);
+    expect(captured.ctx!.haloVisible).toBe(false);
+    expect(window.localStorage.getItem('riseup.webcam.circle')).toBe('0');
+    expect(window.localStorage.getItem('riseup.webcam.halo')).toBe('0');
+  });
 });
 
 describe('PresenterWebcam v3 — stage round-trip', () => {
