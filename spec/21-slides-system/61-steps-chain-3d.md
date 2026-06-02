@@ -360,3 +360,26 @@ springKeyframes({
 - Spec 42 — Steps motion baseline (timing presets).
 - Spec 43 — Steps sound (the SFX trigger we must preserve).
 - Memory: [animations](mem://features/animations), [slide-types](mem://features/slide-types).
+
+---
+
+## 12. Step images & the shared data model (decision 2026-06-02)
+
+`StepSpec` now carries optional `image` + `imageRole` (`inlineThumbnail` /
+`iconBadge`) shared with `StepTimelineSlide` (see
+[image authoring](mem://features/image-authoring) and
+`spec/21-slides-system/images/01-image-authoring.md`).
+
+**Decision: `StepsChain3DSlide` intentionally IGNORES `StepSpec.image`.**
+
+Rationale — section 2 mandates that active state is communicated *purely*
+through scale, depth, opacity, and motion, with **no card background** and a
+clean numeric-marker chain. Injecting per-step thumbnails or icon badges into
+the revolver chain reintroduces flat visual weight, competes with the marker
+glow for the eye, and breaks the "AE bouncy zoom" depth read. Step imagery
+belongs on the calm list type (`StepTimelineSlide`) and on `ImageSlide`.
+
+Authors who add `image` to a step shared between both slide types get the
+thumbnail on the timeline render and a silent no-op on the 3D render. This is
+by design, not a gap. Revisit only if a future spec defines a depth-aware
+marker-medallion treatment that preserves the no-background rule.
