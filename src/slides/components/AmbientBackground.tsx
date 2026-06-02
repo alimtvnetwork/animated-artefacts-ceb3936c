@@ -297,11 +297,11 @@ export function AmbientBackground({
           animate={{ opacity: 1 }}
           transition={{ duration: 0.8, ease: 'easeOut' }}
           style={{
-            background: `radial-gradient(ellipse 50% 38% at 50% 52%,
-                hsl(36 80% 52% / 0.30) 0%,
-                hsl(32 78% 42% / 0.20) 22%,
-                hsl(28 70% 28% / 0.12) 42%,
-                transparent 68%)`,
+            background: `radial-gradient(ellipse 52% 40% at 50% 52%,
+                hsl(38 88% 56% / 0.42) 0%,
+                hsl(34 82% 46% / 0.28) 22%,
+                hsl(28 72% 30% / 0.15) 44%,
+                transparent 70%)`,
           }}
         />
       )}
