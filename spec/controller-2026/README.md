@@ -38,6 +38,7 @@ It is **presenter-local runtime UI**: never exported, never part of slide JSON.
 | [`08-build-substeps-C04.md`](./08-build-substeps-C04.md) | **C04 expanded** into 10 code-ready sub-steps **C04.1–C04.10** with files + time. |
 | [`09-build-substeps-C05.md`](./09-build-substeps-C05.md) | **C05 expanded** into 10 code-ready sub-steps **C05.1–C05.10** with files + time. |
 | [`10-build-substeps-C06.md`](./10-build-substeps-C06.md) | **C06 expanded** into 10 code-ready sub-steps **C06.1–C06.10** with files + time. |
+| [`11-build-substeps-C07.md`](./11-build-substeps-C07.md) | **C07 expanded** into 10 code-ready sub-steps **C07.1–C07.10** with files + time. |
 
 ---
 
