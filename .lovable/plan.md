@@ -45,3 +45,21 @@ Steps 1–30 shipped the four image sources (asset / SVG / Base64 / data URI), t
 - **Spec upkeep** — ensure each closed issue gets a `## Resolution` section.
 
 Approve and I'll implement 31–40, then pause for your next batch.
+## Steps 41–50 — closeout (2026-06-02)
+
+Reasoning: the previous batch (31–40) built image/step/gallery/caption authoring. The remaining
+open threads were spec-hygiene and a data-model cross-check, not new UI. StepsChain3D is a
+2000-line cinematic file whose design forbids card backgrounds — adding step thumbnails would
+fight its depth-only language, so the correct outcome was a documented *decision*, not code.
+
+- 41. Cross-check StepSpec.image vs StepsChain3D — decision: 3D ignores step images by design (~20m)
+- 42. Document decision in spec 61 §12 with rationale + revisit condition (~15m)
+- 43. App-issues 22.01–22.03 Resolution status table appended (~15m)
+- 44. No-questions window 2 closed (40/40), window 3 opened, tied to mem://~user rule (~10m)
+- 45. Memory: image-authoring note that 3D render is a silent no-op for step images (~10m)
+- 46. Verify suite green (imageExamplesDeck + stepOffsets = 23 tests) (~10m)
+
+Remaining (beyond 50):
+- motion-showcase distinct-cue MP3s — optional polish.
+- Single-<video>-via-portal refactor (#63) — large, deferred.
+- StepsChain3D depth-aware marker-medallion — only if a future spec preserves no-background rule.
