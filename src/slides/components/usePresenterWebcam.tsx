@@ -191,6 +191,23 @@ function clampFreeWidth(w: number): number {
   return Math.round(Math.max(FREE_MIN_W, Math.min(FREE_MAX_W, w)));
 }
 
+function resolveSize(config: SizeConfig, minimized = false): { w: number; h: number } {
+  if (minimized) return { w: MINI_W, h: MINI_H };
+  if (config.kind === 'step') return SIZE_STEPS[config.id];
+  return { w: config.w, h: config.h };
+}
+
+function clampPositionToStage(
+  x: number,
+  y: number,
+  size: { w: number; h: number },
+): { x: number; y: number } {
+  return {
+    x: Math.max(0, Math.min(1920 - size.w, Math.round(x))),
+    y: Math.max(0, Math.min(1080 - size.h, Math.round(y))),
+  };
+}
+
 function nearestStep(w: number): SizeStep {
   let best: SizeStep = 'M';
   let bestDelta = Infinity;
@@ -210,9 +227,14 @@ export function PresenterWebcamProvider({ children }: { children: ReactNode }) {
     stream: null,
     error: null,
   });
-  const [position, setPositionState] = useState<{ x: number; y: number }>(readStoredPos);
   const [sizeCfg, setSizeCfg] = useState<SizeConfig>(readStoredSize);
   const [minimized, setMinimized] = useState<boolean>(() => {
+    if (typeof window === 'undefined') return false;
+    return window.localStorage.getItem(MIN_KEY) === '1';
+  });
+  const [position, setPositionState] = useState<{ x: number; y: number }>(() =>
+    clampPositionToStage(readStoredPos().x, readStoredPos().y, resolveSize(readStoredSize(), typeof window !== 'undefined' && window.localStorage.getItem(MIN_KEY) === '1')),
+  );
     if (typeof window === 'undefined') return false;
     return window.localStorage.getItem(MIN_KEY) === '1';
   });
@@ -405,18 +427,14 @@ export function PresenterWebcamProvider({ children }: { children: ReactNode }) {
   }, [hide, show, state.phase]);
 
   const setPosition = useCallback((x: number, y: number) => {
-    // Clamp to stage bounds (1920×1080) using DEFAULT_W as a safe right-edge
-    // budget — even the largest persisted box still fits with this margin.
-    const cx = Math.max(0, Math.min(1920 - SIZE_STEPS.M.w, Math.round(x)));
-    const cy = Math.max(0, Math.min(1080 - SIZE_STEPS.M.h, Math.round(y)));
-    const next = { x: cx, y: cy };
+    const next = clampPositionToStage(x, y, resolveSize(sizeCfg, minimized));
     setPositionState(next);
     try {
       window.localStorage.setItem(POS_KEY, JSON.stringify(next));
     } catch {
       /* ignore */
     }
-  }, []);
+  }, [minimized, sizeCfg]);
 
   const setSizeStep = useCallback((s: SizeStep) => {
     const cfg: SizeConfig = { kind: 'step', id: s };
@@ -658,11 +676,18 @@ export function PresenterWebcamProvider({ children }: { children: ReactNode }) {
 
   // Derive the live { w, h } the overlay paints — minimized puck always
   // wins over step/free.
-  const computedSize = useMemo(() => {
-    if (minimized) return { w: MINI_W, h: MINI_H };
-    if (sizeCfg.kind === 'step') return SIZE_STEPS[sizeCfg.id];
-    return { w: sizeCfg.w, h: sizeCfg.h };
-  }, [minimized, sizeCfg]);
+  const computedSize = useMemo(() => resolveSize(sizeCfg, minimized), [minimized, sizeCfg]);
+
+  useEffect(() => {
+    const clamped = clampPositionToStage(position.x, position.y, computedSize);
+    if (clamped.x === position.x && clamped.y === position.y) return;
+    setPositionState(clamped);
+    try {
+      window.localStorage.setItem(POS_KEY, JSON.stringify(clamped));
+    } catch {
+      /* ignore */
+    }
+  }, [computedSize, position.x, position.y]);
 
   const sizeStep: SizeStep | null = sizeCfg.kind === 'step' ? sizeCfg.id : null;
 
