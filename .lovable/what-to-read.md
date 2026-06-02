@@ -27,6 +27,7 @@ and the long-form version is the root [`readme.md`](../readme.md) — see its
 | [`spec/readme.md`](../spec/readme.md) | Canonical spec layout — which numbered folder owns what. |
 | [`spec/21-slides-system/readme.md`](../spec/21-slides-system/readme.md) | How the slide engine behaves. |
 | [`spec/21-slides-system/llm/00-readme.md`](../spec/21-slides-system/llm/00-readme.md) | Entry point to the AI authoring pack. |
+| [`spec/llm-guideline/readme.md`](../spec/llm-guideline/readme.md) | **Blind-follow JSON modification pack** — 30-step recipe to edit any slide (center, bigger text, header, capsules…). Read before editing slide JSON. |
 
 ```
 spec/21-slides-system/          HOW the engine works (system design + schemas + LLM pack)
@@ -34,6 +35,7 @@ spec/21-slides-system/          HOW the engine works (system design + schemas + 
   slide.schema.json             JSON Schema (draft-07) for ONE slide
   deck.schema.json              JSON Schema for a deck manifest
   llm/                          the AI authoring pack
+spec/llm-guideline/             blind-follow JSON modification pack (30-step recipe + layout recipes + field reference)
 spec/26-slide-definitions/      WHAT specific decks contain (per-deck JSON + MD)
 spec/22-slides-issues/          bug reports, one numbered file each
 front-end/project/<deck>/data/  the LIVE decks the app loads at runtime

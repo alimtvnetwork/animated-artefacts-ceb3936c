@@ -16,6 +16,7 @@ memory; do not renumber without updating cross-links.
 | `audit/`                | Phase-gate blind-LLM audits and acceptance reports. Historical record. |
 | `camera-2026/`          | **Presenter-camera spec pack.** Blind-AI-ready, in-depth re-implementation guide for the webcam overlay (phases, shortcuts, zoom, fullscreen, auto-frame, squircle background plates). Includes reference/background images in `camera-2026/assets/`. |
 | `27-slides-number/`     | **Slide-number spec pack.** Blind-AI-ready guide for every slide-number indicator (top bar, bottom badge, dot pagination, controller jump input), plus jump/routing, sound cue, visibility, tokens, and an acceptance checklist. |
+| `llm-guideline/`        | **Blind-follow JSON modification pack.** Step-by-step recipe (locate → edit → validate) any AI can follow to modify a slide's JSON: how to center, make text bigger, change the header, add capsules/steps, plus a full field reference. Points back to `21-slides-system/` for deep detail. |
 
 ## Where does my new file go?
 
