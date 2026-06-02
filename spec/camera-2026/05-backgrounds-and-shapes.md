@@ -76,7 +76,7 @@ The reference rim is a gold→ember gradient ring with an outer glow:
 .cam-plate {
   position: absolute; inset: calc(var(--plate-pad) * -1);  /* grow beyond the video */
   border-radius: 38% / 34%;
-  /* gold plate fill (use transparent for the white/neutral variant) */
+  /* rim/shadow only — interior stays transparent; never a solid fill */
   background: hsl(var(--gold));
   /* the gold→ember rim + outer glow that matches 01-reference-frame */
   box-shadow:
