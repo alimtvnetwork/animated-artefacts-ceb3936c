@@ -43,7 +43,14 @@ src/slides/                     React renderer (loader.ts, contracts.ts, themes.
 src/pages/                      /N route, builder, presenter, settings pages
 src/builder/                    deck builder UI
 updates/spec/NN-*.md            per-change spec deltas (what/why/files/verify)
+quality/                        GENERATED quality evidence (audit/, metrics/, reports/) — not hand-edited
+scripts/ + scripts/install/     audit/check/release tooling + env installers
+legacy/                         inert/archived material (e.g. php/ placeholder) — not built
 ```
+
+> Root holds only config + entry + the dirs above. Every top-level and `spec/*`
+> folder has a `README.md` explaining what belongs there (convention over
+> configuration). See the root `README.md` "Repository map" for the one-row table.
 
 ## 2. Learn the JSON — structure, fields, contracts
 
