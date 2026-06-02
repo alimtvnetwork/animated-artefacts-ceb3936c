@@ -160,7 +160,10 @@ export default function PreviewDiagnosticsPage(): JSX.Element {
     () => new Set(ALL_KINDS),
   );
 
-  const allErrors = useMemo(() => getAllErrors(), [tick]);
+  const allErrors = useMemo(() => {
+    void tick; // re-read the external error buffer on each poll tick
+    return getAllErrors();
+  }, [tick]);
   const kindCounts = useMemo(() => {
     const counts: Record<ErrorKind, number> = {
       "blank-root": 0,

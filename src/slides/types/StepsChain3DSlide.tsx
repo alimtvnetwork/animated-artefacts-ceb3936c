@@ -387,6 +387,13 @@ const inspectorBtn = (first = false): CSSProperties => ({
 /* Slide.                                                              */
 /* ------------------------------------------------------------------ */
 
+/* Click-activation variant roster (spec 61 §3.6 extension). Module-scoped
+ * so its identity is stable across renders — lets `setCauseAndAdvance` stay
+ * a zero-dependency `useCallback`. */
+type ClickVariant = 'FadeIn' | 'SlideIn' | 'PushLeft' | 'PushRight' | 'PushIn';
+const CLICK_VARIANTS: ClickVariant[] = ['FadeIn', 'SlideIn', 'PushLeft', 'PushRight', 'PushIn'];
+
+
 export const StepsChain3DSlide = forwardRef<FocusTimelineHandle, Props>(
   function StepsChain3DSlide({ spec }, ref) {
   // Re-render when the presenter changes the deck-wide step-motion lock
@@ -493,11 +500,7 @@ export const StepsChain3DSlide = forwardRef<FocusTimelineHandle, Props>(
       curve,
       durationMs: curve.length * FRAME_MS,
     };
-  }, [
-    content.markerSpring?.delayMs, content.markerSpring?.overshoot,
-    content.markerSpring?.damping, content.markerSpring?.stiffness, content.markerSpring?.mass,
-    springOverrides,
-  ]);
+  }, [content.markerSpring, springOverrides]);
   const steps = content.steps ?? [];
   const total = steps.length;
 
@@ -505,8 +508,9 @@ export const StepsChain3DSlide = forwardRef<FocusTimelineHandle, Props>(
    * Resolved from `content.layout` with safe defaults. Drives the marker
    * size CSS var, the rail offset, and the per-row text gap. All three
    * derive from the same numbers, so they always stay in lockstep. */
+  const layout = content.layout;
   const layoutCfg = useMemo(() => {
-    const l = content.layout ?? {};
+    const l = layout ?? {};
     // v0.222 — default bumped 56 → 72 (+~29%) so step markers read at a
     // confident size after `FitStage` scales the 1920×1080 canvas down to
     // narrow viewports. Source-size change only — no transform scaling.
@@ -534,12 +538,7 @@ export const StepsChain3DSlide = forwardRef<FocusTimelineHandle, Props>(
       railTopPx:    markerSize / 2,
       railBottomPx: markerSize / 2,
     };
-  }, [
-    content.layout?.markerSize,
-    content.layout?.railOffset,
-    content.layout?.textGap,
-    (content.layout as { rowSpacing?: number } | undefined)?.rowSpacing,
-  ]);
+  }, [layout]);
 
   // Dev-only nudge: warn when a step still ships a legacy
   // `description.body`. v0.214 auto-converts `body` → `bullets[]` at render
@@ -609,9 +608,7 @@ export const StepsChain3DSlide = forwardRef<FocusTimelineHandle, Props>(
    * repeated motion. Hover is still disabled — variants only fire on
    * click. Keyboard/controller/programmatic causes never trigger a
    * variant flourish (spec 61 keeps those calm). */
-  type ClickVariant = 'FadeIn' | 'SlideIn' | 'PushLeft' | 'PushRight' | 'PushIn';
-  const CLICK_VARIANTS: ClickVariant[] = ['FadeIn', 'SlideIn', 'PushLeft', 'PushRight', 'PushIn'];
-  const clickVariantIdx = useRef(0);
+   const clickVariantIdx = useRef(0);
   const nextClickVariantRef = useRef<ClickVariant | null>(null);
   /* Click-only label-capsule stagger (right detail panel). The capsule
    * list (rendered from description.bullets[]) plays a staggered slide-in
@@ -896,7 +893,7 @@ export const StepsChain3DSlide = forwardRef<FocusTimelineHandle, Props>(
       setCenterlineOverlay();
     }
     return () => window.removeEventListener('keydown', onKey);
-  }, []);
+  }, [cycleMotionMode]);
 
   /* When the centerline overlay is on, re-measure rail + marker centers
    * relative to the chain container on every active-step change, on
