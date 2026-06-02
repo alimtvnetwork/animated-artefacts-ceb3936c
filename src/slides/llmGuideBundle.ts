@@ -219,7 +219,8 @@ When the human asks you to author a slide:
 
 ---
 
-*End of LLM guide. ${Object.keys(llmMarkdownFiles).length} pack files +
+*End of LLM guide. ${Object.keys(guidelineMarkdownFiles).length} guideline files +
+${Object.keys(llmMarkdownFiles).length} pack files +
 schema + catalog + theme \`${themeId}\` bundled on ${date}.*
 `;
 }
