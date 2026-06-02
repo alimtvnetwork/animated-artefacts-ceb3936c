@@ -839,7 +839,19 @@ export function PresenterWebcamOverlay() {
   const visualTop = circleShape ? position.y + (size.h - circleDiameter) / 2 : position.y;
   const visualWidth = circleShape ? circleDiameter : size.w;
   const visualHeight = circleShape ? circleDiameter : size.h;
-  const frameRadius = minimized ? 999 : circleShape ? '50%' : 12;
+  // spec/camera-2026/05 §3a — squircle = superellipse. The cheap, crisp,
+  // theme-tinting path is a border-radius superellipse approximation
+  // (38% / 34%). Circle (`O`) overrides to 50%; minimized is a puck (999).
+  const frameRadius = minimized ? 999 : circleShape ? '50%' : '38% / 34%';
+  // spec/camera-2026/05 §2 — the decorative plate sits BEHIND the video and
+  // extends ~7% beyond each edge, so a gold-rimmed, soft-shadowed border of
+  // the squircle plate shows on all sides and the camera reads as bigger.
+  // Hidden while minimized (puck) and while in circle mode (the round crop
+  // has its own ring and the squircle plate would not match its silhouette).
+  const platePad = Math.round(visualWidth * 0.07);
+  const showPlate = !minimized && !circleShape;
+
+
 
   return (
     <div
