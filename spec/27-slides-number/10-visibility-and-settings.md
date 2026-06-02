@@ -8,7 +8,7 @@ the `showDots` preset, and the `?jumper=1` flag.
 
 | Surface | Default | Hidden when |
 |---------|---------|-------------|
-| Presenter Top Bar | **ON** | `gridOpen` · `topJumperHidden` · on `StepsChain3DSlide` |
+| Presenter Top Bar | **OFF** (`topJumperHidden` defaults `true`) | always unless presenter opted in via `J`; also `gridOpen` · on `StepsChain3DSlide` |
 | Slide Number Badge | **ON** | `gridOpen` |
 | Dot Pagination | **ON** (`showDotPagination: true`) | `!showDots` (settings) · `gridOpen` · on `StepsChain3DSlide` |
 | Controller Indicator | shown when controller pill is **expanded** | controller collapsed (hover to expand) · grid view |
