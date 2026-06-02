@@ -893,7 +893,7 @@ export const StepsChain3DSlide = forwardRef<FocusTimelineHandle, Props>(
       setCenterlineOverlay();
     }
     return () => window.removeEventListener('keydown', onKey);
-  }, []);
+  }, [cycleMotionMode]);
 
   /* When the centerline overlay is on, re-measure rail + marker centers
    * relative to the chain container on every active-step change, on
