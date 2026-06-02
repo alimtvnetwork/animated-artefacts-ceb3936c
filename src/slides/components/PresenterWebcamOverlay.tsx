@@ -944,8 +944,6 @@ export function PresenterWebcamOverlay() {
   const circleControlColumnHeight = 4 * CIRCLE_CONTROL_SIZE + 3 * 10;
   const circleVisualRight = position.x + (size.w + circleDiameter) / 2;
   const circleControlsOnLeft = circleVisualRight + 64 > 1920;
-  const viewportPrefersLeftCircleControls =
-    typeof window !== 'undefined' ? window.innerWidth <= window.innerHeight : false;
 
 
 
