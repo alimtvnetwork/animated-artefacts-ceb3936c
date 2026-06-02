@@ -102,15 +102,20 @@ are siblings — see contracts (`entities`/`relationships` or `dbEntities`/`diag
   "slideType": "LayoutSlide",
   "content": {
     "title": "Two-up",
-    "layout": "split",
-    "layoutSlots": [                        // 1-6 slots; each slot is free-form
-      { "kind": "text",  "body": "Key point", "bullets": ["a", "b"] },
-      { "kind": "code",  "code": "x = 1", "codeLanguage": "py" }
+    "layout": "split-2-equal",               // see preset list below
+    "layoutVerticalAlign": "start",          // "start" | "center"
+    "layoutSlots": [                          // 1-6 slots
+      { "kind": "card", "variant": "accent", "body": "Key point", "bullets": ["a", "b"] },
+      { "kind": "codeblock", "code": "x = 1", "codeLanguage": "py" }
     ]
   }
 }
 ```
-Read `llm/27d-layout-slide.md` for the supported `kind`/`variant` values.
+Legal values (verbatim from `src/slides/types.ts`):
+- **`content.layout`** (`LayoutGridPreset`): `split-5-7`, `split-4-8`, `split-3-9`,
+  `split-2-equal`, `3-panel`, `12-column`, `card-grid-2x3`, `card-grid-3x3`, `centered-hero`.
+- **slot `kind`**: `card` (default), `plain`, `codeblock`.
+- **slot `variant`**: `default`, `success`, `danger`, `accent`.
 
 ---
 
@@ -134,12 +139,104 @@ Tiles center vertically by contract — see `mem://design/tileslide-vertical-cen
 
 ---
 
-## ChecklistSlide / NumberCalloutSlide / BlastRadiusSlide / SessionOutlineSlide
+## QrMeetingSlide  (contract `QrMeetingContent`)
 
-Also registered. Briefly:
-- `ChecklistSlide` → `items[]` (2-7, each `{text, detail?, capsule?}`), `progressColor?`.
-- `NumberCalloutSlide` → `number{from?,to,unit?,...}`, `label?`, `capsule?`.
-- `BlastRadiusSlide` → cinematic single-word `title` (+ tuning knobs).
-- `SessionOutlineSlide` → agenda/outline (see contract).
+```jsonc
+{
+  "slideType": "QrMeetingSlide",
+  "content": {
+    "meetingUrl": "https://riseup.example/join",   // one of meetingUrl|qrUrl|qrAsset
+    "qrStyle": "riseup-finder"                       // "clean" | "riseup-finder" (default)
+  }
+}
+```
+`qrStyle` legal values: `clean`, `riseup-finder` (default). A `qrAsset` always renders `clean`.
 
-For exact bounds, read `src/slides/contracts.ts` — it is the runtime truth.
+---
+
+## ChecklistSlide  (contract `ChecklistContent`)
+
+```jsonc
+{
+  "slideType": "ChecklistSlide",
+  "content": {
+    "title": "Launch readiness",
+    "progressColor": "gold",                 // "gold" | "ember" | "cream"
+    "items": [                               // 2-7 items
+      { "text": "Tests green", "detail": "878 passing", "capsule": { "color": "teal", "text": "QA" } },
+      { "text": "Docs updated" }
+    ]
+  }
+}
+```
+Each item: `text` (required), `detail?` (≤120 chars), `capsule?` (full 9-color enum).
+
+---
+
+## NumberCalloutSlide  (contract `NumberCalloutContent`)
+
+```jsonc
+{
+  "slideType": "NumberCalloutSlide",
+  "content": {
+    "number": {                              // `to` required; rest optional
+      "from": 0, "to": 42, "unit": "%",
+      "easing": "easeOutQuint",              // "linear" | "easeOutQuint" | "spring"
+      "duration": "slow",                    // "fast" | "slow"
+      "decimals": 0                          // 0-6
+    },
+    "label": "Faster onboarding",
+    "capsule": { "color": "gold", "text": "2026" }   // color: gold|ember|cream only
+  }
+}
+```
+
+---
+
+## BlastRadiusSlide  (contract `BlastRadiusContent`) — cinematic single-word moment
+
+```jsonc
+{
+  "slideType": "BlastRadiusSlide",
+  "content": {
+    "title": "Impact",                       // required, ≤40 chars
+    "eyebrow": "What changes",                // optional, ≤40
+    "subtitle": "Everything downstream",      // optional, ≤80
+    "particleCount": 60,                      // optional 0-80
+    "shardCount": 10,                         // optional 0-14
+    "gradientAngle": 135                      // optional 0-360
+  }
+}
+```
+Usually only `title` is set — tuning knobs have baked defaults.
+
+---
+
+## SessionOutlineSlide  (contract `SessionOutlineContent`) — numbered agenda
+
+```jsonc
+{
+  "slideType": "SessionOutlineSlide",
+  "content": {
+    "title": "Today",                        // required ≤80
+    "eyebrow": "Agenda",                      // optional ≤40
+    "kicker": "Three acts",                   // optional ≤160
+    "activeIndex": 1,                          // optional 0-7 — dims all but this row
+    "items": [                                // 2-8 items
+      { "title": "Setup",   "subtitle": "Why we're here", "meta": "10m" },
+      { "title": "Build",   "meta": "30m", "capsule": { "color": "ember", "text": "live" } },
+      { "title": "Wrap-up", "meta": "5m" }
+    ]
+  }
+}
+```
+Each item: `title` (required ≤60), `subtitle?` (≤120), `meta?` (≤20), `capsule?` (9-color).
+
+---
+
+## ERDiagramSlide / DatabaseDiagramSlide  (siblings of BoxDiagram)
+
+- `ERDiagramSlide` → `entities[]`/`relationships[]` (preferred) **or** `diagramNodes[]`/`diagramEdges[]`; 2-20 entities.
+- `DatabaseDiagramSlide` → `dbEntities[]` (2-5, each `{id,name,x?,y?,fields?[]}`) + `dbRelationships[]`, **or** a Mermaid `diagram` string (≥10 chars).
+
+For exact bounds, `src/slides/contracts.ts` is the runtime truth — always validate with `bun run test`.
