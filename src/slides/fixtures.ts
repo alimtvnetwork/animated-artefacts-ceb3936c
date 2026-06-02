@@ -368,8 +368,10 @@ export const SLIDE_FIXTURES: Record<string, SlideFixture> = {
       {
         description: 'rejects missing image field entirely',
         payload: { ...envelope(9, 'Brand image', 'ImageSlide'), content: {} },
-        expectPath: 'content.image',
-        expectedMessageMatch: /required|Required/,
+        // With the any-of refine (image OR non-empty images[]), the issue is
+        // raised at the content root, not at content.image.
+        expectPath: 'content',
+        expectedMessageMatch: /requires `image`|images\[\]/,
       },
     ],
   },
