@@ -442,9 +442,9 @@ export function PresenterWebcamOverlay() {
   );
   const onResizePointerMove = useCallback(
     (e: React.PointerEvent<HTMLDivElement>) => {
+      autoHideCursor.registerActivity();
       const d = resizeRef.current;
       if (!d || d.pointerId !== e.pointerId) return;
-      autoHideCursor.registerActivity();
       const scale = readStageScale();
       const dx = (e.clientX - d.startX) / scale;
       const nextW = Math.max(FREE_MIN_W, Math.min(FREE_MAX_W, d.baseW + dx));
