@@ -597,6 +597,7 @@ export function PresenterWebcamOverlay() {
           inset: 0,
           background: 'hsl(0 0% 0%)',
           zIndex: 65,
+          cursor: cursorStyle,
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
