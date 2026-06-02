@@ -35,6 +35,7 @@ import {
 } from 'lucide-react';
 import { usePresenterWebcam } from './usePresenterWebcam';
 import { useAutoFrame } from './useAutoFrame';
+import { useAutoHideCursor } from './useAutoHideCursor';
 
 function readStageScale(): number {
   if (typeof document === 'undefined') return 1;
