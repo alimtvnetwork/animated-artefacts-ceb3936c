@@ -18,14 +18,14 @@ export function KeywordSlide({ spec }: { spec: SlideSpec }) {
       {c.eyebrow && <motion.span variants={eyebrowV} className="text-xs tracking-[0.4em] uppercase text-gold/90 mb-6">{c.eyebrow}</motion.span>}
       {/* Middle title is locked to white across every theme — the colored
           keywords below carry the brand accent, the title stays a calm anchor. */}
-      {c.title && <motion.h2 variants={titleV} className="slide-title-content text-white/75 mb-10">{c.title}</motion.h2>}
+      {c.title && <motion.h2 variants={titleV} className="slide-title-content text-[hsl(var(--white)/0.75)] mb-10">{c.title}</motion.h2>}
       {c.keywords && (
         <motion.div variants={keywordsV} className="flex flex-wrap gap-x-12 gap-y-4 justify-center">
           {c.keywords.map((k, i) => (
             <motion.span
               key={i}
               variants={keywordsV}
-              className="font-display text-white"
+              className="font-display text-[hsl(var(--white))]"
               style={{ fontSize: 'clamp(3rem, 8vw, 7rem)', lineHeight: 1 }}
             >
               {k}
