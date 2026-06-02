@@ -285,9 +285,7 @@ export function ColorTokenDebugOverlay({
 
     function scan() {
       if (cancelled) return;
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       const r = targetRef.current!;
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       const o = overlayRef.current!;
       const targets = r.querySelectorAll<HTMLElement>('[data-debug-token]');
       const overlayBox = o.getBoundingClientRect();

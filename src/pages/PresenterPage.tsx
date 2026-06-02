@@ -49,7 +49,6 @@ export default function PresenterPage() {
       ch.removeEventListener('message', onMsg);
       ch.close();
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // 1Hz tick for the timer.

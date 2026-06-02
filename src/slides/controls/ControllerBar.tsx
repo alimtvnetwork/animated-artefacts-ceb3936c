@@ -131,7 +131,6 @@ export function ControllerBar({ current, total, onPrev, onNext, onJump, isFullsc
       if (value === '1' || value === 'true') setThemeMenuOpen(true);
     }
     // Intentionally only runs once on mount.
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const morphTransition = { duration: 0.32, ease: [0.22, 1, 0.36, 1] as const };

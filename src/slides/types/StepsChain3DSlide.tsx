@@ -551,7 +551,6 @@ export const StepsChain3DSlide = forwardRef<FocusTimelineHandle, Props>(
       const desc = step.description as { body?: unknown; bullets?: unknown } | undefined;
       const hasAuthoredBullets = Array.isArray(desc?.bullets) && (desc!.bullets as unknown[]).length > 0;
       if (!hasAuthoredBullets && desc && typeof desc.body === 'string' && desc.body.length > 0) {
-        // eslint-disable-next-line no-console
         console.warn(
           `[StepsChain3D] step ${i + 1}: legacy description.body auto-split into bullets at render. Migrate to description.bullets[] in the deck JSON.`,
         );

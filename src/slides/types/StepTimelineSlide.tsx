@@ -101,7 +101,6 @@ interface StepTimelineProps {
 }
 
 export const StepTimelineSlide = forwardRef<FocusTimelineHandle, StepTimelineProps>(
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   function StepTimelineSlide({ spec, onReveal, onOpenExpand, highlightReveal: _highlightReveal = false }, ref) {
   const c = spec.content;
   const steps = c.steps ?? [];

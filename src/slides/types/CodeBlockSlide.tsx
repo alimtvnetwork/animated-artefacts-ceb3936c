@@ -70,7 +70,6 @@ export function CodeBlockSlide({ spec }: { spec: SlideSpec }) {
         if (!cancelled) setShikiHtml(html);
       } catch (err) {
         // Silent fallback — render plain on shiki failure.
-        // eslint-disable-next-line no-console
         console.warn('[CodeBlockSlide] shiki highlight failed, falling back to plain', err);
         if (!cancelled) setShikiHtml(null);
       }
