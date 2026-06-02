@@ -20,6 +20,12 @@
    — anti-patterns (inline hex, invented fields, fixed font sizes) and the fix.
 6. [`06-worked-example.md`](./06-worked-example.md)
    — one complete before → after edit, blind-followable end to end.
+7. [`07-extended-type-recipes.md`](./07-extended-type-recipes.md)
+   — recipes for Table / CodeBlock / BoxDiagram / Layout / Tile slides.
+8. [`08-click-reveal-and-hotspots.md`](./08-click-reveal-and-hotspots.md)
+   — attach hidden detail slides via capsule reveals or stage hotspots.
+9. [`09-decision-tree.md`](./09-decision-tree.md)
+   — pick the right slideType when authoring a brand-new slide.
 
 ## JSON anatomy (at a glance)
 
