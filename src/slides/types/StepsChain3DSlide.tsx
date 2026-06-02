@@ -1240,8 +1240,11 @@ export const StepsChain3DSlide = forwardRef<FocusTimelineHandle, Props>(
       const becomingActive = i === active && from !== active;
       const becomingInactive = i === from && from !== active;
       const isActiveNow = i === active;
-      const baseScale = isActiveNow ? 1.0 : 0.85;
-      const baseOpacity = isActiveNow ? 1.0 : 0.55;
+      // Depth-aware steady-state: markers that are NOT mid-transition recede
+      // with the same hierarchy as their card (distant < adjacent < active).
+      const baseMarker = markerDepth(Math.abs(i - active));
+      const baseScale = baseMarker.scale;
+      const baseOpacity = baseMarker.opacity;
 
       if (becomingActive) {
         // Spring-sampled bubble-up with a configurable overshoot peak.
