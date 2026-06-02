@@ -546,6 +546,15 @@ export interface SlideContent {
     | 'qrOverlay'
     | 'iconBadge';
   /**
+   * `ImageSlide` gallery — 2–3 figures rendered in one row. Each entry is any
+   * `<img src>` value (asset / svg / Base64 / data URI). When set, `image` is
+   * ignored. Keep to ≤3 to respect the density budget. See
+   * `spec/21-slides-system/images/01-image-authoring.md`.
+   */
+  images?: string[];
+  /** `ImageSlide` — short caption rendered under the figure(s). One line. */
+  caption?: string;
+  /**
    * Live meeting URL encoded into the QR. Per-slide override of `deck.meeting.url`.
    * When set (and no `qrAsset`/explicit src is provided), `BrandedQR` generates
    * the QR client-side from this URL.
