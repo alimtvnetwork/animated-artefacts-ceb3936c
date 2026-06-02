@@ -181,7 +181,17 @@ ${catalogRaw.trim()}
 
 ---
 
-## 4 · Authoring pack — \`spec/21-slides-system/llm/\`
+## 4 · Blind-follow modification pack — \`spec/llm-guideline/\`
+
+A short, self-contained recipe book for **modifying** a slide's JSON (change
+text, center, resize a title, edit the header, add capsules, attach a
+click-reveal). Read this first when the task is an edit; use §5 for deep system
+detail when authoring something new.
+${guidelineFiles}
+
+---
+
+## 5 · Authoring pack — \`spec/21-slides-system/llm/\`
 
 The remainder of this document is every Markdown file from the canonical
 LLM authoring pack, concatenated in numeric order. Read \`00-readme.md\`
