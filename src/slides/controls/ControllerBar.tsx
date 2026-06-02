@@ -334,6 +334,7 @@ export function ControllerBar({ current, total, onPrev, onNext, onJump, isFullsc
           (the dialog component owns the global key listener). Mounted here
           so it's always available regardless of controller expansion state. */}
       <KeyboardShortcutsDialog open={keyboardOpen} onOpenChange={setKeyboardOpen} />
+      <OnboardingCoachmark open={introOpen} onDismiss={() => { setIntroOpen(false); markOnboarded(); }} />
     </div>
   );
 }
