@@ -1,17 +1,20 @@
 /**
  * useAutoHideCursor — hide the OS mouse cursor over a presenter surface after
- * a short period of pointer inactivity, and bring it back the instant the
- * mouse moves (then hide it again once movement stops).
+ * a short period of pointer inactivity, and bring it back when the presenter
+ * interacts with the camera surface again (then hide it again once movement
+ * stops).
  *
  * Why: while presenting (and especially right after dragging / moving the
  * webcam), a stationary arrow/grab cursor sitting on top of the camera is
  * distracting. We want the cursor to disappear when idle, reappear on the
- * first movement, stay visible for a few seconds, then fade out again.
+ * first camera-surface movement, stay visible for a few seconds, then fade
+ * out again.
  *
  * Behaviour:
  *  - `active === false` → cursor always visible (hook is inert).
- *  - On `pointermove` (or wheel / pointerdown) the cursor is shown and an
- *    idle timer (`delay`, default 2500ms) is (re)armed.
+ *  - The consumer calls `registerActivity()` from camera-surface
+ *    `pointermove` / `pointerdown` / `wheel`; that shows the cursor and
+ *    (re)arms the idle timer (`delay`, default 2500ms).
  *  - When the timer fires with no further movement, the cursor hides.
  *  - `hideNow()` forces an immediate hide — call this right after a drag/move
  *    gesture ends so the cursor vanishes without waiting for the idle delay.
@@ -39,6 +42,8 @@ export interface AutoHideCursor {
   hideNow: () => void;
   /** Force the cursor visible and re-arm the idle timer. */
   show: () => void;
+  /** Pointer activity handler to attach to the camera surface itself. */
+  registerActivity: () => void;
 }
 
 export function useAutoHideCursor({ active, delay = 2500 }: AutoHideCursorOptions): AutoHideCursor {
@@ -62,6 +67,11 @@ export function useAutoHideCursor({ active, delay = 2500 }: AutoHideCursorOption
     arm();
   }, [arm]);
 
+  const registerActivity = useCallback(() => {
+    setHidden(false);
+    arm();
+  }, [arm]);
+
   const hideNow = useCallback(() => {
     clearTimer();
     setHidden(true);
@@ -75,20 +85,10 @@ export function useAutoHideCursor({ active, delay = 2500 }: AutoHideCursorOption
     }
     // Arm on mount so an untouched surface hides the cursor on its own.
     arm();
-    const onMove = () => {
-      setHidden(false);
-      arm();
-    };
-    window.addEventListener('pointermove', onMove, { passive: true });
-    window.addEventListener('pointerdown', onMove, { passive: true });
-    window.addEventListener('wheel', onMove, { passive: true });
     return () => {
-      window.removeEventListener('pointermove', onMove);
-      window.removeEventListener('pointerdown', onMove);
-      window.removeEventListener('wheel', onMove);
       clearTimer();
     };
   }, [active, arm, clearTimer]);
 
-  return { hidden, hideNow, show };
+  return { hidden, hideNow, show, registerActivity };
 }

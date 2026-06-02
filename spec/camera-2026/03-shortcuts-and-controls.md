@@ -5,8 +5,9 @@
 > ignored while a text input/textarea/contentEditable is focused.
 >
 > **Pointer-only behaviour:** the mouse cursor auto-hides over the camera
-> surfaces (idle ~2.5s, and immediately after a drag/resize), reappearing on
-> the next move. This is not a keyboard shortcut — it is the
+> surfaces (idle ~2.5s, and immediately after a drag/resize), reappearing only
+> when the pointer moves or interacts over the camera again. Mouse movement
+> elsewhere in the deck must not wake the camera cursor. This is not a keyboard shortcut — it is the
 > `useAutoHideCursor` hook documented in detail in
 > [`02-overlay-rendering-and-surfaces.md` §8](./02-overlay-rendering-and-surfaces.md).
 
