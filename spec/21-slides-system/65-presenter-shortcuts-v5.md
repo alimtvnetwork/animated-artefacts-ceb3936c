@@ -43,7 +43,7 @@ used to clutter the controller as standalone chips. Items:
 | `+` / `-` | Resize the camera (only when on) |
 | `H` | Toggle soft halo (default OFF) |
 | `1` | Stage-fill — cover the slide stage |
-| `O` | Toggle circle / rectangle frame |
+| `O` | Cycle frame shaping: rectangle → circle → circle + glow overlay → rectangle (only when camera on/fullscreen/stage) |
 | `P` | Enter webcam fullscreen |
 | `[` | Exit fullscreen plain (back to prior size+position) |
 | `]` | Cinematic 3-state cycle (see below) |
