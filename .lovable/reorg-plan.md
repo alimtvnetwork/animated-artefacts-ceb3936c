@@ -207,3 +207,7 @@ duplicates, no loose files at the repo root.
 
 ## Execution log
 - (append batch completion notes here as we go)
+
+### Progress
+- **Batch 1 (21–30) ✔** removed `readme.md` dup, `tsconfig.app.json.bak`, both `*.tsbuildinfo`; gitignored `*.tsbuildinfo`/`*.bak`. No refs broken.
+- **Batch 2 (31–40) ✔** `run.ps1`/`slides-install.{sh,ps1}` → `scripts/install/`; `cam2/3/4.png` → `spec/camera-2026/assets/`; root `plan.md` → `.lovable/history/sample-deck-expansion-plan.md`; added `scripts/README.md`. Zero references found, no new test failures (4 pre-existing webcam/TOC drift failures remain, unrelated).
