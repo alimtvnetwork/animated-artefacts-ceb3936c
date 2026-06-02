@@ -1,5 +1,11 @@
 # 08 — Build Log: Steps 1–10 (reasoning + time)
 
+> **⚠️ HISTORICAL (pre-v2).** Any "background plate" wording below was superseded
+> on 2026-06-02: the squircle rim is now **CSS-only** (border-radius silhouette +
+> gold border + layered box-shadow, transparent interior, no plate/mask PNG).
+> See [`05-backgrounds-and-shapes.md`](./05-backgrounds-and-shapes.md) §8 (v2).
+
+
 > Checkpoint **A→B** expansion of [`06-implementation-steps-1-30.md`](./06-implementation-steps-1-30.md).
 > Each entry = **what · why (reasoning) · est. time · done-when**. A blind AI can
 > execute these in order. Times assume one focused engineer, no context-switching.

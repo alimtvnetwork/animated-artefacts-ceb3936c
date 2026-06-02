@@ -42,4 +42,16 @@ describe('PresenterWebcamOverlay — CSS-only squircle rim contract', () => {
     expect(SRC).toMatch(/border:\s*'2px solid hsl\(var\(--gold\)/);
     expect(SRC).toMatch(/background:\s*'transparent'/);
   });
+
+  it('keeps the squircle silhouette on border-radius (38% / 34%, circle 50%, puck 999)', () => {
+    // The shape must come from border-radius so the rim border traces it.
+    expect(SRC).toMatch(/'38% \/ 34%'/);
+    expect(SRC).toMatch(/frameRadius = minimized \? 999 : circleShape \? '50%' : '38% \/ 34%'/);
+  });
+
+  it('layers ember + gold + drop shadow in the resting rim box-shadow', () => {
+    expect(SRC).toMatch(/hsl\(var\(--ember\) \/ 0\.25\)/);
+    expect(SRC).toMatch(/0 16px 40px hsl\(var\(--background\) \/ 0\.7\)/);
+  });
 });
+

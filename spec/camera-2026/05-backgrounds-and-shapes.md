@@ -14,8 +14,8 @@
 | File | Pixel look | Role in the layer stack |
 |------|-----------|--------------------------|
 | `01-reference-frame-gold-rim.png` | Squircle, white interior, **gold→red glowing rim** on near-black. | A development **reference only** — it is NOT shipped and NOT imported. The white interior is a placeholder; the live camera fills that area. |
-| `02-squircle-mask-black.png` | Solid **black squircle** silhouette, no shadow. | The exact **shape mask** — use as `mask-image`/`clip` to cut the video into a squircle. |
-| `04-squircle-plate-gold-shadow.png` | **Gold→ember** squircle rim + soft drop shadow on a **fully transparent** background. | The **only** shipped background plate. Sits behind the masked video; transparent everywhere except the rim/shadow. |
+| `02-squircle-mask-black.png` | Solid **black squircle** silhouette, no shadow. | *(Historical — v2 no longer uses a mask; the curve comes from `border-radius`.)* Reference shape only. |
+| `04-squircle-plate-gold-shadow.png` | **Gold→ember** squircle rim + soft drop shadow on a **fully transparent** background. | *(Historical — REJECTED. Its baked rim read as a thick opaque ring (image 1). v2 draws the rim in CSS instead.)* Reference only. |
 
 > **Removed (2026-06-02):** `03-squircle-plate-white-shadow.png`. It rendered an
 > opaque white squircle *behind* the video (see the rejected screenshot — a flat
