@@ -94,7 +94,7 @@ describe('PresenterWebcam — X-button hard-stop', () => {
     expect(captured.ctx!.state.stream).toBeNull();
   });
 
-  it('hide() keeps tracks alive for the grace window (regression guard)', async () => {
+  it('hide() soft-hides to tray and keeps tracks alive indefinitely (regression guard)', async () => {
     const { stream, tracks } = makeFakeStream();
     mockGetUserMedia(stream);
     const captured: Captured = { ctx: null };
@@ -112,16 +112,17 @@ describe('PresenterWebcam — X-button hard-stop', () => {
       captured.ctx!.hide();
     });
 
-    // Still alive — phase is 'hidden', tracks NOT yet stopped.
-    expect(captured.ctx!.state.phase).toBe('hidden');
+    // Soft hide → tray. Stream stays alive, tracks NOT stopped.
+    expect(captured.ctx!.state.phase).toBe('tray');
+    expect(captured.ctx!.state.stream).not.toBeNull();
     tracks.forEach((t) => expect(t.stop).not.toHaveBeenCalled());
 
-    // After grace window, the timer stops them.
+    // No grace window — tracks remain alive indefinitely while in tray.
     await act(async () => {
       vi.advanceTimersByTime(11_000);
     });
-    tracks.forEach((t) => expect(t.stop).toHaveBeenCalledTimes(1));
-    expect(captured.ctx!.state.phase).toBe('off');
+    tracks.forEach((t) => expect(t.stop).not.toHaveBeenCalled());
+    expect(captured.ctx!.state.phase).toBe('tray');
   });
 
   it('close() while in hidden phase cancels the pending grace timer', async () => {
