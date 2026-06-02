@@ -95,6 +95,13 @@ export function ControllerBar({ current, total, onPrev, onNext, onJump, isFullsc
   const [themeMenuOpen, setThemeMenuOpen] = useState(false);
   const [keyboardOpen, setKeyboardOpen] = useState(false);
   const [hamburgerOpen, setHamburgerOpen] = useState(false);
+  // C07 — first-run onboarding coachmark. Shows once (gated in localStorage);
+  // re-openable from the presenter menu via "Show intro again".
+  const { onboarded, markOnboarded, resetOnboarding } = useOnboardingFlag();
+  const [introOpen, setIntroOpen] = useState(false);
+  useEffect(() => {
+    if (!onboarded) setIntroOpen(true);
+  }, [onboarded]);
   const [hovered, setHovered] = useState(false);
   // `pinned` is the user-toggled "Extend" state — when true the full
   // controller stays open even after the mouse leaves. Hover or open menus
