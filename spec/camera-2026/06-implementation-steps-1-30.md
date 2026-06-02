@@ -80,14 +80,20 @@
 
 ## Phase E — Backgrounds, shapes & polish (steps 25–30)
 
-25. **Squircle shape.** `border-radius: 38% / 34%` (or mask from
-    `02-squircle-mask-black.png`); circle `O` overrides with `999px`. (File 05 §3.)
-26. **Background plate.** `cam-plate` sized `boxW + 2*platePad` (`platePad =
-    round(boxW*0.07)`), behind the video, `z-index:1`, `pointer-events:none`.
-    (File 05 §2, §5.)
-27. **Gold→ember rim + glow + drop shadow.** Token-only (`--gold`/`--ember`/
-    `--background`); match `01-reference-frame-gold-rim.png`. Add
-    `plateVariant: none|neutral|gold` persisted in `riseup.webcam.plate`. (File 05 §4.)
+25. **Squircle shape.** Keep `border-radius: 38% / 34%` as the CSS fallback,
+    and on the live rectangle/squircle mode also apply the exact
+    `02-squircle-mask-black.png` as `mask-image` / `-webkit-mask-image` sized
+    `100% 100%`; circle `O` overrides with `50%`, minimized puck with `999px`.
+    (File 05 §3, §8.)
+26. **Background shade stack.** Render TWO plates behind the video, each sized
+    `boxW + 2*platePad` (`platePad = round(boxW*0.07)`): the white shadow plate
+    at `z-index:0` and the gold plate at `z-index:1`, both `pointer-events:none`.
+    The masked video frame sits above them at `z-index:2`. (File 05 §2, §5, §8.)
+27. **Gold→ember rim + shadow look.** Match `01-reference-frame-gold-rim.png`
+    using the stacked PNG shade assets plus tokenized frame border/glow
+    (`--gold` / `--background`). `plateVariant: none|neutral|gold` remains
+    optional future work; the shipped path is the white+gold two-layer stack.
+    (File 05 §4, §8.)
 28. **Shape pop animation.** WAAPI on the clipping wrapper only (never remount
     the `<video>`); skip under reduced-motion. (File 02 §4.)
 29. **Halo + reduced-motion + theme audit.** `h` vignette; gate every animation
