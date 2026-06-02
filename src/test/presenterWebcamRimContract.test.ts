@@ -53,5 +53,16 @@ describe('PresenterWebcamOverlay — CSS-only squircle rim contract', () => {
     expect(SRC).toMatch(/hsl\(var\(--ember\) \/ 0\.25\)/);
     expect(SRC).toMatch(/0 16px 40px hsl\(var\(--background\) \/ 0\.7\)/);
   });
+
+  it('makes the windowed/tray halo glow hug the squircle curve (not a stray 28px rect)', () => {
+    // Regression guard for 2026-06-02: the windowed + tray halos used a 28px
+    // rounded-rect while their frames were '38% / 34%', so the gold glow
+    // didn't trace the silhouette. The squircle radius must appear for both
+    // the frame AND its halo in the windowed + tray paths (>= 4 occurrences:
+    // windowed halo, windowed frame, tray halo, frameRadius const).
+    const occurrences = (SRC.match(/'38% \/ 34%'/g) ?? []).length;
+    expect(occurrences).toBeGreaterThanOrEqual(4);
+  });
 });
+
 
