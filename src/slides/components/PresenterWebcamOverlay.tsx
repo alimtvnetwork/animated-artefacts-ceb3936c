@@ -76,7 +76,6 @@ export function PresenterWebcamOverlay() {
     toggleHalo,
     toggleStage,
     circleShape,
-    toggleCircleShape,
     cycleShapeOverlay,
     cinematicExiting,
   } = usePresenterWebcam();
