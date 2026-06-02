@@ -14,6 +14,34 @@
    the header / add a capsule / emphasise a word".
 3. [`03-field-reference.md`](./03-field-reference.md)
    — every JSON field, what it does, legal values, and what breaks if wrong.
+4. [`04-validation-and-testing.md`](./04-validation-and-testing.md)
+   — exact commands to validate JSON, run the suite, and triage failures.
+5. [`05-common-mistakes.md`](./05-common-mistakes.md)
+   — anti-patterns (inline hex, invented fields, fixed font sizes) and the fix.
+6. [`06-worked-example.md`](./06-worked-example.md)
+   — one complete before → after edit, blind-followable end to end.
+
+## JSON anatomy (at a glance)
+
+```text
+{
+  ── identity ──────────────────────────────
+  "slideNumber": 2,          // unique; maps to URL /N
+  "slideName": "capabilities",
+  "slideType": "CapsuleListSlide",   // picks the renderer + content shape
+  ── behavior / entrance ───────────────────
+  "transition": "SlideIn",   "textAnimation": "FadeIn",
+  "enabled": true,           "isClickReveal": false,
+  ── chrome ────────────────────────────────
+  "showBrandHeader": true,   "showPresenterChip": true,
+  ── title look (NOT pixel size) ───────────
+  "titleStyle": "white",     "titleShimmer": true,
+  ── speaker-only ──────────────────────────
+  "notes": "narration here, never shown to audience",
+  ── the visible payload (shape ⟂ slideType) ─
+  "content": { "eyebrow": "...", "title": "...", "capsules": [ ... ] }
+}
+```
 
 ## Where the slides actually live (runtime source of truth)
 

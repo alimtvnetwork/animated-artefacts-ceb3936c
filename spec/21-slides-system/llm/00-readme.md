@@ -5,6 +5,12 @@
 > rest of `/spec/slides/` until you've finished. Those older specs are
 > archeology — useful for "why," but **this folder is the current canon.**
 
+> **Just need to MODIFY an existing slide's JSON** (change text, center, make
+> bigger, edit the header, add a capsule)? Read the shorter blind-follow pack
+> first: [`spec/llm-guideline/`](../../llm-guideline/readme.md) — a 30-step
+> locate→edit→validate recipe + layout recipes + field reference. Come back here
+> for deep system detail (steps, sound, motion, new slide types).
+
 ---
 
 ## What this folder is
