@@ -1,0 +1,18 @@
+{
+  "slideNumber": 9,
+  "slideName": "title-hero-slot",
+  "slideType": "ImageSlide",
+  "transition": "PushIn",
+  "textAnimation": "FadeIn",
+  "enabled": true,
+  "isClickReveal": false,
+  "showBrandHeader": true,
+  "showPresenterChip": true,
+  "titleStyle": "white",
+  "content": {
+    "title": "titleHero slot",
+    "image": "/assets/examples/diagram.svg",
+    "imageRole": "titleHero",
+    "caption": "Use imageRole to route the same image into a larger hero slot."
+  }
+}
