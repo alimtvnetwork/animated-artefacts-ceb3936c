@@ -74,7 +74,7 @@ See size tokens in [`../21-slides-system/llm/10-typography.md`](../21-slides-sys
 ] } }
 ```
 
-Tokens: `gold` · `ember` · `cream` · `ink` · `outline` · `violet`. Keep ≤6.
+Tokens (9): `gold` · `ember` · `cream` · `ink` · `outline` · `violet` · `teal` · `rose` · `sky`. Keep ≤6 chips.
 Add `hoverText` for a hover label, `clickRevealSlide: N` to open a hidden slide.
 
 ---

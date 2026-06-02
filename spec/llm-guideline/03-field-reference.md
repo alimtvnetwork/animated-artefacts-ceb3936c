@@ -59,7 +59,7 @@ and the copy-paste templates in
 | Field | Type | Notes |
 |---|---|---|
 | `text` | string | the chip label |
-| `color` | enum | `gold` · `ember` · `cream` · `ink` · `outline` · `violet` |
+| `color` | enum | 9 values: `gold` · `ember` · `cream` · `ink` · `outline` · `violet` · `teal` · `rose` · `sky` |
 | `hoverText` | string | optional hover label |
 | `clickRevealSlide` | int | optional — opens hidden detail slide |
 

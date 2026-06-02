@@ -1,9 +1,9 @@
 /**
- * LLM guide bundler — concatenates the entire `spec/21-slides-system/llm/`
- * authoring pack + the slide JSON schema + the runtime catalog + the
- * currently-active theme's color tokens into ONE self-contained Markdown
- * document that any LLM can ingest standalone to author new slides for
- * this deck.
+ * LLM guide bundler — concatenates the blind-follow modification pack
+ * (`spec/llm-guideline/`) + the entire `spec/21-slides-system/llm/` authoring
+ * pack + the slide JSON schema + the runtime catalog + the currently-active
+ * theme's color tokens into ONE self-contained Markdown document that any LLM
+ * can ingest standalone to author or modify slides for this deck.
  *
  * Triggered from `ControllerHamburger` > "Import / Export" > "Download
  * LLM guide (.md)" or "Copy LLM guide to clipboard". See
@@ -28,6 +28,11 @@ import {
 
 const llmMarkdownFiles = import.meta.glob(
   '../../spec/21-slides-system/llm/*.md',
+  { query: '?raw', import: 'default', eager: true },
+) as Record<string, string>;
+
+const guidelineMarkdownFiles = import.meta.glob(
+  '../../spec/llm-guideline/*.md',
   { query: '?raw', import: 'default', eager: true },
 ) as Record<string, string>;
 
@@ -95,14 +100,18 @@ export function buildLlmGuideMarkdown(opts: LlmGuideBuildOptions = {}): string {
   const date = new Date().toISOString().slice(0, 10);
   const deckName = opts.deckName ?? 'Riseup Asia LLC slide deck';
 
-  const llmFiles = Object.keys(llmMarkdownFiles)
-    .sort((a, b) => a.localeCompare(b))
-    .map((path) => {
-      const filename = path.split('/').pop() ?? path;
-      const body = llmMarkdownFiles[path] ?? '';
-      return `\n\n---\n\n## File: \`${filename}\`\n\n${body.trim()}\n`;
-    })
-    .join('');
+  const concat = (files: Record<string, string>): string =>
+    Object.keys(files)
+      .sort((a, b) => a.localeCompare(b))
+      .map((path) => {
+        const filename = path.split('/').pop() ?? path;
+        const body = files[path] ?? '';
+        return `\n\n---\n\n## File: \`${filename}\`\n\n${body.trim()}\n`;
+      })
+      .join('');
+
+  const llmFiles = concat(llmMarkdownFiles);
+  const guidelineFiles = concat(guidelineMarkdownFiles);
 
   const themeSummary = summarizeTheme(preset);
   const themeJson = JSON.stringify(preset, null, 2);
@@ -172,7 +181,17 @@ ${catalogRaw.trim()}
 
 ---
 
-## 4 · Authoring pack — \`spec/21-slides-system/llm/\`
+## 4 · Blind-follow modification pack — \`spec/llm-guideline/\`
+
+A short, self-contained recipe book for **modifying** a slide's JSON (change
+text, center, resize a title, edit the header, add capsules, attach a
+click-reveal). Read this first when the task is an edit; use §5 for deep system
+detail when authoring something new.
+${guidelineFiles}
+
+---
+
+## 5 · Authoring pack — \`spec/21-slides-system/llm/\`
 
 The remainder of this document is every Markdown file from the canonical
 LLM authoring pack, concatenated in numeric order. Read \`00-readme.md\`
@@ -181,7 +200,7 @@ ${llmFiles}
 
 ---
 
-## 5 · What to output
+## 6 · What to output
 
 When the human asks you to author a slide:
 
@@ -200,7 +219,8 @@ When the human asks you to author a slide:
 
 ---
 
-*End of LLM guide. ${Object.keys(llmMarkdownFiles).length} pack files +
+*End of LLM guide. ${Object.keys(guidelineMarkdownFiles).length} guideline files +
+${Object.keys(llmMarkdownFiles).length} pack files +
 schema + catalog + theme \`${themeId}\` bundled on ${date}.*
 `;
 }

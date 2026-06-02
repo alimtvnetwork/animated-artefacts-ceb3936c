@@ -6,7 +6,7 @@ Each item: what NOT to do → why → what to do instead.
 ❌ `{ "text": "Growth", "color": "#C9A84C" }`
 **Why:** breaks on light themes — chips collapse to dark-on-dark.
 ✅ `{ "text": "Growth", "color": "gold" }` — always a token name
-(`gold` · `ember` · `cream` · `ink` · `outline` · `violet`).
+(`gold` · `ember` · `cream` · `ink` · `outline` · `violet` · `teal` · `rose` · `sky`).
 
 ## 2. Inventing layout fields
 ❌ `{ "content": { "title": "Hi", "align": "center", "x": 50, "y": 50 } }`
