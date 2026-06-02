@@ -39,6 +39,8 @@ export interface AutoHideCursor {
   hideNow: () => void;
   /** Force the cursor visible and re-arm the idle timer. */
   show: () => void;
+  /** Pointer activity handler to attach to the camera surface itself. */
+  registerActivity: () => void;
 }
 
 export function useAutoHideCursor({ active, delay = 2500 }: AutoHideCursorOptions): AutoHideCursor {
@@ -62,6 +64,11 @@ export function useAutoHideCursor({ active, delay = 2500 }: AutoHideCursorOption
     arm();
   }, [arm]);
 
+  const registerActivity = useCallback(() => {
+    setHidden(false);
+    arm();
+  }, [arm]);
+
   const hideNow = useCallback(() => {
     clearTimer();
     setHidden(true);
@@ -75,20 +82,10 @@ export function useAutoHideCursor({ active, delay = 2500 }: AutoHideCursorOption
     }
     // Arm on mount so an untouched surface hides the cursor on its own.
     arm();
-    const onMove = () => {
-      setHidden(false);
-      arm();
-    };
-    window.addEventListener('pointermove', onMove, { passive: true });
-    window.addEventListener('pointerdown', onMove, { passive: true });
-    window.addEventListener('wheel', onMove, { passive: true });
     return () => {
-      window.removeEventListener('pointermove', onMove);
-      window.removeEventListener('pointerdown', onMove);
-      window.removeEventListener('wheel', onMove);
       clearTimer();
     };
   }, [active, arm, clearTimer]);
 
-  return { hidden, hideNow, show };
+  return { hidden, hideNow, show, registerActivity };
 }
