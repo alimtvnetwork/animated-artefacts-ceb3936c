@@ -84,12 +84,12 @@ export function ImageSlide({ spec }: { spec: SlideSpec }) {
         </motion.p>
       )}
 
-      {c.title && (
+      {c.title && !c.caption && (
         <motion.h3
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: reduced ? 0 : 0.3 }}
-          className="absolute bottom-16 left-1/2 -translate-x-1/2 font-display text-3xl text-gold-gradient"
+          className="absolute bottom-24 left-1/2 -translate-x-1/2 font-display text-3xl text-gold-gradient"
         >
           {c.title}
         </motion.h3>
