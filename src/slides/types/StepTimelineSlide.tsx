@@ -12,6 +12,7 @@ import type { ExpandPanelPayload } from '../components/ClickRevealExpandPanel';
 import { resolveStepEnter, resolveStepExit, resolveStepTopOffset, resolveSlideTopOffset, resolveStepRevealOrder, stepRevealDelayMs } from '../stepTiming';
 import { titleClassFor } from '../preset';
 import { Capsule } from '../components/Capsule';
+import { SlotImage } from '../components/SlotImage';
 import { toDescriptionString } from '../utils/descriptionString';
 import { stepMotionVariant } from '../utils/stepMotionVariant';
 import { useStepMotionOverride } from '../stepMotionOverride';
