@@ -626,6 +626,7 @@ function Description3DEditor({
   onChange: (next: DescriptionValue) => void;
 }) {
   const is3D = slideType === 'StepsChain3DSlide';
+  const [legacyImported, setLegacyImported] = useState(false);
 
   if (!is3D) {
     const str = typeof value === 'string' ? value : '';
@@ -711,7 +712,6 @@ function Description3DEditor({
   // legacy decks editable without forcing a click. The explicit
   // "Convert to bullets" action below handles every other case
   // (bullets already exist, user pasted fresh prose, etc.).
-  const [legacyImported, setLegacyImported] = useState(false);
   if (!legacyImported && obj.body && bullets.length === 0) {
     setLegacyImported(true);
     const split = splitProseToBullets(obj.body);
