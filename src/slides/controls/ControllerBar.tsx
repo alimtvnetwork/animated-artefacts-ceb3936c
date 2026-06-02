@@ -1,6 +1,6 @@
 import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
-import { ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight, Share2, Maximize2, Minimize2, LayoutGrid, MonitorPlay, FileJson, Palette, Eye, EyeOff, PanelTop, PanelTopClose, Contrast, Wind, Menu, Keyboard, ListChecks, Sparkles, Download, ClipboardCopy } from 'lucide-react';
+import { ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight, Share2, Maximize2, Minimize2, LayoutGrid, MonitorPlay, FileJson, Palette, Eye, EyeOff, PanelTop, PanelTopClose, Contrast, Wind, Menu, Keyboard, ListChecks, Sparkles, Download, ClipboardCopy, PlayCircle } from 'lucide-react';
 import { downloadLlmGuide, copyLlmGuideToClipboard } from '../llmGuideBundle';
 import { toast } from 'sonner';
 import { useClickRevealStepwise, toggleClickRevealStepwise } from '../components/clickRevealStepwise';
@@ -27,6 +27,8 @@ import { DeckMenu } from './DeckMenu';
 import { ThemeMenu } from './ThemeMenu';
 import { writeThemeDebugFlag } from '../manifest';
 import { KeyboardShortcutsDialog } from './KeyboardShortcutsDialog';
+import { OnboardingCoachmark } from './OnboardingCoachmark';
+import { useOnboardingFlag } from './useOnboardingFlag';
 // v5 (2026-05-02): the Radix DropdownMenu was replaced with a hover-driven
 // custom panel inside `ControllerHamburger` because the dropdown's focus
 // trap was collapsing the controller pill on click. The previous imports
@@ -93,6 +95,13 @@ export function ControllerBar({ current, total, onPrev, onNext, onJump, isFullsc
   const [themeMenuOpen, setThemeMenuOpen] = useState(false);
   const [keyboardOpen, setKeyboardOpen] = useState(false);
   const [hamburgerOpen, setHamburgerOpen] = useState(false);
+  // C07 — first-run onboarding coachmark. Shows once (gated in localStorage);
+  // re-openable from the presenter menu via "Show intro again".
+  const { onboarded, markOnboarded, resetOnboarding } = useOnboardingFlag();
+  const [introOpen, setIntroOpen] = useState(false);
+  useEffect(() => {
+    if (!onboarded) setIntroOpen(true);
+  }, [onboarded]);
   const [hovered, setHovered] = useState(false);
   // `pinned` is the user-toggled "Extend" state — when true the full
   // controller stays open even after the mouse leaves. Hover or open menus
@@ -236,6 +245,7 @@ export function ControllerBar({ current, total, onPrev, onNext, onJump, isFullsc
                   onToggleTopJumper={onToggleTopJumper}
                   topJumperHidden={topJumperHidden}
                   onOpenKeyboardMap={() => setKeyboardOpen(true)}
+                  onShowIntro={() => { resetOnboarding(); setIntroOpen(true); }}
                   currentSlideNumber={current}
                 />
                 {/* Extend / collapse pin — locks the controller open so the
@@ -324,6 +334,7 @@ export function ControllerBar({ current, total, onPrev, onNext, onJump, isFullsc
           (the dialog component owns the global key listener). Mounted here
           so it's always available regardless of controller expansion state. */}
       <KeyboardShortcutsDialog open={keyboardOpen} onOpenChange={setKeyboardOpen} />
+      <OnboardingCoachmark open={introOpen} onDismiss={() => { setIntroOpen(false); markOnboarded(); }} />
     </div>
   );
 }
@@ -354,6 +365,8 @@ interface HamburgerProps {
   onToggleTopJumper?: () => void;
   topJumperHidden?: boolean;
   onOpenKeyboardMap: () => void;
+  /** Clears the onboarding flag and re-opens the first-run coachmark. */
+  onShowIntro: () => void;
   /** Active slide number — used as the default scope target for the live
    *  Transition style picker (per-slide override). */
   currentSlideNumber: number;
@@ -379,6 +392,7 @@ function ControllerHamburger({
   onToggleTopJumper,
   topJumperHidden,
   onOpenKeyboardMap,
+  onShowIntro,
   currentSlideNumber,
 }: HamburgerProps) {
   const colorDebugOn = useColorDebug();
@@ -573,6 +587,10 @@ function ControllerHamburger({
               <Keyboard className="h-4 w-4" />
               <span className="flex-1">Keyboard map</span>
               <kbd className="text-[10px] font-mono opacity-60">/</kbd>
+            </button>
+            <button type="button" onClick={onShowIntro} className={itemBase}>
+              <PlayCircle className="h-4 w-4" />
+              <span className="flex-1">Show intro again</span>
             </button>
           </motion.div>
         )}
