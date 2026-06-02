@@ -12,6 +12,16 @@
     "eyebrow": "Proof · math",
     "title": "Clarity compounds",
     "tex": "R = C \\cdot (1 + r)^t",
-    "caption": "Recall (R) compounds at rate r every retelling t, given baseline clarity C"
+    "caption": "Recall (R) compounds at rate r every retelling t, given baseline clarity C",
+    "equationHtml": "<div class=\"equation-katex\"><span class=\"katex-display\"><span class=\"katex\"><span class=\"katex-html\" aria-hidden=\"true\"><span class=\"base\"><span class=\"strut\" style=\"height:0.6833em;\"></span><span class=\"mord mathnormal\" style=\"margin-right:0.0077em;\">R</span><span class=\"mspace\" style=\"margin-right:0.2778em;\"></span><span class=\"mrel\">=</span><span class=\"mspace\" style=\"margin-right:0.2778em;\"></span></span><span class=\"base\"><span class=\"strut\" style=\"height:0.6833em;\"></span><span class=\"mord mathnormal\" style=\"margin-right:0.0715em;\">C</span><span class=\"mspace\" style=\"margin-right:0.2222em;\"></span><span class=\"mbin\">⋅</span><span class=\"mspace\" style=\"margin-right:0.2222em;\"></span></span><span class=\"base\"><span class=\"strut\" style=\"height:1em;vertical-align:-0.25em;\"></span><span class=\"mopen\">(</span><span class=\"mord\">1</span><span class=\"mspace\" style=\"margin-right:0.2222em;\"></span><span class=\"mbin\">+</span><span class=\"mspace\" style=\"margin-right:0.2222em;\"></span></span><span class=\"base\"><span class=\"strut\" style=\"height:1.0936em;vertical-align:-0.25em;\"></span><span class=\"mord mathnormal\" style=\"margin-right:0.0278em;\">r</span><span class=\"mclose\"><span class=\"mclose\">)</span><span class=\"msupsub\"><span class=\"vlist-t\"><span class=\"vlist-r\"><span class=\"vlist\" style=\"height:0.8436em;\"><span style=\"top:-3.113em;margin-right:0.05em;\"><span class=\"pstrut\" style=\"height:2.7em;\"></span><span class=\"sizing reset-size6 size3 mtight\"><span class=\"mord mathnormal mtight\">t</span></span></span></span></span></span></span></span></span></span></span></span></div><div class=\"equation-stagger-overlay\" aria-hidden=\"true\"><span class=\"equation-term equation-term--prerendered\" data-term-id=\"t0\" style=\"animation-delay:0ms\">R</span> <span class=\"equation-term equation-term--prerendered\" data-term-id=\"t1\" style=\"animation-delay:80ms\">=</span> <span class=\"equation-term equation-term--prerendered\" data-term-id=\"t2\" style=\"animation-delay:160ms\">C</span> <span class=\"equation-term equation-term--prerendered\" data-term-id=\"t3\" style=\"animation-delay:240ms\">\\cdot</span> <span class=\"equation-term equation-term--prerendered\" data-term-id=\"t4\" style=\"animation-delay:320ms\">(1</span> <span class=\"equation-term equation-term--prerendered\" data-term-id=\"t5\" style=\"animation-delay:400ms\">+</span> <span class=\"equation-term equation-term--prerendered\" data-term-id=\"t6\" style=\"animation-delay:480ms\">r)^t</span></div>",
+    "termIds": [
+      "t0",
+      "t1",
+      "t2",
+      "t3",
+      "t4",
+      "t5",
+      "t6"
+    ]
   }
 }
