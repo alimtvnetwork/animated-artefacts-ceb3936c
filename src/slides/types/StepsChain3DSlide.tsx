@@ -508,8 +508,9 @@ export const StepsChain3DSlide = forwardRef<FocusTimelineHandle, Props>(
    * Resolved from `content.layout` with safe defaults. Drives the marker
    * size CSS var, the rail offset, and the per-row text gap. All three
    * derive from the same numbers, so they always stay in lockstep. */
+  const layout = content.layout;
   const layoutCfg = useMemo(() => {
-    const l = content.layout ?? {};
+    const l = layout ?? {};
     // v0.222 — default bumped 56 → 72 (+~29%) so step markers read at a
     // confident size after `FitStage` scales the 1920×1080 canvas down to
     // narrow viewports. Source-size change only — no transform scaling.
@@ -537,12 +538,7 @@ export const StepsChain3DSlide = forwardRef<FocusTimelineHandle, Props>(
       railTopPx:    markerSize / 2,
       railBottomPx: markerSize / 2,
     };
-  }, [
-    content.layout?.markerSize,
-    content.layout?.railOffset,
-    content.layout?.textGap,
-    (content.layout as { rowSpacing?: number } | undefined)?.rowSpacing,
-  ]);
+  }, [layout]);
 
   // Dev-only nudge: warn when a step still ships a legacy
   // `description.body`. v0.214 auto-converts `body` → `bullets[]` at render
