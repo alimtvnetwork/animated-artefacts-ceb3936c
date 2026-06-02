@@ -56,9 +56,10 @@ pixel size. Never hard-code a title font size in JSON.
 less than a webpage. Keep ≤4-6 keywords / capsules / steps. If it overflows,
 split into another slide — do not shrink everything.
 
-**Step 12.** Note **capsule color tokens**: `gold`, `ember`, `cream`, `ink`,
-`outline`, `violet`. Always use these names — never an inline hex value, because
-hex breaks on light themes.
+**Step 12.** Note **capsule color tokens** (9, from `src/slides/enums.ts`):
+`gold`, `ember`, `cream`, `ink`, `outline`, `violet`, `teal`, `rose`, `sky`.
+Always use these names — never an inline hex value, because hex breaks on light
+themes.
 
 ---
 
