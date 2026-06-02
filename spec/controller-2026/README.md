@@ -34,6 +34,7 @@ It is **presenter-local runtime UI**: never exported, never part of slide JSON.
 | [`04-test-execution-steps-CT11-CT20.md`](./04-test-execution-steps-CT11-CT20.md) | **Hardening / release / maintenance** steps **CT11–CT20** with reasoning + time. |
 | [`05-build-substeps-C01.md`](./05-build-substeps-C01.md) | **C01 expanded** into 10 code-ready sub-steps **C01.1–C01.10** with files + time. |
 | [`06-build-substeps-C02.md`](./06-build-substeps-C02.md) | **C02 expanded** into 10 code-ready sub-steps **C02.1–C02.10** with files + time. |
+| [`07-build-substeps-C03.md`](./07-build-substeps-C03.md) | **C03 expanded** into 10 code-ready sub-steps **C03.1–C03.10** with files + time. |
 
 ---
 
