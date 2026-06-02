@@ -1292,18 +1292,12 @@ export function PresenterWebcamOverlay() {
           height: visualHeight,
           borderRadius: frameRadius,
           overflow: 'hidden',
-          WebkitMaskImage: !minimized && !circleShape ? `url(${squircleMaskBlack})` : undefined,
-          maskImage: !minimized && !circleShape ? `url(${squircleMaskBlack})` : undefined,
-          WebkitMaskSize: !minimized && !circleShape ? '100% 100%' : undefined,
-          maskSize: !minimized && !circleShape ? '100% 100%' : undefined,
-          WebkitMaskRepeat: !minimized && !circleShape ? 'no-repeat' : undefined,
-          maskRepeat: !minimized && !circleShape ? 'no-repeat' : undefined,
-          WebkitMaskPosition: !minimized && !circleShape ? 'center' : undefined,
-          maskPosition: !minimized && !circleShape ? 'center' : undefined,
-          background: 'hsl(var(--background))',
-          border: '1.5px solid hsl(var(--gold) / 0.6)',
+          // Transparent interior — the squircle silhouette comes purely from
+          // border-radius, the rim from the border + glow below (image 3).
+          background: 'transparent',
+          border: '2px solid hsl(var(--gold) / 0.85)',
           boxShadow:
-            '0 0 32px hsl(var(--gold) / 0.18), 0 12px 32px hsl(var(--background) / 0.6)',
+            '0 0 0 1px hsl(var(--ember) / 0.25), 0 0 28px hsl(var(--gold) / 0.22), 0 16px 40px hsl(var(--background) / 0.7)',
           cursor: cursorStyle ?? (dragging ? 'grabbing' : 'grab'),
           userSelect: 'none',
           touchAction: 'none',
