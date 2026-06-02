@@ -31,7 +31,14 @@ front-end/project/<deck>/data/  the LIVE decks the app loads at runtime
   slides/NN-name.json           one slide per file — RUNTIME SOURCE OF TRUTH
 front-end/slide-template/       copy-me starter JSON, one per slideType
 src/slides/                     React renderer (loader.ts, contracts.ts, themes.ts)
+quality/                        GENERATED quality evidence (audit/metrics/reports) — not hand-edited
+scripts/ (+ install/)           audit/check/release tooling + env installers
+legacy/                         inert/archived material (php/ placeholder) — not built
 ```
+
+> Root holds only config + entry + the dirs above; every top-level + `spec/*`
+> folder has a `README.md` (convention over configuration). See root `README.md`
+> "Repository map".
 
 ## 2. Learn the JSON — structure, fields, contracts
 
