@@ -909,6 +909,7 @@ export function PresenterWebcamOverlay() {
   // has its own ring and the squircle plate would not match its silhouette).
   const platePad = Math.round(visualWidth * 0.07);
   const showPlate = !minimized && !circleShape;
+  const showCircleControls = !minimized && circleShape;
 
 
 
@@ -1259,6 +1260,77 @@ export function PresenterWebcamOverlay() {
                 <X size={12} />
               </WebcamChromeButton>
             </div>
+          </div>
+        )}
+
+        {showCircleControls && (
+          <div
+            style={{
+              position: 'absolute',
+              left: HALO + (size.w - circleDiameter) / 2 + circleDiameter + 12,
+              top: HALO + Math.max(10, circleDiameter / 2 - 96),
+              display: 'flex',
+              flexDirection: 'column',
+              gap: 10,
+              pointerEvents: 'auto',
+            }}
+          >
+            <WebcamChromeButton
+              onPointerDown={(e) => e.stopPropagation()}
+              onClick={(e) => {
+                e.stopPropagation();
+                growSize();
+              }}
+              label="Grow camera"
+              shortcut="+"
+              side="left"
+              style={circleChromeBtnStyle}
+            >
+              <Plus size={16} />
+            </WebcamChromeButton>
+            <WebcamChromeButton
+              onPointerDown={(e) => e.stopPropagation()}
+              onClick={(e) => {
+                e.stopPropagation();
+                shrinkSize();
+              }}
+              label="Shrink camera"
+              shortcut="-"
+              side="left"
+              style={circleChromeBtnStyle}
+            >
+              <Minus size={16} />
+            </WebcamChromeButton>
+            <WebcamChromeButton
+              onPointerDown={(e) => e.stopPropagation()}
+              onClick={(e) => {
+                e.stopPropagation();
+                toggleMinimized();
+              }}
+              label="Minimize camera"
+              shortcut="M"
+              side="left"
+              style={circleChromeBtnStyle}
+            >
+              <Minimize2 size={16} />
+            </WebcamChromeButton>
+            <WebcamChromeButton
+              onPointerDown={(e) => e.stopPropagation()}
+              onClick={(e) => {
+                e.stopPropagation();
+                close();
+              }}
+              label="Stop camera"
+              side="left"
+              style={{
+                ...circleChromeBtnStyle,
+                background: 'hsl(var(--destructive) / 0.16)',
+                borderColor: 'hsl(var(--destructive) / 0.45)',
+                color: 'hsl(var(--cream))',
+              }}
+            >
+              <X size={18} />
+            </WebcamChromeButton>
           </div>
         )}
 
