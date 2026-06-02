@@ -1,0 +1,17 @@
+{
+  "slideNumber": 3,
+  "slideName": "svg-figure",
+  "slideType": "ImageSlide",
+  "transition": "PushIn",
+  "textAnimation": "FadeIn",
+  "enabled": true,
+  "isClickReveal": false,
+  "showBrandHeader": true,
+  "showPresenterChip": true,
+  "titleStyle": "white",
+  "content": {
+    "title": "From an .svg file",
+    "image": "/assets/examples/diagram.svg",
+    "imageRole": "bodyFigure"
+  }
+}

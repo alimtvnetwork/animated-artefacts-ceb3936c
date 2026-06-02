@@ -1,0 +1,17 @@
+{
+  "slideNumber": 2,
+  "slideName": "image-from-asset",
+  "slideType": "ImageSlide",
+  "transition": "SlideIn",
+  "textAnimation": "SlideUp",
+  "enabled": true,
+  "isClickReveal": false,
+  "showBrandHeader": true,
+  "showPresenterChip": true,
+  "titleStyle": "white",
+  "content": {
+    "title": "From a public asset",
+    "image": "/assets/examples/photo.png",
+    "imageRole": "bodyFigure"
+  }
+}

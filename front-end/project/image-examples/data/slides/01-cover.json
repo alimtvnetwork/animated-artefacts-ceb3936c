@@ -1,0 +1,21 @@
+{
+  "slideNumber": 1,
+  "slideName": "cover",
+  "slideType": "TitleSlide",
+  "transition": "FadeIn",
+  "textAnimation": "Bounce",
+  "enabled": true,
+  "isClickReveal": false,
+  "showBrandHeader": true,
+  "showPresenterChip": true,
+  "titleStyle": "white",
+  "content": {
+    "eyebrow": "Authoring reference",
+    "title": "Images in JSON",
+    "subtitle": "Asset · SVG · Base64 · Data URI",
+    "capsules": [
+      { "text": "4 sources", "color": "gold" },
+      { "text": "1 field: image", "color": "ember" }
+    ]
+  }
+}
