@@ -1,9 +1,9 @@
 /**
- * LLM guide bundler — concatenates the entire `spec/21-slides-system/llm/`
- * authoring pack + the slide JSON schema + the runtime catalog + the
- * currently-active theme's color tokens into ONE self-contained Markdown
- * document that any LLM can ingest standalone to author new slides for
- * this deck.
+ * LLM guide bundler — concatenates the blind-follow modification pack
+ * (`spec/llm-guideline/`) + the entire `spec/21-slides-system/llm/` authoring
+ * pack + the slide JSON schema + the runtime catalog + the currently-active
+ * theme's color tokens into ONE self-contained Markdown document that any LLM
+ * can ingest standalone to author or modify slides for this deck.
  *
  * Triggered from `ControllerHamburger` > "Import / Export" > "Download
  * LLM guide (.md)" or "Copy LLM guide to clipboard". See
