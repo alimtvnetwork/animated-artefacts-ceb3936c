@@ -390,12 +390,13 @@ export function PresenterWebcamOverlay() {
     (e: React.PointerEvent<HTMLDivElement>) => {
       const d = dragRef.current;
       if (!d || d.pointerId !== e.pointerId) return;
+      autoHideCursor.registerActivity();
       const scale = readStageScale();
       const dx = (e.clientX - d.startX) / scale;
       const dy = (e.clientY - d.startY) / scale;
       setPosition(d.baseX + dx, d.baseY + dy);
     },
-    [setPosition],
+    [autoHideCursor, setPosition],
   );
   const onDragPointerUp = useCallback((e: React.PointerEvent<HTMLDivElement>) => {
     const d = dragRef.current;
@@ -433,12 +434,13 @@ export function PresenterWebcamOverlay() {
     (e: React.PointerEvent<HTMLDivElement>) => {
       const d = resizeRef.current;
       if (!d || d.pointerId !== e.pointerId) return;
+      autoHideCursor.registerActivity();
       const scale = readStageScale();
       const dx = (e.clientX - d.startX) / scale;
       const nextW = Math.max(FREE_MIN_W, Math.min(FREE_MAX_W, d.baseW + dx));
       resizeFree(nextW);
     },
-    [resizeFree],
+    [autoHideCursor, resizeFree],
   );
   const onResizePointerUp = useCallback((e: React.PointerEvent<HTMLDivElement>) => {
     const d = resizeRef.current;
@@ -592,6 +594,9 @@ export function PresenterWebcamOverlay() {
       <div
         role="region"
         aria-label="Camera stage-fill"
+        onPointerMove={autoHideCursor.registerActivity}
+        onPointerDown={autoHideCursor.registerActivity}
+        onWheel={autoHideCursor.registerActivity}
         style={{
           position: 'absolute',
           inset: 0,
@@ -691,6 +696,9 @@ export function PresenterWebcamOverlay() {
       <div
         role="region"
         aria-label="Camera fullscreen"
+        onPointerMove={autoHideCursor.registerActivity}
+        onPointerDown={autoHideCursor.registerActivity}
+        onWheel={autoHideCursor.registerActivity}
         style={{
           position: 'fixed',
           inset: 0,
@@ -828,6 +836,9 @@ export function PresenterWebcamOverlay() {
       role="region"
       aria-label="Presenter webcam"
       className="presenter-webcam-overlay"
+      onPointerMove={autoHideCursor.registerActivity}
+      onPointerDown={autoHideCursor.registerActivity}
+      onWheel={autoHideCursor.registerActivity}
       style={{
         position: 'absolute',
         // Outer wrapper always tracks the FULL rectangle footprint. The
