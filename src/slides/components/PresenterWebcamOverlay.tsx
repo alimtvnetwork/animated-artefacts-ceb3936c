@@ -554,7 +554,9 @@ export function PresenterWebcamOverlay() {
                 top: previewTop,
                 width: (circleShape ? previewDiameter : previewWidth) + HALO * 2,
                 height: (circleShape ? previewDiameter : previewHeight) + HALO * 2,
-                borderRadius: circleShape ? '50%' : 28,
+                // Trace the squircle silhouette so the glow hugs the same
+                // curve as the frame (was a 28px rounded-rect — mismatch).
+                borderRadius: circleShape ? '50%' : '38% / 34%',
                 background:
                   'radial-gradient(ellipse at center, hsl(var(--gold) / 0.22) 0%, hsl(var(--gold) / 0.09) 48%, transparent 76%)',
                 WebkitMaskImage:
@@ -1256,7 +1258,7 @@ export function PresenterWebcamOverlay() {
             top: circleShape ? (size.h - circleDiameter) / 2 : 0,
             width: (circleShape ? circleDiameter : size.w) + HALO * 2,
             height: (circleShape ? circleDiameter : size.h) + HALO * 2,
-            borderRadius: circleShape ? '50%' : 28,
+            borderRadius: circleShape ? '50%' : '38% / 34%',
             background:
               'radial-gradient(ellipse at center, hsl(var(--gold) / 0.18) 0%, hsl(var(--gold) / 0.08) 45%, transparent 75%)',
             WebkitMaskImage:
