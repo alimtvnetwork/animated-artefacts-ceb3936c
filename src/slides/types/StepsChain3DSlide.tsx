@@ -132,6 +132,27 @@ function cardFilter(t: DepthTier): string {
   return t.blur > 0 ? `blur(${t.blur}px)` : 'none';
 }
 
+/**
+ * Depth-aware medallion (numeric marker) base values.
+ *
+ * The marker disc must recede with the SAME depth hierarchy as its card —
+ * a marker two steps away should read as further back than an adjacent one,
+ * not collapse to a single flat "inactive" look. We track the card tier but
+ * keep markers a touch larger/brighter than cards (they double as wayfinding
+ * waypoints on the rail), with a visibility floor so distant markers never
+ * vanish. Active marker is always full size + opacity.
+ */
+export function markerDepth(distance: number): { scale: number; opacity: number } {
+  if (distance === 0) return { scale: 1.0, opacity: 1.0 };
+  const t = tierFor(distance);
+  // Map tier.scale (adjacent 0.85 → distant 0.70) into a gentle 0.90 → 0.84
+  // medallion range, and lift opacity off the card floor so wayfinding reads.
+  const scale = 0.84 + (t.scale - DEPTH.distant.scale) * 0.4;
+  const opacity = Math.max(0.42, t.opacity + 0.15);
+  return { scale: Number(scale.toFixed(3)), opacity: Number(opacity.toFixed(3)) };
+}
+
+
 /* ------------------------------------------------------------------ */
 /* Reduced motion guard — read once, observed across renders.          */
 /* ------------------------------------------------------------------ */
@@ -987,10 +1008,10 @@ export const StepsChain3DSlide = forwardRef<FocusTimelineHandle, Props>(
       });
       markerRefs.current.forEach((el, i) => {
         if (!el) return;
-        const isActiveNow = i === active;
+        const m = markerDepth(Math.abs(i - active));
         el.style.transition = 'transform 200ms ease-out, opacity 200ms ease-out, background 200ms linear';
-        el.style.transform = isActiveNow ? 'scale(1)' : 'scale(0.92)';
-        el.style.opacity = isActiveNow ? '1' : '0.6';
+        el.style.transform = `scale(${m.scale})`;
+        el.style.opacity = String(m.opacity);
       });
       return;
     }
@@ -1218,9 +1239,11 @@ export const StepsChain3DSlide = forwardRef<FocusTimelineHandle, Props>(
       if (!el) return;
       const becomingActive = i === active && from !== active;
       const becomingInactive = i === from && from !== active;
-      const isActiveNow = i === active;
-      const baseScale = isActiveNow ? 1.0 : 0.85;
-      const baseOpacity = isActiveNow ? 1.0 : 0.55;
+      // Depth-aware steady-state: markers that are NOT mid-transition recede
+      // with the same hierarchy as their card (distant < adjacent < active).
+      const baseMarker = markerDepth(Math.abs(i - active));
+      const baseScale = baseMarker.scale;
+      const baseOpacity = baseMarker.opacity;
 
       if (becomingActive) {
         // Spring-sampled bubble-up with a configurable overshoot peak.
@@ -1244,8 +1267,8 @@ export const StepsChain3DSlide = forwardRef<FocusTimelineHandle, Props>(
         // Spring-sampled bubble-down — same delay so the previous
         // marker's glow fades a beat after its card recedes.
         const keyframes = MARKER_CURVE.map((p) => {
-          const scale = 1.0 + (0.85 - 1.0) * p;
-          const opacity = 1.0 + (0.55 - 1.0) * p;
+          const scale = 1.0 + (baseScale - 1.0) * p;
+          const opacity = 1.0 + (baseOpacity - 1.0) * p;
           return { transform: `scale(${scale.toFixed(3)})`, opacity: opacity.toFixed(3) };
         });
         const a = el.animate(keyframes, {
