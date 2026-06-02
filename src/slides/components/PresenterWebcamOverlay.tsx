@@ -839,6 +839,7 @@ export function PresenterWebcamOverlay() {
         height: size.h + HALO * 2,
         zIndex: 60,
         opacity: 1,
+        cursor: cursorStyle,
         transformOrigin: 'top right',
         transition: 'opacity 320ms ease-out',
         pointerEvents: 'none',
