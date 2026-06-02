@@ -616,9 +616,7 @@ export const StepsChain3DSlide = forwardRef<FocusTimelineHandle, Props>(
    * repeated motion. Hover is still disabled — variants only fire on
    * click. Keyboard/controller/programmatic causes never trigger a
    * variant flourish (spec 61 keeps those calm). */
-  type ClickVariant = 'FadeIn' | 'SlideIn' | 'PushLeft' | 'PushRight' | 'PushIn';
-  const CLICK_VARIANTS: ClickVariant[] = ['FadeIn', 'SlideIn', 'PushLeft', 'PushRight', 'PushIn'];
-  const clickVariantIdx = useRef(0);
+   const clickVariantIdx = useRef(0);
   const nextClickVariantRef = useRef<ClickVariant | null>(null);
   /* Click-only label-capsule stagger (right detail panel). The capsule
    * list (rendered from description.bullets[]) plays a staggered slide-in
