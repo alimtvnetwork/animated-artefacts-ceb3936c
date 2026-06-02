@@ -1198,17 +1198,12 @@ export function PresenterWebcamOverlay() {
   // theme-tinting path is a border-radius superellipse approximation
   // (38% / 34%). Circle (`O`) overrides to 50%; minimized is a puck (999).
   const frameRadius = minimized ? 999 : circleShape ? '50%' : '38% / 34%';
-  // spec/camera-2026/05 §2 — the decorative plate sits BEHIND the video and
-  // extends ~7% beyond each edge, so a gold→ember rimmed, soft-shadowed border
-  // of the squircle plate shows on all sides and the camera reads as bigger.
-  // SINGLE transparent plate only (`04-squircle-plate-gold-shadow.png`): it
-  // bakes the squircle curve, the gold→ember rim and the soft shadow on a
-  // TRANSPARENT background. The old opaque white "paper" plate was removed —
-  // it filled the squircle white behind the video and added no value.
-  // Hidden while minimized (puck) and while in circle mode (the round crop
-  // has its own ring and the squircle plate would not match its silhouette).
-  const platePad = Math.round(visualWidth * 0.07);
-  const showPlate = !minimized && !circleShape;
+  // spec/camera-2026/05 §2 — NO decorative plate. The masked video carries
+  // its own thin gold→ember rim + soft drop shadow via CSS on the inner
+  // frame, so the squircle interior stays fully TRANSPARENT (image 3). The
+  // old white-filled plate PNG produced a thick opaque ring (image 1) and is
+  // gone — never reintroduce a fill plate behind the video.
+  const showCircleControls = !minimized && circleShape;
   const showCircleControls = !minimized && circleShape;
   const circleControlColumnHeight = 4 * CIRCLE_CONTROL_SIZE + 3 * 10;
   const circleVisualRight = position.x + (size.w + circleDiameter) / 2;
