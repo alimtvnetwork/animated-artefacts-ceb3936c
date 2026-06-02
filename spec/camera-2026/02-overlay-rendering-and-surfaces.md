@@ -101,7 +101,7 @@ useEffect(() => {
 }, [circleShape]);
 ```
 
-Circle frame = `border-radius: 999px`. Squircle frame = CSS mask (file 05).
+Circle frame = `border-radius: 50%` (puck `999`). Squircle frame = `border-radius: 38% / 34%` superellipse approximation — NO CSS mask PNG (2026-06-02 v2; see file 05 §8). Rim = `2px` gold border + layered `box-shadow`, transparent interior.
 
 ## 5. Tray surface (soft-hidden)
 
