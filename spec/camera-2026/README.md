@@ -89,8 +89,8 @@ This pack supersedes and consolidates the scattered camera docs. Keep them in sy
 ## Live code map (for diffing — do not need to read to implement)
 
 ```
-src/slides/components/usePresenterWebcam.tsx   state machine + React context (688 lines)
-src/slides/components/PresenterWebcamOverlay.tsx  the rendered surfaces (1228 lines)
+src/slides/components/usePresenterWebcam.tsx   state machine + React context (744 lines)
+src/slides/components/PresenterWebcamOverlay.tsx  the rendered surfaces (1736 lines)
 src/slides/components/useAutoFrame.ts          FaceDetector center-stage hook
 src/slides/controls/PresenterWebcamButton.tsx  controller chip toggle
 src/slides/controls/ControllerBar.tsx          hosts the button + dropdown items
