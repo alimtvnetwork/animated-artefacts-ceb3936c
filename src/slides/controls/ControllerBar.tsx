@@ -245,6 +245,7 @@ export function ControllerBar({ current, total, onPrev, onNext, onJump, isFullsc
                   onToggleTopJumper={onToggleTopJumper}
                   topJumperHidden={topJumperHidden}
                   onOpenKeyboardMap={() => setKeyboardOpen(true)}
+                  onShowIntro={() => { resetOnboarding(); setIntroOpen(true); }}
                   currentSlideNumber={current}
                 />
                 {/* Extend / collapse pin — locks the controller open so the
