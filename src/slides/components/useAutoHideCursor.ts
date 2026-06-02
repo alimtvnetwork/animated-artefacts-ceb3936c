@@ -76,11 +76,15 @@ function normalizeActivity(input?: CursorActivityInput) {
   };
 }
 
+/** Pointer travel (px) required to wake the cursor after `hideNow`. */
+const SUPPRESS_MOVE_THRESHOLD = 6;
+
 export function useAutoHideCursor({ active, delay = 2500 }: AutoHideCursorOptions): AutoHideCursor {
   const [hidden, setHidden] = useState(false);
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const lastPointRef = useRef<{ x: number; y: number } | null>(null);
   const suppressUntilMoveRef = useRef(false);
+  const suppressAnchorRef = useRef<{ x: number; y: number } | null>(null);
 
   const clearTimer = useCallback(() => {
     if (timerRef.current) {
