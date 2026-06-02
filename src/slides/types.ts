@@ -133,6 +133,19 @@ export interface StepSpec extends ClickRevealTrigger {
   description?: string | { title?: string; bullets?: string[]; meta?: string; body?: string };
   capsule?: CapsuleSpec;
   /**
+   * Optional per-step thumbnail image rendered beside the row (spec
+   * `21-slides-system/images/01-image-authoring.md`). Any `<img src>` value:
+   * public asset, `.svg`, Base64, or data URI. Routed through the placement
+   * resolver at the `inlineThumbnail` slot by default; override with
+   * `imageRole`. Keep it small — it sits inline with the step text.
+   */
+  image?: string;
+  /** Explicit slot override for the step `image`. Defaults to `inlineThumbnail`. */
+  imageRole?:
+    | 'inlineThumbnail'
+    | 'iconBadge'
+    | 'bodyFigure';
+  /**
    * Optional per-step primary CTA pill rendered in the right detail panel
    * of `StepTimelineSlide` (spec 17 §step-CTA addendum). Click plays the
    * deck-wide click sound and either follows `href` (external/anchor),
