@@ -157,4 +157,82 @@ useEffect(() => {
 - The toggle button has `aria-pressed` + `data-state={phase}`.
 - All animations gated behind `prefers-reduced-motion`.
 
+## 8. Auto-hide cursor over the camera surfaces
+
+> Goal: while presenting — and **especially right after the presenter moves
+> (drags) or resizes the camera** — the OS mouse cursor must disappear so a
+> stale arrow/grab pointer never sits on top of the camera. The cursor
+> reappears the instant the mouse moves, stays visible for a few seconds,
+> then hides again on idle. This repeats indefinitely.
+
+### 8.1 Hook: `useAutoHideCursor`
+
+Live file: `src/slides/components/useAutoHideCursor.ts`.
+
+```ts
+const { hidden, hideNow, show } = useAutoHideCursor({ active, delay = 2500 });
+```
+
+| Field | Type | Meaning |
+|-------|------|---------|
+| `active` | `boolean` | When `false` the hook is inert and the cursor is always visible. |
+| `delay` | `number` (ms) | Idle time before the cursor hides. Default **2500ms** (“a few seconds”). |
+| `hidden` | `boolean` | `true` ⇒ consumer applies `cursor: none` to the surface root. |
+| `hideNow()` | `() => void` | Force an immediate hide (no wait). Call right after a drag/resize gesture ends. |
+| `show()` | `() => void` | Force visible and re-arm the idle timer. |
+
+Behaviour contract:
+
+1. On mount (while `active`) the idle timer is armed immediately, so an
+   untouched surface hides its cursor on its own after `delay`.
+2. A window-level `pointermove` / `pointerdown` / `wheel` listener (all
+   `passive`) sets `hidden = false` and **re-arms** the timer on every event.
+3. When the timer fires with no further movement, `hidden = true`.
+4. `hideNow()` clears the timer and sets `hidden = true` synchronously.
+5. When `active` flips to `false`, the timer is cleared and `hidden` resets to
+   `false` (cursor visible) so non-camera phases are never affected.
+6. No animation is involved (the cursor simply toggles), so there is nothing
+   to gate behind `prefers-reduced-motion`.
+7. The hook listens on `window` but **never** mutates `document.body` cursor —
+   only the camera surface roots get `cursor: none`, so the rest of the deck
+   chrome keeps its normal pointer.
+
+### 8.2 Wiring in `PresenterWebcamOverlay`
+
+```ts
+const cursorActive =
+  state.phase === 'on' || state.phase === 'stage' || state.phase === 'fullscreen';
+const autoHideCursor = useAutoHideCursor({ active: cursorActive });
+const cursorStyle = autoHideCursor.hidden ? ('none' as const) : undefined;
+```
+
+- `cursorActive` is **true only** for the live `on` card and the `stage` /
+  `fullscreen` layers. It is **false** for `tray` / `off` / `requesting` /
+  `denied` so the small tray icon and status button stay normally clickable.
+- `cursorStyle` is applied to every camera surface root:
+  - `stage` root `style.cursor`
+  - `fullscreen` root `style.cursor`
+  - `on` outer wrapper `style.cursor`
+  - the `on` drag header → `cursor: cursorStyle ?? (dragging ? 'grabbing' : 'grab')`
+  - the resize handle → `cursor: cursorStyle ?? 'nwse-resize'`
+
+  Using `cursorStyle ?? <normal>` guarantees that when hidden, `none` overrides
+  the element's own grab/resize cursor; when visible, the normal cursor returns.
+
+### 8.3 Hide immediately after moving the camera
+
+After a **drag** (`onDragPointerUp`) or **resize** (`onResizePointerUp`)
+gesture completes, call `autoHideCursor.hideNow()` so the cursor vanishes the
+moment the presenter finishes moving the camera — it does not linger for the
+full idle delay. It reappears on the next mouse move (step 8.1.2) and then
+re-hides on idle.
+
+### 8.4 Acceptance
+
+- Move the camera, release → cursor disappears immediately.
+- Wiggle the mouse → cursor reappears, stays ~2.5s, then hides again.
+- Repeat indefinitely; never gets stuck hidden or stuck visible.
+- Tray icon, status button, and the rest of the deck chrome keep a normal
+  cursor at all times.
+
 Continue to [`03-shortcuts-and-controls.md`](./03-shortcuts-and-controls.md).
