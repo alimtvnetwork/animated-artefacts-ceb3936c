@@ -123,3 +123,15 @@ Added an `@media print` block plus a `data-export-mode` hook in `src/index.css`:
 
 Any deck chrome that uses gradients, `backdrop-filter`, or `::before`/`::after` decorative layers MUST also declare a print-safe solid fallback inside `@media print`. New presenter chrome that should not appear in exports must carry `data-print-hide="true"` on its root element.
 
+
+---
+
+## Resolution status (closeout 2026-06-02)
+
+| Issue | Status | Verified by |
+|-------|--------|-------------|
+| 22.01 — brand strip text fallback in exports | ✅ Resolved | `brandStrip.logoAsset: "riseup-asia"` default; text fallback only when no asset resolves |
+| 22.02 — presenter Next/Prev unreliable | ✅ Resolved | Presenter updates local state immediately + broadcasts `jump`; no longer depends on audience echo |
+| 22.03 — brand strip degrades in print/PDF/HTML | ✅ Resolved | `@media print` + `data-export-mode` hardening in `src/index.css`; `data-print-hide` on chrome |
+
+All three carry a documented Fix + Prevention rule above. No open regressions tracked for this log as of closeout.
