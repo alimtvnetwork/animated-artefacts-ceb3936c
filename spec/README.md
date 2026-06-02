@@ -11,7 +11,7 @@ memory; do not renumber without updating cross-links.
 | `15-research/`          | Exploratory research notes — webcam overlay, prior-art studies, anything that informs (but is not yet) a system spec. |
 | `21-slides-system/`     | **System design.** How the slide engine works: folder structure, slide mechanism, navigation/next-page, controller buttons, UI chrome, themes, animation rules, schemas, LLM authoring guides, architecture diagrams. Source of truth for engineering. |
 | `22-slides-issues/`     | Bug reports and behavioural issues against the running app. One file per issue, numbered. |
-| `26-slide-definitions/` | **Per-slide content.** Concrete deck definitions — one subfolder per deck (`showcase/`, `navy-showcase/`, `test-step-light/`, `image-examples/`). Each slide is a JSON spec + companion MD. JSON is the runtime source of truth. |
+| `26-slide-definitions/` | **Per-slide content.** Concrete deck definitions — one subfolder per deck (`showcase/`, `image-examples/`, `inside-studio/`, `sample/`, `session-4-ai-coding/`). Each slide is a JSON spec + companion MD. JSON is the runtime source of truth. See the deck inventory below for which runtime decks have spec folders. |
 | `21-slides-system/images/` | **Image authoring contract.** How & where images go in JSON (asset / SVG / Base64 / data URI), the slot/`imageRole` model, captions, galleries, per-step thumbnails, and the inline size budget. Live demos: `image-examples` deck (`?deck=image-examples`). |
 | `audit/`                | Phase-gate blind-LLM audits and acceptance reports. Historical record. |
 | `camera-2026/`          | **Presenter-camera spec pack.** Blind-AI-ready, in-depth re-implementation guide for the webcam overlay (phases, shortcuts, zoom, fullscreen, auto-frame, squircle background plates). Includes reference/background images in `camera-2026/assets/`. |
@@ -42,3 +42,22 @@ This layout was adopted on 2026-04-28. Previously, `spec/architecture/`,
 `spec/issues/`, `spec/research/`, and a flat `spec/slides/` mixed system
 specs with per-deck content. The reorganization split system rules from
 slide content and gave research/issues their own numbered homes.
+
+## Deck inventory (runtime ↔ spec, synced 2026-06-02)
+
+Runtime decks live in `front-end/project/<slug>/data/`. `?deck=<slug>` loads one.
+
+| Slug | Slides | Spec folder | Notes |
+|------|-------:|-------------|-------|
+| `showcase` | 8 | ✅ `26-slide-definitions/showcase/` | Primary Riseup Asia deck |
+| `image-examples` | 11 | ✅ `26-slide-definitions/image-examples/` | Image/SVG/Base64 + step-thumb + gallery demos |
+| `inside-studio` | 24 | ✅ `26-slide-definitions/inside-studio/` | |
+| `session-4-ai-coding` | 13 | ✅ `26-slide-definitions/session-4-ai-coding/` | |
+| `sample` | 4 | ✅ `26-slide-definitions/sample/` | Minimal smoke deck |
+| `motion-showcase` | 11 | ⬜ none | Transition/animation + distinct sound-cue demo (spec 21 cue map) |
+| `navy-showcase` | 10 | ⬜ none | Theme demo deck |
+| `test-step-light` | 1 | ⬜ none | Single-slide step light-theme probe |
+
+Decks without a spec folder are demo/probe decks — their JSON is self-describing
+and they are not part of the spec-first authoring contract. Add a spec folder
+only if a deck becomes a maintained, content-reviewed presentation.

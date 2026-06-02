@@ -94,3 +94,19 @@ Remaining (beyond 70):
 - StepsChain3D depth-aware marker-medallion — deferred (no-background rule).
 - Promote a spare fade_swoosh take — repoint whoosh asset URL, no new SoundKind.
 - motion-showcase not yet listed in spec/README deck enumeration (cosmetic).
+
+## Steps 71–80 — closeout (2026-06-02)
+
+- 71. Audited runtime decks (8) vs spec/26 folders (5 have folders) (~20m)
+- 72. Found stale spec/README §26 reference to `navy-showcase/` + `test-step-light/` spec folders that don't exist (~10m)
+- 73. Corrected §26 deck list to only real spec folders (~10m)
+- 74. Added accurate Deck inventory table (slug · slides · spec folder · notes) (~25m)
+- 75. Documented that demo/probe decks intentionally have no spec folder (~10m)
+- 76. Verified vite dev-server log clean (no errors/exceptions) (~10m)
+- 77–80. Closeout bundle (~15m)
+
+Remaining (beyond 80):
+- Video-portal refactor (#63) — deferred until measured perf/desync complaint.
+- StepsChain3D depth-aware marker-medallion — deferred (no-background rule).
+- Promote a spare fade_swoosh take — repoint whoosh asset URL, no new SoundKind.
+- Optional: add spec folders for motion-showcase/navy-showcase if they graduate to maintained decks.
