@@ -366,7 +366,7 @@ export const StepTimelineSlide = forwardRef<FocusTimelineHandle, StepTimelinePro
         window.setTimeout(() => setActive(0), revealDoneMs);
       },
     }),
-    [tryStep, active, total, pushPause],
+    [tryStep, active, total, pushPause, c.stepTiming],
   );
 
   // Slide-scoped keyboard control. Guarded against form fields so the
