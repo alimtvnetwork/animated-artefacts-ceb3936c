@@ -13,7 +13,7 @@ const SRC = readFileSync(
 );
 
 function videoTags(source: string): string[] {
-  return Array.from(source.matchAll(/<video[\s\S]*?\/\>/g)).map((m) => m[0]);
+  return Array.from(source.matchAll(/<video[\s\S]*?\/>/g)).map((m) => m[0]);
 }
 
 describe('PresenterWebcamOverlay video node stability', () => {

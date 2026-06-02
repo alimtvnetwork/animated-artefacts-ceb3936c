@@ -62,7 +62,6 @@ export function EquationSlide({ spec }: { spec: SlideSpec }) {
         {c.title && <h2 className={`slide-title-content ${titleClassFor(spec)} mb-12 text-center`}>{c.title}</h2>}
 
         {c.equationHtml ? (
-          // eslint-disable-next-line react/no-danger
           <div className="equation-host" dangerouslySetInnerHTML={{ __html: c.equationHtml }} />
         ) : (
           <div

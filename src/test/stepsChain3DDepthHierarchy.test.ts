@@ -116,7 +116,7 @@ describe('Steps Chain 3D — active card has no solid background fill', () => {
     expect(cls, `button className was: "${cls}"`).toMatch(/\bbg-transparent\b/);
     expect(cls, `button className was: "${cls}"`).toMatch(/\bborder-0\b/);
     // Defensive: no incidental tailwind bg-* utility on the card itself.
-    const otherBg = cls.match(/\bbg-(?!transparent\b)[\w/.\[\]-]+/g);
+    const otherBg = cls.match(/\bbg-(?!transparent\b)[\w/.[\]-]+/g);
     expect(otherBg, `card carries bg utilities other than bg-transparent: ${otherBg?.join(', ')}`).toBeNull();
   });
 
