@@ -143,11 +143,11 @@ The PNGs live at `assets/camera-2026/*` (repo) and `spec/camera-2026/assets/*`
 
 - All colors via tokens: `hsl(var(--gold))`, `hsl(var(--ember))`,
   `hsl(var(--background))`. **No inline hex.**
-- The white plate variant must still read on light themes — on paper-ink the
-  `--background` flips, so the drop shadow must reference `--background` not a raw
-  dark value.
+- The squircle interior is **transparent** on every theme — there is no white
+  fill body to read. Only the gold→ember rim + soft shadow (baked into the gold
+  PNG, or the §4 CSS rim) and the live video appear inside the curve.
 - Halo (`h`) and plate are independent: halo is a vignette *around* the box;
-  plate is a solid backing *behind* it. Both can be on at once.
+  the plate is the transparent-interior rim/shadow *behind* it. Both can be on.
 - Everything animates only when `prefers-reduced-motion` is not set.
 
 Continue to [`06-implementation-steps-1-30.md`](./06-implementation-steps-1-30.md).
