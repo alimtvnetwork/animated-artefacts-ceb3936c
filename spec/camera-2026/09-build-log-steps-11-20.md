@@ -1,5 +1,11 @@
 # 09 — Build Log: Steps 11–20 (reasoning + time)
 
+> **⚠️ HISTORICAL (pre-v2).** "circle/halo/plate" wording below predates the
+> 2026-06-02 v2 change: there is **no plate** — the squircle rim is CSS-only
+> (border-radius + gold border + layered box-shadow, transparent interior).
+> Read "plate" as "the CSS rim". See [`05-backgrounds-and-shapes.md`](./05-backgrounds-and-shapes.md) §8 (v2).
+
+
 > Checkpoint **B→C** expansion of [`06-implementation-steps-1-30.md`](./06-implementation-steps-1-30.md).
 > Follows [`08-build-log-steps-01-10.md`](./08-build-log-steps-01-10.md).
 > Each entry = **what · why (reasoning) · est. time · done-when**. Source code in
