@@ -16,7 +16,7 @@
 - [ ] `+` zooms in S→M→L→XL; `-` zooms out; stops at bounds.
 - [ ] Free-resize handle keeps 16:9, clamps `[160,960]` width.
 - [ ] After free-resize, `+`/`-` snap to nearest step then move one.
-- [ ] Size, position, minimized, halo, circle, plate all persist across reload.
+- [ ] Size, position, minimized, halo, circle all persist across reload. (No plate flag — the rim is always-on CSS.)
 
 ### Drag & scale
 - [ ] Dragging matches the cursor on a scaled stage (delta ÷ `--stage-scale`).
