@@ -20,6 +20,10 @@
     { "title": "base64-png", "path": "./slides/04-base64-png.json" },
     { "title": "inline-svg-data-uri", "path": "./slides/05-inline-svg-data-uri.json" },
     { "title": "inline-thumbnail", "path": "./slides/06-inline-thumbnail.json" },
-    { "title": "icon-badge", "path": "./slides/07-icon-badge.json" }
+    { "title": "icon-badge", "path": "./slides/07-icon-badge.json" },
+    { "title": "steps-with-thumbnails", "path": "./slides/08-steps-with-thumbnails.json" },
+    { "title": "title-hero-slot", "path": "./slides/09-title-hero-slot.json" },
+    { "title": "image-with-caption", "path": "./slides/10-image-with-caption.json" },
+    { "title": "image-gallery", "path": "./slides/11-image-gallery.json" }
   ]
 }
