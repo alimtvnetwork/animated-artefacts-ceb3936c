@@ -1435,6 +1435,20 @@ const chromeBtnStyle: React.CSSProperties = {
   cursor: 'pointer',
 };
 
+const circleChromeBtnStyle: React.CSSProperties = {
+  display: 'inline-flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  width: 40,
+  height: 40,
+  borderRadius: 999,
+  border: '1px solid hsl(var(--gold) / 0.45)',
+  background: 'hsl(var(--card) / 0.94)',
+  color: 'hsl(var(--cream))',
+  cursor: 'pointer',
+  boxShadow: '0 10px 22px -12px hsl(var(--background) / 0.9), 0 0 0 1px hsl(var(--gold) / 0.08)',
+};
+
 const trayChromeBtnStyle: React.CSSProperties = {
   display: 'inline-flex',
   alignItems: 'center',
