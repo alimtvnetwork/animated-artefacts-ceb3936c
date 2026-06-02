@@ -43,7 +43,6 @@ import { useAutoHideCursor } from './useAutoHideCursor';
 // rim and shadow, so we just lay it behind the masked video.
 import squirclePlateGold from '@/assets/camera-2026/04-squircle-plate-gold-shadow.png';
 import squircleMaskBlack from '@/assets/camera-2026/02-squircle-mask-black.png';
-import squirclePlateWhite from '@/assets/camera-2026/03-squircle-plate-white-shadow.png';
 import alimPresenter from '@/assets/brand/alim-presenter.png';
 
 function readStageScale(): number {
@@ -1200,10 +1199,12 @@ export function PresenterWebcamOverlay() {
   // (38% / 34%). Circle (`O`) overrides to 50%; minimized is a puck (999).
   const frameRadius = minimized ? 999 : circleShape ? '50%' : '38% / 34%';
   // spec/camera-2026/05 §2 — the decorative plate sits BEHIND the video and
-  // extends ~7% beyond each edge, so a gold-rimmed, soft-shadowed border of
-  // the squircle plate shows on all sides and the camera reads as bigger.
-  // The implementation uses TWO stacked plates: a lower neutral plate for the
-  // soft paper/shadow read, plus the gold plate on top for the branded rim.
+  // extends ~7% beyond each edge, so a gold→ember rimmed, soft-shadowed border
+  // of the squircle plate shows on all sides and the camera reads as bigger.
+  // SINGLE transparent plate only (`04-squircle-plate-gold-shadow.png`): it
+  // bakes the squircle curve, the gold→ember rim and the soft shadow on a
+  // TRANSPARENT background. The old opaque white "paper" plate was removed —
+  // it filled the squircle white behind the video and added no value.
   // Hidden while minimized (puck) and while in circle mode (the round crop
   // has its own ring and the squircle plate would not match its silhouette).
   const platePad = Math.round(visualWidth * 0.07);
@@ -1284,47 +1285,27 @@ export function PresenterWebcamOverlay() {
        * intercepts drags; aria-hidden because it is purely decorative.
        */}
       {showPlate && (
-        <>
-          <img
-            src={squirclePlateWhite}
-            alt=""
-            aria-hidden="true"
-            draggable={false}
-            style={{
-              position: 'absolute',
-              left: HALO - platePad,
-              top: HALO - platePad,
-              width: visualWidth + platePad * 2,
-              height: visualHeight + platePad * 2,
-              pointerEvents: 'none',
-              userSelect: 'none',
-              zIndex: 0,
-              opacity: 0.92,
-              transition:
-                'left 420ms cubic-bezier(0.22, 1, 0.36, 1), top 420ms cubic-bezier(0.22, 1, 0.36, 1), width 420ms cubic-bezier(0.22, 1, 0.36, 1), height 420ms cubic-bezier(0.22, 1, 0.36, 1), opacity 220ms ease',
-            }}
-          />
-          <img
-            src={squirclePlateGold}
-            alt=""
-            aria-hidden="true"
-            draggable={false}
-            style={{
-              position: 'absolute',
-              left: HALO - platePad,
-              top: HALO - platePad,
-              width: visualWidth + platePad * 2,
-              height: visualHeight + platePad * 2,
-              pointerEvents: 'none',
-              userSelect: 'none',
-              zIndex: 1,
-              transition:
-                'left 420ms cubic-bezier(0.22, 1, 0.36, 1), top 420ms cubic-bezier(0.22, 1, 0.36, 1), width 420ms cubic-bezier(0.22, 1, 0.36, 1), height 420ms cubic-bezier(0.22, 1, 0.36, 1)',
-            }}
-          />
-        </>
+        <img
+          src={squirclePlateGold}
+          alt=""
+          aria-hidden="true"
+          draggable={false}
+          style={{
+            position: 'absolute',
+            left: HALO - platePad,
+            top: HALO - platePad,
+            width: visualWidth + platePad * 2,
+            height: visualHeight + platePad * 2,
+            pointerEvents: 'none',
+            userSelect: 'none',
+            zIndex: 1,
+            transition:
+              'left 420ms cubic-bezier(0.22, 1, 0.36, 1), top 420ms cubic-bezier(0.22, 1, 0.36, 1), width 420ms cubic-bezier(0.22, 1, 0.36, 1), height 420ms cubic-bezier(0.22, 1, 0.36, 1)',
+          }}
+        />
       )}
       {/* Sharp box. */}
+
 
       <div
         ref={shapeFrameRef}

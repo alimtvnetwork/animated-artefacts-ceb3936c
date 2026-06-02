@@ -9,10 +9,16 @@
 
 | File | Pixel look | Role in the layer stack |
 |------|-----------|--------------------------|
-| `01-reference-frame-gold-rim.png` | Squircle, white interior, **gold→red glowing rim** on near-black. | The **visual target**. Do not ship it; match it. |
+| `01-reference-frame-gold-rim.png` | Squircle, white interior, **gold→red glowing rim** on near-black. | A development **reference only** — it is NOT shipped and NOT imported. The white interior is a placeholder; the live camera fills that area. |
 | `02-squircle-mask-black.png` | Solid **black squircle** silhouette, no shadow. | The exact **shape mask** — use as `mask-image`/`clip` to cut the video into a squircle. |
-| `03-squircle-plate-white-shadow.png` | **White** squircle **with drop shadow**, transparent around it. | Neutral **background plate** placed *behind* the video. |
-| `04-squircle-plate-gold-shadow.png` | **Gold** squircle with drop shadow. | On-brand **background plate** variant. |
+| `04-squircle-plate-gold-shadow.png` | **Gold→ember** squircle rim + soft drop shadow on a **fully transparent** background. | The **only** shipped background plate. Sits behind the masked video; transparent everywhere except the rim/shadow. |
+
+> **Removed (2026-06-02):** `03-squircle-plate-white-shadow.png`. It rendered an
+> opaque white squircle *behind* the video (see the rejected screenshot — a flat
+> white body around the camera) and added no value. The overlay no longer imports
+> it and the asset was deleted. Do **not** reintroduce a white/neutral fill plate.
+> The squircle interior must be **transparent** — only the live video + the gold
+> rim show.
 
 A **squircle** is a superellipse — rounder than a rounded-rect, flatter than a
 circle. The black mask gives the precise curve so CSS and the PNG agree.
@@ -70,7 +76,7 @@ The reference rim is a gold→ember gradient ring with an outer glow:
 .cam-plate {
   position: absolute; inset: calc(var(--plate-pad) * -1);  /* grow beyond the video */
   border-radius: 38% / 34%;
-  /* gold plate fill (use transparent for the white/neutral variant) */
+  /* rim/shadow only — interior stays transparent; never a solid fill */
   background: hsl(var(--gold));
   /* the gold→ember rim + outer glow that matches 01-reference-frame */
   box-shadow:
@@ -110,9 +116,9 @@ const platePad = Math.round(size.w * 0.07);
 </div>
 ```
 
-Add a `plateVariant: 'none' | 'neutral' | 'gold'` flag (persist
-`riseup.webcam.plate`) and a controls/keyboard toggle if desired — mirror the
-`circleShape` pattern in file 01 §9.
+A `plateVariant` flag is **not** shipped. The only states are plate ON (gold,
+transparent interior) when `showPlate` is true, and OFF (circle/minimized). A
+white/neutral fill plate is forbidden — the squircle interior stays transparent.
 
 ## 6. Using the PNGs at runtime (if you choose images over CSS)
 
@@ -137,11 +143,11 @@ The PNGs live at `assets/camera-2026/*` (repo) and `spec/camera-2026/assets/*`
 
 - All colors via tokens: `hsl(var(--gold))`, `hsl(var(--ember))`,
   `hsl(var(--background))`. **No inline hex.**
-- The white plate variant must still read on light themes — on paper-ink the
-  `--background` flips, so the drop shadow must reference `--background` not a raw
-  dark value.
+- The squircle interior is **transparent** on every theme — there is no white
+  fill body to read. Only the gold→ember rim + soft shadow (baked into the gold
+  PNG, or the §4 CSS rim) and the live video appear inside the curve.
 - Halo (`h`) and plate are independent: halo is a vignette *around* the box;
-  plate is a solid backing *behind* it. Both can be on at once.
+  the plate is the transparent-interior rim/shadow *behind* it. Both can be on.
 - Everything animates only when `prefers-reduced-motion` is not set.
 
 Continue to [`06-implementation-steps-1-30.md`](./06-implementation-steps-1-30.md).
@@ -150,10 +156,9 @@ Continue to [`06-implementation-steps-1-30.md`](./06-implementation-steps-1-30.m
 
 Status: **shipped on the live `on` card.** Blind-reimplementation recipe:
 
-1. **Assets copied into the bundle** — `02-squircle-mask-black.png`,
-   `03-squircle-plate-white-shadow.png`, `04-squircle-plate-gold-shadow.png`
-   now live in `src/assets/camera-2026/`. The overlay imports all three so the
-   camera can use the exact squircle curve plus the two-layer shade stack.
+1. **Assets copied into the bundle** — `02-squircle-mask-black.png` and
+   `04-squircle-plate-gold-shadow.png` live in `src/assets/camera-2026/`. The
+   overlay imports **only these two**. There is no white/neutral plate import.
 2. **Squircle crop** — the inner frame keeps the §3a superellipse
    `borderRadius: '38% / 34%'` as the fallback/readability shape, **and** when
    the frame is in the rectangle/squircle mode it also applies
@@ -161,33 +166,35 @@ Status: **shipped on the live `on` card.** Blind-reimplementation recipe:
    `mask-repeat:no-repeat`, `mask-position:center`. This makes the live crop
    match the spec silhouette exactly while preserving the same DOM node and
    keeping circle mode (`50%`) / minimized puck (`999`) simple.
-3. **Plate layers (the "shade")** — TWO decorative `<img>` plates are rendered
-   *before* the inner frame inside the stable outer wrapper:
-   - **Base plate:** `03-squircle-plate-white-shadow.png` at `zIndex:0`, slightly
-     translucent (`opacity:0.92`) so the white body reads as a soft lifted
-     backing / shade under the camera.
-   - **Brand plate:** `04-squircle-plate-gold-shadow.png` at `zIndex:1` so the
-     gold rim and warm shadow sit above the neutral plate and below the video.
-   - Both use `platePad = Math.round(visualWidth * 0.07)` → plate grows
-     `platePad` on every side, so the visible rim/shadow is proportional across
-     every size step.
-   - Both use `left/top = HALO - platePad`,
-     `width/height = visual{Width,Height} + platePad*2`, `pointerEvents:'none'`,
-     `aria-hidden`, `draggable={false}`.
-   - The live inner frame is bumped to `zIndex:2` so the masked video always
-     sits above both plates.
-   - Both plate images use the same 420ms cubic-bezier left/top/width/height
-     transition as the frame so move/resize/shape morphs stay locked.
-4. **Visibility gate** — `showPlate = !minimized && !circleShape`. The stacked
-   shade is hidden in circle mode (the round crop owns its own ring and the
-   squircle plates would no longer match) and when minimized to a puck.
-5. **Resulting look** — the white plate + gold plate combination satisfies the
-   user's request to "put it like one, two together so that it looks like there
-   is a shade" while staying faithful to the Camera 2026 asset pack.
-6. **No raw hex** — the shade/rim artwork ships inside the PNGs; the frame's own
-   border and glow still use `hsl(var(--gold))` / `hsl(var(--background))`
+3. **Plate layer (the rim/shadow) — SINGLE transparent plate** — exactly ONE
+   decorative `<img>` is rendered *before* the inner frame inside the stable
+   outer wrapper:
+   - **Brand plate:** `04-squircle-plate-gold-shadow.png` at `zIndex:1`. It bakes
+     the squircle curve, the gold→ember rim and the soft drop shadow on a
+     **fully transparent** background. Nothing fills the squircle body — the
+     interior stays transparent so the live video is the only thing the audience
+     sees inside the curve.
+   - Uses `platePad = Math.round(visualWidth * 0.07)` → plate grows `platePad`
+     on every side, so the visible rim/shadow is proportional across every size.
+   - `left/top = HALO - platePad`, `width/height = visual{Width,Height} +
+     platePad*2`, `pointerEvents:'none'`, `aria-hidden`, `draggable={false}`.
+   - The live inner frame is `zIndex:2` so the masked video sits above the plate.
+   - The plate uses the same 420ms cubic-bezier left/top/width/height transition
+     as the frame so move/resize/shape morphs stay locked.
+
+   **DO NOT** stack a second opaque "paper"/white plate behind this. The earlier
+   `03-squircle-plate-white-shadow.png` base plate was removed because it filled
+   the squircle white behind the video (rejected look) and added no value.
+4. **Visibility gate** — `showPlate = !minimized && !circleShape`. The plate is
+   hidden in circle mode (the round crop owns its own ring and the squircle plate
+   would no longer match) and when minimized to a puck.
+5. **Resulting look** — transparent squircle interior + live video + a single
+   gold→ember rim crescent and soft shadow. Matches reference `01` (rim only) and
+   the user's approved screenshot (camera fills the curve, no white body).
+6. **No raw hex** — the rim/shadow artwork ships inside the gold PNG; the frame's
+   own border and glow still use `hsl(var(--gold))` / `hsl(var(--background))`
    tokens per §7.
 
-> Future variant work (white/neutral plate `03`, a `plateVariant` toggle persisted
-> as `riseup.webcam.plate`, pure-CSS rim per §4) remains optional — the gold PNG
-> path above satisfies the "shade behind the camera" request.
+> The white/neutral plate variant (`03`) and any `plateVariant` toggle are
+> **explicitly out of scope** — the squircle interior must remain transparent.
+> Only a pure-CSS rim (§4) is an acceptable future alternative to the gold PNG.

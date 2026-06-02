@@ -8,7 +8,7 @@ for usage.
 |------|------|
 | `01-reference-frame-gold-rim.png` | Visual target — squircle camera frame with gold→ember rim on a dark slide. |
 | `02-squircle-mask-black.png` | Exact squircle outline — use as CSS `mask-image`. |
-| `03-squircle-plate-white-shadow.png` | Neutral background plate (white + drop shadow). |
+| ~~`03-squircle-plate-white-shadow.png`~~ | REMOVED 2026-06-02 — opaque white fill plate, deleted. Do not reintroduce. |
 | `04-squircle-plate-gold-shadow.png` | Gold background plate (brand variant). |
 
 To use at runtime: copy into `src/assets/camera-2026/` (or make a Lovable asset

@@ -62,7 +62,7 @@ at runtime, import from `src/assets/` or register a Lovable asset pointer — se
 |------|------|
 | `01-reference-frame-gold-rim.png` | **Reference look.** A squircle camera frame on a dark slide with a gold→ember (red) glowing rim. This is the visual target. |
 | `02-squircle-mask-black.png` | **Shape mask.** Solid black squircle silhouette — the exact rounded-superellipse outline used to clip the video / build a CSS mask. |
-| `03-squircle-plate-white-shadow.png` | **Background plate (neutral).** White squircle with a soft drop shadow — sits *behind* the camera to enlarge its footprint. |
+| ~~`03-squircle-plate-white-shadow.png`~~ | **REMOVED 2026-06-02.** Was an opaque white fill plate behind the camera; deleted (rejected look, no value). Squircle interior must stay transparent. |
 | `04-squircle-plate-gold-shadow.png` | **Background plate (gold).** Brand-gold squircle with drop shadow — the on-brand variant of the plate. |
 
 > A "squircle" = superellipse, between a circle and a rounded square. It is the
