@@ -1,4 +1,6 @@
 import { describe, it, expect } from 'vitest';
+import { readFileSync } from 'node:fs';
+import { resolve } from 'node:path';
 import { buildLlmGuideMarkdown } from '../slides/llmGuideBundle';
 import { SLIDE_CONTENT_CONTRACTS, SLIDE_CONTRACTS_VERSION } from '../slides/contracts';
 
