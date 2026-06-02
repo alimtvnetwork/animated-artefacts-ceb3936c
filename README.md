@@ -11,6 +11,10 @@ map), then [`.lovable/memory/index.md`](.lovable/memory/index.md) (always-apply
 rules) and [`spec/README.md`](spec/README.md) (spec layout).
 A full reorganization plan lives in [`.lovable/reorg-plan.md`](.lovable/reorg-plan.md).
 
+This README also carries the same guidance inline — see **[📂 Folder structure](#-folder-structure-what-each-path-owns)**,
+**[📖 Which files the AI must read](#-which-files-the-ai-must-read-in-order)**, and
+**[🛠️ How the AI does common work](#️-how-the-ai-does-common-work)** (create code, add a unit test, add a feature, write specs).
+
 ## Repository map (convention over configuration)
 
 | Folder | What lives here |
