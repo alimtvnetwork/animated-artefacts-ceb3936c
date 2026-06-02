@@ -30,6 +30,17 @@ and the white-fill variant added a flat white body. **No plate, no mask-image, n
 
 
 
+## 7. Theme & contrast rules (do NOT break these)
+
+- All colors via tokens: `hsl(var(--gold))`, `hsl(var(--ember))`,
+  `hsl(var(--background))`. **No inline hex.**
+- The squircle interior is **transparent** on every theme — there is no white
+  fill body to read. Only the gold→ember rim + soft shadow and the live video
+  appear inside the curve.
+- Halo (`h`) is independent: a vignette *around* the box; it can be on with the
+  rim. Halo + frame share the same `border-radius` so the glow hugs the curve.
+- Everything animates only when `prefers-reduced-motion` is not set.
+
 ## 8 — IMPLEMENTED (2026-06-02, v2) — CSS-only rim, NO PNG plate/mask
 
 Status: **shipped on the live `on` card.** This supersedes the earlier
