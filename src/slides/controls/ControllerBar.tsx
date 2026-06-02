@@ -588,6 +588,10 @@ function ControllerHamburger({
               <span className="flex-1">Keyboard map</span>
               <kbd className="text-[10px] font-mono opacity-60">/</kbd>
             </button>
+            <button type="button" onClick={onShowIntro} className={itemBase}>
+              <PlayCircle className="h-4 w-4" />
+              <span className="flex-1">Show intro again</span>
+            </button>
           </motion.div>
         )}
       </AnimatePresence>,
