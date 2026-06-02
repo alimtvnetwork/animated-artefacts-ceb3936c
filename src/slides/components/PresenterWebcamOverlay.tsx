@@ -604,6 +604,7 @@ export function PresenterWebcamOverlay() {
       <div
         role="region"
         aria-label="Camera stage-fill"
+        className={autoHideCursor.hidden ? 'cam-cursor-hidden' : undefined}
         onPointerMove={autoHideCursor.registerActivity}
         onPointerDown={autoHideCursor.registerActivity}
         onWheel={autoHideCursor.registerActivity}
@@ -706,6 +707,7 @@ export function PresenterWebcamOverlay() {
       <div
         role="region"
         aria-label="Camera fullscreen"
+        className={autoHideCursor.hidden ? 'cam-cursor-hidden' : undefined}
         onPointerMove={autoHideCursor.registerActivity}
         onPointerDown={autoHideCursor.registerActivity}
         onWheel={autoHideCursor.registerActivity}
@@ -945,6 +947,7 @@ export function PresenterWebcamOverlay() {
 
       <div
         ref={shapeFrameRef}
+        className={autoHideCursor.hidden ? 'cam-cursor-hidden' : undefined}
         style={{
           position: 'absolute',
           zIndex: 1,

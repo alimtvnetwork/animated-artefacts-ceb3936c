@@ -245,6 +245,17 @@ const cursorStyle = autoHideCursor.hidden ? ('none' as const) : undefined;
   Using `cursorStyle ?? <normal>` guarantees that when hidden, `none` overrides
   the element's own grab/resize cursor; when visible, the normal cursor returns.
 
+  > **2026-06-02 fix — descendants must hide too.** Inline `cursor: none` on a
+  > surface root does NOT hide the cursor while it rests on a CHILD that sets
+  > its own `cursor` (chrome buttons → `pointer`, drag grip → `grab`, resize
+  > handle → `nwse-resize`). After a move the pointer almost always ends on one
+  > of these, so the cursor stayed visible. Fix: each active surface root
+  > (`on` inner frame, `stage` root, `fullscreen` root) gets the class
+  > **`cam-cursor-hidden`** while `autoHideCursor.hidden` is true, and
+  > `index.css` defines `.cam-cursor-hidden, .cam-cursor-hidden * { cursor: none !important; }`
+  > so every descendant hides too. This is the authoritative hide mechanism;
+  > the inline `cursorStyle` fallbacks remain as belt-and-braces.
+
 ### 8.3 Hide immediately after moving the camera
 
 After a **drag** (`onDragPointerUp`) or **resize** (`onResizePointerUp`)
