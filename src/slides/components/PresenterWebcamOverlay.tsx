@@ -37,12 +37,10 @@ import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip
 import { usePresenterWebcam } from './usePresenterWebcam';
 import { useAutoFrame } from './useAutoFrame';
 import { useAutoHideCursor } from './useAutoHideCursor';
-// spec/camera-2026/05 — decorative squircle "plate" that sits behind the
-// live camera to read as a bigger, OBS-style framed surface with a soft
-// drop shadow + gold rim. The PNG already bakes the squircle curve, gold
-// rim and shadow, so we just lay it behind the masked video.
-import squirclePlateGold from '@/assets/camera-2026/04-squircle-plate-gold-shadow.png';
-import squircleMaskBlack from '@/assets/camera-2026/02-squircle-mask-black.png';
+// spec/camera-2026/05 — the live camera reads as a framed squircle surface
+// purely via CSS: border-radius for the silhouette, a thin gold→ember border
+// + soft glow for the rim, and a transparent interior. No plate/mask PNGs are
+// used anymore (they baked a white fill that produced a thick opaque ring).
 import alimPresenter from '@/assets/brand/alim-presenter.png';
 
 function readStageScale(): number {
