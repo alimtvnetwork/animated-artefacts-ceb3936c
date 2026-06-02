@@ -160,7 +160,13 @@ const StepTimelineContent    = z.object({ title: z.string().min(1), steps: z.arr
 const FocusTimelineContent   = z.object({ title: z.string().min(1), steps: z.array(Step).min(1) }).passthrough();
 const AdvanceStepContent     = z.object({ title: z.string().min(1), steps: z.array(Step).min(1) }).passthrough();
 const StepsChain3DContent    = z.object({ title: z.string().min(1), steps: z.array(Step3D).min(2).max(8) }).passthrough();
-const ImageContent           = z.object({ image: z.string().min(1) }).passthrough();
+const ImageContent           = z.object({
+  image: z.string().min(1).optional(),
+  images: z.array(z.string().min(1)).min(1).optional(),
+}).passthrough().refine(
+  (c: Record<string, unknown>) => Boolean(c.image) || (Array.isArray(c.images) && c.images.length > 0),
+  { message: 'ImageSlide requires `image` or a non-empty `images[]`' },
+);
 const QrMeetingContent = z.object({}).passthrough().refine(
   (c: Record<string, unknown>) => Boolean(c.meetingUrl || c.qrUrl || c.qrAsset),
   { message: 'QrMeetingSlide.content requires one of: meetingUrl, qrUrl, qrAsset.' },
