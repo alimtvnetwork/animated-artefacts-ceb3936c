@@ -65,9 +65,10 @@ describe('TOC sidebar shortcut invariants', () => {
       /\(e\.key === 'o' \|\| e\.key === 'O'\)[^{]*\{/,
     );
     expect(oBlock).not.toMatch(/\btoggleToc\(/);
-    // It SHOULD still wire up the webcam circle toggle — sanity check so a
-    // future refactor doesn't accidentally null this branch out.
-    expect(oBlock).toMatch(/toggleCircleShape\(\)/);
+    // It SHOULD still wire up the webcam shape cycle — sanity check so a
+    // future refactor doesn't accidentally null this branch out. As of the
+    // v6 3-state shaping cycle (2026-06-02) the binding is `cycleShapeOverlay()`.
+    expect(oBlock).toMatch(/cycleShapeOverlay\(\)/);
   });
 
   it('the `O` branch does not toggle the TOC even when phase === on / fullscreen / stage', () => {
