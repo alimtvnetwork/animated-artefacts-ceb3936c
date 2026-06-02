@@ -1271,34 +1271,9 @@ export function PresenterWebcamOverlay() {
           }}
         />
       )}
-      {/*
-       * spec/camera-2026/05 §2 + §6 — decorative squircle PLATE behind the
-       * camera. The PNG bakes the squircle curve, the gold→ember rim and the
-       * soft drop shadow, so we simply lay it behind the masked video,
-       * grown by `platePad` on every side. pointer-events:none so it never
-       * intercepts drags; aria-hidden because it is purely decorative.
-       */}
-      {showPlate && (
-        <img
-          src={squirclePlateGold}
-          alt=""
-          aria-hidden="true"
-          draggable={false}
-          style={{
-            position: 'absolute',
-            left: HALO - platePad,
-            top: HALO - platePad,
-            width: visualWidth + platePad * 2,
-            height: visualHeight + platePad * 2,
-            pointerEvents: 'none',
-            userSelect: 'none',
-            zIndex: 1,
-            transition:
-              'left 420ms cubic-bezier(0.22, 1, 0.36, 1), top 420ms cubic-bezier(0.22, 1, 0.36, 1), width 420ms cubic-bezier(0.22, 1, 0.36, 1), height 420ms cubic-bezier(0.22, 1, 0.36, 1)',
-          }}
-        />
-      )}
+      {/* No plate — the masked video + CSS rim below carry the look. */}
       {/* Sharp box. */}
+
 
 
       <div
