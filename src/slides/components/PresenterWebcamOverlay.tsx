@@ -88,9 +88,6 @@ export function PresenterWebcamOverlay() {
     const frame = shapeFrameRef.current;
     if (!frame) return;
     frame.classList.add('cam-cursor-hidden');
-    for (const child of Array.from(frame.querySelectorAll<HTMLElement>('*'))) {
-      child.classList.add('cam-cursor-hidden');
-    }
   }, []);
   const attachStreamToVideo = useCallback(
     (node: HTMLVideoElement | null) => {
