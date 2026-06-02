@@ -1,60 +1,47 @@
-## Goal
+## Next 10 (steps 31–40) — deepen image authoring + close the deferred combos
 
-Re-establish the **steps-based slide spec** as the authority for showcase **slide 3**, then add a set of **image / SVG / Base64** example slides — each with JSON authoring examples that explain *how and where* images are placed. 30 steps now; you'll then call "next 10".
+Steps 1–30 shipped the four image sources (asset / SVG / Base64 / data URI), the `imageRole` wiring, the authoring doc, the `image-examples` deck, tests, and browser QA. The next 10 finish the combos we deferred and harden the contract.
 
-## What I found (so the plan is grounded)
+### 31. Image + steps combo slide — ~35 min
+**Why:** original ask explicitly wanted "slides with images AND steps". Today `StepTimelineSlide` has no per-row thumbnail path. Add an optional `image`/`imageRole:"inlineThumbnail"` on `StepSpec` and render it beside the step row.
+**Reasoning:** uses the existing slot resolver, so it's additive and theme-safe.
 
-- The steps spec still lives at `spec/21-slides-system/steps-based-slides/` (00-overview → 06-acceptance). It defines a **shared step data model** (`title`, `items[]`, `activeIndex`, capsule rules) across `SessionOutlineSlide / StepTimelineSlide / FocusTimelineSlide / AdvanceStepSlide / StepsChain3DSlide`.
-- Default deck at `/` is **`showcase`**; **slide 3** = `front-end/project/showcase/data/slides/03-process.json` (`StepTimelineSlide`).
-- Images go through `SlotImage` → `inferImageSlot` (`imagePlacement.ts`). `content.image` is just an `<img src>`, so it already accepts a URL, an imported asset, a `data:image/png;base64,…`, or a `data:image/svg+xml,…` — but there's **no authoring doc / examples** and no explicit `imageRole` field wired.
+### 32. Real `titleHero` example — ~25 min
+**Why:** slot exists but no live example. Confirm `TitleSlide` renders `content.image` at the `titleHero` slot; add slide + JSON/MD to `image-examples`.
 
-## Phase A — Recover & re-implement steps spec on slide 3 (steps 1–8)
+### 33. Two-up / caption image layout — ~30 min
+**Why:** authors need "image + caption" and "image + bullets" patterns. Add an `ImageSlide` variant (or doc pattern) with a caption line under the figure.
 
-1. Read all 7 files in `steps-based-slides/` end-to-end and diff the normative rules against the live `StepTimelineSlide.tsx`; record divergences.
-2. Reconcile the spec's `items[]`/`activeIndex` contract with slide 3's current `steps[]` shape (slide 3 uses `steps` + `expand`/`revealSlide`); decide on one canonical key and document it.
-3. Update `01-data-model.md` so the shared model explicitly covers the StepTimeline extras (`description`, `capsule`, `expand`, `revealSlide`, `revealLabel`).
-4. Rewrite showcase `03-process.json` to conform to the reconciled steps spec exactly (keywords-only, `.capsule-{tone}`, `activeIndex`, insets).
-5. Write the companion `spec/26-slide-definitions/showcase/03-process.md` explaining intent (Core spec-first rule).
-6. Add/extend a validation test asserting slide 3 matches the step data-model contract.
-7. Update `spec/21-slides-system/steps-based-slides/README.md` reading-order if any file moved/changed.
-8. Visually QA slide 3 in preview at 1920×1080 (header, rail, capsules, reduced-motion path).
+### 34. Multi-image row (gallery) example — ~30 min
+**Why:** show how to place 2–3 small figures in one row via repeated `inlineThumbnail`/`iconBadge` slots. Document the density budget.
 
-## Phase B — Image / SVG / Base64 support + JSON authoring contract (steps 9–18)
+### 35. Register `image-examples` in the deck switcher / docs index — ~15 min
+**Why:** today it's only reachable via `?deck=image-examples`. Cross-link from `spec/README.md` and the LLM catalog so it's discoverable.
 
-9. Audit `ImageSlide.tsx`, `SlotImage.tsx`, `imagePlacement.ts` for what `content.image` accepts today.
-10. Add an explicit `content.imageRole` field (maps to `ImageSlotId`) so authors can target `bodyFigure / titleHero / inlineThumbnail / iconBadge`; default-infer when omitted.
-11. Confirm `data:image/png;base64,…` and `data:image/svg+xml,…` render through `SlotImage` (add handling/guard if needed).
-12. Add SVG-as-React-import support note + a small inline-SVG render path for `iconBadge`-style usage.
-13. Extend the asset registry doc to cover **four** image sources: CDN/`.asset.json`, imported file, Base64 PNG, inline SVG data URI.
-14. Write a new authoring doc `spec/21-slides-system/images/01-image-authoring.md`: how to place images, which slot to pick, size constraints per slot, and one JSON example per source type.
-15. Add a JSON schema/typing note in `src/slides/types.ts` for `image` + `imageRole`.
-16. Create reusable example assets: one small PNG, one SVG file, one Base64 PNG string, one inline-SVG data URI (kept tiny, in `src/assets/examples/`).
-17. Add a CI/sanity test that every example image src resolves to a valid slot.
-18. Cross-link the new image doc from the steps README and the LLM catalog.
+### 36. JSON image-source lint / CI sanity — ~30 min
+**Why:** catch broken `image` srcs (missing asset file, malformed data URI) at build/test time. Add a test that walks every deck slide's `image` and asserts it resolves.
 
-## Phase C — New example slides (steps 19–27)
+### 37. Reduced-motion + alt-text audit on image slides — ~25 min
+**Why:** a11y house rule. Verify each `ImageSlide` has meaningful alt (falls back to title) and honors `prefers-reduced-motion` (opacity-only entry).
 
-19. **Slide: image from URL/asset** — `ImageSlide` using an imported PNG via `bodyFigure`. JSON + MD pair.
-20. **Slide: SVG figure** — `ImageSlide` rendering an `.svg` asset. JSON + MD.
-21. **Slide: Base64 PNG** — `ImageSlide` with inline `data:image/png;base64,…`. JSON + MD.
-22. **Slide: inline SVG data URI** — `data:image/svg+xml,…`. JSON + MD.
-23. **Slide: image + steps combo** — a step slide with `inlineThumbnail` images next to step rows. JSON + MD.
-24. **Slide: title hero image** — `TitleSlide` using `titleHero` slot. JSON + MD.
-25. **Slide: icon-badge grid** — multiple `iconBadge` SVGs as a pictogram row. JSON + MD.
-26. Register all new slides in the relevant deck `slides.json` manifest (new `image-examples` deck or appended to showcase — default: a dedicated `image-examples` deck to avoid bloating showcase).
-27. Wire deck theme + transitions so the new slides match Noir & Gold.
+### 38. Base64/data-URI size guard + doc note — ~20 min
+**Why:** inline Base64 bloats JSON. Add a soft warning when an inline image exceeds ~10 KB and document the CDN (`lovable-assets`) escape hatch.
 
-## Phase D — Docs, tests, QA (steps 28–30)
+### 39. Visual QA remaining slides (1, 3, 6, 7) + fix title overlap — ~25 min
+**Why:** slides 2/4/5 were verified; confirm cover, SVG file, thumbnail, icon-badge. The bottom title currently sits near the controller — nudge it up.
 
-28. Add a `motionCollisions`/validation pass so new slides pass boot validation (assets registered, slots resolve).
-29. Run the focused test suite + a typecheck; fix any failures.
-30. Visual QA every new slide (screenshot each, check layout/overflow/contrast/Base64 + SVG actually paint), then summarize what was verified.
+### 40. Memory + spec closeout — ~15 min
+**Why:** persist the image-authoring contract to project memory and add a `## Resolution` note to the relevant spec/issue files.
 
-## Technical notes
+**Estimated total: ~4 hours.**
 
-- Keep all capsules on `.capsule-{tone}` / `.capsule-meta` classNames (memory rule); never inline brand-token styles.
-- `content.image` stays a plain string src; `imageRole` is the only new author-facing field, defaulting to slot inference so existing slides are unaffected.
-- Example assets stay tiny to avoid repo bloat; large binaries would go through `lovable-assets` instead.
-- JSON remains the runtime source of truth; every new slide ships a JSON+MD pair per the spec-first Core rule.
+## Remaining items (beyond step 40)
 
-After you approve, I'll implement steps 1–30, then pause for your "next 10".
+- **Step 23 / StepsChain3D** — cross-check 3D-depth (spec #61) vs shared data model (still open from earlier backlog).
+- **motion-showcase audio slugs** — verified registered; optional distinct-cue MP3s remain polish.
+- **`22-app-issues.md`** — long-lived multi-issue RCA log; sweep for stale entries.
+- **Single-`<video>`-via-portal refactor** — broad reading of issue #63; large, deferred.
+- **No-questions window** — window 2 closed (40/40); confirm whether to open window 3.
+- **Spec upkeep** — ensure each closed issue gets a `## Resolution` section.
+
+Approve and I'll implement 31–40, then pause for your next batch.
