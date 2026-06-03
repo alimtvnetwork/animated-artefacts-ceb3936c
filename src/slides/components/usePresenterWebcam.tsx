@@ -28,6 +28,7 @@ import {
   type ReactNode,
 } from 'react';
 import { slideSound } from '@/slides/sound';
+import { prefersReducedMotion } from '@/slides/motionPreferences';
 import { toast } from 'sonner';
 
 const POS_KEY = 'riseup.webcam.pos';
@@ -619,9 +620,7 @@ export function PresenterWebcamProvider({ children }: { children: ReactNode }) {
    */
   const runCinematicCycle = useCallback(() => {
     const phase = state.phase;
-    const reduced =
-      typeof window !== 'undefined' &&
-      window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
+    const reduced = prefersReducedMotion();
 
     if (phase === 'fullscreen') {
       // Step 1: squish + whoosh, then hide().
