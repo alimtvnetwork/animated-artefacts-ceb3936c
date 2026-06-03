@@ -897,7 +897,7 @@ export function PresenterWebcamOverlay() {
               width: `calc(${circleShape ? 'min(100vmin, 100vh)' : '100%'} + ${HALO * 2}px)`,
               height: `calc(${circleShape ? 'min(100vmin, 100vh)' : '100%'} + ${HALO * 2}px)`,
               transform: 'translate(-50%, -50%)',
-              borderRadius: circleShape ? '50%' : 28,
+              borderRadius: circleShape ? '50%' : '38% / 34%',
               background:
                 'radial-gradient(ellipse at center, hsl(var(--gold) / 0.24) 0%, hsl(var(--gold) / 0.12) 46%, transparent 78%)',
               WebkitMaskImage:
