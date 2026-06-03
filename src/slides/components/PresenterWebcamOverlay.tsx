@@ -919,9 +919,14 @@ export function PresenterWebcamOverlay() {
           style={{
             width: circleShape ? 'min(100vmin, 100vh)' : '100%',
             height: circleShape ? 'min(100vmin, 100vh)' : '100%',
-            borderRadius: circleShape ? '50%' : 0,
+            borderRadius: circleShape ? '50%' : '38% / 34%',
             overflow: 'hidden',
-            transition: 'border-radius 360ms cubic-bezier(0.22, 1, 0.36, 1)',
+            background: 'transparent',
+            border: '2px solid hsl(var(--gold) / 0.85)',
+            boxShadow:
+              '0 0 0 1px hsl(var(--ember) / 0.25), 0 0 28px hsl(var(--gold) / 0.22), 0 16px 40px hsl(var(--background) / 0.7)',
+            transition:
+              'border-radius 360ms cubic-bezier(0.22, 1, 0.36, 1), box-shadow 320ms ease',
           }}
         >
           <video
@@ -1058,7 +1063,7 @@ export function PresenterWebcamOverlay() {
               width: `calc(${circleShape ? 'min(100vmin, 100vh)' : '100%'} + ${HALO * 2}px)`,
               height: `calc(${circleShape ? 'min(100vmin, 100vh)' : '100%'} + ${HALO * 2}px)`,
               transform: 'translate(-50%, -50%)',
-              borderRadius: circleShape ? '50%' : 28,
+              borderRadius: circleShape ? '50%' : '38% / 34%',
               background:
                 'radial-gradient(ellipse at center, hsl(var(--gold) / 0.24) 0%, hsl(var(--gold) / 0.12) 46%, transparent 78%)',
               WebkitMaskImage:
@@ -1078,9 +1083,14 @@ export function PresenterWebcamOverlay() {
           style={{
             width: circleShape ? 'min(100vmin, 100vh)' : '100%',
             height: circleShape ? 'min(100vmin, 100vh)' : '100%',
-            borderRadius: circleShape ? '50%' : 0,
+            borderRadius: circleShape ? '50%' : '38% / 34%',
             overflow: 'hidden',
-            transition: 'border-radius 360ms cubic-bezier(0.22, 1, 0.36, 1)',
+            background: 'transparent',
+            border: '2px solid hsl(var(--gold) / 0.85)',
+            boxShadow:
+              '0 0 0 1px hsl(var(--ember) / 0.25), 0 0 28px hsl(var(--gold) / 0.22), 0 16px 40px hsl(var(--background) / 0.7)',
+            transition:
+              'border-radius 360ms cubic-bezier(0.22, 1, 0.36, 1), box-shadow 320ms ease',
           }}
         >
           <video
