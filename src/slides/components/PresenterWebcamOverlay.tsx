@@ -38,6 +38,7 @@ import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip
 import { usePresenterWebcam } from './usePresenterWebcam';
 import { useAutoFrame } from './useAutoFrame';
 import { useAutoHideCursor } from './useAutoHideCursor';
+import { prefersReducedMotion } from '@/slides/motionPreferences';
 // spec/camera-2026/05 — the live camera reads as a framed squircle surface
 // purely via CSS: border-radius for the silhouette, a thin gold→ember border
 // + soft glow for the rim, and a transparent interior. No plate/mask PNGs are
@@ -204,7 +205,7 @@ export function PresenterWebcamOverlay() {
   const firstShapeRef = useRef(true);
   useEffect(() => {
     if (firstShapeRef.current) { firstShapeRef.current = false; return; }
-    const reduced = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
+    const reduced = prefersReducedMotion();
     if (reduced) return;
     shapeFrameRef.current?.animate(
       [

@@ -739,9 +739,24 @@ export default function SlideDeckPage() {
     document.addEventListener('fullscreenchange', onFs);
     return () => document.removeEventListener('fullscreenchange', onFs);
   }, []);
-  function toggleFullscreen() {
-    if (document.fullscreenElement) document.exitFullscreen();
-    else document.documentElement.requestFullscreen();
+  async function toggleFullscreen() {
+    if (document.fullscreenElement) {
+      try {
+        await document.exitFullscreen();
+      } catch {
+        setIsFullscreen(false);
+      }
+      return;
+    }
+    try {
+      await document.documentElement.requestFullscreen();
+      setIsFullscreen(true);
+    } catch {
+      // Browser/full iframe environments can reject the Fullscreen API.
+      // Keep the deck in its fullscreen layout mode anyway so the presenter
+      // still gets the intended chrome/state instead of a dead toggle.
+      setIsFullscreen((v) => !v);
+    }
   }
 
   // Presenter sync — broadcast our current slide on every change, and accept

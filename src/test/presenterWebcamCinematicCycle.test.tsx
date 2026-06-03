@@ -18,6 +18,7 @@ import {
   PresenterWebcamProvider,
   usePresenterWebcam,
 } from '@/slides/components/usePresenterWebcam';
+import { setReduceMotion, _resetReduceMotionForTests } from '@/slides/components/reducedMotionToggle';
 
 const playSpy = vi.fn();
 vi.mock('@/slides/sound', () => ({
@@ -75,6 +76,7 @@ describe('PresenterWebcam v5 — cinematic `]` cycle', () => {
   });
   afterEach(() => {
     window.localStorage.clear();
+    _resetReduceMotionForTests();
     vi.useRealTimers();
   });
 
@@ -170,6 +172,34 @@ describe('PresenterWebcam v5 — cinematic `]` cycle', () => {
 
     act(() => {
       captured.ctx!.runCinematicCycle(); // fullscreen → off (instant)
+    });
+    expect(captured.ctx!.state.phase).toBe('off');
+    expect(captured.ctx!.cinematicExiting).toBe(false);
+    expect(playSpy).not.toHaveBeenCalled();
+  });
+
+  it('in-app reduced-motion toggle also makes fullscreen → off instant and silent', async () => {
+    setReducedMotion(false);
+    setReduceMotion(true);
+    const { stream } = makeFakeStream();
+    mockGetUserMedia(stream);
+    const captured: Captured = { ctx: null };
+    render(
+      <PresenterWebcamProvider>
+        <Probe captured={captured} />
+      </PresenterWebcamProvider>,
+    );
+
+    await act(async () => {
+      await captured.ctx!.show();
+    });
+    act(() => {
+      captured.ctx!.runCinematicCycle();
+    });
+    expect(captured.ctx!.state.phase).toBe('fullscreen');
+
+    act(() => {
+      captured.ctx!.runCinematicCycle();
     });
     expect(captured.ctx!.state.phase).toBe('off');
     expect(captured.ctx!.cinematicExiting).toBe(false);
