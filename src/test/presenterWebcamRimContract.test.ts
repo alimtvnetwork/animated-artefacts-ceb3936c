@@ -61,7 +61,12 @@ describe('PresenterWebcamOverlay — CSS-only squircle rim contract', () => {
     // the frame AND its halo in the windowed + tray paths (>= 4 occurrences:
     // windowed halo, windowed frame, tray halo, frameRadius const).
     const occurrences = (SRC.match(/'38% \/ 34%'/g) ?? []).length;
-    expect(occurrences).toBeGreaterThanOrEqual(4);
+    expect(occurrences).toBeGreaterThanOrEqual(8);
+  });
+
+  it('keeps stage and fullscreen on the same squircle contract as the floating camera', () => {
+    expect(SRC).not.toMatch(/borderRadius:\s*circleShape\s*\?\s*'50%'\s*:\s*0/);
+    expect(SRC).not.toMatch(/borderRadius:\s*circleShape\s*\?\s*'50%'\s*:\s*28/);
   });
 });
 
