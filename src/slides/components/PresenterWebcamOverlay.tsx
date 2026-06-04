@@ -170,6 +170,7 @@ export function PresenterWebcamOverlay() {
   const [dragging, setDragging] = useState(false);
   const [resizing, setResizing] = useState(false);
   const [trayHover, setTrayHover] = useState(false);
+  const reducedMotion = prefersReducedMotion();
 
   // ──────────────────────────────────────────────────────────────────
   // Auto-hide the mouse cursor over the camera surfaces. The cursor
@@ -205,8 +206,7 @@ export function PresenterWebcamOverlay() {
   const firstShapeRef = useRef(true);
   useEffect(() => {
     if (firstShapeRef.current) { firstShapeRef.current = false; return; }
-    const reduced = prefersReducedMotion();
-    if (reduced) return;
+    if (reducedMotion) return;
     shapeFrameRef.current?.animate(
       [
         { transform: 'scale(1)', boxShadow: '0 0 0 1px hsl(var(--ember) / 0.25), 0 0 28px hsl(var(--gold) / 0.22), 0 16px 40px hsl(var(--background) / 0.7)' },
@@ -227,7 +227,7 @@ export function PresenterWebcamOverlay() {
       ],
       { duration: 360, easing: 'cubic-bezier(0.22, 1, 0.36, 1)' },
     );
-  }, [circleShape]);
+  }, [circleShape, reducedMotion]);
 
   // ──────────────────────────────────────────────────────────────────
   // Single-letter shortcuts (i / m / f / + / - / Escape).
@@ -535,6 +535,7 @@ export function PresenterWebcamOverlay() {
     const previewDiameter = Math.min(previewWidth, previewHeight);
     const previewLeft = circleShape ? (previewWidth - previewDiameter) / 2 : 0;
     const previewTop = circleShape ? (previewHeight - previewDiameter) / 2 : 0;
+    const rectangleRadius = '20px';
     return (
       <>
         <div
@@ -560,7 +561,7 @@ export function PresenterWebcamOverlay() {
                 height: (circleShape ? previewDiameter : previewHeight) + HALO * 2,
                 // Trace the squircle silhouette so the glow hugs the same
                 // curve as the frame (was a 28px rounded-rect — mismatch).
-                borderRadius: circleShape ? '50%' : '38% / 34%',
+                borderRadius: circleShape ? '50%' : rectangleRadius,
                 background:
                   'radial-gradient(ellipse at center, hsl(var(--gold) / 0.22) 0%, hsl(var(--gold) / 0.09) 48%, transparent 76%)',
                 WebkitMaskImage:
@@ -580,7 +581,7 @@ export function PresenterWebcamOverlay() {
               top: HALO + previewTop,
               width: circleShape ? previewDiameter : previewWidth,
               height: circleShape ? previewDiameter : previewHeight,
-              borderRadius: circleShape ? '50%' : '38% / 34%',
+              borderRadius: circleShape ? '50%' : rectangleRadius,
               overflow: 'hidden',
               border: '2px solid hsl(var(--gold) / 0.85)',
               boxShadow:
@@ -867,6 +868,7 @@ export function PresenterWebcamOverlay() {
       ? Math.min(STAGE_W, STAGE_H)
       : Math.min(STAGE_W, STAGE_H);
     const stageControlsOnLeft = viewportPrefersLeftCircleControls;
+    const rectangleRadius = '28px';
     return (
       <div
         role="region"
@@ -898,7 +900,7 @@ export function PresenterWebcamOverlay() {
               width: `calc(${circleShape ? 'min(100vmin, 100vh)' : '100%'} + ${HALO * 2}px)`,
               height: `calc(${circleShape ? 'min(100vmin, 100vh)' : '100%'} + ${HALO * 2}px)`,
               transform: 'translate(-50%, -50%)',
-              borderRadius: circleShape ? '50%' : '38% / 34%',
+              borderRadius: circleShape ? '50%' : rectangleRadius,
               background:
                 'radial-gradient(ellipse at center, hsl(var(--gold) / 0.24) 0%, hsl(var(--gold) / 0.12) 46%, transparent 78%)',
               WebkitMaskImage:
@@ -920,7 +922,7 @@ export function PresenterWebcamOverlay() {
           style={{
             width: circleShape ? 'min(100vmin, 100vh)' : '100%',
             height: circleShape ? 'min(100vmin, 100vh)' : '100%',
-            borderRadius: circleShape ? '50%' : '38% / 34%',
+            borderRadius: circleShape ? '50%' : rectangleRadius,
             overflow: 'hidden',
             background: 'transparent',
             border: '2px solid hsl(var(--gold) / 0.85)',
@@ -941,7 +943,7 @@ export function PresenterWebcamOverlay() {
               objectFit: 'cover',
               transform: autoFrame.transform.replace(/$/, ' scaleX(-1)'),
               transformOrigin: 'center center',
-              transition: 'transform 220ms cubic-bezier(0.22, 1, 0.36, 1)',
+                transition: reducedMotion ? 'opacity 150ms linear' : 'transform 220ms cubic-bezier(0.22, 1, 0.36, 1)',
             }}
           />
         </div>
@@ -1021,6 +1023,7 @@ export function PresenterWebcamOverlay() {
       ? Math.min(window.innerWidth, window.innerHeight)
       : Math.min(window.innerWidth, window.innerHeight);
     const fullscreenControlsOnLeft = viewportPrefersLeftCircleControls;
+    const rectangleRadius = '28px';
     return createPortal(
       <div
         role="region"
@@ -1042,13 +1045,17 @@ export function PresenterWebcamOverlay() {
           // The wrapper scales toward zero on Y first (squish), shrinks
           // overall, fades, and tilts slightly — paired with a one-shot
           // `whoosh` cue from the hook.
-          transform: cinematicExiting
-            ? 'scale(0.18) scaleY(0.04) rotate(-2deg)'
-            : 'scale(1) scaleY(1) rotate(0deg)',
+          transform: reducedMotion
+            ? 'none'
+            : cinematicExiting
+              ? 'scale(0.18) scaleY(0.04) rotate(-2deg)'
+              : 'scale(1) scaleY(1) rotate(0deg)',
           opacity: cinematicExiting ? 0 : 1,
-          transition: cinematicExiting
-            ? 'transform 800ms cubic-bezier(0.6, -0.05, 0.7, 0.2), opacity 800ms ease-in'
-            : 'transform 320ms cubic-bezier(0.34, 1.56, 0.64, 1), opacity 240ms ease-out',
+          transition: reducedMotion
+            ? 'opacity 150ms linear'
+            : cinematicExiting
+              ? 'transform 800ms cubic-bezier(0.6, -0.05, 0.7, 0.2), opacity 800ms ease-in'
+              : 'transform 320ms cubic-bezier(0.34, 1.56, 0.64, 1), opacity 240ms ease-out',
           transformOrigin: 'center center',
           willChange: 'transform, opacity',
         }}
@@ -1064,7 +1071,7 @@ export function PresenterWebcamOverlay() {
               width: `calc(${circleShape ? 'min(100vmin, 100vh)' : '100%'} + ${HALO * 2}px)`,
               height: `calc(${circleShape ? 'min(100vmin, 100vh)' : '100%'} + ${HALO * 2}px)`,
               transform: 'translate(-50%, -50%)',
-              borderRadius: circleShape ? '50%' : '38% / 34%',
+              borderRadius: circleShape ? '50%' : rectangleRadius,
               background:
                 'radial-gradient(ellipse at center, hsl(var(--gold) / 0.24) 0%, hsl(var(--gold) / 0.12) 46%, transparent 78%)',
               WebkitMaskImage:
@@ -1084,7 +1091,7 @@ export function PresenterWebcamOverlay() {
           style={{
             width: circleShape ? 'min(100vmin, 100vh)' : '100%',
             height: circleShape ? 'min(100vmin, 100vh)' : '100%',
-            borderRadius: circleShape ? '50%' : '38% / 34%',
+            borderRadius: circleShape ? '50%' : rectangleRadius,
             overflow: 'hidden',
             background: 'transparent',
             border: '2px solid hsl(var(--gold) / 0.85)',
@@ -1105,7 +1112,7 @@ export function PresenterWebcamOverlay() {
               objectFit: 'cover',
               transform: autoFrame.transform.replace(/$/, ' scaleX(-1)'),
               transformOrigin: 'center center',
-              transition: 'transform 220ms cubic-bezier(0.22, 1, 0.36, 1)',
+              transition: reducedMotion ? 'opacity 150ms linear' : 'transform 220ms cubic-bezier(0.22, 1, 0.36, 1)',
             }}
           />
         </div>
@@ -1212,7 +1219,7 @@ export function PresenterWebcamOverlay() {
   // spec/camera-2026/05 §3a — squircle = superellipse. The cheap, crisp,
   // theme-tinting path is a border-radius superellipse approximation
   // (38% / 34%). Circle (`O`) overrides to 50%; minimized is a puck (999).
-  const frameRadius = minimized ? 999 : circleShape ? '50%' : '38% / 34%';
+  const frameRadius = minimized ? 999 : circleShape ? '50%' : '22px';
   // spec/camera-2026/05 §2 — NO decorative plate. The masked video carries
   // its own thin gold→ember rim + soft drop shadow via CSS on the inner
   // frame, so the squircle interior stays fully TRANSPARENT (image 3). The
@@ -1281,8 +1288,9 @@ export function PresenterWebcamOverlay() {
             maskImage:
               'radial-gradient(ellipse at center, hsl(0 0% 0% / 1) 30%, hsl(0 0% 0% / 0.4) 65%, hsl(0 0% 0% / 0) 100%)',
             pointerEvents: 'none',
-            transition:
-              'opacity 240ms ease, left 420ms cubic-bezier(0.22, 1, 0.36, 1), top 420ms cubic-bezier(0.22, 1, 0.36, 1), width 420ms cubic-bezier(0.22, 1, 0.36, 1), height 420ms cubic-bezier(0.22, 1, 0.36, 1), border-radius 420ms cubic-bezier(0.22, 1, 0.36, 1)',
+              transition: reducedMotion
+                ? 'opacity 150ms linear, border-radius 150ms linear'
+                : 'opacity 240ms ease, left 420ms cubic-bezier(0.22, 1, 0.36, 1), top 420ms cubic-bezier(0.22, 1, 0.36, 1), width 420ms cubic-bezier(0.22, 1, 0.36, 1), height 420ms cubic-bezier(0.22, 1, 0.36, 1), border-radius 420ms cubic-bezier(0.22, 1, 0.36, 1)',
           }}
         />
       )}
@@ -1318,8 +1326,9 @@ export function PresenterWebcamOverlay() {
           touchAction: 'none',
           pointerEvents: 'auto',
           willChange: 'border-radius, clip-path, left, top, width, height',
-          transition:
-            'border-radius 420ms cubic-bezier(0.22, 1, 0.36, 1), left 420ms cubic-bezier(0.22, 1, 0.36, 1), top 420ms cubic-bezier(0.22, 1, 0.36, 1), width 420ms cubic-bezier(0.22, 1, 0.36, 1), height 420ms cubic-bezier(0.22, 1, 0.36, 1), box-shadow 320ms ease',
+          transition: reducedMotion
+            ? 'border-radius 150ms linear, box-shadow 150ms linear'
+            : 'border-radius 420ms cubic-bezier(0.22, 1, 0.36, 1), left 420ms cubic-bezier(0.22, 1, 0.36, 1), top 420ms cubic-bezier(0.22, 1, 0.36, 1), width 420ms cubic-bezier(0.22, 1, 0.36, 1), height 420ms cubic-bezier(0.22, 1, 0.36, 1), box-shadow 320ms ease',
         }}
         onPointerDown={onDragPointerDown}
         onPointerMove={onDragPointerMove}
@@ -1337,7 +1346,7 @@ export function PresenterWebcamOverlay() {
             objectFit: 'cover',
             transform: autoFrame.transform,
             transformOrigin: 'center center',
-            transition: 'transform 220ms cubic-bezier(0.22, 1, 0.36, 1)',
+            transition: reducedMotion ? 'opacity 150ms linear' : 'transform 220ms cubic-bezier(0.22, 1, 0.36, 1)',
             background: 'hsl(var(--background))',
             pointerEvents: 'none',
           }}
