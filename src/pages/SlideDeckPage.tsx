@@ -755,7 +755,7 @@ export default function SlideDeckPage() {
       // Browser/full iframe environments can reject the Fullscreen API.
       // Keep the deck in its fullscreen layout mode anyway so the presenter
       // still gets the intended chrome/state instead of a dead toggle.
-      setIsFullscreen((v) => !v);
+      setIsFullscreen(true);
     }
   }
 
