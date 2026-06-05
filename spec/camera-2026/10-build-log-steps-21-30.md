@@ -1,10 +1,11 @@
 # 10 — Build Log: Steps 21–30 (reasoning + time)
 
-> **⚠️ HISTORICAL (pre-v2).** The plate/mask steps below (the `cam-plate` stack,
-> `platePad`, the `02-squircle-mask-black.png` crop) were **superseded on
-> 2026-06-02**. The shipped rim is **CSS-only** — `border-radius` silhouette +
-> gold border + layered `box-shadow`, transparent interior, no plate/mask PNG.
-> See [`05-backgrounds-and-shapes.md`](./05-backgrounds-and-shapes.md) §8 (v2).
+> **⚠️ CURRENT (v3, 2026-06-05).** The rim is a baked PNG **plate**
+> (`squircle-plate-gold.png`) composited behind the live video + a transparent
+> squircle **mask** (`squircle-mask.png` via `mask-image`) cropping the video.
+> The 2026-06-02 "CSS-only" (v2) decision was **reversed** per presenter
+> direction. Circle (`O`) + minimized puck still fall back to CSS `border-radius`.
+> See [`05-backgrounds-and-shapes.md`](./05-backgrounds-and-shapes.md) §8 (v3).
 
 
 > Final-batch expansion of [`06-implementation-steps-1-30.md`](./06-implementation-steps-1-30.md).
