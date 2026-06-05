@@ -39,9 +39,10 @@
 
 1. **Identify the deck.** Decks live under `front-end/project/<deck>/`. The
    active session deck is `session-4-ai-coding`. Confirm which deck before any edit.
-2. **Open the manifest.** Read `front-end/project/<deck>/data/slides.json`. It is
-   an ordered array; index position = on-screen slide order. Each item references
-   a file in `data/slides/`.
+ 2. **Open the manifest.** Read `front-end/project/<deck>/data/slides.json`. It is
+    an object `{ Name, config, slides: [...] }`. The `slides[]` array is the
+    deck order — each item is `{ "title", "path": "./slides/NN-name.json" }`.
+    Array position = on-screen slide number.
 3. **Read the matching spec folder** `spec/26-slide-definitions/<deck>/` to learn
    the deck's intent, then `spec/26-slide-definitions/<deck>/readme.md`.
 4. **Skim the always-apply rules** in `.lovable/memory/index.md` (theme, fonts,
