@@ -61,10 +61,10 @@ at runtime, import from `src/assets/` or register a Lovable asset pointer — se
 
 | File | Role |
 |------|------|
-| `01-reference-frame-gold-rim.png` | **Reference look only.** A squircle camera frame on a dark slide with a gold→ember (red) glowing rim. This is the visual target the CSS rim reproduces. |
-| ~~`02-squircle-mask-black.png`~~ | **No longer used at runtime (2026-06-02 v2).** Was the CSS crop mask; the overlay now crops via `border-radius`. Kept here as a shape reference only. |
+| `01-reference-frame-gold-rim.png` | **Reference look only.** A squircle camera frame on a dark slide with a gold→ember (red) glowing rim. This is the visual target the v3 rim reproduces. |
+| `02-squircle-mask-black.png` | **Reference for the runtime mask.** The runtime mask ships as `src/assets/camera-2026/squircle-mask.png`, applied via `mask-image` to crop the video (v3). |
 | ~~`03-squircle-plate-white-shadow.png`~~ | **REMOVED 2026-06-02.** Was an opaque white fill plate behind the camera; deleted (rejected look, no value). |
-| ~~`04-squircle-plate-gold-shadow.png`~~ | **No longer used at runtime (2026-06-02 v2).** Its baked rim + fill read as a thick opaque ring (rejected). The rim is now CSS-only (border + box-shadow). Reference only. |
+| `04-squircle-plate-gold-shadow.png` | **Reference for the runtime plate.** The runtime plate ships as `src/assets/camera-2026/squircle-plate-gold.png`, rendered behind the video with a transparent interior (v3). |
 
 > **Runtime is PNG plate + transparent mask (v3, 2026-06-05).**
 > `src/assets/camera-2026/` holds `squircle-plate-gold.png` (rendered behind the

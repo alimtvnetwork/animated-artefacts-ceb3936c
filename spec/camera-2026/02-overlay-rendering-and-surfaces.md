@@ -10,7 +10,7 @@
 
 | `state.phase` | Surface |
 |---------------|---------|
-| `on` | Draggable card with chrome (zoom +/-, fullscreen, focus, minimize, X) + bottom-right resize handle. Honors circle/halo + the CSS-only gold rim (transparent interior, no plate). |
+| `on` | Draggable card with chrome (zoom +/-, fullscreen, focus, minimize, X) + bottom-right resize handle. Honors circle/halo + the v3 gold squircle rim (PNG plate behind video + transparent mask crop, transparent interior). |
 | `tray` | 40×40 floating icon with ember pulse; hover fans out Expand / Fullscreen / Stop. Stream stays live. |
 | `fullscreen` | Fixed-position layer over the deck stage with minimal chrome; forwards nav keys to the deck. |
 | `stage` | Absolute layer covering the full 1920×1080 stage. |
