@@ -5,12 +5,13 @@
 > Each step lists **what**, **where**, and **done-when**. Code for each is in
 > files 01–05; this is the spine that sequences them.
 >
-> **⚠️ SUPERSEDED (2026-06-02 v2):** steps 24–26's **plate/mask** work is
-> obsolete. The squircle rim is now **CSS-only** — silhouette via
-> `border-radius: 38% / 34%`, rim via a `2px` gold border + layered
-> `box-shadow`, transparent interior, NO plate/mask PNG and NO `platePad`. The
-> two-plate stack produced a rejected thick opaque ring. See file 05 §8 (v2).
-> Read steps 24–26 as "give the squircle its CSS rim", not "render plates".
+> **⚠️ UPDATED (2026-06-04 v3):** the v2 "CSS-only rim" reversal is itself
+> **REVERSED** per presenter direction. Steps 25–27 now use a **PNG plate**
+> (`04-squircle-plate-gold-shadow.png`) behind the video plus a **transparent
+> squircle mask** (`02-squircle-mask-black.png` via `mask-image`) on the video —
+> one layered over the other. `01-reference-frame-gold-rim.png` is the look
+> target only. See file 05 §8 (v3). Read steps 25–26 as "render the plate +
+> mask the video".
 
 ## Phase A — Skeleton & state (steps 1–8)
 
@@ -87,22 +88,18 @@
 
 ## Phase E — Backgrounds, shapes & polish (steps 25–30)
 
-25. **Squircle shape (v2).** Use `border-radius: 38% / 34%` for the squircle
-    silhouette; circle `O` overrides with `50%`, minimized puck with `999px`.
-    ~~Apply `02-squircle-mask-black.png` as `mask-image`~~ — **DROPPED in v2**: no
-    PNG mask; the border-radius alone defines the curve so the rim border isn't
-    clipped. (File 05 §8.)
-26. ~~**Background shade stack.** Render TWO plates behind the video…~~
-    **REMOVED in v2.** No plate, no `platePad`, no white/gold PNG behind the
-    video. Instead the inner frame gets the entire rim in CSS: a `2px` gold
-    border + layered `box-shadow` (ember edge + gold glow + drop shadow) over a
-    **transparent** interior, so only the live video shows inside the curve. The
-    old two-plate stack read as a thick opaque ring (rejected). (File 05 §8 v2.)
+25. **Squircle mask (v3).** Apply `02-squircle-mask-black.png` as `mask-image`
+    (`mask-size: 100% 100%`, `mask-repeat: no-repeat`) on the live `<video>` to
+    crop it to a transparent squircle. Circle `O` and the minimized puck may
+    still fall back to CSS `border-radius` (`50%` / `999px`) when no circular
+    plate exists. (File 05 §8 v3.)
+26. **Plate layer (v3).** Render `04-squircle-plate-gold-shadow.png` behind the
+    masked video, centered, sized ~+12–16% larger than the video box so its
+    baked gold→ember rim + drop shadow frame the feed. Copy both PNGs into
+    `src/assets/camera-2026/` so Vite bundles them. (File 05 §8 v3.)
 27. **Gold→ember rim + shadow look.** Match `01-reference-frame-gold-rim.png`
-    using the stacked PNG shade assets plus tokenized frame border/glow
-    (`--gold` / `--background`). `plateVariant: none|neutral|gold` remains
-    optional future work; the shipped path is the white+gold two-layer stack.
-    (File 05 §4, §8.)
+    (visual target only — never used as plate/mask). The rim/shadow comes from
+    the `04` plate PNG, not from a CSS border. (File 05 §8 v3.)
 28. **Shape pop animation.** WAAPI on the clipping wrapper only (never remount
     the `<video>`); skip under reduced-motion. (File 02 §4.)
 29. **Halo + reduced-motion + theme audit.** `h` vignette; gate every animation
