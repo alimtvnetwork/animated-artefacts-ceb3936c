@@ -1,9 +1,9 @@
 /**
- * useOnboardingFlag — single gate deciding whether the first-run controller
+ * useOnboardingFlag — single gate deciding whether the controller intro
  * coachmark (`OnboardingCoachmark`) is shown. Persists in localStorage under
- * `ctrl.onboarded.v1`. Centralizing read/write keeps every dismiss path
- * (button / Esc / backdrop) consistent and the "Show intro again" menu item
- * trivial. See `spec/controller-2026/11-build-substeps-c07.md` (C07.1).
+ * `ctrl.onboarded.v1`. Default behavior is "already onboarded" so the deck
+ * never opens a popup on first load; the intro only appears when explicitly
+ * re-opened from the controller menu. See `spec/controller-2026/11-build-substeps-c07.md` (C07.1).
  */
 import { useCallback, useEffect, useState } from 'react';
 
@@ -13,7 +13,7 @@ const ONBOARDED_SYNC_EVENT = 'riseup:onboarding-sync';
 function readOnboarded(): boolean {
   if (typeof window === 'undefined') return true; // SSR: never flash the popup
   try {
-    return window.localStorage.getItem(ONBOARDED_KEY) === '1';
+    return window.localStorage.getItem(ONBOARDED_KEY) !== '0';
   } catch {
     // Privacy mode / blocked storage — treat as "already onboarded" so we
     // never nag on every visit when we can't persist the dismissal.
@@ -66,7 +66,7 @@ export function useOnboardingFlag(): OnboardingFlag {
   const resetOnboarding = useCallback(() => {
     setOnboarded(false);
     try {
-      window.localStorage.removeItem(ONBOARDED_KEY);
+      window.localStorage.setItem(ONBOARDED_KEY, '0');
     } catch {
       /* ignore blocked storage */
     }
