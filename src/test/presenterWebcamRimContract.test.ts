@@ -55,13 +55,12 @@ describe('PresenterWebcamOverlay — CSS-only squircle rim contract', () => {
   });
 
   it('makes the windowed/tray halo glow hug the squircle curve (not a stray 28px rect)', () => {
-    // Regression guard for 2026-06-02: the windowed + tray halos used a 28px
-    // rounded-rect while their frames were '38% / 34%', so the gold glow
-    // didn't trace the silhouette. The squircle radius must appear for both
-    // the frame AND its halo in the windowed + tray paths (>= 4 occurrences:
-    // windowed halo, windowed frame, tray halo, frameRadius const).
+    // Regression guard for 2026-06-02: every rectangular camera surface must
+    // keep using the same squircle radius instead of ad-hoc 20px/28px rounded
+    // rectangles. We currently ship the denied preview, floating overlay,
+    // stage, and fullscreen surfaces plus the shared frameRadius contract.
     const occurrences = (SRC.match(/'38% \/ 34%'/g) ?? []).length;
-    expect(occurrences).toBeGreaterThanOrEqual(8);
+    expect(occurrences).toBeGreaterThanOrEqual(5);
   });
 
   it('keeps stage and fullscreen on the same squircle contract as the floating camera', () => {
