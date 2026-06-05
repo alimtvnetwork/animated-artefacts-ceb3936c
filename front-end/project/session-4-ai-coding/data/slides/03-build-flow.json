@@ -19,28 +19,36 @@
         "label": "Step 1",
         "title": "Pick the task",
         "subtitle": "One CLI, one clear outcome",
-        "description": "Start from a narrow real task. No broad platform talk — just one thing we can finish live.",
+        "description": "Start from one narrow business task with a visible finish line. Small scope gives faster prompts, faster review, and faster confidence.",
+        "image": "/assets/session-4-ai-coding/step-1.gif",
+        "imageRole": "inlineThumbnail",
         "capsule": { "text": "Scope", "color": "gold" }
       },
       {
         "label": "Step 2",
         "title": "Write the spec",
         "subtitle": "Rules, constraints, acceptance",
-        "description": "We tell the model exactly what good looks like. Clear spec first, code second.",
+        "description": "We define constraints, expected output, and the done condition before any code. Spec first removes guesswork from the model.",
+        "image": "/assets/session-4-ai-coding/step-2.gif",
+        "imageRole": "inlineThumbnail",
         "capsule": { "text": "Spec-first", "color": "ember" }
       },
       {
         "label": "Step 3",
         "title": "Build fast",
         "subtitle": "Prompt, inspect, patch",
-        "description": "Generate a slice, inspect the result, then tighten the next prompt instead of rewriting everything.",
+        "description": "Generate one slice, inspect the output, then patch the next prompt. Short loops beat big rewrites every time.",
+        "image": "/assets/session-4-ai-coding/step-3.gif",
+        "imageRole": "inlineThumbnail",
         "capsule": { "text": "Iteration", "color": "cream" }
       },
       {
         "label": "Step 4",
         "title": "Verify and ship",
         "subtitle": "Test, demo, publish",
-        "description": "Run the checks, show the result, and only then move to the next feature or publish the build.",
+        "description": "Run checks, review the preview, and publish only after the result is visible and stable. Verification closes the loop.",
+        "image": "/assets/session-4-ai-coding/step-4.gif",
+        "imageRole": "inlineThumbnail",
         "capsule": { "text": "QA", "color": "outline" }
       }
     ]
