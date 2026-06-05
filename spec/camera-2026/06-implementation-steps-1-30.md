@@ -5,12 +5,13 @@
 > Each step lists **what**, **where**, and **done-when**. Code for each is in
 > files 01–05; this is the spine that sequences them.
 >
-> **⚠️ SUPERSEDED (2026-06-02 v2):** steps 24–26's **plate/mask** work is
-> obsolete. The squircle rim is now **CSS-only** — silhouette via
-> `border-radius: 38% / 34%`, rim via a `2px` gold border + layered
-> `box-shadow`, transparent interior, NO plate/mask PNG and NO `platePad`. The
-> two-plate stack produced a rejected thick opaque ring. See file 05 §8 (v2).
-> Read steps 24–26 as "give the squircle its CSS rim", not "render plates".
+> **⚠️ UPDATED (2026-06-04 v3):** the v2 "CSS-only rim" reversal is itself
+> **REVERSED** per presenter direction. Steps 25–27 now use a **PNG plate**
+> (`04-squircle-plate-gold-shadow.png`) behind the video plus a **transparent
+> squircle mask** (`02-squircle-mask-black.png` via `mask-image`) on the video —
+> one layered over the other. `01-reference-frame-gold-rim.png` is the look
+> target only. See file 05 §8 (v3). Read steps 25–26 as "render the plate +
+> mask the video".
 
 ## Phase A — Skeleton & state (steps 1–8)
 
