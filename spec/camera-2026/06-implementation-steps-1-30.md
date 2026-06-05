@@ -90,13 +90,13 @@
 ## Phase E — Backgrounds, shapes & polish (steps 25–30)
 
 25. **Squircle mask (v3).** Import `src/assets/camera-2026/squircle-mask.png`
-    (the runtime copy of `02-squircle-mask-black.png`) and apply it as `mask-image`
+    (derived from the source reference `02-squircle-mask-black.png`) and apply it as `mask-image`
     (`mask-size: 100% 100%`, `mask-repeat: no-repeat`) on the live `<video>` to
     crop it to a transparent squircle. Circle `O` and the minimized puck may
     still fall back to CSS `border-radius` (`50%` / `999px`) when no circular
     plate exists. (File 05 §8 v3.)
 26. **Plate layer (v3).** Import `src/assets/camera-2026/squircle-plate-gold.png`
-    (the runtime copy of `04-squircle-plate-gold-shadow.png`) and render it behind
+    (derived from the source reference `04-squircle-plate-gold-shadow.png`) and render it behind
     the masked video, centered, sized ~+12–16% larger than the video box so its
     baked gold→ember rim + drop shadow frame the feed. Both PNGs already live in
     `src/assets/camera-2026/` so Vite bundles them. (File 05 §8 v3.)
