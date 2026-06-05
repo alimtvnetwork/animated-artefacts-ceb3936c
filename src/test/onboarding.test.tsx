@@ -9,9 +9,9 @@ describe('useOnboardingFlag', () => {
     localStorage.clear();
   });
 
-  it('starts un-onboarded when the flag is absent', () => {
+  it('starts onboarded when the flag is absent so the intro stays hidden by default', () => {
     const { result } = renderHook(() => useOnboardingFlag());
-    expect(result.current.onboarded).toBe(false);
+    expect(result.current.onboarded).toBe(true);
   });
 
   it('markOnboarded persists the flag', () => {
@@ -27,7 +27,7 @@ describe('useOnboardingFlag', () => {
     expect(result.current.onboarded).toBe(true);
     act(() => result.current.resetOnboarding());
     expect(result.current.onboarded).toBe(false);
-    expect(localStorage.getItem(ONBOARDED_KEY)).toBeNull();
+    expect(localStorage.getItem(ONBOARDED_KEY)).toBe('0');
   });
 
   it('syncs onboarding state across same-tab hook instances', async () => {
