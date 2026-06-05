@@ -58,7 +58,7 @@
 | `presenterWebcamVideoStability.test.tsx` | Stream never detaches on shape toggle (no remount). |
 | `useAutoFrame.test.ts` | Unsupported → `supported:false`, identity transform; EMA math. |
 | `presenterWebcamShortcuts.test.tsx` | Each key fires the right action and respects phase guards + input guard. |
-| `presenterWebcamRimContract.test.ts` | CSS-only rim: no plate/mask PNG import, no `platePad`/`showPlate`, no `url()` crop mask, gold border + transparent interior. |
+| `presenterWebcamRimContract.test.ts` | v3 plate+mask rim: imports `squircle-plate-gold.png` + `squircle-mask.png`, crops video via `mask-image`, renders `<SquirclePlate>` on ≥3 surfaces, gated by `useSquircle`/`!circleShape`. |
 
 ### Example test skeleton
 
