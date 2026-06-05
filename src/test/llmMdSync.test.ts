@@ -38,4 +38,13 @@ describe('root LLM.md stays in sync with canonical enums', () => {
       expect(md, `LLM.md missing capsule tone ${c}`).toContain(`\`${c}\``);
     }
   });
+
+  it('documents the manifest array key with the correct casing the loader reads', () => {
+    // The loader (src/slides/loader.ts) reads `raw.Slides` (capital S). A doc
+    // that says lowercase `slides:` would make an LLM author a manifest the
+    // loader ignores (silent numeric-order fallback). Lock the casing here.
+    expect(md, 'LLM.md must document the manifest key as `Slides`').toContain('Slides:');
+    expect(md, 'LLM.md must not claim the manifest key is lowercase `slides:`')
+      .not.toContain('config, slides: [');
+  });
 });
