@@ -1,5 +1,7 @@
 /**
- * PresenterWebcamOverlay — themed webcam surface (spec 64 v2).
+ * PresenterWebcamOverlay — themed webcam surface.
+ * Spec spine: `spec/camera-2026/02-overlay-rendering-and-surfaces.md` +
+ * `spec/camera-2026/05-backgrounds-and-shapes.md` §8 (v3 plate + mask contract).
  *
  * Renders four mutually-exclusive surfaces depending on `state.phase`:
  *   - `on`         → draggable card with chrome (+/-, fullscreen, focus,
