@@ -14,6 +14,8 @@ and the long-form version is the root [`readme.md`](../readme.md) — see its
 
 ## 0. Always-apply rules (read every loop)
 
+- [`LLM.md`](../LLM.md) — **single shareable slide-authoring guide.** Fastest
+  self-contained path to create/edit/reorder/ship slides (30-step playbook).
 - [`.lovable/memory/index.md`](memory/index.md) — project-wide Core rules
   (brand, themes, constraints). Apply on EVERY action.
 - [`.lovable/coding-guidelines.md`](coding-guidelines.md) — the 12 hard coding
