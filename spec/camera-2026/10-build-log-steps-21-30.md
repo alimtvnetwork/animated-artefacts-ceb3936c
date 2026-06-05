@@ -54,8 +54,9 @@
 ## Phase E — Backgrounds, shapes & polish (steps 25–30)
 
 ### 25. Squircle shape — **~30 min**
-- **What:** `border-radius: 38% / 34%` (or mask from `02-squircle-mask-black.png`);
-  circle `O` overrides with `999px`.
+- **What (v3, 2026-06-05):** `squircle-plate-gold.png` behind the `<video>` +
+  `squircle-mask.png` as `mask-image` to crop the video; circle `O` overrides with
+  CSS `999px` puck fallback.
 - **Why:** The squircle reads as premium/branded vs a plain rectangle, and the
   `O` circle override gives a talking-head option without a second component.
   Asymmetric radii avoid the "lozenge" look. (File 05 §3.)
