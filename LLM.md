@@ -67,8 +67,9 @@
      "notes": "Presenter notes — never rendered on the slide."
    }
    ```
- 7. **`slideType`** chooses the renderer. The **authoritative list is the switch
-    in `src/slides/SlideStage.tsx`** (source of truth). Registered values:
+ 7. **`slideType`** chooses the renderer. The **canonical enum is
+    `src/slides/enums.ts` (`SlideType`)**; the render switch is in
+    `src/slides/SlideStage.tsx`. Values that actually render:
     `TitleSlide`, `MiddleTitleSlide`, `KeywordSlide`, `CapsuleListSlide`,
     `StepTimelineSlide`, `StepsChain3DSlide`, `FocusTimelineSlide`,
     `AdvanceStepSlide`, `QrMeetingSlide`, `ImageSlide`, `SectionDividerSlide`,
@@ -76,13 +77,15 @@
     `ERDiagramSlide`, `LayoutSlide`, `DatabaseDiagramSlide`, `DataTableSlide`,
     `NumberCalloutSlide`, `EquationSlide`, `ChecklistSlide`, `TileSlide`,
     `BlastRadiusSlide`, `SessionOutlineSlide`. An unknown `slideType` falls back
-    to `TitleSlide`. (Click-reveal is **not** a slideType — it's a behavior on
-    `CapsuleListSlide`/`StepTimelineSlide` items; see the pack.) For per-type
+    to `TitleSlide`. (`ClickRevealSlide` is declared in the enum but has **no
+    dedicated render case** — it falls back to `TitleSlide`; click-reveal works
+    as a behavior on `CapsuleListSlide`/`StepTimelineSlide` items.) For per-type
     `content` schemas beyond the common ones in step 11, see
     `spec/21-slides-system/llm/06-json-authoring-cheatsheet.md` and the `27a–27d`
     type files.
-8. **`transition`** (slide-level enter): `FadeIn`, `SlideIn`, `PushIn`,
-   `PushLeft`, `PushRight`. **Vary them across the deck** — never the same one twice in a row.
+ 8. **`transition`** (slide-level enter): `FadeIn`, `SlideIn`, `PushIn`,
+    `PushLeft`, `PushRight`, `ZoomOut` (cinematic outro paired with
+    `BlastRadiusSlide`). **Vary them across the deck** — never the same one twice in a row.
 9. **`textAnimation`** (text reveal): `Bounce`, `FadeIn`, `SlideUp`, `Stagger`.
    Also vary these. Both respect `prefers-reduced-motion` automatically.
 10. **`titleStyle`** is `white` | `gold` | `cream`. `titleShimmer` adds a sweep.
