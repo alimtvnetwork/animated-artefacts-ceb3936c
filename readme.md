@@ -6,6 +6,12 @@ log; the orientation below is the fast path for newcomers (human or AI).
 
 ## 🤖 For AI agents — start here
 
+**👉 Single shareable guide: [`LLM.md`](LLM.md).** Hand this one file to any LLM
+(Claude, GPT, Gemini, etc.) and it knows how to create, edit, reorder, and ship
+slides — every field, every rule, in a 30-step playbook. Read it first for slide
+work; the packs below are deeper reference.
+
+
 Read [`.lovable/what-to-read.md`](.lovable/what-to-read.md) first (the onboarding
 map), then [`.lovable/memory/index.md`](.lovable/memory/index.md) (always-apply
 rules) and [`spec/readme.md`](spec/readme.md) (spec layout).
