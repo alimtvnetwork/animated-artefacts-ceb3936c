@@ -15,13 +15,14 @@
 |------|------|
 | `01-reference-frame-gold-rim.png` | **Visual target only** — how the finished camera should look. NOT used as a plate or mask at runtime. |
 | `02-squircle-mask-black.png` | **RUNTIME MASK** — used as `mask-image` to crop the live video to a transparent squircle. |
+| `03-squircle-plate-white-shadow.png` | **WHITE PLATE VARIANT** — generated 2026-06-05 from `04` by recoloring the gold→ember rim to pure white. Same shape + drop shadow; use as the runtime plate when a white rim is wanted. |
 | `04-squircle-plate-gold-shadow.png` | **RUNTIME PLATE** — gold→ember rim + drop-shadow PNG, composited behind the masked video. |
 
-> **Note (2026-06-04):** the presenter also referenced an "image 3"
-> (`03-…white-shadow.png`) for the mask, but that file was deleted in the
-> 2026-06-02 prune and is **not present** in `./assets/`. The runtime mask is
-> `02-squircle-mask-black.png`. If a distinct image-3 mask is required, it must
-> be re-supplied before it can be wired in.
+> **Note (2026-06-05):** `03-squircle-plate-white-shadow.png` now exists. It was
+> regenerated from `04` by converting the gold rim to white (presenter request),
+> so the earlier "image 3 is missing / deleted in the 2026-06-02 prune" note no
+> longer applies. The runtime mask remains `02-squircle-mask-black.png`; the
+> plate may be either the gold `04` or the white `03`.
 
 ## B. Layering model (v3 — the correct one)
 
