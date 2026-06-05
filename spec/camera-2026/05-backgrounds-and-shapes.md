@@ -14,24 +14,25 @@
 | File | Role |
 |------|------|
 | `01-reference-frame-gold-rim.png` | **Visual target only** — how the finished camera should look. NOT used as a plate or mask at runtime. |
-| `02-squircle-mask-black.png` | **RUNTIME MASK** — used as `mask-image` to crop the live video to a transparent squircle. |
+| `02-squircle-mask-black.png` | **SOURCE MASK REFERENCE** — the live app uses `src/assets/camera-2026/squircle-mask.png` as `mask-image` to crop the video. |
 | `03-squircle-plate-white-shadow.png` | **WHITE PLATE VARIANT** — generated 2026-06-05 from `04` by recoloring the gold→ember rim to pure white. Same shape + drop shadow; use as the runtime plate when a white rim is wanted. |
-| `04-squircle-plate-gold-shadow.png` | **RUNTIME PLATE** — gold→ember rim + drop-shadow PNG, composited behind the masked video. |
+| `04-squircle-plate-gold-shadow.png` | **SOURCE PLATE REFERENCE** — the live app uses `src/assets/camera-2026/squircle-plate-gold.png` behind the masked video. |
 
 > **Note (2026-06-05):** `03-squircle-plate-white-shadow.png` now exists. It was
 > regenerated from `04` by converting the gold rim to white (presenter request),
 > so the earlier "image 3 is missing / deleted in the 2026-06-02 prune" note no
-> longer applies. The runtime mask remains `02-squircle-mask-black.png`; the
-> plate may be either the gold `04` or the white `03`.
+> longer applies. The live runtime mask is `src/assets/camera-2026/squircle-mask.png`;
+> the live runtime plate may be `src/assets/camera-2026/squircle-plate-gold.png`
+> or a future white variant derived from `03`.
 
 ## B. Layering model (v3 — the correct one)
 
 Bottom → top:
 
-1. **Plate** — `04-squircle-plate-gold-shadow.png`, sized ~+12–16% larger than
+1. **Plate** — `src/assets/camera-2026/squircle-plate-gold.png`, sized ~+12–16% larger than
    the video box, centered. Provides the gold→ember rim + soft drop shadow.
 2. **Masked video** — the live `<video>` (objectFit cover, mirrored) with
-   `mask-image: url(02-squircle-mask-black.png)`, `mask-size: 100% 100%`,
+   `mask-image: url(squircle-mask.png)`, `mask-size: 100% 100%`,
    `mask-repeat: no-repeat`, cropping it to the transparent squircle so only the
    squircle interior of the feed shows, sitting inside the plate's rim.
 
