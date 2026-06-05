@@ -58,6 +58,7 @@ export default function SlideDeckPage() {
   const [direction, setDirection] = useState<Direction>('forward');
   const [controllerVisible, setControllerVisible] = useState(false);
   const [isFullscreen, setIsFullscreen] = useState(false);
+  const pseudoFullscreenRef = useRef(false);
   const [gridOpen, setGridOpen] = useState(false);
   /** Bottom thumbnail strip — opt-in, persisted in localStorage. Toggleable
    *  with the `T` keyboard shortcut and the strip's own toggle pill. */
@@ -604,7 +605,16 @@ export default function SlideDeckPage() {
 
       if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); next(); }
       else if (e.key === 'ArrowLeft' || e.key === 'Backspace') { e.preventDefault(); prev(); }
-      else if (e.key === 'Escape' && document.fullscreenElement) document.exitFullscreen();
+      else if (e.key === 'Escape' && (document.fullscreenElement || pseudoFullscreenRef.current)) {
+        e.preventDefault();
+        if (document.fullscreenElement) {
+          pseudoFullscreenRef.current = false;
+          document.exitFullscreen().catch(() => setIsFullscreen(false));
+        } else {
+          pseudoFullscreenRef.current = false;
+          setIsFullscreen(false);
+        }
+      }
     }
     function onKeyUp(e: KeyboardEvent) {
       if (e.key === 'Enter') stopAutoplay();
@@ -735,12 +745,21 @@ export default function SlideDeckPage() {
 
   // Fullscreen
   useEffect(() => {
-    function onFs() { setIsFullscreen(Boolean(document.fullscreenElement)); }
+    function onFs() {
+      if (document.fullscreenElement) {
+        pseudoFullscreenRef.current = false;
+        setIsFullscreen(true);
+        return;
+      }
+      if (pseudoFullscreenRef.current) return;
+      setIsFullscreen(false);
+    }
     document.addEventListener('fullscreenchange', onFs);
     return () => document.removeEventListener('fullscreenchange', onFs);
   }, []);
   async function toggleFullscreen() {
     if (document.fullscreenElement) {
+      pseudoFullscreenRef.current = false;
       try {
         await document.exitFullscreen();
       } catch {
@@ -748,13 +767,20 @@ export default function SlideDeckPage() {
       }
       return;
     }
+    if (pseudoFullscreenRef.current) {
+      pseudoFullscreenRef.current = false;
+      setIsFullscreen(false);
+      return;
+    }
     try {
       await document.documentElement.requestFullscreen();
+      pseudoFullscreenRef.current = false;
       setIsFullscreen(true);
     } catch {
       // Browser/full iframe environments can reject the Fullscreen API.
       // Keep the deck in its fullscreen layout mode anyway so the presenter
       // still gets the intended chrome/state instead of a dead toggle.
+      pseudoFullscreenRef.current = true;
       setIsFullscreen(true);
     }
   }
