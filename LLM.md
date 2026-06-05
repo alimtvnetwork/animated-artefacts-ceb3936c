@@ -110,9 +110,12 @@
     }
     ```
     Images live under `public/assets/<deck>/` and are referenced from `/assets/...`.
-13. **Capsule tones (the ONLY allowed values):** `gold`, `ember`, `cream`,
-    `outline`. Never inline a hex color or `style.background` — light themes
-    repurpose those tokens and chips collapse to dark-on-dark.
+13. **Capsule tones (must match a `.capsule-{tone}` class in `src/index.css`):**
+    `gold`, `ember`, `cream`, `ink`, `outline`, `violet`, `teal`, `rose`, `sky`.
+    Use `meta` (`.capsule-meta`) for time/duration tags. Prefer `gold`/`ember`/
+    `cream`/`outline` for brand-primary chips. **Never inline a hex color or
+    `style.background`** — light themes repurpose brand tokens and inline chips
+    collapse to dark-on-dark; the `.capsule-{tone}` classes auto-flip per theme.
 14. **`enabled: false`** hides a slide without deleting it. `narrowIdea` is the
     plain-English anchor; `notes` are presenter-only.
 
@@ -170,7 +173,7 @@
 ## Golden rules (do not break)
 
 1. Keywords only — never paragraphs on a slide.
-2. Capsule tones are `gold` / `ember` / `cream` / `outline` only — never hex.
+2. Capsules use a `.capsule-{tone}` class (`gold`/`ember`/`cream`/`ink`/`outline`/`violet`/`teal`/`rose`/`sky`, `meta` for tags) — never inline hex.
 3. Reorder via `slides.json` array order, not file renames.
 4. Vary `transition` and `textAnimation` across the deck.
 5. Use Noir & Gold theme tokens; titles Ubuntu Bold, body Inter.
