@@ -1,9 +1,10 @@
 # 09 — Build Log: Steps 11–20 (reasoning + time)
 
-> **⚠️ HISTORICAL (pre-v2).** "circle/halo/plate" wording below predates the
-> 2026-06-02 v2 change: there is **no plate** — the squircle rim is CSS-only
-> (border-radius + gold border + layered box-shadow, transparent interior).
-> Read "plate" as "the CSS rim". See [`05-backgrounds-and-shapes.md`](./05-backgrounds-and-shapes.md) §8 (v2).
+> **⚠️ HISTORICAL.** "circle/halo/plate" and any "CSS-only rim" wording below is
+> superseded by the **current v3 (2026-06-05)** design: a **PNG plate**
+> (`squircle-plate-gold.png`) behind the video + a transparent **`mask-image` crop**
+> (`squircle-mask.png`), transparent interior.
+> See [`05-backgrounds-and-shapes.md`](./05-backgrounds-and-shapes.md) §8 (v3).
 
 
 > Checkpoint **B→C** expansion of [`06-implementation-steps-1-30.md`](./06-implementation-steps-1-30.md).
