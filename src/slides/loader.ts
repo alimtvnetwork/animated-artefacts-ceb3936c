@@ -136,7 +136,7 @@ function discoverBundledDecks(): Map<string, BundledDeckBundle> {
     } as unknown as DeckSpec;
 
     const slides: SlideSpec[] = [];
-    for (const entry of raw.Slides ?? []) {
+    for (const entry of manifestSlides(raw)) {
       if (!entry?.path) continue;
       // Manifest paths are like `./slides/01-title.json` — keep just the file.
       const file = entry.path.replace(/^\.\//, '').replace(/^slides\//, '');
