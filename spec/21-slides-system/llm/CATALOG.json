@@ -22,43 +22,139 @@
   },
   "registries": {
     "slideTypes": {
-      "count": 22,
+      "count": 26,
       "source": "src/slides/enums.ts → SlideType",
       "values": [
-        { "name": "TitleSlide",          "purpose": "Hero opener with eyebrow / title / subtitle / presenter chip / ambient bg." },
-        { "name": "MiddleTitleSlide",    "purpose": "Section-break interlude — dark slate + amber spotlight + ambient icons. Title-only." },
-        { "name": "KeywordSlide",        "purpose": "One or two giant keywords centered. Punchline beats." },
-        { "name": "CapsuleListSlide",    "purpose": "Title + flowing list of capsule labels. Most common 'tags / pillars' slide." },
-        { "name": "StepTimelineSlide",   "purpose": "Vertical numbered timeline with hover-rail + per-step capsule." },
-        { "name": "StepsChain3DSlide",   "purpose": "Cinematic 3D chain — active forward, neighbours recede, distant blur." },
-        { "name": "FocusTimelineSlide",  "purpose": "Carousel-of-one — one step in limelight, neighbours dim." },
-        { "name": "AdvanceStepSlide",    "purpose": "Camera-zoom step chain. Owns navigation via tryAdvance." },
-        { "name": "ImageSlide",          "purpose": "Single hero image + optional caption." },
-        { "name": "QrMeetingSlide",      "purpose": "QR + meeting block (deep URL). createSafeQrCanvas required." },
-        { "name": "ClickRevealSlide",    "purpose": "Hidden slide reachable only via parent capsule's clickRevealSlide." },
-        { "name": "SectionDividerSlide", "purpose": "Lightweight divider — eyebrow + title only." },
-        { "name": "MetricGridSlide",     "purpose": "Compact grid of headline metrics (2–6 cells; 1×N / 2×2 / 2×3)." },
-        { "name": "TableSlide",          "purpose": "Comparison table — columns + rows + per-row accent bars." },
-        { "name": "CodeBlockSlide",      "purpose": "Title + single hero .slide-codeblock (shiki / manual tokens / plain text)." },
-        { "name": "BoxDiagramSlide",     "purpose": "Generic boxes-with-fields diagram (topic-agnostic)." },
-        { "name": "ERDiagramSlide",      "purpose": "Boxes diagram with auto navy-blue palette (cyan PK, orange FK)." },
-        { "name": "LayoutSlide",         "purpose": "Generic .slide-grid-* wrapper rendering layoutSlots[] as cells." },
-        { "name": "DatabaseDiagramSlide","purpose": "Single ER diagram. ≤5 entities, ≤6 relationships. Theme-token SVG (Mermaid swap pending)." },
-        { "name": "DataTableSlide",      "purpose": "Density-capped table (≤5 cols × ≤8 rows). Header at 0.25s, rows Stagger 35ms." },
-        { "name": "NumberCalloutSlide",  "purpose": "ONE animated number. Easings linear/easeOutQuint/spring; reduced-motion snaps." },
-        { "name": "EquationSlide",       "purpose": "ONE equation, term-by-term Stagger. Build-time KaTeX prerender pending." },
-        { "name": "ChecklistSlide",      "purpose": "Audience checklist — click rows to confirm done, gold progress bar. ≤7 items. Spec 62." }
+        {
+          "name": "TitleSlide",
+          "purpose": "Hero opener with eyebrow / title / subtitle / presenter chip / ambient bg."
+        },
+        {
+          "name": "MiddleTitleSlide",
+          "purpose": "Section-break interlude — dark slate + amber spotlight + ambient icons. Title-only."
+        },
+        {
+          "name": "KeywordSlide",
+          "purpose": "One or two giant keywords centered. Punchline beats."
+        },
+        {
+          "name": "CapsuleListSlide",
+          "purpose": "Title + flowing list of capsule labels. Most common 'tags / pillars' slide."
+        },
+        {
+          "name": "StepTimelineSlide",
+          "purpose": "Vertical numbered timeline with hover-rail + per-step capsule."
+        },
+        {
+          "name": "StepsChain3DSlide",
+          "purpose": "Cinematic 3D chain — active forward, neighbours recede, distant blur."
+        },
+        {
+          "name": "FocusTimelineSlide",
+          "purpose": "Carousel-of-one — one step in limelight, neighbours dim."
+        },
+        {
+          "name": "AdvanceStepSlide",
+          "purpose": "Camera-zoom step chain. Owns navigation via tryAdvance."
+        },
+        {
+          "name": "ImageSlide",
+          "purpose": "Single hero image + optional caption."
+        },
+        {
+          "name": "QrMeetingSlide",
+          "purpose": "QR + meeting block (deep URL). createSafeQrCanvas required."
+        },
+        {
+          "name": "ClickRevealSlide",
+          "purpose": "Hidden slide reachable only via parent capsule's clickRevealSlide."
+        },
+        {
+          "name": "SectionDividerSlide",
+          "purpose": "Lightweight divider — eyebrow + title only."
+        },
+        {
+          "name": "MetricGridSlide",
+          "purpose": "Compact grid of headline metrics (2–6 cells; 1×N / 2×2 / 2×3)."
+        },
+        {
+          "name": "TableSlide",
+          "purpose": "Comparison table — columns + rows + per-row accent bars."
+        },
+        {
+          "name": "CodeBlockSlide",
+          "purpose": "Title + single hero .slide-codeblock (shiki / manual tokens / plain text)."
+        },
+        {
+          "name": "BoxDiagramSlide",
+          "purpose": "Generic boxes-with-fields diagram (topic-agnostic)."
+        },
+        {
+          "name": "ERDiagramSlide",
+          "purpose": "Boxes diagram with auto navy-blue palette (cyan PK, orange FK)."
+        },
+        {
+          "name": "LayoutSlide",
+          "purpose": "Generic .slide-grid-* wrapper rendering layoutSlots[] as cells."
+        },
+        {
+          "name": "DatabaseDiagramSlide",
+          "purpose": "Single ER diagram. ≤5 entities, ≤6 relationships. Theme-token SVG (Mermaid swap pending)."
+        },
+        {
+          "name": "DataTableSlide",
+          "purpose": "Density-capped table (≤5 cols × ≤8 rows). Header at 0.25s, rows Stagger 35ms."
+        },
+        {
+          "name": "NumberCalloutSlide",
+          "purpose": "ONE animated number. Easings linear/easeOutQuint/spring; reduced-motion snaps."
+        },
+        {
+          "name": "EquationSlide",
+          "purpose": "ONE equation, term-by-term Stagger. Build-time KaTeX prerender pending."
+        },
+        {
+          "name": "ChecklistSlide",
+          "purpose": "Audience checklist — click rows to confirm done, gold progress bar. ≤7 items. Spec 62."
+        },
+        {
+          "name": "TileSlide",
+          "purpose": "N (2–4) clickable cards in a row — glyph + name + tag + desc + external URL. Project lists / repo galleries."
+        },
+        {
+          "name": "BlastRadiusSlide",
+          "purpose": "Cinematic single-word title moment — chrome gradient title + tumbling SVG shards + particle field. Pairs with ZoomOut exit. Requires content.title."
+        },
+        {
+          "name": "SessionOutlineSlide",
+          "purpose": "Vertical numbered agenda — title block + 2–8 outline rows (index · title · subtitle · meta). Optional activeIndex highlights one row."
+        }
       ]
     },
     "slideTransitions": {
       "count": 5,
       "source": "src/slides/enums.ts → SlideTransition",
       "values": [
-        { "name": "FadeIn",    "motion": "Opacity 0 → 1" },
-        { "name": "SlideIn",   "motion": "y +40px → 0 + fade" },
-        { "name": "PushIn",    "motion": "Scale 0.92 → 1 + fade" },
-        { "name": "PushLeft",  "motion": "x +8% → 0 forward + fade" },
-        { "name": "PushRight", "motion": "x −8% → 0 forward + fade" }
+        {
+          "name": "FadeIn",
+          "motion": "Opacity 0 → 1"
+        },
+        {
+          "name": "SlideIn",
+          "motion": "y +40px → 0 + fade"
+        },
+        {
+          "name": "PushIn",
+          "motion": "Scale 0.92 → 1 + fade"
+        },
+        {
+          "name": "PushLeft",
+          "motion": "x +8% → 0 forward + fade"
+        },
+        {
+          "name": "PushRight",
+          "motion": "x −8% → 0 forward + fade"
+        }
       ],
       "reducedMotion": "All variants collapse to a 150ms opacity fade.",
       "resolverChain": [
@@ -73,69 +169,123 @@
       "count": 4,
       "source": "src/slides/enums.ts → TextAnimation",
       "values": [
-        { "name": "FadeIn",  "behaviour": "Single opacity ramp." },
-        { "name": "Bounce",  "behaviour": "Scale 0.96 → 1, small back-out overshoot." },
-        { "name": "SlideUp", "behaviour": "y 24px → 0 + fade." },
-        { "name": "Stagger", "behaviour": "Per-child cascade (60ms apart) layered on SlideUp." }
+        {
+          "name": "FadeIn",
+          "behaviour": "Single opacity ramp."
+        },
+        {
+          "name": "Bounce",
+          "behaviour": "Scale 0.96 → 1, small back-out overshoot."
+        },
+        {
+          "name": "SlideUp",
+          "behaviour": "y 24px → 0 + fade."
+        },
+        {
+          "name": "Stagger",
+          "behaviour": "Per-child cascade (60ms apart) layered on SlideUp."
+        }
       ]
     },
     "capsuleColors": {
       "count": 9,
       "source": "src/slides/enums.ts → CapsuleColor",
-      "values": ["gold", "ember", "cream", "ink", "outline", "violet", "teal", "rose", "sky"]
+      "values": [
+        "gold",
+        "ember",
+        "cream",
+        "ink",
+        "outline",
+        "violet",
+        "teal",
+        "rose",
+        "sky"
+      ]
     },
     "controllerPositions": {
       "count": 2,
       "source": "src/slides/enums.ts → ControllerPosition",
-      "values": ["BottomCenter", "TopRight"]
+      "values": [
+        "BottomCenter",
+        "TopRight"
+      ]
     },
     "capsuleExpandAnimations": {
       "count": 6,
       "source": "CapsuleExpandSpec.animation (src/slides/types.ts)",
-      "values": ["morph", "fade", "slideUp", "slideDown", "pushLeft", "pushRight"],
+      "values": [
+        "morph",
+        "fade",
+        "slideUp",
+        "slideDown",
+        "pushLeft",
+        "pushRight"
+      ],
       "default": "morph",
       "reducedMotion": "180ms opacity fade."
     },
     "capsuleLabelAnimations": {
       "count": 3,
       "source": "CapsuleExpandSpec.labelAnimation (src/slides/types.ts)",
-      "values": ["slideUp", "stagger", "fade"],
+      "values": [
+        "slideUp",
+        "stagger",
+        "fade"
+      ],
       "default": "slideUp"
     },
     "stepMotionVariants": {
       "count": 3,
       "source": "stepMotionVariant() — slides 3 + 4",
       "values": [
-        { "name": "lift",     "motion": "y 12 → 0 + fade" },
-        { "name": "slide",    "motion": "x 24 → 0 + fade" },
-        { "name": "parallax", "motion": "y 24 → 0 + scale 0.97 → 1 + fade" }
+        {
+          "name": "lift",
+          "motion": "y 12 → 0 + fade"
+        },
+        {
+          "name": "slide",
+          "motion": "x 24 → 0 + fade"
+        },
+        {
+          "name": "parallax",
+          "motion": "y 24 → 0 + scale 0.97 → 1 + fade"
+        }
       ],
       "rotation": "Round-robin by step index — adjacent steps never share a variant."
     },
     "clickRevealTriggers": {
       "count": 2,
       "values": [
-        { "name": "clickRevealSlide", "effect": "Navigate to a hidden slide number." },
-        { "name": "expand",           "effect": "Open inline expanding card on the current slide." }
+        {
+          "name": "clickRevealSlide",
+          "effect": "Navigate to a hidden slide number."
+        },
+        {
+          "name": "expand",
+          "effect": "Open inline expanding card on the current slide."
+        }
       ],
       "precedence": "If both are set on a single CapsuleSpec, `expand` wins."
     },
     "capsuleIcons": {
       "source": "lucide-react `icons` map. PascalCase name string, e.g. 'Sparkles'.",
-      "badgeForms": ["plate (iconBadge: true)", "inline glyph (iconBadge: false | undefined)"],
+      "badgeForms": [
+        "plate (iconBadge: true)",
+        "inline glyph (iconBadge: false | undefined)"
+      ],
       "fallback": "Unknown name → no icon rendered (no validation crash)."
     }
   },
   "schemas": {
-    "slide":         "spec/slide.schema.json",
-    "deck":          "spec/deck.schema.json",
-    "deckManifest":  "spec/deck-manifest.schema.json"
+    "slide": "spec/slide.schema.json",
+    "deck": "spec/deck.schema.json",
+    "deckManifest": "spec/deck-manifest.schema.json"
   },
   "portability": {
-    "exportPath":    "spec/26-slide-definitions/<deck-slug>/",
-    "importPath":    "spec/26-slide-definitions/<deck-slug>/",
-    "assetRehome":   "Image src paths and font references must be re-pathed by the importing project; the loader does not auto-rewrite.",
-    "validation":    "loader.ts validates every imported slide on module evaluation; unknown enum values raise a hard error."
+    "exportPath": "spec/26-slide-definitions/<deck-slug>/",
+    "importPath": "spec/26-slide-definitions/<deck-slug>/",
+    "assetRehome": "Image src paths and font references must be re-pathed by the importing project; the loader does not auto-rewrite.",
+    "validation": "loader.ts validates every imported slide on module evaluation; unknown enum values raise a hard error."
   },
   "doc": "spec/21-slides-system/llm/28-component-and-animation-catalog.md"
 }
