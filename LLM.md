@@ -110,9 +110,12 @@
     }
     ```
     Images live under `public/assets/<deck>/` and are referenced from `/assets/...`.
-13. **Capsule tones (the ONLY allowed values):** `gold`, `ember`, `cream`,
-    `outline`. Never inline a hex color or `style.background` — light themes
-    repurpose those tokens and chips collapse to dark-on-dark.
+13. **Capsule tones (must match a `.capsule-{tone}` class in `src/index.css`):**
+    `gold`, `ember`, `cream`, `ink`, `outline`, `violet`, `teal`, `rose`, `sky`.
+    Use `meta` (`.capsule-meta`) for time/duration tags. Prefer `gold`/`ember`/
+    `cream`/`outline` for brand-primary chips. **Never inline a hex color or
+    `style.background`** — light themes repurpose brand tokens and inline chips
+    collapse to dark-on-dark; the `.capsule-{tone}` classes auto-flip per theme.
 14. **`enabled: false`** hides a slide without deleting it. `narrowIdea` is the
     plain-English anchor; `notes` are presenter-only.
 
