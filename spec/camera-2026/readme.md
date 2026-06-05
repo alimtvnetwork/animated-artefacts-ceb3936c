@@ -66,11 +66,11 @@ at runtime, import from `src/assets/` or register a Lovable asset pointer — se
 | ~~`03-squircle-plate-white-shadow.png`~~ | **REMOVED 2026-06-02.** Was an opaque white fill plate behind the camera; deleted (rejected look, no value). |
 | ~~`04-squircle-plate-gold-shadow.png`~~ | **No longer used at runtime (2026-06-02 v2).** Its baked rim + fill read as a thick opaque ring (rejected). The rim is now CSS-only (border + box-shadow). Reference only. |
 
-> **Runtime is now CSS-only.** `src/assets/camera-2026/` is empty — the overlay
-> imports **no** plate/mask PNG. The squircle silhouette comes from
-> `border-radius: 38% / 34%`, the rim from a `2px` gold border + a layered
-> `box-shadow` (ember edge + gold glow + drop shadow), and the interior stays
-> transparent. See [`05-backgrounds-and-shapes.md`](./05-backgrounds-and-shapes.md) §8 (v2).
+> **Runtime is PNG plate + transparent mask (v3, 2026-06-05).**
+> `src/assets/camera-2026/` holds `squircle-plate-gold.png` (rendered behind the
+> `<video>`) and `squircle-mask.png` (applied as `mask-image` to crop the video).
+> The interior stays transparent so the slide shows through; circle/puck is a CSS
+> fallback. See [`05-backgrounds-and-shapes.md`](./05-backgrounds-and-shapes.md) §8 (v3).
 >
 > A "squircle" = superellipse, between a circle and a rounded square.
 
