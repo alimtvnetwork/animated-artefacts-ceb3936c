@@ -22,10 +22,9 @@ dependency order (state → render → controls → autoframe → backgrounds).
 in `10-build-log-steps-21-30.md`.
 
 ## Remaining items
-1. **Implement I01–I10** — write the actual camera code (files 01–05). *Start here.* (~16.5 h)
-2. **Execute T01–T30** — run the automated suite, manual QA, performance, cross-browser, CI, and release hardening against the new code. (~25.75 h)
-3. **Acceptance sign-off** — run `07-acceptance-checklist-and-tests.md`, fix defects, flip status to done.
+1. ~~Implement I01–I10~~ — **done** (v3, 2026-06-05). Camera code is live in `PresenterWebcamOverlay.tsx` + `usePresenterWebcam`/`useAutoFrame`.
+2. **Execute T01–T30** — automated suite is green (rim + stability 10/10; full webcam set passing). Manual QA, performance, cross-browser, and CI hardening remain optional follow-ups.
+3. **Acceptance sign-off** — automated portions of `07-acceptance-checklist-and-tests.md` pass; live manual acceptance pass still pending.
 
-After I10 the camera is fully built and ready for the T01–T30 verification pass.
-There are no further documentation "next 10" blocks — implementation (I01–I10)
-followed by verification (T01–T30) is the entire remaining path to done.
+The camera is fully built. The only open work is the optional manual/cross-browser
+verification pass — there is no further implementation code to write.
