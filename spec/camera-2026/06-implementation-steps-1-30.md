@@ -7,10 +7,11 @@
 >
 > **⚠️ UPDATED (2026-06-04 v3):** the v2 "CSS-only rim" reversal is itself
 > **REVERSED** per presenter direction. Steps 25–27 now use a **PNG plate**
-> (`04-squircle-plate-gold-shadow.png`) behind the video plus a **transparent
-> squircle mask** (`02-squircle-mask-black.png` via `mask-image`) on the video —
-> one layered over the other. `01-reference-frame-gold-rim.png` is the look
-> target only. See file 05 §8 (v3). Read steps 25–26 as "render the plate +
+> (runtime: `src/assets/camera-2026/squircle-plate-gold.png`) behind the video
+> plus a **transparent squircle mask** (runtime:
+> `src/assets/camera-2026/squircle-mask.png` via `mask-image`) on the video —
+> one layered over the other. The `0N-*` PNGs in `./assets/` are look/reference
+> sources only. See file 05 §8 (v3). Read steps 25–26 as "render the plate +
 > mask the video".
 
 ## Phase A — Skeleton & state (steps 1–8)
