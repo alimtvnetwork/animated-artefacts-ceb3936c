@@ -535,7 +535,7 @@ export function PresenterWebcamOverlay() {
     const previewDiameter = Math.min(previewWidth, previewHeight);
     const previewLeft = circleShape ? (previewWidth - previewDiameter) / 2 : 0;
     const previewTop = circleShape ? (previewHeight - previewDiameter) / 2 : 0;
-    const rectangleRadius = '20px';
+    const rectangleRadius = '38% / 34%';
     return (
       <>
         <div
@@ -868,7 +868,7 @@ export function PresenterWebcamOverlay() {
       ? Math.min(STAGE_W, STAGE_H)
       : Math.min(STAGE_W, STAGE_H);
     const stageControlsOnLeft = viewportPrefersLeftCircleControls;
-    const rectangleRadius = '28px';
+    const rectangleRadius = '38% / 34%';
     return (
       <div
         role="region"
@@ -1023,7 +1023,7 @@ export function PresenterWebcamOverlay() {
       ? Math.min(window.innerWidth, window.innerHeight)
       : Math.min(window.innerWidth, window.innerHeight);
     const fullscreenControlsOnLeft = viewportPrefersLeftCircleControls;
-    const rectangleRadius = '28px';
+    const rectangleRadius = '38% / 34%';
     return createPortal(
       <div
         role="region"
@@ -1219,7 +1219,7 @@ export function PresenterWebcamOverlay() {
   // spec/camera-2026/05 §3a — squircle = superellipse. The cheap, crisp,
   // theme-tinting path is a border-radius superellipse approximation
   // (38% / 34%). Circle (`O`) overrides to 50%; minimized is a puck (999).
-  const frameRadius = minimized ? 999 : circleShape ? '50%' : '22px';
+  const frameRadius = minimized ? 999 : circleShape ? '50%' : '38% / 34%';
   // spec/camera-2026/05 §2 — NO decorative plate. The masked video carries
   // its own thin gold→ember rim + soft drop shadow via CSS on the inner
   // frame, so the squircle interior stays fully TRANSPARENT (image 3). The
