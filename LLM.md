@@ -173,7 +173,7 @@
 ## Golden rules (do not break)
 
 1. Keywords only — never paragraphs on a slide.
-2. Capsule tones are `gold` / `ember` / `cream` / `outline` only — never hex.
+2. Capsules use a `.capsule-{tone}` class (`gold`/`ember`/`cream`/`ink`/`outline`/`violet`/`teal`/`rose`/`sky`, `meta` for tags) — never inline hex.
 3. Reorder via `slides.json` array order, not file renames.
 4. Vary `transition` and `textAnimation` across the deck.
 5. Use Noir & Gold theme tokens; titles Ubuntu Bold, body Inter.
