@@ -20,7 +20,10 @@
   The React renderer in `src/slides/` reads JSON and draws the slide.
 - **Runtime data lives in `front-end/project/<deck>/data/`.** That is what the
   app actually loads. `front-end/project/<deck>/data/slides.json` is the
-  ordered manifest; each entry points to one file in `data/slides/NN-name.json`.
+  **manifest object**: `{ Name, config, slides: [...] }`. The `slides` array is
+  the ordered deck — each entry is `{ "title": "03 · …", "path":
+  "./slides/NN-name.json" }`. Array order = on-screen slide order (the `path`
+  filename number does NOT have to match the position).
 - **Spec-first.** Before editing runtime JSON, the intent/spec lives in
   `spec/26-slide-definitions/<deck>/`. JSON is the source of truth at runtime.
 - **Keywords-only.** Slides are visual anchors; the presenter narrates. Never
