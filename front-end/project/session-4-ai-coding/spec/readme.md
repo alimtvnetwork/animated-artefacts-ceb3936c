@@ -11,14 +11,18 @@
 |---|---|---|---|
 | 1 | Title | TitleSlide | One sentence: who & what |
 | 2 | Session outline | **StepsChain3DSlide** | The 3D-steps animation as the TOC, per request |
-| 3 | Recap | CapsuleListSlide | Hover-expand for previous-session topics |
-| 4 | Mindset | KeywordSlide | Three keywords + two blocker capsules |
-| 5 | What we ship | CapsuleListSlide | Movie · Alarm · Gitmap |
-| 6 | References | CapsuleListSlide | The 4 links you provided |
-| 7 | Riseup Asia | CapsuleListSlide | Tech partner · Closer · NDA · Free help |
-| 8 | Guidelines | KeywordSlide | Spec-first · Strict rules · Less hallucination |
-| 9 | Your call | CapsuleListSlide | Two paths + vote |
-| 10 | Meeting | QrMeetingSlide | QR closer |
+| 3 | Build flow | StepTimelineSlide | The missing step-system slide inserted before the content run |
+| 4 | Recap | CapsuleListSlide | Hover-expand for previous-session topics |
+| 5 | Mindset | KeywordSlide | Three keywords + two blocker capsules |
+| 6 | What we ship | CapsuleListSlide | Movie · Alarm · Gitmap |
+| 7 | References | CapsuleListSlide | The 4 links you provided |
+| 8 | Riseup Asia | CapsuleListSlide | Tech partner · Closer · NDA · Free help |
+| 9 | Guidelines | KeywordSlide | Spec-first · Strict rules · Less hallucination |
+| 10 | Your call | CapsuleListSlide | Two paths + vote |
+| 11 | Meeting | QrMeetingSlide | QR closer |
+| 12 | Session outline | SessionOutlineSlide | Calm vertical outline variant |
+| 13 | Session outline — Build | SessionOutlineSlide | "We are here" active-step variant |
+| 14 | Four sessions | SessionOutlineSlide | Multi-session arc summary |
 
 ## Animation variety
 

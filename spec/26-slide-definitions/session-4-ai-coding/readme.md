@@ -9,14 +9,18 @@ deck. Runtime JSON lives at `front-end/project/session-4-ai-coding/data/`.
 |---|---|---|---|
 | 1 | Title | "Session 4 exists, here's the topic" | TitleSlide |
 | 2 | Outline | "Today is a 5-step chain" | StepsChain3DSlide ← per request |
-| 3 | Recap | "Here's what you should already know" | CapsuleListSlide |
-| 4 | Mindset | "Two blockers stop mastery" | KeywordSlide |
-| 5 | Ship today | "Three concrete things we'll touch" | CapsuleListSlide |
-| 6 | References | "Read along — here are the URLs" | CapsuleListSlide |
-| 7 | Riseup Asia | "What we offer beyond the session" | CapsuleListSlide |
-| 8 | Guidelines | "Strict rules tame the model" | KeywordSlide |
-| 9 | Your call | "Audience picks the live build" | CapsuleListSlide |
-| 10 | Meeting | "Book a 1:1" | QrMeetingSlide |
+| 3 | Build flow | "Here's the live build sequence" | StepTimelineSlide |
+| 4 | Recap | "Here's what you should already know" | CapsuleListSlide |
+| 5 | Mindset | "Two blockers stop mastery" | KeywordSlide |
+| 6 | Ship today | "Three concrete things we'll touch" | CapsuleListSlide |
+| 7 | References | "Read along — here are the URLs" | CapsuleListSlide |
+| 8 | Riseup Asia | "What we offer beyond the session" | CapsuleListSlide |
+| 9 | Guidelines | "Strict rules tame the model" | KeywordSlide |
+| 10 | Your call | "Audience picks the live build" | CapsuleListSlide |
+| 11 | Meeting | "Book a 1:1" | QrMeetingSlide |
+| 12 | Session outline | "Calm vertical outline" | SessionOutlineSlide |
+| 13 | Session outline — Build | "We are here now" | SessionOutlineSlide |
+| 14 | Four sessions | "Today inside the bigger arc" | SessionOutlineSlide |
 
 ## Animation rules followed
 
