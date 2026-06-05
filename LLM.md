@@ -129,10 +129,12 @@
 ### C. Author / edit (steps 15–22)
 
 15. **To add a slide:** create `data/slides/NN-name.json` using the envelope
-    above, then add a reference to it in `data/slides.json` at the desired index.
-16. **To reorder slides:** reorder the entries in `data/slides.json` only. The
-    array position is the slide number; you do **not** rename files. Shifting an
-    item forward pushes every later slide down by one automatically.
+    above, then add a `{ "title", "path": "./slides/NN-name.json" }` entry to the
+    `slides[]` array in `data/slides.json` at the desired index.
+16. **To reorder slides:** reorder the entries in the `slides[]` array in
+    `data/slides.json` only. Array position is the slide number; you do **not**
+    rename files (the `path` filename number can differ from the position).
+    Shifting an item forward pushes every later slide down by one automatically.
 17. **To edit content:** change the `content` block of the target file. Keep text
     to keywords/short lines — split long ideas into multiple capsules or steps.
 18. **Match the deck theme.** Use Noir & Gold tokens. Titles use Ubuntu Bold,
