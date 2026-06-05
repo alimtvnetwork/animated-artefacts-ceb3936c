@@ -29,6 +29,15 @@ describe('useOnboardingFlag', () => {
     expect(result.current.onboarded).toBe(false);
     expect(localStorage.getItem(ONBOARDED_KEY)).toBeNull();
   });
+
+  it('syncs onboarding state across same-tab hook instances', async () => {
+    const first = renderHook(() => useOnboardingFlag());
+    const second = renderHook(() => useOnboardingFlag());
+    act(() => first.result.current.markOnboarded());
+    await waitFor(() => expect(second.result.current.onboarded).toBe(true));
+    act(() => second.result.current.resetOnboarding());
+    await waitFor(() => expect(first.result.current.onboarded).toBe(false));
+  });
 });
 
 describe('OnboardingCoachmark', () => {
