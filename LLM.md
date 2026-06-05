@@ -20,7 +20,10 @@
   The React renderer in `src/slides/` reads JSON and draws the slide.
 - **Runtime data lives in `front-end/project/<deck>/data/`.** That is what the
   app actually loads. `front-end/project/<deck>/data/slides.json` is the
-  ordered manifest; each entry points to one file in `data/slides/NN-name.json`.
+  **manifest object**: `{ Name, config, slides: [...] }`. The `slides` array is
+  the ordered deck — each entry is `{ "title": "03 · …", "path":
+  "./slides/NN-name.json" }`. Array order = on-screen slide order (the `path`
+  filename number does NOT have to match the position).
 - **Spec-first.** Before editing runtime JSON, the intent/spec lives in
   `spec/26-slide-definitions/<deck>/`. JSON is the source of truth at runtime.
 - **Keywords-only.** Slides are visual anchors; the presenter narrates. Never
@@ -36,9 +39,10 @@
 
 1. **Identify the deck.** Decks live under `front-end/project/<deck>/`. The
    active session deck is `session-4-ai-coding`. Confirm which deck before any edit.
-2. **Open the manifest.** Read `front-end/project/<deck>/data/slides.json`. It is
-   an ordered array; index position = on-screen slide order. Each item references
-   a file in `data/slides/`.
+ 2. **Open the manifest.** Read `front-end/project/<deck>/data/slides.json`. It is
+    an object `{ Name, config, slides: [...] }`. The `slides[]` array is the
+    deck order — each item is `{ "title", "path": "./slides/NN-name.json" }`.
+    Array position = on-screen slide number.
 3. **Read the matching spec folder** `spec/26-slide-definitions/<deck>/` to learn
    the deck's intent, then `spec/26-slide-definitions/<deck>/readme.md`.
 4. **Skim the always-apply rules** in `.lovable/memory/index.md` (theme, fonts,
@@ -91,15 +95,17 @@
 10. **`titleStyle`** is `white` | `gold` | `cream`. `titleShimmer` adds a sweep.
     `sound.on` is the trigger (`focus`/`reveal`), `kind` is the cue
     (`whoosh`/`chime`/etc.), `volume` is 0–1.
-11. **`content` shape depends on `slideType`:**
-    - `TitleSlide`: `{ eyebrow, title, subtitle }`
-    - `KeywordSlide`: `{ eyebrow, title, keyword }`
-    - `CapsuleListSlide`: `{ eyebrow, title, capsules: [{ text, color }] }`
-    - `StepTimelineSlide`: `{ eyebrow, title, steps: [...] }` (see step 12)
-    - `ImageSlide`: `{ eyebrow, title, image, caption }`
-    - `QrMeetingSlide`: `{ eyebrow, title, url, capsules? }`
-    - `SectionDividerSlide`: `{ eyebrow, title }`
-    - `SessionOutlineSlide`: `{ eyebrow, title, items: [...] }`
+11. **`content` uses ONE unified `SlideContent` interface** (`src/slides/types.ts`,
+    `interface SlideContent`). All fields optional; each `slideType` reads the
+    subset it needs:
+    - `TitleSlide` / `MiddleTitleSlide` / `SectionDividerSlide`: `{ eyebrow?, title, subtitle? }`
+    - `KeywordSlide`: `{ eyebrow?, title, keywords?: string[] }` (array, not `keyword`)
+    - `CapsuleListSlide`: `{ eyebrow?, title, capsules?: [{ text, color }] }`
+    - `StepTimelineSlide` / `FocusTimelineSlide` / `AdvanceStepSlide` / `StepsChain3DSlide`: `{ eyebrow?, title, steps?: [...] }` (see step 12)
+    - `ImageSlide`: `{ eyebrow?, title?, image, caption? }`
+    - `QrMeetingSlide`: `{ eyebrow?, title, capsules? }` (meeting URL/QR come from `config.meeting`)
+    - `SessionOutlineSlide`: `{ eyebrow?, title, items?: [...], activeIndex? }`
+    - Diagram/table/code/metric types (`TableSlide`, `CodeBlockSlide`, `MetricGridSlide`, `LayoutSlide`, etc.) have richer `content` fields — see `spec/21-slides-system/llm/06-json-authoring-cheatsheet.md` + `27a–27d`.
 12. **Step object (StepTimelineSlide):**
     ```json
     {
@@ -125,10 +131,12 @@
 ### C. Author / edit (steps 15–22)
 
 15. **To add a slide:** create `data/slides/NN-name.json` using the envelope
-    above, then add a reference to it in `data/slides.json` at the desired index.
-16. **To reorder slides:** reorder the entries in `data/slides.json` only. The
-    array position is the slide number; you do **not** rename files. Shifting an
-    item forward pushes every later slide down by one automatically.
+    above, then add a `{ "title", "path": "./slides/NN-name.json" }` entry to the
+    `slides[]` array in `data/slides.json` at the desired index.
+16. **To reorder slides:** reorder the entries in the `slides[]` array in
+    `data/slides.json` only. Array position is the slide number; you do **not**
+    rename files (the `path` filename number can differ from the position).
+    Shifting an item forward pushes every later slide down by one automatically.
 17. **To edit content:** change the `content` block of the target file. Keep text
     to keywords/short lines — split long ideas into multiple capsules or steps.
 18. **Match the deck theme.** Use Noir & Gold tokens. Titles use Ubuntu Bold,
