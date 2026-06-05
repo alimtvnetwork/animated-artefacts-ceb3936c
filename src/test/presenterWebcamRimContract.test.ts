@@ -67,6 +67,8 @@ describe('PresenterWebcamOverlay — CSS-only squircle rim contract', () => {
   it('keeps stage and fullscreen on the same squircle contract as the floating camera', () => {
     expect(SRC).not.toMatch(/borderRadius:\s*circleShape\s*\?\s*'50%'\s*:\s*0/);
     expect(SRC).not.toMatch(/borderRadius:\s*circleShape\s*\?\s*'50%'\s*:\s*28/);
+    expect(SRC).not.toMatch(/const rectangleRadius = '20px'/);
+    expect(SRC).not.toMatch(/const rectangleRadius = '28px'/);
   });
 });
 
