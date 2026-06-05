@@ -5,7 +5,7 @@
 > camera (webcam overlay) for the Riseup Asia slide-presentation app — every
 > phase, every keyboard shortcut, zoom in / zoom out, drag, resize, fullscreen,
 > stage-fill, circle/rectangle frame, face auto-framing, and the
-> **CSS-only gold squircle rim** that frames the camera (no plate PNG; v2).
+> **Gold squircle rim** that frames the camera (PNG plate + transparent mask; v3).
 
 This pack is **self-contained**. It quotes real code from the live
 implementation so you can reproduce it without reading `src/`. Where the live
@@ -19,9 +19,9 @@ While presenting slides, the speaker can overlay their **live webcam** on top of
 the deck — like an OBS / Zoom camera bubble — so the audience sees the presenter
 and the slides at once. It floats over the 1920×1080 stage, is draggable,
 resizable, can go fullscreen or fill the stage, can be a rectangle or a circle,
-and is framed by a **CSS-only gold→ember squircle rim** with a transparent
-interior (2026-06-02 v2 — no plate PNG; the images in [`./assets/`](./assets/)
-are visual reference only).
+and is framed by a **gold→ember squircle rim** with a transparent
+interior (v3, 2026-06-05 — `squircle-plate-gold.png` behind the video +
+`squircle-mask.png` as `mask-image`; assets live in [`./assets/`](./assets/)).
 
 It is **presenter-local only**: it is never exported to PPTX, never part of slide
 JSON, and never persisted to the deck. It is pure runtime UI driven by
@@ -61,16 +61,16 @@ at runtime, import from `src/assets/` or register a Lovable asset pointer — se
 
 | File | Role |
 |------|------|
-| `01-reference-frame-gold-rim.png` | **Reference look only.** A squircle camera frame on a dark slide with a gold→ember (red) glowing rim. This is the visual target the CSS rim reproduces. |
-| ~~`02-squircle-mask-black.png`~~ | **No longer used at runtime (2026-06-02 v2).** Was the CSS crop mask; the overlay now crops via `border-radius`. Kept here as a shape reference only. |
+| `01-reference-frame-gold-rim.png` | **Reference look only.** A squircle camera frame on a dark slide with a gold→ember (red) glowing rim. This is the visual target the v3 rim reproduces. |
+| `02-squircle-mask-black.png` | **Reference for the runtime mask.** The runtime mask ships as `src/assets/camera-2026/squircle-mask.png`, applied via `mask-image` to crop the video (v3). |
 | ~~`03-squircle-plate-white-shadow.png`~~ | **REMOVED 2026-06-02.** Was an opaque white fill plate behind the camera; deleted (rejected look, no value). |
-| ~~`04-squircle-plate-gold-shadow.png`~~ | **No longer used at runtime (2026-06-02 v2).** Its baked rim + fill read as a thick opaque ring (rejected). The rim is now CSS-only (border + box-shadow). Reference only. |
+| `04-squircle-plate-gold-shadow.png` | **Reference for the runtime plate.** The runtime plate ships as `src/assets/camera-2026/squircle-plate-gold.png`, rendered behind the video with a transparent interior (v3). |
 
-> **Runtime is now CSS-only.** `src/assets/camera-2026/` is empty — the overlay
-> imports **no** plate/mask PNG. The squircle silhouette comes from
-> `border-radius: 38% / 34%`, the rim from a `2px` gold border + a layered
-> `box-shadow` (ember edge + gold glow + drop shadow), and the interior stays
-> transparent. See [`05-backgrounds-and-shapes.md`](./05-backgrounds-and-shapes.md) §8 (v2).
+> **Runtime is PNG plate + transparent mask (v3, 2026-06-05).**
+> `src/assets/camera-2026/` holds `squircle-plate-gold.png` (rendered behind the
+> `<video>`) and `squircle-mask.png` (applied as `mask-image` to crop the video).
+> The interior stays transparent so the slide shows through; circle/puck is a CSS
+> fallback. See [`05-backgrounds-and-shapes.md`](./05-backgrounds-and-shapes.md) §8 (v3).
 >
 > A "squircle" = superellipse, between a circle and a rounded square.
 

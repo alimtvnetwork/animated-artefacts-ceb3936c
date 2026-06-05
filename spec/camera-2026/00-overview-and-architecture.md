@@ -16,7 +16,7 @@ presentation. Think OBS camera bubble. It must:
 - **Stage-fill** (`1`) — cover the whole 1920×1080 stage, round-trip restore.
 - Toggle **circle vs rectangle** frame (`O`).
 - **Auto-frame** the presenter's face (center-stage effect) (`f`).
-- Optional **vignette halo** (`h`) and a **CSS-only gold squircle rim** (border + box-shadow, transparent interior — no plate PNG; 2026-06-02 v2).
+- Optional **vignette halo** (`h`) and a **gold squircle rim** (PNG plate behind video + transparent `mask-image` crop; transparent interior — v3, 2026-06-05).
 - Forward slide-nav keys to the deck while fullscreen so the talk keeps moving.
 - Respect `prefers-reduced-motion`.
 - Persist every preference to `localStorage`.
