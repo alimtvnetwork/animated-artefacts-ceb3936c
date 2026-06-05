@@ -76,7 +76,7 @@ interface BundledDeckBundle { deck: DeckSpec; slides: SlideSpec[] }
  * (assets, meeting, theme, presenter, assetConstraints, …) is preserved
  * inside `config` so the rest of the runtime keeps working unchanged.
  */
-interface ProjectManifest {
+export interface ProjectManifest {
   Name?: string;
   config?: Record<string, unknown> & { deckSlug?: string };
   Slides?: Array<{ title?: string; path?: string }>;
@@ -85,11 +85,11 @@ interface ProjectManifest {
 }
 
 /** The slide entries from either casing — `Slides` is canonical, `slides` tolerated. */
-function manifestSlides(raw: ProjectManifest): Array<{ title?: string; path?: string }> {
+export function manifestSlides(raw: ProjectManifest): Array<{ title?: string; path?: string }> {
   return raw.Slides ?? raw.slides ?? [];
 }
 
-function isManifest(obj: unknown): obj is ProjectManifest {
+export function isManifest(obj: unknown): obj is ProjectManifest {
   if (typeof obj !== 'object' || obj === null) return false;
   return 'Slides' in obj || 'slides' in obj;
 }
