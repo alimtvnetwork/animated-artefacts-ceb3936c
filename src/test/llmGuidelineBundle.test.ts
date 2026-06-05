@@ -7,6 +7,11 @@ import { SLIDE_CONTENT_CONTRACTS, SLIDE_CONTRACTS_VERSION } from '../slides/cont
 describe('llm-guideline pack is bundled into the downloadable guide', () => {
   const md = buildLlmGuideMarkdown({ deckName: 'test' });
 
+  it('leads with the root LLM.md fast-path playbook', () => {
+    expect(md).toContain('Fast path (root');
+    expect(md).toContain('The 30-step playbook');
+  });
+
   it('includes the blind-follow modification pack section', () => {
     expect(md).toContain('Blind-follow modification pack');
     expect(md).toContain('spec/llm-guideline/');

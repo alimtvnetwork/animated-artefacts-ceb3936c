@@ -46,8 +46,14 @@ const catalogModules = import.meta.glob(
   { query: '?raw', import: 'default', eager: true },
 ) as Record<string, string>;
 
+const rootGuideModules = import.meta.glob(
+  '../../LLM.md',
+  { query: '?raw', import: 'default', eager: true },
+) as Record<string, string>;
+
 const slideSchemaRaw = Object.values(slideSchemaModules)[0] ?? '';
 const catalogRaw = Object.values(catalogModules)[0] ?? '';
+const rootGuideRaw = Object.values(rootGuideModules)[0] ?? '';
 
 // ---------------------------------------------------------------------------
 // Theme inspection
@@ -130,6 +136,15 @@ themeName:    ${preset.label ?? themeId}
 schemaSource: spec/21-slides-system/slide.schema.json
 catalogSource: spec/21-slides-system/llm/CATALOG.json
 \`\`\`
+
+---
+
+## 0 · Fast path (root \`LLM.md\`)
+
+The concise, self-contained 30-step authoring playbook. Read this first; the
+schema, catalog, and deep packs below are the reference material it points to.
+
+${rootGuideRaw.trim()}
 
 ---
 
