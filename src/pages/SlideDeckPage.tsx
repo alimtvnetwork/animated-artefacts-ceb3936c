@@ -60,12 +60,9 @@ export default function SlideDeckPage() {
   const [isFullscreen, setIsFullscreen] = useState(false);
   const pseudoFullscreenRef = useRef(false);
   const [gridOpen, setGridOpen] = useState(false);
-  /** Bottom thumbnail strip — opt-in, persisted in localStorage. Toggleable
-   *  with the `T` keyboard shortcut and the strip's own toggle pill. */
-  const [thumbStripOpen, setThumbStripOpen] = useState<boolean>(() => {
-    if (typeof window === 'undefined') return false;
-    return window.localStorage.getItem('riseup.thumbStrip') === '1';
-  });
+  /** Bottom thumbnail strip — opt-in, hidden by default on every page load.
+   *  Toggleable with the `T` keyboard shortcut and the strip's own toggle pill. */
+  const [thumbStripOpen, setThumbStripOpen] = useState<boolean>(false);
   /** Persistent presenter setting — when on, click-reveal capsules pulse so
    *  they're visible at a glance during a live walkthrough. */
   const [revealHints, setRevealHints] = useState<boolean>(() => {
@@ -319,14 +316,10 @@ export default function SlideDeckPage() {
     });
   }, []);
 
-  /** Toggle the bottom thumbnail strip and persist the choice. Bound to `T`
-   *  and to the strip's own header pill. */
+  /** Toggle the bottom thumbnail strip for the current session only. Bound to
+   *  `T` and to the strip's own header pill. */
   const toggleThumbStrip = useCallback(() => {
-    setThumbStripOpen((prev) => {
-      const next = !prev;
-      try { window.localStorage.setItem('riseup.thumbStrip', next ? '1' : '0'); } catch { /* ignore */ }
-      return next;
-    });
+    setThumbStripOpen((prev) => !prev);
   }, []);
 
   /** Toggle the top-center slide jumper visibility and persist the choice.
