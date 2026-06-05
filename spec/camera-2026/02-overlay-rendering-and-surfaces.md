@@ -101,7 +101,7 @@ useEffect(() => {
 }, [circleShape]);
 ```
 
-Circle frame = `border-radius: 50%` (puck `999`). Squircle frame = `border-radius: 38% / 34%` superellipse approximation — NO CSS mask PNG (2026-06-02 v2; see file 05 §8). Rim = `2px` gold border + layered `box-shadow`, transparent interior.
+Circle frame = `border-radius: 50%` (puck `999`) — CSS fallback. Squircle frame (v3, 2026-06-05) = `squircle-plate-gold.png` rendered behind the `<video>` + `squircle-mask.png` applied as `mask-image` to crop the video; transparent interior so the slide shows through (see file 05 §8). Gated on `useSquircle`/`!circleShape`.
 
 ## 5. Tray surface (soft-hidden)
 
