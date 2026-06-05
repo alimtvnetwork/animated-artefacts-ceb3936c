@@ -46,8 +46,14 @@ const catalogModules = import.meta.glob(
   { query: '?raw', import: 'default', eager: true },
 ) as Record<string, string>;
 
+const rootGuideModules = import.meta.glob(
+  '../../LLM.md',
+  { query: '?raw', import: 'default', eager: true },
+) as Record<string, string>;
+
 const slideSchemaRaw = Object.values(slideSchemaModules)[0] ?? '';
 const catalogRaw = Object.values(catalogModules)[0] ?? '';
+const rootGuideRaw = Object.values(rootGuideModules)[0] ?? '';
 
 // ---------------------------------------------------------------------------
 // Theme inspection
