@@ -39,11 +39,56 @@ import { usePresenterWebcam } from './usePresenterWebcam';
 import { useAutoFrame } from './useAutoFrame';
 import { useAutoHideCursor } from './useAutoHideCursor';
 import { prefersReducedMotion } from '@/slides/motionPreferences';
-// spec/camera-2026/05 — the live camera reads as a framed squircle surface
-// purely via CSS: border-radius for the silhouette, a thin gold→ember border
-// + soft glow for the rim, and a transparent interior. No plate/mask PNGs are
-// used anymore (they baked a white fill that produced a thick opaque ring).
+// spec/camera-2026/05 §8 (v3) — the squircle rim is a baked PNG **plate**
+// (`squircle-plate-gold.png`) composited BEHIND the live <video>, and the
+// video is cropped to a transparent squircle with a PNG **mask**
+// (`squircle-mask.png`) applied via `mask-image`. The plate carries the
+// gold→ember rim + soft drop shadow; the mask alpha keeps the interior
+// transparent. Circle (`O`) + minimized puck fall back to CSS border-radius.
 import alimPresenter from '@/assets/brand/alim-presenter.png';
+import squirclePlate from '@/assets/camera-2026/squircle-plate-gold.png';
+import squircleMask from '@/assets/camera-2026/squircle-mask.png';
+
+// The plate PNG is rendered ~+14% larger than the video box so its baked rim
+// and drop shadow frame the feed (spec/camera-2026/05 §8 v3, step 26).
+const PLATE_PAD_RATIO = 0.14;
+
+// Applied to the live <video> in squircle mode to crop it to the transparent
+// squircle (spec/camera-2026/05 §8 v3, step 25).
+const SQUIRCLE_MASK_STYLE = {
+  WebkitMaskImage: `url(${squircleMask})`,
+  maskImage: `url(${squircleMask})`,
+  WebkitMaskSize: '100% 100%',
+  maskSize: '100% 100%',
+  WebkitMaskRepeat: 'no-repeat',
+  maskRepeat: 'no-repeat',
+} as const;
+
+// Squircle plate layer — composited behind the masked video. Sized larger so
+// the baked rim + shadow extend beyond the feed. `show` is false for circle /
+// minimized modes (no circular plate asset; CSS border-radius handles those).
+function SquirclePlate({ show }: { show: boolean }) {
+  if (!show) return null;
+  const offset = `-${(PLATE_PAD_RATIO * 100) / 2}%`;
+  const span = `${100 + PLATE_PAD_RATIO * 100}%`;
+  return (
+    <img
+      src={squirclePlate}
+      alt=""
+      aria-hidden="true"
+      draggable={false}
+      style={{
+        position: 'absolute',
+        left: offset,
+        top: offset,
+        width: span,
+        height: span,
+        pointerEvents: 'none',
+        zIndex: 1,
+      }}
+    />
+  );
+}
 
 function readStageScale(): number {
   if (typeof document === 'undefined') return 1;
