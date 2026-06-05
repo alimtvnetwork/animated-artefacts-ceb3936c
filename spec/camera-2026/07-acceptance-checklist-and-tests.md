@@ -29,14 +29,15 @@
 - [ ] `Esc` / `[` exits fullscreen; `]` runs the cinematic cycle.
 - [ ] `1` enters stage-fill; second `1`/`Esc` restores exact size+position+phase.
 
-### Shape & rim (2026-06-02 v2 — CSS-only)
+### Shape & rim (2026-06-05 v3 — PNG plate + transparent mask)
 - [ ] `O` cycles rectangle→circle→circle+glow with the WAAPI pop; stream never blanks.
-- [ ] Squircle silhouette is `border-radius: 38% / 34%` (circle `50%`, puck `999`) — NO `mask-image` PNG crop.
-- [ ] The interior is **transparent**; the live video is the only thing inside the curve (no plate, no fill).
-- [ ] Rim = `2px` gold border + layered `box-shadow` (ember edge + gold glow + drop shadow); matches reference image 3.
-- [ ] No plate/mask PNG is imported (`src/assets/camera-2026/` is empty); no `platePad`/`showPlate` in the component.
-- [ ] No raw hex is introduced; all rim colors via `--gold`/`--ember`/`--background` tokens.
-- [ ] Transparent interior reads correctly on light themes (paper-ink) — no dark-on-dark fill body.
+- [ ] Squircle silhouette is the live `<video>` cropped via `mask-image: url(squircle-mask.png)` (circle `50%`, puck `999` fall back to CSS `border-radius`).
+- [ ] The interior is **transparent** (mask alpha); the slide shows through the corners. The PNG plate + masked video are the only things inside the curve.
+- [ ] Rim + drop shadow come from the `squircle-plate-gold.png` plate composited behind the video (~+14% larger), NOT a CSS border — matches reference image 01.
+- [ ] Both PNGs are imported from `src/assets/camera-2026/` (`squircle-plate-gold.png`, `squircle-mask.png`); plate/mask gated to squircle mode via `useSquircle`/`!circleShape`.
+- [ ] Plate + mask applied on every video surface: floating `on`, stage-fill, fullscreen, and the denied fallback preview.
+- [ ] No raw hex is introduced; the circle/puck CSS fallback rim uses `--gold`/`--ember`/`--background` tokens.
+- [ ] Transparent interior reads correctly on light themes (paper-ink) — slide shows through, no dark-on-dark fill body.
 
 ### Auto-frame
 - [ ] `f` toggles auto-frame only when `FaceDetector` is supported.
@@ -57,7 +58,7 @@
 | `presenterWebcamVideoStability.test.tsx` | Stream never detaches on shape toggle (no remount). |
 | `useAutoFrame.test.ts` | Unsupported → `supported:false`, identity transform; EMA math. |
 | `presenterWebcamShortcuts.test.tsx` | Each key fires the right action and respects phase guards + input guard. |
-| `presenterWebcamRimContract.test.ts` | CSS-only rim: no plate/mask PNG import, no `platePad`/`showPlate`, no `url()` crop mask, gold border + transparent interior. |
+| `presenterWebcamRimContract.test.ts` | v3 plate+mask rim: imports `squircle-plate-gold.png` + `squircle-mask.png`, crops video via `mask-image`, renders `<SquirclePlate>` on ≥3 surfaces, gated by `useSquircle`/`!circleShape`. |
 
 ### Example test skeleton
 

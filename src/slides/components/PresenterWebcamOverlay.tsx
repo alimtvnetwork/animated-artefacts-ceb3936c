@@ -627,35 +627,32 @@ export function PresenterWebcamOverlay() {
               width: circleShape ? previewDiameter : previewWidth,
               height: circleShape ? previewDiameter : previewHeight,
               borderRadius: circleShape ? '50%' : rectangleRadius,
-              overflow: 'hidden',
-              border: '2px solid hsl(var(--gold) / 0.85)',
-              boxShadow:
-                '0 0 0 1px hsl(var(--ember) / 0.25), 0 0 28px hsl(var(--gold) / 0.22), 0 16px 40px hsl(var(--background) / 0.7)',
-              background: 'linear-gradient(180deg, hsl(var(--card)), hsl(var(--background)))',
+              // Squircle: plate carries the rim/shadow (don't clip). Circle: CSS.
+              overflow: circleShape ? 'hidden' : 'visible',
+              border: circleShape ? '2px solid hsl(var(--gold) / 0.85)' : 'none',
+              boxShadow: circleShape
+                ? '0 0 0 1px hsl(var(--ember) / 0.25), 0 0 28px hsl(var(--gold) / 0.22), 0 16px 40px hsl(var(--background) / 0.7)'
+                : 'none',
+              background: 'transparent',
               transition:
                 'border-radius 420ms cubic-bezier(0.22, 1, 0.36, 1), left 420ms cubic-bezier(0.22, 1, 0.36, 1), top 420ms cubic-bezier(0.22, 1, 0.36, 1), width 420ms cubic-bezier(0.22, 1, 0.36, 1), height 420ms cubic-bezier(0.22, 1, 0.36, 1), box-shadow 320ms ease',
             }}
           >
+            <SquirclePlate show={!circleShape} />
             <img
               src={alimPresenter}
               alt="Presenter fallback preview"
               draggable={false}
               style={{
+                position: 'relative',
+                zIndex: 2,
                 width: '100%',
                 height: '100%',
                 objectFit: 'cover',
                 transform: 'scaleX(-1)',
                 filter: 'saturate(1.02) contrast(1.02)',
                 pointerEvents: 'none',
-              }}
-            />
-            <div
-              aria-hidden="true"
-              style={{
-                position: 'absolute',
-                inset: 0,
-                background: 'linear-gradient(to top, hsl(var(--background) / 0.32), transparent 36%)',
-                pointerEvents: 'none',
+                ...(circleShape ? {} : SQUIRCLE_MASK_STYLE),
               }}
             />
           </div>
