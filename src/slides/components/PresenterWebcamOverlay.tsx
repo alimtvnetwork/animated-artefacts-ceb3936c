@@ -39,11 +39,56 @@ import { usePresenterWebcam } from './usePresenterWebcam';
 import { useAutoFrame } from './useAutoFrame';
 import { useAutoHideCursor } from './useAutoHideCursor';
 import { prefersReducedMotion } from '@/slides/motionPreferences';
-// spec/camera-2026/05 — the live camera reads as a framed squircle surface
-// purely via CSS: border-radius for the silhouette, a thin gold→ember border
-// + soft glow for the rim, and a transparent interior. No plate/mask PNGs are
-// used anymore (they baked a white fill that produced a thick opaque ring).
+// spec/camera-2026/05 §8 (v3) — the squircle rim is a baked PNG **plate**
+// (`squircle-plate-gold.png`) composited BEHIND the live <video>, and the
+// video is cropped to a transparent squircle with a PNG **mask**
+// (`squircle-mask.png`) applied via `mask-image`. The plate carries the
+// gold→ember rim + soft drop shadow; the mask alpha keeps the interior
+// transparent. Circle (`O`) + minimized puck fall back to CSS border-radius.
 import alimPresenter from '@/assets/brand/alim-presenter.png';
+import squirclePlate from '@/assets/camera-2026/squircle-plate-gold.png';
+import squircleMask from '@/assets/camera-2026/squircle-mask.png';
+
+// The plate PNG is rendered ~+14% larger than the video box so its baked rim
+// and drop shadow frame the feed (spec/camera-2026/05 §8 v3, step 26).
+const PLATE_PAD_RATIO = 0.14;
+
+// Applied to the live <video> in squircle mode to crop it to the transparent
+// squircle (spec/camera-2026/05 §8 v3, step 25).
+const SQUIRCLE_MASK_STYLE = {
+  WebkitMaskImage: `url(${squircleMask})`,
+  maskImage: `url(${squircleMask})`,
+  WebkitMaskSize: '100% 100%',
+  maskSize: '100% 100%',
+  WebkitMaskRepeat: 'no-repeat',
+  maskRepeat: 'no-repeat',
+} as const;
+
+// Squircle plate layer — composited behind the masked video. Sized larger so
+// the baked rim + shadow extend beyond the feed. `show` is false for circle /
+// minimized modes (no circular plate asset; CSS border-radius handles those).
+function SquirclePlate({ show }: { show: boolean }) {
+  if (!show) return null;
+  const offset = `-${(PLATE_PAD_RATIO * 100) / 2}%`;
+  const span = `${100 + PLATE_PAD_RATIO * 100}%`;
+  return (
+    <img
+      src={squirclePlate}
+      alt=""
+      aria-hidden="true"
+      draggable={false}
+      style={{
+        position: 'absolute',
+        left: offset,
+        top: offset,
+        width: span,
+        height: span,
+        pointerEvents: 'none',
+        zIndex: 1,
+      }}
+    />
+  );
+}
 
 function readStageScale(): number {
   if (typeof document === 'undefined') return 1;
@@ -920,30 +965,36 @@ export function PresenterWebcamOverlay() {
         <div
           ref={shapeFrameRef}
           style={{
+            position: 'relative',
             width: circleShape ? 'min(100vmin, 100vh)' : '100%',
             height: circleShape ? 'min(100vmin, 100vh)' : '100%',
             borderRadius: circleShape ? '50%' : rectangleRadius,
-            overflow: 'hidden',
+            overflow: circleShape ? 'hidden' : 'visible',
             background: 'transparent',
-            border: '2px solid hsl(var(--gold) / 0.85)',
-            boxShadow:
-              '0 0 0 1px hsl(var(--ember) / 0.25), 0 0 28px hsl(var(--gold) / 0.22), 0 16px 40px hsl(var(--background) / 0.7)',
+            border: circleShape ? '2px solid hsl(var(--gold) / 0.85)' : 'none',
+            boxShadow: circleShape
+              ? '0 0 0 1px hsl(var(--ember) / 0.25), 0 0 28px hsl(var(--gold) / 0.22), 0 16px 40px hsl(var(--background) / 0.7)'
+              : 'none',
             transition:
               'border-radius 360ms cubic-bezier(0.22, 1, 0.36, 1), box-shadow 320ms ease',
           }}
         >
+          <SquirclePlate show={!circleShape} />
           <video
             ref={bindFullscreenVideo}
             autoPlay
             playsInline
             muted
             style={{
+              position: 'relative',
+              zIndex: 2,
               width: '100%',
               height: '100%',
               objectFit: 'cover',
               transform: autoFrame.transform.replace(/$/, ' scaleX(-1)'),
               transformOrigin: 'center center',
                 transition: reducedMotion ? 'opacity 150ms linear' : 'transform 220ms cubic-bezier(0.22, 1, 0.36, 1)',
+              ...(circleShape ? {} : SQUIRCLE_MASK_STYLE),
             }}
           />
         </div>
@@ -1089,30 +1140,36 @@ export function PresenterWebcamOverlay() {
         <div
           ref={shapeFrameRef}
           style={{
+            position: 'relative',
             width: circleShape ? 'min(100vmin, 100vh)' : '100%',
             height: circleShape ? 'min(100vmin, 100vh)' : '100%',
             borderRadius: circleShape ? '50%' : rectangleRadius,
-            overflow: 'hidden',
+            overflow: circleShape ? 'hidden' : 'visible',
             background: 'transparent',
-            border: '2px solid hsl(var(--gold) / 0.85)',
-            boxShadow:
-              '0 0 0 1px hsl(var(--ember) / 0.25), 0 0 28px hsl(var(--gold) / 0.22), 0 16px 40px hsl(var(--background) / 0.7)',
+            border: circleShape ? '2px solid hsl(var(--gold) / 0.85)' : 'none',
+            boxShadow: circleShape
+              ? '0 0 0 1px hsl(var(--ember) / 0.25), 0 0 28px hsl(var(--gold) / 0.22), 0 16px 40px hsl(var(--background) / 0.7)'
+              : 'none',
             transition:
               'border-radius 360ms cubic-bezier(0.22, 1, 0.36, 1), box-shadow 320ms ease',
           }}
         >
+          <SquirclePlate show={!circleShape} />
           <video
             ref={bindFullscreenVideo}
             autoPlay
             playsInline
             muted
             style={{
+              position: 'relative',
+              zIndex: 2,
               width: '100%',
               height: '100%',
               objectFit: 'cover',
               transform: autoFrame.transform.replace(/$/, ' scaleX(-1)'),
               transformOrigin: 'center center',
               transition: reducedMotion ? 'opacity 150ms linear' : 'transform 220ms cubic-bezier(0.22, 1, 0.36, 1)',
+              ...(circleShape ? {} : SQUIRCLE_MASK_STYLE),
             }}
           />
         </div>
@@ -1220,11 +1277,9 @@ export function PresenterWebcamOverlay() {
   // theme-tinting path is a border-radius superellipse approximation
   // (38% / 34%). Circle (`O`) overrides to 50%; minimized is a puck (999).
   const frameRadius = minimized ? 999 : circleShape ? '50%' : '38% / 34%';
-  // spec/camera-2026/05 §2 — NO decorative plate. The masked video carries
-  // its own thin gold→ember rim + soft drop shadow via CSS on the inner
-  // frame, so the squircle interior stays fully TRANSPARENT (image 3). The
-  // old white-filled plate PNG produced a thick opaque ring (image 1) and is
-  // gone — never reintroduce a fill plate behind the video.
+  // spec/camera-2026/05 §8 (v3) — squircle mode uses the PNG plate behind the
+  // masked video; circle / minimized modes fall back to a CSS gold border.
+  const useSquircle = !circleShape && !minimized;
   const showCircleControls = !minimized && circleShape;
   const circleControlColumnHeight = 4 * CIRCLE_CONTROL_SIZE + 3 * 10;
   const circleVisualRight = position.x + (size.w + circleDiameter) / 2;
@@ -1314,13 +1369,15 @@ export function PresenterWebcamOverlay() {
           width: visualWidth,
           height: visualHeight,
           borderRadius: frameRadius,
-          overflow: 'hidden',
-          // Transparent interior — the squircle silhouette comes purely from
-          // border-radius, the rim from the border + glow below (image 3).
+          // Squircle: plate's rim/shadow extends beyond the box, so don't clip.
+          // Circle/puck: clip the video to the CSS border-radius silhouette.
+          overflow: useSquircle ? 'visible' : 'hidden',
           background: 'transparent',
-          border: '2px solid hsl(var(--gold) / 0.85)',
-          boxShadow:
-            '0 0 0 1px hsl(var(--ember) / 0.25), 0 0 28px hsl(var(--gold) / 0.22), 0 16px 40px hsl(var(--background) / 0.7)',
+          // Squircle rim comes from the PNG plate (below); circle/puck keep CSS.
+          border: useSquircle ? 'none' : '2px solid hsl(var(--gold) / 0.85)',
+          boxShadow: useSquircle
+            ? 'none'
+            : '0 0 0 1px hsl(var(--ember) / 0.25), 0 0 28px hsl(var(--gold) / 0.22), 0 16px 40px hsl(var(--background) / 0.7)',
           cursor: cursorStyle ?? (dragging ? 'grabbing' : 'grab'),
           userSelect: 'none',
           touchAction: 'none',
@@ -1335,20 +1392,24 @@ export function PresenterWebcamOverlay() {
         onPointerUp={onDragPointerUp}
         onPointerCancel={onDragPointerUp}
       >
+        <SquirclePlate show={useSquircle} />
         <video
           ref={bindFloatingVideo}
           autoPlay
           playsInline
           muted
           style={{
+            position: 'relative',
+            zIndex: 2,
             width: '100%',
             height: '100%',
             objectFit: 'cover',
             transform: autoFrame.transform,
             transformOrigin: 'center center',
             transition: reducedMotion ? 'opacity 150ms linear' : 'transform 220ms cubic-bezier(0.22, 1, 0.36, 1)',
-            background: 'hsl(var(--background))',
+            background: 'transparent',
             pointerEvents: 'none',
+            ...(useSquircle ? SQUIRCLE_MASK_STYLE : {}),
           }}
         />
 
