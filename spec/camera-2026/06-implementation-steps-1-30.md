@@ -88,18 +88,20 @@
 
 ## Phase E — Backgrounds, shapes & polish (steps 25–30)
 
-25. **Squircle mask (v3).** Apply `02-squircle-mask-black.png` as `mask-image`
+25. **Squircle mask (v3).** Import `src/assets/camera-2026/squircle-mask.png`
+    (the runtime copy of `02-squircle-mask-black.png`) and apply it as `mask-image`
     (`mask-size: 100% 100%`, `mask-repeat: no-repeat`) on the live `<video>` to
     crop it to a transparent squircle. Circle `O` and the minimized puck may
     still fall back to CSS `border-radius` (`50%` / `999px`) when no circular
     plate exists. (File 05 §8 v3.)
-26. **Plate layer (v3).** Render `04-squircle-plate-gold-shadow.png` behind the
-    masked video, centered, sized ~+12–16% larger than the video box so its
-    baked gold→ember rim + drop shadow frame the feed. Copy both PNGs into
+26. **Plate layer (v3).** Import `src/assets/camera-2026/squircle-plate-gold.png`
+    (the runtime copy of `04-squircle-plate-gold-shadow.png`) and render it behind
+    the masked video, centered, sized ~+12–16% larger than the video box so its
+    baked gold→ember rim + drop shadow frame the feed. Both PNGs already live in
     `src/assets/camera-2026/` so Vite bundles them. (File 05 §8 v3.)
 27. **Gold→ember rim + shadow look.** Match `01-reference-frame-gold-rim.png`
     (visual target only — never used as plate/mask). The rim/shadow comes from
-    the `04` plate PNG, not from a CSS border. (File 05 §8 v3.)
+    the `squircle-plate-gold.png` plate PNG, not from a CSS border. (File 05 §8 v3.)
 28. **Shape pop animation.** WAAPI on the clipping wrapper only (never remount
     the `<video>`); skip under reduced-motion. (File 02 §4.)
 29. **Halo + reduced-motion + theme audit.** `h` vignette; gate every animation
