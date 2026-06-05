@@ -1,32 +1,41 @@
 # 05 — Backgrounds & Shapes (the squircle rim)
 
-> **⚠️ CURRENT TRUTH (2026-06-02 v2): the rim is CSS-only — see [§8](#8--implemented-2026-06-02-v2--css-only-rim-no-png-platemask).**
-> The overlay imports **no** plate/mask PNG. The squircle silhouette comes from
-> `border-radius: 38% / 34%`, the rim from a `2px` gold border + layered
-> `box-shadow`, and the interior is transparent (approved look = reference
-> image 3). §1–§6 below are **historical** (the original PNG-plate request);
-> they are kept for context but the plate path was rejected — its baked
-> fill/rim read as a thick opaque ring. Do not implement §1–§6 as-is.
+> **⚠️ CURRENT TRUTH (2026-06-04 v3): the rim is PNG-PLATE + MASK — see [§8](#8--implemented-2026-06-04-v3--png-plate--transparent-mask).**
+> Per presenter direction, the v2 "CSS-only rim" decision is **REVERSED**.
+> The overlay composites a **PNG plate** (`04-squircle-plate-gold-shadow.png`)
+> behind the live video, and the video is cropped with a **transparent squircle
+> mask** (`02-squircle-mask-black.png` as `mask-image`), one layered over the
+> other. `01-reference-frame-gold-rim.png` is **how it should look** (visual
+> target only — NOT used as plate). See §8 (v3) for the recipe.
 
 
-## A. Reference images (`./assets/`) — diff targets only
+## A. Reference images (`./assets/`)
 
 | File | Role |
 |------|------|
-| `01-reference-frame-gold-rim.png` | The approved visual target — squircle camera, thin gold→ember rim, transparent interior (image 3). |
-| `02-squircle-mask-black.png` | Historical shape reference. Runtime uses `border-radius`, **not** this mask. |
-| `04-squircle-plate-gold-shadow.png` | **REJECTED** baked-plate recipe — its thick opaque ring is the bug we fixed. Reference only. |
+| `01-reference-frame-gold-rim.png` | **Visual target only** — how the finished camera should look. NOT used as a plate or mask at runtime. |
+| `02-squircle-mask-black.png` | **RUNTIME MASK** — used as `mask-image` to crop the live video to a transparent squircle. |
+| `04-squircle-plate-gold-shadow.png` | **RUNTIME PLATE** — gold→ember rim + drop-shadow PNG, composited behind the masked video. |
 
-*Pruned 2026-06-02:* `03-…white-shadow.png` (opaque white fill plate) + `cam2/3/4.png` duplicates — deleted, no value.
+> **Note (2026-06-04):** the presenter also referenced an "image 3"
+> (`03-…white-shadow.png`) for the mask, but that file was deleted in the
+> 2026-06-02 prune and is **not present** in `./assets/`. The runtime mask is
+> `02-squircle-mask-black.png`. If a distinct image-3 mask is required, it must
+> be re-supplied before it can be wired in.
 
-## B. Rejected approach (historical, do NOT implement)
+## B. Layering model (v3 — the correct one)
 
-The original request layered a **background plate PNG** (squircle, ~+12–16% larger
-than the video) behind the camera, with the rim + drop shadow baked into the
-image and the video masked on top. This shipped briefly and was **rejected**: the
-baked fill + thick rim read as a solid opaque band around the camera (image 1),
-and the white-fill variant added a flat white body. **No plate, no mask-image, no
-`platePad`, no white/neutral fill.** The full correct recipe is §8 below.
+Bottom → top:
+
+1. **Plate** — `04-squircle-plate-gold-shadow.png`, sized ~+12–16% larger than
+   the video box, centered. Provides the gold→ember rim + soft drop shadow.
+2. **Masked video** — the live `<video>` (objectFit cover, mirrored) with
+   `mask-image: url(02-squircle-mask-black.png)`, `mask-size: 100% 100%`,
+   `mask-repeat: no-repeat`, cropping it to the transparent squircle so only the
+   squircle interior of the feed shows, sitting inside the plate's rim.
+
+The interior of the mask is transparent (alpha), so the slide behind shows
+through the corners while the plate supplies the rim.
 
 
 
