@@ -1,7 +1,8 @@
 /**
  * usePresenterWebcam — context + hook for the global webcam overlay.
  *
- * Spec: `spec/21-slides-system/66-presenter-webcam.md` (v2).
+ * Spec spine: `spec/camera-2026/01-state-machine-and-hook.md` +
+ * `spec/21-slides-system/66-presenter-webcam.md` (historical base, later amended by v3 docs).
  *
  * Phases:
  *   off → requesting → on ↔ tray ↔ fullscreen → off
