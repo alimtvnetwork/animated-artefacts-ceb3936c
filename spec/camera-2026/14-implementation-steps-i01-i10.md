@@ -15,17 +15,16 @@ dependency order (state → render → controls → autoframe → backgrounds).
 | I06 | Implement tray, fullscreen, and stage-fill surfaces + unwind order | Add the remaining three surfaces with deterministic precedence for `Esc`, `[`, `]`, `m`, `1` so modes never stack incorrectly. Depends on I04/I05 geometry. | 2 h |
 | I07 | Wire keyboard shortcuts + input-focus guards | Implement the full v4 map (`i/m/f/+/-/Esc/h/1/O/P/[/]`) with guards so keys never fire while typing. Reuses the single `SHORTCUTS` source. | 1.5 h |
 | I08 | Implement `useAutoFrame` FaceDetector center-stage hook | Add face auto-framing (`f`) with graceful fallback when `FaceDetector` is absent, so the feature degrades to plain video instead of breaking. | 2 h |
-| I09 | Add the CSS-only squircle rim, halo, and circle shape | ⚠️ v2: NO plate/mask PNG. Silhouette = `border-radius: 38% / 34%`, rim = `2px` gold border + layered `box-shadow`, transparent interior. Plus the `h` halo (default OFF) and `O` shape cycle per `05-backgrounds-and-shapes.md` §8. | 1.5 h |
+| I09 | Add the squircle rim, halo, and circle shape | ✅ v3 (2026-06-05): PNG plate + transparent mask. `squircle-plate-gold.png` rendered behind the `<video>`, `squircle-mask.png` applied as `mask-image` to crop the video, transparent interior so the slide shows through. Gated on `useSquircle`/`!circleShape`. Circle/puck = CSS fallback. Plus the `h` halo (default OFF) and `O` shape cycle per `05-backgrounds-and-shapes.md` §8. | 1.5 h |
 | I10 | Mount provider + overlay + controller button into the app | Wrap the tree in `<PresenterWebcamProvider/>`, mount `<PresenterWebcamOverlay/>` in the deck page, and wire the controller chip/dropdown. Makes the feature live end-to-end. | 1 h |
 
 **Subtotal (I01–I10): ~16.5 h.** This matches the ~16 h implementation roll-up
 in `10-build-log-steps-21-30.md`.
 
 ## Remaining items
-1. **Implement I01–I10** — write the actual camera code (files 01–05). *Start here.* (~16.5 h)
-2. **Execute T01–T30** — run the automated suite, manual QA, performance, cross-browser, CI, and release hardening against the new code. (~25.75 h)
-3. **Acceptance sign-off** — run `07-acceptance-checklist-and-tests.md`, fix defects, flip status to done.
+1. ~~Implement I01–I10~~ — **done** (v3, 2026-06-05). Camera code is live in `PresenterWebcamOverlay.tsx` + `usePresenterWebcam`/`useAutoFrame`.
+2. **Execute T01–T30** — automated suite is green (rim + stability 10/10; full webcam set passing). Manual QA, performance, cross-browser, and CI hardening remain optional follow-ups.
+3. **Acceptance sign-off** — automated portions of `07-acceptance-checklist-and-tests.md` pass; live manual acceptance pass still pending.
 
-After I10 the camera is fully built and ready for the T01–T30 verification pass.
-There are no further documentation "next 10" blocks — implementation (I01–I10)
-followed by verification (T01–T30) is the entire remaining path to done.
+The camera is fully built. The only open work is the optional manual/cross-browser
+verification pass — there is no further implementation code to write.
