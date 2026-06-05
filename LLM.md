@@ -19,8 +19,9 @@
 - **Decks are pure JSON.** No code changes are needed to add or edit a slide.
   The React renderer in `src/slides/` reads JSON and draws the slide.
 - **Runtime data lives in `front-end/project/<deck>/data/`.** That is what the
-  app actually loads. `front-end/project/<deck>/data/slides.json` is the
-  **manifest object**: `{ Name, config, slides: [...] }`. The `slides` array is
+   app actually loads. `front-end/project/<deck>/data/slides.json` is the
+  **manifest object**: `{ Name, config, Slides: [...] }` (note the capital `S` —
+  the loader in `src/slides/loader.ts` reads `raw.Slides`). The `Slides` array is
   the ordered deck — each entry is `{ "title": "03 · …", "path":
   "./slides/NN-name.json" }`. Array order = on-screen slide order (the `path`
   filename number does NOT have to match the position).
@@ -40,7 +41,7 @@
 1. **Identify the deck.** Decks live under `front-end/project/<deck>/`. The
    active session deck is `session-4-ai-coding`. Confirm which deck before any edit.
  2. **Open the manifest.** Read `front-end/project/<deck>/data/slides.json`. It is
-    an object `{ Name, config, slides: [...] }`. The `slides[]` array is the
+    an object `{ Name, config, Slides: [...] }` (capital `S`). The `Slides[]` array is the
     deck order — each item is `{ "title", "path": "./slides/NN-name.json" }`.
     Array position = on-screen slide number.
 3. **Read the matching spec folder** `spec/26-slide-definitions/<deck>/` to learn
@@ -131,9 +132,9 @@
 ### C. Author / edit (steps 15–22)
 
 15. **To add a slide:** create `data/slides/NN-name.json` using the envelope
-    above, then add a `{ "title", "path": "./slides/NN-name.json" }` entry to the
-    `slides[]` array in `data/slides.json` at the desired index.
-16. **To reorder slides:** reorder the entries in the `slides[]` array in
+     above, then add a `{ "title", "path": "./slides/NN-name.json" }` entry to the
+    `Slides[]` array in `data/slides.json` at the desired index.
+16. **To reorder slides:** reorder the entries in the `Slides[]` array in
     `data/slides.json` only. Array position is the slide number; you do **not**
     rename files (the `path` filename number can differ from the position).
     Shifting an item forward pushes every later slide down by one automatically.
