@@ -53,7 +53,7 @@ Runtime decks live in `front-end/project/<slug>/data/`. `?deck=<slug>` loads one
 | `showcase` | 8 | ✅ `26-slide-definitions/showcase/` | Primary Riseup Asia deck |
 | `image-examples` | 11 | ✅ `26-slide-definitions/image-examples/` | Image/SVG/Base64 + step-thumb + gallery demos |
 | `inside-studio` | 24 | ✅ `26-slide-definitions/inside-studio/` | |
-| `session-4-ai-coding` | 13 | ✅ `26-slide-definitions/session-4-ai-coding/` | |
+| `session-4-ai-coding` | 14 | ✅ `26-slide-definitions/session-4-ai-coding/` | |
 | `sample` | 4 | ✅ `26-slide-definitions/sample/` | Minimal smoke deck |
 | `motion-showcase` | 11 | ⬜ none | Transition/animation + distinct sound-cue demo (spec 21 cue map) |
 | `navy-showcase` | 10 | ⬜ none | Theme demo deck |
