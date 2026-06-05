@@ -80,10 +80,18 @@ interface ProjectManifest {
   Name?: string;
   config?: Record<string, unknown> & { deckSlug?: string };
   Slides?: Array<{ title?: string; path?: string }>;
+  /** Accepted as a lenient alias for `Slides` (older/mis-cased manifests). */
+  slides?: Array<{ title?: string; path?: string }>;
+}
+
+/** The slide entries from either casing — `Slides` is canonical, `slides` tolerated. */
+function manifestSlides(raw: ProjectManifest): Array<{ title?: string; path?: string }> {
+  return raw.Slides ?? raw.slides ?? [];
 }
 
 function isManifest(obj: unknown): obj is ProjectManifest {
-  return typeof obj === 'object' && obj !== null && 'Slides' in obj;
+  if (typeof obj !== 'object' || obj === null) return false;
+  return 'Slides' in obj || 'slides' in obj;
 }
 
 /** Extract the deck-folder slug from a manifest path. */
