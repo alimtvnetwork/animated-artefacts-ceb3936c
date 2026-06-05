@@ -45,16 +45,14 @@
   "Slides": [
     { "title": "01 · Title",            "path": "./slides/01-title.json" },
     { "title": "02 · TOC (3D chain)",   "path": "./slides/02-toc-3d.json" },
-    { "title": "03 · Recap",            "path": "./slides/03-recap.json" },
-    { "title": "04 · Mindset",          "path": "./slides/04-mindset.json" },
-    { "title": "05 · What we ship",     "path": "./slides/05-ship-today.json" },
-    { "title": "06 · References",       "path": "./slides/06-references.json" },
-    { "title": "07 · Riseup Asia",      "path": "./slides/07-about-riseup.json" },
-    { "title": "08 · Guidelines",       "path": "./slides/08-guidelines.json" },
-    { "title": "09 · Your call",        "path": "./slides/09-your-call.json" },
-    { "title": "10 · Meeting",          "path": "./slides/10-meeting.json" },
-    { "title": "11 · Session outline",        "path": "./slides/11-session-outline.json" },
-    { "title": "12 · Outline (we-are-here)",  "path": "./slides/12-session-outline-active.json" },
-    { "title": "13 · Four sessions arc",      "path": "./slides/13-multi-session-outline.json" }
+    { "title": "03 · Session outline",  "path": "./slides/11-session-outline.json" },
+    { "title": "04 · Recap",            "path": "./slides/03-recap.json" },
+    { "title": "05 · Mindset",          "path": "./slides/04-mindset.json" },
+    { "title": "06 · What we ship",     "path": "./slides/05-ship-today.json" },
+    { "title": "07 · References",       "path": "./slides/06-references.json" },
+    { "title": "08 · Riseup Asia",      "path": "./slides/07-about-riseup.json" },
+    { "title": "09 · Guidelines",       "path": "./slides/08-guidelines.json" },
+    { "title": "10 · Your call",        "path": "./slides/09-your-call.json" },
+    { "title": "11 · Meeting",          "path": "./slides/10-meeting.json" }
   ]
 }
