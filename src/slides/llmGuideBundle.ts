@@ -139,6 +139,15 @@ catalogSource: spec/21-slides-system/llm/CATALOG.json
 
 ---
 
+## 0 · Fast path (root \`LLM.md\`)
+
+The concise, self-contained 30-step authoring playbook. Read this first; the
+schema, catalog, and deep packs below are the reference material it points to.
+
+${rootGuideRaw.trim()}
+
+---
+
 ## 1 · Active theme & color tokens
 
 The deck is currently rendered with the **\`${themeId}\`** theme. Any new
