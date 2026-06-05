@@ -965,30 +965,36 @@ export function PresenterWebcamOverlay() {
         <div
           ref={shapeFrameRef}
           style={{
+            position: 'relative',
             width: circleShape ? 'min(100vmin, 100vh)' : '100%',
             height: circleShape ? 'min(100vmin, 100vh)' : '100%',
             borderRadius: circleShape ? '50%' : rectangleRadius,
-            overflow: 'hidden',
+            overflow: circleShape ? 'hidden' : 'visible',
             background: 'transparent',
-            border: '2px solid hsl(var(--gold) / 0.85)',
-            boxShadow:
-              '0 0 0 1px hsl(var(--ember) / 0.25), 0 0 28px hsl(var(--gold) / 0.22), 0 16px 40px hsl(var(--background) / 0.7)',
+            border: circleShape ? '2px solid hsl(var(--gold) / 0.85)' : 'none',
+            boxShadow: circleShape
+              ? '0 0 0 1px hsl(var(--ember) / 0.25), 0 0 28px hsl(var(--gold) / 0.22), 0 16px 40px hsl(var(--background) / 0.7)'
+              : 'none',
             transition:
               'border-radius 360ms cubic-bezier(0.22, 1, 0.36, 1), box-shadow 320ms ease',
           }}
         >
+          <SquirclePlate show={!circleShape} />
           <video
             ref={bindFullscreenVideo}
             autoPlay
             playsInline
             muted
             style={{
+              position: 'relative',
+              zIndex: 2,
               width: '100%',
               height: '100%',
               objectFit: 'cover',
               transform: autoFrame.transform.replace(/$/, ' scaleX(-1)'),
               transformOrigin: 'center center',
                 transition: reducedMotion ? 'opacity 150ms linear' : 'transform 220ms cubic-bezier(0.22, 1, 0.36, 1)',
+              ...(circleShape ? {} : SQUIRCLE_MASK_STYLE),
             }}
           />
         </div>
