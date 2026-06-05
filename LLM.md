@@ -95,15 +95,17 @@
 10. **`titleStyle`** is `white` | `gold` | `cream`. `titleShimmer` adds a sweep.
     `sound.on` is the trigger (`focus`/`reveal`), `kind` is the cue
     (`whoosh`/`chime`/etc.), `volume` is 0–1.
-11. **`content` shape depends on `slideType`:**
-    - `TitleSlide`: `{ eyebrow, title, subtitle }`
-    - `KeywordSlide`: `{ eyebrow, title, keyword }`
-    - `CapsuleListSlide`: `{ eyebrow, title, capsules: [{ text, color }] }`
-    - `StepTimelineSlide`: `{ eyebrow, title, steps: [...] }` (see step 12)
-    - `ImageSlide`: `{ eyebrow, title, image, caption }`
-    - `QrMeetingSlide`: `{ eyebrow, title, url, capsules? }`
-    - `SectionDividerSlide`: `{ eyebrow, title }`
-    - `SessionOutlineSlide`: `{ eyebrow, title, items: [...] }`
+11. **`content` uses ONE unified `SlideContent` interface** (`src/slides/types.ts`,
+    `interface SlideContent`). All fields optional; each `slideType` reads the
+    subset it needs:
+    - `TitleSlide` / `MiddleTitleSlide` / `SectionDividerSlide`: `{ eyebrow?, title, subtitle? }`
+    - `KeywordSlide`: `{ eyebrow?, title, keywords?: string[] }` (array, not `keyword`)
+    - `CapsuleListSlide`: `{ eyebrow?, title, capsules?: [{ text, color }] }`
+    - `StepTimelineSlide` / `FocusTimelineSlide` / `AdvanceStepSlide` / `StepsChain3DSlide`: `{ eyebrow?, title, steps?: [...] }` (see step 12)
+    - `ImageSlide`: `{ eyebrow?, title?, image, caption? }`
+    - `QrMeetingSlide`: `{ eyebrow?, title, capsules? }` (meeting URL/QR come from `config.meeting`)
+    - `SessionOutlineSlide`: `{ eyebrow?, title, items?: [...], activeIndex? }`
+    - Diagram/table/code/metric types (`TableSlide`, `CodeBlockSlide`, `MetricGridSlide`, `LayoutSlide`, etc.) have richer `content` fields — see `spec/21-slides-system/llm/06-json-authoring-cheatsheet.md` + `27a–27d`.
 12. **Step object (StepTimelineSlide):**
     ```json
     {
