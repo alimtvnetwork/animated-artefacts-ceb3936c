@@ -2,9 +2,9 @@
 
 > **⚠️ CURRENT TRUTH (2026-06-04 v3): the rim is PNG-PLATE + MASK — see [§8](#8--implemented-2026-06-04-v3--png-plate--transparent-mask).**
 > Per presenter direction, the v2 "CSS-only rim" decision is **REVERSED**.
-> The overlay composites a **PNG plate** (`04-squircle-plate-gold-shadow.png`)
+> The overlay composites a **PNG plate** (`src/assets/camera-2026/squircle-plate-gold.png`)
 > behind the live video, and the video is cropped with a **transparent squircle
-> mask** (`02-squircle-mask-black.png` as `mask-image`), one layered over the
+> mask** (`src/assets/camera-2026/squircle-mask.png` as `mask-image`), one layered over the
 > other. `01-reference-frame-gold-rim.png` is **how it should look** (visual
 > target only — NOT used as plate). See §8 (v3) for the recipe.
 
@@ -61,18 +61,19 @@ other — exactly as the original layered request described.
 
 Blind-reimplementation recipe (the only correct one):
 
-1. **PNG imports.** `PresenterWebcamOverlay` imports BOTH the plate
-   (`04-squircle-plate-gold-shadow.png`) and the mask
-   (`02-squircle-mask-black.png`). Copy them into `src/assets/camera-2026/` (the
-   folder must be created) so Vite bundles them.
+1. **PNG imports.** `PresenterWebcamOverlay` imports BOTH the runtime plate
+   (`src/assets/camera-2026/squircle-plate-gold.png`) and the runtime mask
+   (`src/assets/camera-2026/squircle-mask.png`). The numbered files in
+   `spec/camera-2026/assets/` are reference/source assets; the `src/assets/`
+   copies are the names the live app imports so Vite bundles them.
 2. **Plate layer** — render the plate as a `<img>`/background positioned behind
    the video, centered, sized ~+12–16% larger than the video box so its rim +
    drop shadow frame the feed. This supplies the gold→ember rim and shadow (no
    CSS border needed).
 3. **Masked video layer** — the live `<video>` (objectFit cover, mirrored) gets:
    ```css
-   -webkit-mask-image: url('…/02-squircle-mask-black.png');
-   mask-image: url('…/02-squircle-mask-black.png');
+   -webkit-mask-image: url('…/squircle-mask.png');
+   mask-image: url('…/squircle-mask.png');
    -webkit-mask-size: 100% 100%;   mask-size: 100% 100%;
    -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat;
    ```
