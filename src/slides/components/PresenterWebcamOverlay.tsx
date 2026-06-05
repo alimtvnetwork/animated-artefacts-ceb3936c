@@ -1357,13 +1357,15 @@ export function PresenterWebcamOverlay() {
           width: visualWidth,
           height: visualHeight,
           borderRadius: frameRadius,
-          overflow: 'hidden',
-          // Transparent interior — the squircle silhouette comes purely from
-          // border-radius, the rim from the border + glow below (image 3).
+          // Squircle: plate's rim/shadow extends beyond the box, so don't clip.
+          // Circle/puck: clip the video to the CSS border-radius silhouette.
+          overflow: useSquircle ? 'visible' : 'hidden',
           background: 'transparent',
-          border: '2px solid hsl(var(--gold) / 0.85)',
-          boxShadow:
-            '0 0 0 1px hsl(var(--ember) / 0.25), 0 0 28px hsl(var(--gold) / 0.22), 0 16px 40px hsl(var(--background) / 0.7)',
+          // Squircle rim comes from the PNG plate (below); circle/puck keep CSS.
+          border: useSquircle ? 'none' : '2px solid hsl(var(--gold) / 0.85)',
+          boxShadow: useSquircle
+            ? 'none'
+            : '0 0 0 1px hsl(var(--ember) / 0.25), 0 0 28px hsl(var(--gold) / 0.22), 0 16px 40px hsl(var(--background) / 0.7)',
           cursor: cursorStyle ?? (dragging ? 'grabbing' : 'grab'),
           userSelect: 'none',
           touchAction: 'none',
@@ -1378,20 +1380,24 @@ export function PresenterWebcamOverlay() {
         onPointerUp={onDragPointerUp}
         onPointerCancel={onDragPointerUp}
       >
+        <SquirclePlate show={useSquircle} />
         <video
           ref={bindFloatingVideo}
           autoPlay
           playsInline
           muted
           style={{
+            position: 'relative',
+            zIndex: 2,
             width: '100%',
             height: '100%',
             objectFit: 'cover',
             transform: autoFrame.transform,
             transformOrigin: 'center center',
             transition: reducedMotion ? 'opacity 150ms linear' : 'transform 220ms cubic-bezier(0.22, 1, 0.36, 1)',
-            background: 'hsl(var(--background))',
+            background: 'transparent',
             pointerEvents: 'none',
+            ...(useSquircle ? SQUIRCLE_MASK_STYLE : {}),
           }}
         />
 
