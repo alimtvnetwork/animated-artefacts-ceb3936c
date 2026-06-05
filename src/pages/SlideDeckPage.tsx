@@ -1066,9 +1066,8 @@ export default function SlideDeckPage() {
           </div>
         </>
       )}
-      {/* Opt-in dot pagination — toggled via /settings. Hidden in grid view and
-          on StepsChain3DSlide so the card surface is the only click target. */}
-      {showDots && !gridOpen && slide?.slideType !== 'StepsChain3DSlide' && (
+      {/* Opt-in dot pagination — toggled via /settings. Hidden in grid view. */}
+      {showDots && !gridOpen && (
         <DotPagination
           current={currentLinear}
           total={total}
