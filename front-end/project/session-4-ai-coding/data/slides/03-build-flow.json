@@ -1,0 +1,49 @@
+{
+  "slideNumber": 3,
+  "slideName": "build-flow",
+  "slideType": "StepTimelineSlide",
+  "transition": "SlideIn",
+  "textAnimation": "SlideUp",
+  "enabled": true,
+  "showBrandHeader": true,
+  "showPresenterChip": true,
+  "titleStyle": "white",
+  "titleShimmer": false,
+  "sound": { "on": "focus", "kind": "whoosh", "volume": 0.55 },
+  "narrowIdea": "The live workflow in four concrete steps.",
+  "content": {
+    "eyebrow": "Live build flow",
+    "title": "How we ship with AI",
+    "steps": [
+      {
+        "label": "Step 1",
+        "title": "Pick the task",
+        "subtitle": "One CLI, one clear outcome",
+        "description": "Start from a narrow real task. No broad platform talk — just one thing we can finish live.",
+        "capsule": { "text": "Scope", "color": "gold" }
+      },
+      {
+        "label": "Step 2",
+        "title": "Write the spec",
+        "subtitle": "Rules, constraints, acceptance",
+        "description": "We tell the model exactly what good looks like. Clear spec first, code second.",
+        "capsule": { "text": "Spec-first", "color": "ember" }
+      },
+      {
+        "label": "Step 3",
+        "title": "Build fast",
+        "subtitle": "Prompt, inspect, patch",
+        "description": "Generate a slice, inspect the result, then tighten the next prompt instead of rewriting everything.",
+        "capsule": { "text": "Iteration", "color": "cream" }
+      },
+      {
+        "label": "Step 4",
+        "title": "Verify and ship",
+        "subtitle": "Test, demo, publish",
+        "description": "Run the checks, show the result, and only then move to the next feature or publish the build.",
+        "capsule": { "text": "QA", "color": "outline" }
+      }
+    ]
+  },
+  "notes": "This is the inserted step-system slide the deck was missing. Walk it once, then continue into the recap slide."
+}
