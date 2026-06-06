@@ -134,7 +134,17 @@ let's start now 2026-04-30 12:00
 
 let's start now 2026-06-06 15:46
 
-## v1.23.0 — Release notes (since v1.22.0) — CURRENT
+## v1.24.0 — Release notes (since v1.23.0) — CURRENT
+
+**Fixed next-task prompt snapshot drift again.** Root cause: `.lovable/prompts/18-next-task.md` carried two different checkpoint sections (`## This iteration (v1.22.0)` and `## Iteration note (v1.23.0)`) while the registries still marked that file as the single latest saved snapshot, so the saved prompt history was internally inconsistent even though the runtime app itself had no failing build/runtime signal.
+
+- `.lovable/prompts/18-next-task.md`: normalized to a single checkpoint entry for `v1.23.0` instead of mixing two releases in one snapshot.
+- New `.lovable/prompts/19-next-task.md`: saved this iteration per the workflow rule, documenting the prompt-history repair at `v1.24.0`.
+- `.lovable/prompts.md` + `.lovable/prompt.md`: moved the "latest saved snapshot" marker from `18` to `19`, and reclassified `18` as archived.
+- `package.json`: bumped the minor version to `1.24.0`.
+- Verification: before fix, `rg -n "18-next-task|This iteration \(v1\.22\.0\)|Iteration note \(v1\.23\.0\)|latest saved snapshot|\"version\": \"1\.23\.0\"" .lovable readme.md package.json` showed the split snapshot and old version pin. After fix, the same checks show `19` as latest, `18` as archived, a single `v1.23.0` checkpoint inside `18`, and `package.json` pinned to `1.24.0`. Vite/runtime logs still show no app errors, and `bunx vitest run src/test/contracts.test.ts` remains `14/14` passing.
+
+## v1.23.0 — Release notes (since v1.22.0)
 
 **Full-deck ZIP bundle (export + import) is now real.** Root cause: the last two rows in `src/slides/controls/ImportExportSubmenu.tsx` ("Export ZIP" / "Import ZIP") were dead `planned('Export ZIP')` / `planned('Import ZIP')` stubs carrying a `Soon` badge — the only remaining placeholders in the import/export tree — even though every underlying primitive existed (`buildManifest`/`parseManifest` in `src/slides/manifest.ts`, `buildThemeBundle`/`parseThemeBundle`/`installAllThemes` in `src/slides/themeBulk.ts`, and the imported-deck boot path via `IMPORTED_MANIFEST_KEY`). The missing piece was a single archive wrapper that packs both documents together and validates them on the way back in.
 
