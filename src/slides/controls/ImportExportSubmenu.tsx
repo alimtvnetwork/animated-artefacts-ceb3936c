@@ -39,6 +39,7 @@ export function ImportExportSubmenu({
   const [expanded, setExpanded] = useState(false);
   const slideImportRef = useRef<HTMLInputElement | null>(null);
   const themesImportRef = useRef<HTMLInputElement | null>(null);
+  const bundleImportRef = useRef<HTMLInputElement | null>(null);
 
   function handleSlideJson() {
     try {
