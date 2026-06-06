@@ -39,7 +39,8 @@ Each entry links to its full spec in `.lovable/prompts/`.
 | 43 | [43-next-task.md](./prompts/43-next-task.md) | archive only — do not match/load | archived snapshot |
 | 44 | [44-next-task.md](./prompts/44-next-task.md) | archive only — do not match/load | superseded snapshot |
 | 45 | [45-next-task.md](./prompts/45-next-task.md) | archive only — do not match/load | superseded snapshot |
-| 46 | [46-next-task.md](./prompts/46-next-task.md) | archive only — do not match/load | latest saved snapshot |
+| 46 | [46-next-task.md](./prompts/46-next-task.md) | archive only — do not match/load | superseded snapshot |
+| 47 | [47-next-task.md](./prompts/47-next-task.md) | archive only — do not match/load | latest saved snapshot |
 
 Snapshots `05`–`33` are preserved as historical per-iteration saves of the same recurring next-task prompt.
 
