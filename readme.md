@@ -143,7 +143,15 @@ let's start now 2026-06-06 15:46
 
 let's start now 2026-06-06 16:42
 
-## v1.44.0 — Release notes (since v1.43.0) — CURRENT
+## v1.45.0 — Release notes (since v1.44.0) — CURRENT
+
+- Root cause: `src/test/llmGuidelineBundle.test.ts` still asserted the OLD bundle behavior (root `LLM.md` fast-path, blind-follow pack, embedded guideline files, deep authoring pack) which v1.44.0 removed, so it no longer matched the slide-only bundle.
+- Minimum fix: rewrote the first describe block to assert the slide-only contract — §0 filesystem-write instruction (default `.lovable/`), schema + catalog + theme tokens present, simplified guide embedded, and process material absent.
+- Verification: `bunx vitest run src/test/llmGuidelineBundle.test.ts` → 7/7 passing (before: would fail on removed sections).
+- Saved prompt snapshot `.lovable/prompts/40-next-task.md`; synced `.lovable/prompts.md`.
+- `package.json`: bumped to `1.45.0`.
+
+## v1.44.0 — Release notes (since v1.43.0)
 
 - Root cause: the downloaded/copied LLM guide (`src/slides/llmGuideBundle.ts` → `buildLlmGuideMarkdown`) bundled process/"how to work" material (root `LLM.md` fast-path + all `spec/llm-guideline/*` + the `spec/21-slides-system/llm/` pack), instead of being slide-content only as the user repeatedly asked.
 - Minimum fix: the download now includes ONLY slide-authoring content — filesystem-write instruction (§0, default `.lovable/`), active theme tokens, slide JSON schema, enum catalog, and the simplified single-file guide (`spec/llm-guideline/00-simplified-single-file-guide.md`). Removed the root `LLM.md` fast-path, the `spec/llm-guideline/*` glob, and the `21-slides-system/llm` pack from the bundle.
