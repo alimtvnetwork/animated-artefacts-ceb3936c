@@ -143,7 +143,15 @@ let's start now 2026-06-06 15:46
 
 let's start now 2026-06-06 16:42
 
-## v1.63.0 — Release notes (since v1.62.0) — CURRENT
+## v1.64.0 — Release notes (since v1.63.0) — CURRENT
+
+- **Wired the dot-pagination `…` gap token to open an inline jump field (spec 27/05), and unified jump validation across both jump surfaces.**
+- Root cause: the collapsed pagination gap only jumped to the hidden run's midpoint (`DotPagination.tsx` old `GapToken`), so slides flanking but not at the midpoint stayed unreachable from the strip — spec `27-slides-number/05` requires the gap to open the jump input.
+- Minimum fix: extracted a pure `resolveJumpTarget(raw,total)` validator (`src/slides/controls/jumpTarget.ts`), added `src/slides/controls/GapJumpToken.tsx` (gap click → inline numeric input pre-filled with the midpoint → validated jump + `pushJumpHistory`), replaced the midpoint-only `GapToken` in `DotPagination.tsx`, and refactored `SlideIndicator.commit()` to consume the same validator (rule 9: DRY).
+- Verification: `tsc` reported (then I cleared) `TS2304` for the renamed token and missing `resolveJumpTarget` import; both fixed — build now passes with the shared validator imported in `SlideIndicator.tsx:14` and `GapJumpToken.tsx`. Vite daemon logs clean aside from the pre-existing Browserslist warning.
+
+## v1.63.0 — Release notes (since v1.62.0)
+
 
 - **Hardened the canonical next-task driver so pasted prompt text no longer hijacks debugging turns.**
 - Root cause: `.lovable/prompts/04-next-task.md` still allowed the recurring next-task payload to behave like a live planning instruction during bug-report turns where the user pasted it as an error block.
