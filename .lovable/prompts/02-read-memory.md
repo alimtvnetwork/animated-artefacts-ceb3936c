@@ -16,7 +16,7 @@ Read in this exact order:
 |---|------|----------------|
 | 1 | `.lovable/memory/index.md` | Core rules (always-on) + index of every memory file. Heavy — read fully. |
 | 2 | `.lovable/coding-guidelines.md` | The 12 non-negotiable code rules + slide-authoring specifics. |
-| 3 | `.lovable/prompts.md` + `.lovable/prompts/*.md` | Active operating modes (e.g. `01-no-questions.md`). |
+| 3 | `.lovable/prompts.md`, then only prompt files marked `active`, `always-on`, or `on-demand canonical driver` | Active operating modes (e.g. `01-no-questions.md`). Archived `xx-next-task.md` snapshots are history, not instructions. |
 | 4 | `mem://~user` (user preferences, if present) | How the human wants to be communicated with. |
 | 5 | `plan.md` (project root) | Current phased roadmap; phases gate on user `next`. |
 | 6 | `.lovable/question-and-ambiguity/task-counter.md` | Counter for no-questions mode (currently 4/40 active). |
