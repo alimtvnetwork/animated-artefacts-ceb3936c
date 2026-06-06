@@ -136,7 +136,16 @@ let's start now 2026-06-06 15:46
 
 let's start now 2026-06-06 16:42
 
-## v1.30.0 — Release notes (since v1.29.0) — CURRENT
+## v1.31.0 — Release notes (since v1.30.0) — CURRENT
+
+**Reconciled the stale slide-type remediation backlog with reality.** Root cause: both `quality/audit/remediation-plan.md` and last turn's plan `02-slide-type-remediation-execution.md` described already-shipped work as open "blocking" tasks, so the next-task loop kept fabricating done work. A codebase audit confirmed everything is implemented and tested.
+- Evidence: `src/slides/enums.ts` = 26 slide types (>21); `src/slides/types/{DatabaseDiagramSlide,DataTableSlide,EquationSlide}.tsx` + `NumberCalloutSlide` content + `src/slides/hooks/useCountUp.ts`; `--dur-count-fast/slow` tokens in `src/index.css`; `src/slides/densityCheck.ts`; `src/slides/validateAgainstCatalog.ts` + boot probe; `scripts/check-catalog-drift.ts` in CI; sample slides `40..43` migrated; `spec/21-slides-system/64-per-slide-sound-override.md`; `scripts/motion-variety-audit.ts`; roving-tabindex in Equation/DataTable.
+- `quality/audit/remediation-plan.md`: appended a status table marking Phase 1/2 + M-02/M-03/M-05 ✅ done; only M-01 (#32) and M-04 (TableSlide deprecation) remain open.
+- `.lovable/plans/completed/02-slide-type-remediation-execution.md`: moved from `pending/`, Status flipped to completed, Resolution note added.
+- `.lovable/prompts/26-next-task.md`: saved this driver snapshot; `.lovable/prompts.md` + `.lovable/prompt.md` synced (`25` archived, `26` latest).
+- `package.json`: bumped to `1.31.0`. Verification: `bunx vitest run src/test/contracts.test.ts` passes 14/14.
+
+## v1.30.0 — Release notes (since v1.29.0)
 
 **Wrote the 20-step slide-type remediation execution plan.** Root cause: the remediation backlog in `quality/audit/remediation-plan.md` (four missing slide types + enum/CATALOG bump + Phase 2/3 guards) had no execution plan on disk, so the work kept being re-described in chat instead of tracked. This is a spec/plan turn — no code executed.
 - `.lovable/plans/pending/02-slide-type-remediation-execution.md`: new 20-step plan covering A-01 → B-01..B-06 → A-02..A-04 → M-01..M-05, with prior pending task `01-...` appended.
