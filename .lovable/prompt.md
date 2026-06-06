@@ -27,7 +27,8 @@ each prompt has its full spec in **`.lovable/prompts/`**.
 | 31 | [prompts/31-next-task.md](./prompts/31-next-task.md) | archive only — do not match/load | archived snapshot |
 | 32 | [prompts/32-next-task.md](./prompts/32-next-task.md) | archive only — do not match/load | archived snapshot |
 | 33 | [prompts/33-next-task.md](./prompts/33-next-task.md) | archive only — do not match/load | archived snapshot |
-| 34 | [prompts/34-next-task.md](./prompts/34-next-task.md) | archive only — do not match/load | latest saved snapshot |
+| 34 | [prompts/34-next-task.md](./prompts/34-next-task.md) | archive only — do not match/load | archived snapshot |
+| 35 | [prompts/35-next-task.md](./prompts/35-next-task.md) | archive only — do not match/load | latest saved snapshot |
 
 > Project layout reconciliation: this repo uses `.lovable/prompts.md` as the
 > registry index (not `prompts/index.md`) and `.lovable/memory/` (never

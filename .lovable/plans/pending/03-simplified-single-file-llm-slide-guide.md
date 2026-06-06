@@ -24,8 +24,8 @@ Files involved: new `spec/llm-guideline/00-simplified-single-file-guide.md`
 Captured command: `.lovable/spec/commands/04-single-file-slide-authoring.md`.
 
 ## Steps
-1. Inventory the authoritative `SlideType` enum from `src/slides/types.ts` and reconcile it against `spec/21-slides-system/llm/23-slide-type-contracts.md` and `front-end/slide-template/*.json`; produce the canonical type list the guide must cover. See ./subtasks/03-simplified-single-file-llm-slide-guide/01-slide-type-sample-coverage.md
-2. Define the single-file manifest contract (envelope + inlined slides + Base64/SVG images) the guide will enforce as the one-shot output. See ./subtasks/03-simplified-single-file-llm-slide-guide/02-single-file-manifest-contract.md
+1. ✅ DONE (v1.40.0) — Inventoried the authoritative `SlideType` enum from `src/slides/enums.ts` (28 types) and reconciled it against `CATALOG.json` + `front-end/project/*/data/slides/*.json`; canonical list captured in `spec/llm-guideline/00-simplified-single-file-guide.md` §3. See ./subtasks/03-simplified-single-file-llm-slide-guide/01-slide-type-sample-coverage.md
+2. ✅ DONE (v1.40.0) — Single-file manifest contract (envelope + inlined slides + Base64/SVG image embedding rule) written in `00-simplified-single-file-guide.md` §2, mirroring the real runtime envelope. See ./subtasks/03-simplified-single-file-llm-slide-guide/02-single-file-manifest-contract.md
 3. Decide the new guide's location and name (`spec/llm-guideline/00-simplified-single-file-guide.md`, optionally surfaced as root `LLM-SIMPLE.md`) and add it to the `spec/llm-guideline/readme.md` index.
 4. Write the guide's intro: mental model + the non-negotiable rule that the AI returns ONE manifest JSON (all slides inlined, images embedded), never a multi-file split.
 5. Write the "choosing a slide type" decision section: a compact table mapping intent → slide type, so the AI picks correctly before authoring.
