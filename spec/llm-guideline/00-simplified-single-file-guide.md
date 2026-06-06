@@ -297,11 +297,94 @@ headline, eyebrow above, subtitle below, capsules, optional ambient icon scatter
     "keywords": ["Intent", "Easing", "Restraint"] } }
 ```
 
-> Remaining specialist types — `StepsChain3DSlide`, `FocusTimelineSlide`,
-> `AdvanceStepSlide`, `BoxDiagramSlide`, `TableSlide`, `LayoutSlide`,
-> `BlastRadiusSlide`, `SessionOutlineSlide` — share the same envelope; see
-> `spec/21-slides-system/llm/23-slide-type-contracts.md` for their content
-> fields and `front-end/project/*/data/slides/` for live examples.
+### AdvanceStepSlide — progressive multi-stage reveal
+*Why/when:* one process whose steps reveal in sequence under presenter control. *Displays:* numbered habits "on rails"; each step has a `capsule`.
+```json
+{ "slideNumber": 9, "slideName": "advance-step", "slideType": "AdvanceStepSlide",
+  "transition": "PushIn", "textAnimation": "FadeIn", "enabled": true,
+  "content": { "eyebrow": "Process", "title": "Four habits, on rails",
+    "steps": [
+      { "label": "01", "title": "Token first", "subtitle": "Declared, never inlined", "capsule": { "text": "Discipline", "color": "gold" } },
+      { "label": "02", "title": "Spec first", "subtitle": "JSON is the source of truth", "capsule": { "text": "Truth", "color": "ember" } }
+    ] } }
+```
+
+### FocusTimelineSlide — spotlight one step at a time
+*Why/when:* a timeline where one step is highlighted and neighbours dim. *Displays:* horizontal step rail with focus state; each step has `label`/`title`/`subtitle`/`capsule`.
+```json
+{ "slideNumber": 8, "slideName": "focus-timeline", "slideType": "FocusTimelineSlide",
+  "transition": "FadeIn", "textAnimation": "FadeIn", "enabled": true,
+  "content": { "eyebrow": "Process · zoom", "title": "Spec week, up close",
+    "steps": [
+      { "label": "Mon", "title": "Listen", "subtitle": "Stakeholder interviews", "capsule": { "text": "1:1s", "color": "gold" } },
+      { "label": "Tue", "title": "Map", "subtitle": "System + audience model", "capsule": { "text": "Diagrams", "color": "ember" } }
+    ] } }
+```
+
+### LayoutSlide — custom split / columned composition
+*Why/when:* a bespoke arrangement of plain text + cards. *Displays:* a `layout` grid (e.g. `split-2-equal`) filled with `layoutSlots` (`kind: "plain" | "card"`, optional `colSpan`/`rowSpan`/`compact`).
+```json
+{ "slideNumber": 10, "slideName": "your-call", "slideType": "LayoutSlide",
+  "transition": "SlideIn", "textAnimation": "Stagger", "enabled": true,
+  "content": { "eyebrow": "Open mic", "title": "Where do we go from here?",
+    "layout": "split-2-equal", "layoutVerticalAlign": "center",
+    "layoutSlots": [
+      { "kind": "plain", "title": "This part is yours to steer.", "body": "Got an idea? Let's build it.", "rowSpan": 2 },
+      { "kind": "card", "eyebrow": "Plan A", "title": "Add a feature", "body": "Continue where we left off.", "compact": true },
+      { "kind": "card", "eyebrow": "Plan B", "title": "Your idea", "body": "Bring something.", "compact": true }
+    ] } }
+```
+
+### BoxDiagramSlide — boxes + connectors
+*Why/when:* a block diagram of nodes wired together. *Displays:* `diagramNodes` positioned by `x`/`y` (0–100) with `fields[]`, connected by `diagramEdges` (`from`/`to`).
+```json
+{ "slideNumber": 18, "slideName": "box-diagram", "slideType": "BoxDiagramSlide",
+  "transition": "FadeIn", "textAnimation": "Stagger", "enabled": true,
+  "content": { "eyebrow": "Proof · stack", "title": "Studio toolchain",
+    "diagramNodes": [
+      { "id": "spec", "title": "Spec", "x": 12, "y": 30, "fields": [ { "name": "JSON" }, { "name": "Zod" } ] },
+      { "id": "ship", "title": "Ship", "x": 88, "y": 30, "fields": [ { "name": "Flag" }, { "name": "WCAG" } ] }
+    ],
+    "diagramEdges": [ { "from": "spec", "to": "ship" } ] } }
+```
+
+### TableSlide — plain comparison table
+*Why/when:* a simpler comparison than `DataTableSlide`. *Displays:* `tableColumns` (`key`/`label`) + `tableRows` (`name` + `cells` keyed by column `key`).
+```json
+{ "slideNumber": 15, "slideName": "table", "slideType": "TableSlide",
+  "transition": "SlideIn", "textAnimation": "Stagger", "enabled": true,
+  "content": { "eyebrow": "Proof", "title": "Engagement tiers",
+    "tableColumns": [ { "key": "scope", "label": "Scope" }, { "key": "studio", "label": "Studio" } ],
+    "tableRows": [ { "name": "Length", "cells": { "scope": "Length", "studio": "1 quarter" } } ] } }
+```
+
+### SessionOutlineSlide — agenda / multi-session arc
+*Why/when:* show an agenda or where today fits in a series. *Displays:* `items[]` (`title`/`subtitle`/`meta`/`capsule`) with `activeIndex` highlighting the current one.
+```json
+{ "slideNumber": 14, "slideName": "session-outline", "slideType": "SessionOutlineSlide",
+  "transition": "FadeIn", "textAnimation": "SlideUp", "enabled": true,
+  "content": { "eyebrow": "THE WHOLE TRACK", "title": "Four sessions, one arc",
+    "kicker": "How today fits the journey.", "activeIndex": 3,
+    "items": [
+      { "title": "Foundations", "subtitle": "Mindset, tooling", "meta": "S1", "capsule": { "text": "DONE", "color": "outline" } },
+      { "title": "AI coding", "subtitle": "Today", "meta": "S4", "capsule": { "text": "TODAY", "color": "gold" } }
+    ] } }
+```
+
+### BlastRadiusSlide — cinematic impact outro
+*Why/when:* a dramatic chapter/outro paired with `ZoomOut`. *Displays:* particle/shard burst behind `eyebrow`/`title`/`subtitle`; tune `particleCount`, `shardCount`, `gradientAngle`.
+```json
+{ "slideNumber": 3, "slideName": "blast-radius", "slideType": "BlastRadiusSlide",
+  "transition": "ZoomOut", "textAnimation": "FadeIn", "enabled": true, "titleStyle": "white",
+  "content": { "eyebrow": "CHAPTER 03", "title": "Detonate",
+    "subtitle": "what breaks when one secret leaks",
+    "particleCount": 55, "shardCount": 6, "gradientAngle": 200 } }
+```
+
+> The remaining `StepsChain3DSlide` shares the step envelope above; see
+> `spec/21-slides-system/llm/23-slide-type-contracts.md` for its 3D-only fields
+> and `front-end/project/*/data/slides/` for live examples.
+
 
 ## 5 · Choosing a slide type (intent → type)
 

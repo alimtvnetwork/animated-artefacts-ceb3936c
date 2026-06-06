@@ -143,7 +143,15 @@ let's start now 2026-06-06 15:46
 
 let's start now 2026-06-06 16:42
 
-## v1.45.0 — Release notes (since v1.44.0) — CURRENT
+## v1.46.0 — Release notes (since v1.45.0) — CURRENT
+
+- Root cause: `spec/llm-guideline/00-simplified-single-file-guide.md` §4 only had copy-paste samples for 18 types; the 7 specialist types (AdvanceStepSlide, FocusTimelineSlide, LayoutSlide, BoxDiagramSlide, TableSlide, SessionOutlineSlide, BlastRadiusSlide) were pointer-linked, leaving an LLM to guess their content shape.
+- Minimum fix: replaced the pointer note with full why/when + how-it-displays + JSON samples for all 7, mirrored from real runtime slides in `front-end/project/*/data/slides/`. Only `StepsChain3DSlide` remains a pointer (3D-only fields).
+- Verification: `bunx vitest run src/test/llmGuidelineBundle.test.ts` → 7/7 passing; samples sourced from live JSON.
+- Saved prompt snapshot `.lovable/prompts/41-next-task.md`; synced `.lovable/prompts.md`.
+- `package.json`: bumped to `1.46.0`.
+
+## v1.45.0 — Release notes (since v1.44.0)
 
 - Root cause: `src/test/llmGuidelineBundle.test.ts` still asserted the OLD bundle behavior (root `LLM.md` fast-path, blind-follow pack, embedded guideline files, deep authoring pack) which v1.44.0 removed, so it no longer matched the slide-only bundle.
 - Minimum fix: rewrote the first describe block to assert the slide-only contract — §0 filesystem-write instruction (default `.lovable/`), schema + catalog + theme tokens present, simplified guide embedded, and process material absent.
