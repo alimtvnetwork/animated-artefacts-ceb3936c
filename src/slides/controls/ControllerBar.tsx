@@ -394,8 +394,7 @@ function ControllerHamburger({
   onShowIntro,
   currentSlideNumber,
 }: HamburgerProps) {
-  const colorDebugOn = useColorDebug();
-  const reduceMotionOn = useReduceMotion();
+  // Contrast/Reduce-motion state now lives inside `DebugSubmenu`.
   const openTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const closeTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const triggerRef = useRef<HTMLButtonElement | null>(null);
