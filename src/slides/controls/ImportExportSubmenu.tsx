@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { ChevronRight, ClipboardCopy, Download, FileDown, FileJson, Package, Palette, Upload } from 'lucide-react';
 import { toast } from 'sonner';
 import { errorMessage } from '@/lib/errors';
-import { runExport } from '../export';
+import { runExport, exportSlidePdf } from '../export';
 import { copyLlmGuideToClipboard, downloadLlmGuide } from '../llmGuideBundle';
 
 interface Props {
