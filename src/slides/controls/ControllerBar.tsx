@@ -492,9 +492,11 @@ function ControllerHamburger({
               key="hamburger-panel"
               role="menu"
               aria-label="Presenter menu"
-              initial={{ opacity: 0, y: 6, scale: 0.98 }}
+              // Panel opens downward (anchored at trigger's bottom edge), so
+              // it starts slightly ABOVE its resting spot and settles down.
+              initial={{ opacity: 0, y: -6, scale: 0.98 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: 6, scale: 0.98 }}
+              exit={{ opacity: 0, y: -6, scale: 0.98 }}
               transition={{ duration: 0.16, ease: [0.22, 1, 0.36, 1] }}
               // Portaled to <body> so the controller pill's `overflow-hidden`
               // can't clip us. Position is `fixed` and computed from the
