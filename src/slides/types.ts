@@ -618,6 +618,17 @@ export interface SlideContent {
    */
   poster?: string;
   /**
+   * `SvgDiagramSlide` — inline SVG markup rendered as the figure. Takes
+   * precedence over `content.image`; when absent, `content.image` (an `.svg`
+   * asset / data URI) is shown via `<img>` instead.
+   */
+  svgMarkup?: string;
+  /**
+   * `SvgDiagramSlide` — annotation callouts pinned over the figure by percent
+   * position. Keep to a handful so the diagram stays legible (one idea/slide).
+   */
+  callouts?: SvgCalloutSpec[];
+  /**
    * Live meeting URL encoded into the QR. Per-slide override of `deck.meeting.url`.
    * When set (and no `qrAsset`/explicit src is provided), `BrandedQR` generates
    * the QR client-side from this URL.
