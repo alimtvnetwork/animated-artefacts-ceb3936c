@@ -146,6 +146,7 @@ function renderSlideBody({ slide, onCapsuleClickReveal, highlightReveal, onOpenE
     case 'TileSlide': return <TileSlide spec={slide} />;
     case 'BlastRadiusSlide': return <BlastRadiusSlide spec={slide} />;
     case 'SessionOutlineSlide': return <SessionOutlineSlide spec={slide} />;
+    case 'FullBleedImageSlide': return <FullBleedImageSlide spec={slide} />;
     default: return <TitleSlide spec={slide} />;
   }
 }
