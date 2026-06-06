@@ -196,6 +196,21 @@ The Import/Export controller menu can package an entire deck as a single
   persists the manifest to `riseup.deck.imported.v1`, then reloads. A bad
   archive throws before touching storage — never a partial import.
 
+### Visual export formats (`src/slides/export.ts`)
+
+The Share menu can render the deck to print/image formats — independent of
+the JSON bundle above. Formats live in `EXPORT_FORMATS`:
+
+- **PDF (RGB)** / **PDF (CMYK-safe)** — combined output, one A4-landscape
+  slide per page via the `/handout?print=1` route + `window.print()`
+  (CMYK adds a gamut-approximating desaturation filter). No heavy deps.
+- **SVG / PNG / JPG** — per-slide output at 1920×1080.
+- Single slide: `exportSlidePdf(slideNumber, { cmyk? })` opens
+  `/handout?slide=N` and auto-prints; it **throws** on an invalid slide
+  number so the caller surfaces the failure instead of a blank tab.
+
+
+
 
 ## Golden rules (do not break)
 
