@@ -1,0 +1,24 @@
+{
+  "slideNumber": 2,
+  "slideName": "glasswing",
+  "slideType": "CapsuleListSlide",
+  "transition": "PushLeft",
+  "textAnimation": "Stagger",
+  "enabled": true,
+  "isClickReveal": false,
+  "showBrandHeader": true,
+  "showPresenterChip": true,
+  "titleStyle": "cream",
+  "titleShimmer": false,
+  "content": {
+    "eyebrow": "Flavor 01 · ?theme=glasswing",
+    "title": "Glasswing",
+    "subtitle": "Editorial cream-on-charcoal — quiet, premium, near-monochrome.",
+    "capsules": [
+      { "text": "Charcoal #161513", "color": "cream" },
+      { "text": "Cream #F2EFE6", "color": "outline" },
+      { "text": "Champagne accent", "color": "gold" }
+    ]
+  },
+  "notes": "Gallery-wall flavor: let one headline breathe. Switch the deck theme to glasswing to see it in context."
+}

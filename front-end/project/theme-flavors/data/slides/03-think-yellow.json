@@ -1,0 +1,24 @@
+{
+  "slideNumber": 3,
+  "slideName": "think-yellow",
+  "slideType": "CapsuleListSlide",
+  "transition": "PushLeft",
+  "textAnimation": "Stagger",
+  "enabled": true,
+  "isClickReveal": false,
+  "showBrandHeader": true,
+  "showPresenterChip": true,
+  "titleStyle": "gold",
+  "titleShimmer": true,
+  "content": {
+    "eyebrow": "Flavor 02 · ?theme=think-yellow",
+    "title": "Think Yellow",
+    "subtitle": "High-energy yellow-on-black — poster-loud, single-idea punch.",
+    "capsules": [
+      { "text": "Pure black bg", "color": "outline" },
+      { "text": "Yellow #FFD60A", "color": "gold" },
+      { "text": "White text", "color": "cream" }
+    ]
+  },
+  "notes": "Loud poster flavor for punchy single ideas. Switch theme to think-yellow to demo."
+}

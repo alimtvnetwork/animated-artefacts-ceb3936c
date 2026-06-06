@@ -1,0 +1,15 @@
+{
+  "Name": "Theme Flavors — Image-Derived Palettes",
+  "config": {
+    "deckSlug": "theme-flavors",
+    "presenter": "MD ALIM UL KARIM",
+    "theme": "riseup-pro",
+    "preset": "premium"
+  },
+  "Slides": [
+    { "title": "cover",        "path": "./slides/01-cover.json" },
+    { "title": "glasswing",    "path": "./slides/02-glasswing.json" },
+    { "title": "think-yellow", "path": "./slides/03-think-yellow.json" },
+    { "title": "riseup-pro",   "path": "./slides/04-riseup-pro.json" }
+  ]
+}

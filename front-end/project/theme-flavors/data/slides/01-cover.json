@@ -1,0 +1,24 @@
+{
+  "slideNumber": 1,
+  "slideName": "cover",
+  "slideType": "TitleSlide",
+  "transition": "FadeIn",
+  "textAnimation": "Bounce",
+  "enabled": true,
+  "isClickReveal": false,
+  "showBrandHeader": true,
+  "showPresenterChip": true,
+  "titleStyle": "gold",
+  "titleShimmer": true,
+  "content": {
+    "eyebrow": "Riseup Asia LLC",
+    "title": "Theme Flavors",
+    "subtitle": "Three image-derived palettes — Ubuntu headers, Poppins body. Preview each live with ?theme=<id>.",
+    "capsules": [
+      { "text": "glasswing", "color": "cream" },
+      { "text": "think-yellow", "color": "gold" },
+      { "text": "riseup-pro", "color": "ember" }
+    ]
+  },
+  "notes": "Cold open on the riseup-pro theme. Each capsule names a new theme; switch live via the picker or ?theme=<id> to demo the others."
+}

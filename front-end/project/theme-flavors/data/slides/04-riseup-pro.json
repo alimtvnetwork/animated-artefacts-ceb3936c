@@ -1,0 +1,24 @@
+{
+  "slideNumber": 4,
+  "slideName": "riseup-pro",
+  "slideType": "CapsuleListSlide",
+  "transition": "PushLeft",
+  "textAnimation": "Stagger",
+  "enabled": true,
+  "isClickReveal": false,
+  "showBrandHeader": true,
+  "showPresenterChip": true,
+  "titleStyle": "gold",
+  "titleShimmer": true,
+  "content": {
+    "eyebrow": "Flavor 03 · ?theme=riseup-pro",
+    "title": "Riseup Pro",
+    "subtitle": "On-brand graphite studio — matches the Riseup Pro screen-share look.",
+    "capsules": [
+      { "text": "Graphite #262626", "color": "outline" },
+      { "text": "Gold #f3a502", "color": "gold" },
+      { "text": "Ember #E85D3A", "color": "ember" }
+    ]
+  },
+  "notes": "Default presenter-recording flavor (this deck's active theme). Gold to ember gradient is brand-native."
+}

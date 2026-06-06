@@ -143,7 +143,14 @@ let's start now 2026-06-06 15:46
 
 let's start now 2026-06-06 16:42
 
-## v1.51.0 — Release notes (since v1.50.0) — CURRENT
+## v1.52.0 — Release notes (since v1.51.0) — CURRENT
+
+- Added a **`theme-flavors` showcase deck** demoing the three image-derived themes — `front-end/project/theme-flavors/data/` (`slides.json` + 4 slide JSONs: `01-cover`, `02-glasswing`, `03-think-yellow`, `04-riseup-pro`).
+- Deck theme is `riseup-pro`; each content slide names a theme, its key hexes, and the `?theme=<id>` live-preview link. Auto-discovered by the loader globs in `src/slides/loader.ts:38-39` — no registry edit needed.
+- Signal: `deckContrastAudit` (183) + loader/deck suites = **207/207 passing** with the new deck in scope.
+- Saved prompt snapshot `.lovable/prompts/47-next-task.md`; synced `.lovable/prompts.md`. `package.json` → `1.52.0`.
+
+## v1.51.0 — Release notes (since v1.50.0)
 
 - Verified the three v1.50.0 image-derived themes (`glasswing`, `think-yellow`, `riseup-pro`) are production/WCAG-AA safe — no code change needed, this was a verification gate.
 - Root finding: both audits iterate `Object.keys(THEMES)` (`src/test/deckContrastAudit.test.ts:95`, `src/test/capsuleContrast.test.ts:343`), so the new themes are automatically in scope — no per-theme `.capsule-gold` override required (unlike `macos-sonoma`).
