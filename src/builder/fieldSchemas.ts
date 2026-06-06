@@ -500,4 +500,5 @@ export const SLIDE_TYPE_KEYS: SlideTypeValue[] = [
   'BlastRadiusSlide',
   'SessionOutlineSlide',
   'FullBleedImageSlide',
+  'SplitMediaSlide',
 ];
