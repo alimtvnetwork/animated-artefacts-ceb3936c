@@ -143,7 +143,15 @@ let's start now 2026-06-06 15:46
 
 let's start now 2026-06-06 16:42
 
-## v1.46.0 — Release notes (since v1.45.0) — CURRENT
+## v1.47.0 — Release notes (since v1.46.0) — CURRENT
+
+- Planning turn (no code executed): wrote the 100-step plan `.lovable/plans/pending/05-slide-options-themes-and-number-controller.md` covering media-rich slide types (image/SVG/GIF), an ellipsis slide-number controller (`1 … cur±2 … N`) with a configurable collapse threshold (default 15), image-derived color themes, and an LLM-guide refresh.
+- Captured command `.lovable/spec/commands/06-slide-number-ellipsis-pagination.md` and three subtask files under `.lovable/plans/subtasks/05-slide-options-themes-and-number-controller/`.
+- Open inputs flagged to user: confirm collapse threshold default + neighbor count, and supply the theme reference images.
+- Saved prompt snapshot `.lovable/prompts/42-next-task.md`; synced `.lovable/prompts.md`.
+- `package.json`: bumped to `1.47.0`.
+
+## v1.46.0 — Release notes (since v1.45.0)
 
 - Root cause: `spec/llm-guideline/00-simplified-single-file-guide.md` §4 only had copy-paste samples for 18 types; the 7 specialist types (AdvanceStepSlide, FocusTimelineSlide, LayoutSlide, BoxDiagramSlide, TableSlide, SessionOutlineSlide, BlastRadiusSlide) were pointer-linked, leaving an LLM to guess their content shape.
 - Minimum fix: replaced the pointer note with full why/when + how-it-displays + JSON samples for all 7, mirrored from real runtime slides in `front-end/project/*/data/slides/`. Only `StepsChain3DSlide` remains a pointer (3D-only fields).
