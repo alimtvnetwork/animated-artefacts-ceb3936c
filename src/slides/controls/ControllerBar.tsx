@@ -25,6 +25,7 @@ import { SlideIndicator } from './SlideIndicator';
 import { DeckMenu } from './DeckMenu';
 import { ThemeMenu } from './ThemeMenu';
 import { ImportExportSubmenu } from './ImportExportSubmenu';
+import { ImportExportMenu } from './ImportExportMenu';
 import { writeThemeDebugFlag } from '../manifest';
 import { KeyboardShortcutsDialog } from './KeyboardShortcutsDialog';
 import { OnboardingCoachmark } from './OnboardingCoachmark';
@@ -92,6 +93,7 @@ interface Props {
 export function ControllerBar({ current, total, onPrev, onNext, onJump, isFullscreen, onToggleFullscreen, onToggleGrid, revealHints, onToggleRevealHints, topJumperHidden, onToggleTopJumper }: Props) {
   const [shareOpen, setShareOpen] = useState(false);
   const [deckMenuOpen, setDeckMenuOpen] = useState(false);
+  const [importExportOpen, setImportExportOpen] = useState(false);
   const [themeMenuOpen, setThemeMenuOpen] = useState(false);
   const [keyboardOpen, setKeyboardOpen] = useState(false);
   const [hamburgerOpen, setHamburgerOpen] = useState(false);
@@ -109,7 +111,7 @@ export function ControllerBar({ current, total, onPrev, onNext, onJump, isFullsc
   // controller stays open even after the mouse leaves. Hover or open menus
   // still expand transiently as before.
   const [pinned, setPinned] = useState(false);
-  const expanded = pinned || hovered || shareOpen || deckMenuOpen || themeMenuOpen || hamburgerOpen || deckToolsOpen || themeToolsOpen;
+  const expanded = pinned || hovered || shareOpen || deckMenuOpen || importExportOpen || themeMenuOpen || hamburgerOpen || deckToolsOpen || themeToolsOpen;
 
   // ?themeDebug=1 — demo helper. Persists the debug flag in localStorage
   // (so the panel stays open across navigation) and auto-opens the theme
@@ -186,11 +188,11 @@ export function ControllerBar({ current, total, onPrev, onNext, onJump, isFullsc
                 <div className="relative">
                   <Tooltip>
                     <TooltipTrigger asChild>
-                      <button onClick={() => { setDeckMenuOpen(v => !v); setShareOpen(false); setThemeMenuOpen(false); }} aria-label="Deck manifest (export / import)" className="h-9 w-9 flex items-center justify-center rounded-full hover:bg-gold/15 transition lift-hover-subtle">
+                      <button onClick={() => { setImportExportOpen(v => !v); setShareOpen(false); setThemeMenuOpen(false); setDeckMenuOpen(false); }} aria-label="Import / Export" className="h-9 w-9 flex items-center justify-center rounded-full hover:bg-gold/15 transition lift-hover-subtle">
                         <FileJson className="h-4 w-4" />
                       </button>
                     </TooltipTrigger>
-                    <TooltipContent side="bottom">Deck manifest</TooltipContent>
+                    <TooltipContent side="bottom">Import / Export</TooltipContent>
                   </Tooltip>
                   {/* v0.87 — popovers moved out of the overflow-hidden pill (see below). */}
                 </div>
@@ -334,10 +336,18 @@ export function ControllerBar({ current, total, onPrev, onNext, onJump, isFullsc
           visible. The right-side anchor (`right-6`) matches the pill's
           fixed position so the menu hugs the same edge. Bug fix for the
           "menu opens but nothing happens" symptom on slide 3. */}
-      {(themeMenuOpen || shareOpen || deckMenuOpen || deckToolsOpen || themeToolsOpen) && (
+      {(themeMenuOpen || shareOpen || deckMenuOpen || importExportOpen || deckToolsOpen || themeToolsOpen) && (
         <div className="absolute top-full mt-3 right-0">
           {themeMenuOpen && <ThemeMenu onClose={() => setThemeMenuOpen(false)} />}
           {shareOpen && <ShareMenu currentSlide={current} onClose={() => setShareOpen(false)} />}
+          {importExportOpen && (
+            <ImportExportMenu
+              currentSlideNumber={current}
+              onClose={() => setImportExportOpen(false)}
+              onOpenDeckTools={() => { setDeckToolsOpen(true); setImportExportOpen(false); }}
+              onOpenThemeTools={() => { setThemeToolsOpen(true); setImportExportOpen(false); }}
+            />
+          )}
           {deckMenuOpen && <DeckMenu onClose={() => setDeckMenuOpen(false)} />}
           {deckToolsOpen && <DeckMenu onClose={() => setDeckToolsOpen(false)} />}
           {themeToolsOpen && <ThemeMenu onClose={() => setThemeToolsOpen(false)} />}
