@@ -262,6 +262,17 @@ export const BRAND_INSET_X_BOUNDS = { min: 48, max: 360, step: 2 } as const;
 export const NUDGE_OFFSET_BOUNDS = { min: -80, max: 80, step: 1 } as const;
 /** v0.211 — StepsChain3D top-marker scale, as a ratio of `--step-number-size`. */
 export const STEP_NUMBER_SIZE_3D_RATIO_BOUNDS = { min: 0.25, max: 1.0, step: 0.05 } as const;
+/** Dot-pagination ellipsis windowing bounds (spec 27/05). `maxBeforeCollapse`
+ *  is the slide count above which the strip collapses to `1 … cur±n … N`;
+ *  `neighbors` is how many dots flank the current slide when collapsed. */
+export const DOT_PAGINATION_COLLAPSE_BOUNDS = { min: 5, max: 99, step: 1 } as const;
+export const DOT_PAGINATION_NEIGHBORS_BOUNDS = { min: 1, max: 5, step: 1 } as const;
+
+/** Clamp `value` into `[bounds.min, bounds.max]`, falling back to `min` on NaN. */
+export function clampToBounds(value: number, bounds: { min: number; max: number }): number {
+  if (Number.isNaN(value)) return bounds.min;
+  return Math.max(bounds.min, Math.min(bounds.max, value));
+}
 
 /** Optical sweet-spot mapping baked in v0.94: at logoScale 0.85, the deck
  *  reads cleanest with brandInsetX = 218px. Used by `autoInsetFromLogo`. */
