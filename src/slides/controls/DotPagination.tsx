@@ -72,13 +72,16 @@ function GapToken({ tokens, index, onJump }: GapProps) {
 }
 
 
-export function DotPagination({ current, total, slides, onJump }: Props) {
+export function DotPagination({
+  current, total, slides, onJump,
+  maxBeforeCollapse = DEFAULT_THRESHOLD, neighbors = DEFAULT_NEIGHBORS,
+}: Props) {
   const reduced = useReducedMotion();
   const [hovered, setHovered] = useState<number | null>(null);
 
   const tokens =
-    total > COLLAPSE_THRESHOLD
-      ? buildPageWindow(current, total, NEIGHBORS)
+    total > maxBeforeCollapse
+      ? buildPageWindow(current, total, neighbors)
       : Array.from({ length: total }, (_, i) => i + 1);
   const maxWidth = Math.min(tokens.length * 24 + 32, 720);
 
