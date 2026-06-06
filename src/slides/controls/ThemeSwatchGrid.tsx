@@ -78,6 +78,7 @@ function ThemeTile({ id, isActive, onPick, onRemoveCustom }: TileProps) {
           <Trash2 className="h-2.5 w-2.5" />
         </button>
       )}
+      {frame && <ReferenceFrameThumb src={frame} label={t.label} />}
     </div>
   );
 }
