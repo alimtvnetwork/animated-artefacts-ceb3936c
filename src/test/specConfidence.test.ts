@@ -87,9 +87,9 @@ describe('auditSpecConfidence — category detection', () => {
     expect(hit?.path).toBe('transitions');
   });
 
-  it('does NOT flag legitimate authoring metadata (densityCheck, theme)', () => {
+  it('does NOT flag legitimate authoring metadata (densityCheck, theme, narrowIdea)', () => {
     const r = auditSpecConfidence([
-      { ...titleSlide(1), densityCheck: { capsules: { cap: 6 } }, theme: 'noir-gold' },
+      { ...titleSlide(1), densityCheck: { capsules: { cap: 6 } }, theme: 'noir-gold', narrowIdea: 'one idea' },
     ]);
     expect(r.counts['unknown-field']).toBe(0);
   });
