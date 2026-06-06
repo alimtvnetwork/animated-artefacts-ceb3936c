@@ -143,7 +143,15 @@ let's start now 2026-06-06 15:46
 
 let's start now 2026-06-06 16:42
 
-## v1.59.0 — Release notes (since v1.58.0) — CURRENT
+## v1.60.0 — Release notes (since v1.59.0) — CURRENT
+
+- **Made dot-pagination ellipsis windowing configurable** (spec `27/05` requirement; previously hard-coded constants in `DotPagination.tsx`).
+- Added `dotPaginationMaxBeforeCollapse` (default 15) and `dotPaginationNeighbors` (default 2) to `PresetSettings` (`src/slides/presetSettings.ts`) + `DEFAULT_PRESET_SETTINGS`.
+- `DotPagination` now takes optional `maxBeforeCollapse`/`neighbors` props (falling back to the same defaults); `SlideDeckPage` reads them from settings and live-updates via `subscribePresetSettings`.
+- `/settings` (`SettingsPage.tsx`) gains two number inputs (collapse threshold 5–99, neighbors 1–5) shown under the dot-pagination toggle, plus dirty-state detection for both.
+- Verification: `bunx tsc --noEmit` clean for touched files; `bunx vitest run src/test/pageWindow.test.ts` → 6/6. Spec `27/05` status bumped to v1.60.0.
+
+## v1.59.0 — Release notes (since v1.58.0)
 
 - **Shipped ellipsis pagination for the slide-number strip** (plan `05`).
 - Root cause: `DotPagination.tsx` rendered every dot for `1..total` and merely horizontal-scrolled past 28 slides, so on big decks the audience couldn't see "where we are" at a glance.
