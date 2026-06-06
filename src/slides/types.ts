@@ -569,6 +569,12 @@ export interface SlideContent {
    */
   freezeOnReducedMotion?: boolean;
   /**
+   * `SplitMediaSlide` — which half carries the media. `left` puts the image on
+   * the left and the text column (eyebrow/title/keywords/capsules) on the
+   * right; `right` mirrors it. Default `left`.
+   */
+  mediaSide?: 'left' | 'right';
+  /**
    * Live meeting URL encoded into the QR. Per-slide override of `deck.meeting.url`.
    * When set (and no `qrAsset`/explicit src is provided), `BrandedQR` generates
    * the QR client-side from this URL.
