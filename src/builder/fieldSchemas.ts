@@ -491,7 +491,7 @@ export const SLIDE_TYPE_SCHEMAS: Record<SlideTypeValue, SlideTypeSchema> = {
   GifLoopSlide: {
     label: 'GIF loop',
     blurb: 'A single looping GIF + caption. Reduced-motion swaps in a static poster frame.',
-    fields: ['eyebrow', 'title', 'caption', 'image'],
+    fields: ['eyebrow', 'title', 'image'],
     defaults: {
       eyebrow: 'LIVE DEMO',
       title: 'One tap to publish',
