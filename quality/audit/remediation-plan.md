@@ -37,3 +37,23 @@ Grouped by phase. Each item: `Title` · `Severity` · `Effort` (S/M/L) · `Depen
 - **B-01..B-04 independent**, can ship in any order — bundle into one minor release for atomic CATALOG bump (B-05).
 - **A-03 / A-04** prevent regression of B-05 going forward.
 - **M-01** unblocks once #32 ambiguity is resolved with the user (after no-questions window closes at 40/40).
+
+## Status update (2026-06-06, v1.31.0) — STALE BACKLOG, NEARLY ALL SHIPPED
+A code audit found Phase 1 and Phase 2 are fully implemented and tested; do NOT re-plan them.
+| ID | Status | Evidence |
+|---|---|---|
+| B-01 | ✅ done | `src/slides/types/DatabaseDiagramSlide.tsx` |
+| B-02 | ✅ done | `src/slides/types/DataTableSlide.tsx` |
+| B-03 | ✅ done | `src/slides/hooks/useCountUp.ts` + `NumberCalloutContent` in contracts.ts |
+| B-04 | ✅ done | `src/slides/types/EquationSlide.tsx` + `scripts/prerender-equations.ts` |
+| B-05 | ✅ done | `src/slides/enums.ts` = 26 types (>21) |
+| B-06 | ✅ done | `front-end/project/sample/data/slides/40..43-*.json` |
+| A-01 | ✅ done | `--dur-count-fast/slow` in `src/index.css` |
+| A-02 | ✅ done | `src/slides/densityCheck.ts` + `src/test/density.test.ts` |
+| A-03 | ✅ done | `src/slides/validateAgainstCatalog.ts` + boot probe |
+| A-04 | ✅ done | `scripts/check-catalog-drift.ts` in CI (`bun run check:catalog`) |
+| M-02 | ✅ done | `spec/21-slides-system/64-per-slide-sound-override.md` |
+| M-03 | ✅ done | `scripts/motion-variety-audit.ts` |
+| M-05 | ✅ done | roving-tabindex in EquationSlide + DataTableSlide |
+| M-01 | ⏳ open | #32 collapsible-sections ambiguity — needs user decision |
+| M-04 | ⏳ open | deprecate uncapped `TableSlide` after DataTableSlide — decision pending |
