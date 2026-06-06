@@ -20,7 +20,7 @@ function parseEnvelope(raw: unknown): SingleSlideManifest {
   if (!isRecord(raw)) throw new Error('Single-slide import must be a JSON object.');
   if (raw.manifestVersion !== SINGLE_SLIDE_VERSION) throw new Error(`Unsupported single-slide manifest version: ${String(raw.manifestVersion)}.`);
   if (!('slide' in raw)) throw new Error('Single-slide import is missing `slide`.');
-  return raw as SingleSlideManifest;
+  return raw as unknown as SingleSlideManifest;
 }
 
 function parseSlide(raw: unknown): SlideSpec {

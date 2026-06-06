@@ -26,6 +26,6 @@ function shiftJson(value: JsonValue, afterSlideNumber: number): JsonValue {
 
 export function shiftSlideForInsert(slide: SlideSpec, afterSlideNumber: number): SlideSpec {
   const nextNumber = slide.slideNumber > afterSlideNumber ? slide.slideNumber + 1 : slide.slideNumber;
-  const shifted = shiftJson(slide as JsonValue, afterSlideNumber) as SlideSpec;
+  const shifted = shiftJson(slide as unknown as JsonValue, afterSlideNumber) as unknown as SlideSpec;
   return { ...shifted, slideNumber: nextNumber };
 }
