@@ -150,6 +150,19 @@
       "type": "string",
       "description": "Speaker-only narration shown in the Presenter view (`/present`). Plain text; newlines render as paragraph breaks. Never displayed to the audience."
     },
+    "narrowIdea": {
+      "type": "string",
+      "description": "Author-facing one-line summary of the slide's single idea. Used by review/outline tooling only; ignored by the renderer (not part of the runtime SlideSpec)."
+    },
+    "theme": {
+      "type": "string",
+      "description": "Author-facing per-slide theme hint. Metadata only; runtime theme selection is handled by the per-deck theme persistence layer, not this field."
+    },
+    "densityCheck": {
+      "type": "object",
+      "description": "Author-facing density-budget overrides consumed by the density audit tooling. Not rendered.",
+      "additionalProperties": true
+    },
     "sound": {
       "type": "object",
       "description": "Optional per-slide audio cue. Synthesized in-browser (no asset). See spec/slides/21-sound-system.md.",
