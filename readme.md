@@ -143,7 +143,15 @@ let's start now 2026-06-06 15:46
 
 let's start now 2026-06-06 16:42
 
-## v1.77.0 — Release notes (since v1.76.0) — CURRENT
+## v1.78.0 — Release notes (since v1.77.0) — CURRENT
+
+- **Shipped `SvgDiagramSlide` (plan 05, step 1).** A centered inline SVG figure (`content.svgMarkup` or an `.svg` asset via `content.image`) with optional annotation `callouts` pinned by percent position; callout tones map to `.capsule-{tone}` classes and stagger in (instant under reduced-motion).
+- Root cause (one sentence): no app error existed — the recurring "error" is the next-task driver prompt, so this iteration advanced real plan work (diagram-forward type).
+- Files: new `SvgCalloutSpec` + `content.svgMarkup`/`content.callouts` in `src/slides/types.ts`; runtime `src/slides/types/SvgDiagramSlide.tsx`; registered in `src/slides/enums.ts`, `src/slides/SlideStage.tsx` (import + switch), `src/builder/fieldSchemas.ts` (schema + picker key); spec `spec/26-slide-definitions/_patterns/svg-diagram-slide.md`; docs in `LLM.md`, `spec/21-slides-system/llm/23-slide-type-contracts.md` (+count 31) & `06-json-authoring-cheatsheet.md` (§10e).
+- Verified: `bunx vitest run llmPackTypeCoverage llmMdSync contracts` → 81 passed (62 coverage assertions = 31 types × 2 docs); no `error TS` in Vite logs.
+
+## v1.77.0 — Release notes (since v1.76.0)
+
 
 - **Shipped `GifLoopSlide` (plan 05, step 1).** A centered looping GIF + optional eyebrow/title/caption; under `prefers-reduced-motion` (or `content.freezeOnReducedMotion`) the runtime swaps the GIF for a static `content.poster` so motion-sensitive viewers see a frozen frame.
 - Root cause (one sentence): no app error existed — the recurring "error" is the next-task driver prompt, so this iteration advanced real plan work (animated-media type).
