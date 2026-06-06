@@ -26,6 +26,8 @@
    — attach hidden detail slides via capsule reveals or stage hotspots.
 9. [`09-decision-tree.md`](./09-decision-tree.md)
    — pick the right slideType when authoring a brand-new slide.
+10. [`10-theme-creation.md`](./10-theme-creation.md)
+   — author palettes/themes; single-theme manifest, multi-theme bundle, import/export.
 
 ## JSON anatomy (at a glance)
 
