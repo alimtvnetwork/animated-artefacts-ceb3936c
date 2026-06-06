@@ -143,7 +143,15 @@ let's start now 2026-06-06 15:46
 
 let's start now 2026-06-06 16:42
 
-## v1.39.0 — Release notes (since v1.38.0) — CURRENT
+## v1.40.0 — Release notes (since v1.39.0) — CURRENT
+
+- Executed plan 03 steps 1–2: created `spec/llm-guideline/00-simplified-single-file-guide.md` — a NEW simplified, single-file LLM authoring guide with the one-shot manifest contract (§2) and the canonical 28-type inventory with "use it when…" guidance (§3).
+- Reconciled the `SlideType` enum from `src/slides/enums.ts` (28 types) against `CATALOG.json` and real runtime slides; mirrored the actual per-slide envelope + capsule-tone + Base64/SVG image-embedding rules.
+- Marked plan steps 1–2 done in `.lovable/plans/pending/03-simplified-single-file-llm-slide-guide.md`; steps 3–10 (per-type samples, wiring, cross-links) remain.
+- Saved prompt snapshot `.lovable/prompts/35-next-task.md`; archived `34`.
+- `package.json`: bumped to `1.40.0`.
+
+## v1.39.0 — Release notes (since v1.38.0)
 
 - Planning cycle: wrote `.lovable/plans/pending/03-simplified-single-file-llm-slide-guide.md` (10 steps) for a NEW simplified, single-file LLM authoring guide that carries a worked JSON sample for every slide type plus why/when/how-it-displays notes — distinct from the deep `spec/llm-guideline/**` "how to work" pack.
 - Captured command `.lovable/spec/commands/04-single-file-slide-authoring.md` (one-shot single manifest JSON is canonical output; images Base64/SVG embedded).
