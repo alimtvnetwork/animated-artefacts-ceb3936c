@@ -111,7 +111,7 @@ export function ControllerBar({ current, total, onPrev, onNext, onJump, isFullsc
   // controller stays open even after the mouse leaves. Hover or open menus
   // still expand transiently as before.
   const [pinned, setPinned] = useState(false);
-  const expanded = pinned || hovered || shareOpen || deckMenuOpen || themeMenuOpen || hamburgerOpen || deckToolsOpen || themeToolsOpen;
+  const expanded = pinned || hovered || shareOpen || deckMenuOpen || importExportOpen || themeMenuOpen || hamburgerOpen || deckToolsOpen || themeToolsOpen;
 
   // ?themeDebug=1 — demo helper. Persists the debug flag in localStorage
   // (so the panel stays open across navigation) and auto-opens the theme
