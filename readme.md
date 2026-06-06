@@ -132,7 +132,26 @@ This README also carries the same guidance inline — see **[📂 Folder structu
 
 let's start now 2026-04-30 12:00
 
-## v1.5.0 — Release notes (since v1.4.0) — CURRENT
+## v1.6.0 — Release notes (since v1.5.0) — CURRENT
+
+Deck-fragment parity locked. The two authoring defects surfaced in v1.5.0 are fixed, the last stale schema constraint is reconciled with the renderer, and a new CI gate keeps every deck fragment valid against the canonical schema forever.
+
+### Root cause
+
+Two unrelated issues remained after v1.5.0: (a) `inside-studio/04-capsules.json` set capsule `clickRevealSlide: "click-reveal-process"` (a string) — `Capsule.tsx:91/97` treats a truthy value as an active reveal but matches on `slideNumber === value`, so a string makes the capsule render interactive yet navigate nowhere; (b) the schema capped `hoverText` at 28 chars citing flip-motion truncation, but `Capsule.tsx:106-107` now reserves width for the longer of `text`/`hoverText` (widthAnchor), so longer labels never truncate — the cap was stale.
+
+### Fix (minimum correct change)
+
+- `inside-studio/04-capsules.json` — `clickRevealSlide` → `24` (the actual `click-reveal-process` slide, `parentSlide: 4`).
+- `slide.schema.json` + `spec/21-slides-system/22-interactive-capsules.md` — `hoverText` maxLength `28 → 48`, description/rule updated to document the widthAnchor behavior.
+- New `src/test/deckFragmentSchema.test.ts` — validates every `front-end/project/*/data/slides/*.json` fragment against `slide.schema.json` (parity gate).
+
+### Verification
+
+- Ad-hoc Ajv over all 83 fragments: **4 → 0 failures**.
+- Full suite **900/900** across 66 files (+2 from the new gate); `schema.test.ts` + `deckFragmentSchema.test.ts` green; spec-confidence boot log unchanged at `100/100`.
+
+## v1.5.0 — Release notes (since v1.4.0)
 
 Schema-drift closeout, round 2. `spec/21-slides-system/slide.schema.json` is now in parity with the runtime contracts in `src/slides/contracts.ts` and the `SoundKind` union in `src/slides/sound.ts`, so per-slide deck fragments validate against the canonical schema. No runtime behavior changes.
 
