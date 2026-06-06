@@ -36,6 +36,8 @@ export interface DensityCap {
   capTerms?: number;
   /** ChecklistSlide — items[] count. Spec 62. */
   capItems?: number;
+  /** MediaGridSlide — mediaTiles[] count. ≤6. */
+  capTiles?: number;
 }
 
 export interface DensityViolation {
