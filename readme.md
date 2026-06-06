@@ -134,6 +134,16 @@ let's start now 2026-04-30 12:00
 
 let's start now 2026-06-06 15:46
 
+## v1.21.0 — Release notes (since v1.20.0) — CURRENT
+
+**Fixed next-task prompt registry drift.** Root cause: the saved prompt snapshots in `.lovable/prompts/` had advanced through `15-next-task.md`, but the registry files `.lovable/prompts.md` and `.lovable/prompt.md` still pointed at `05-next-task.md` as the "latest" driver, and `.lovable/prompts/15-next-task.md` itself still contained duplicated `# 14` / v1.19.0 content — so the project’s documented next-task source of truth was stale and self-contradictory.
+
+- `.lovable/prompts.md`: marks `04-next-task.md` as the canonical reusable driver and `16-next-task.md` as the latest saved snapshot; historical saves `05`–`15` are explicitly treated as archives.
+- `.lovable/prompt.md`: mirrored the same registry fix so the top-level pointer matches the prompts index.
+- `.lovable/prompts/15-next-task.md`: corrected the heading/content drift (`15`, not duplicated `14`) and updated its iteration note to the actual v1.20.0 checkpoint.
+- New `.lovable/prompts/16-next-task.md`: saved this iteration per the workflow rule.
+- Verification: before fix, `rg -n "latest \"next task\" driver|15-next-task|# 15|v1\.20\.0|v1\.21\.0" .lovable readme.md` showed `.lovable/prompts.md` still calling `05-next-task.md` the latest driver and `15-next-task.md` opening with `# 14`. After fix, the registry points to `16-next-task.md`, `15-next-task.md` is correctly numbered, and Vite logs remain free of app errors (only the pre-existing Browserslist staleness warning remains).
+
 ## v1.20.0 — Release notes (since v1.19.0) — CURRENT
 
 **Wired three "Soon" Import/Export menu rows to real functionality (plan step — `02-import-export-menu-tree.md`).** Root cause: `src/slides/controls/ImportExportSubmenu.tsx` rendered "Export JSON (current slide)", "Import themes (all)", and "Export themes (all)" as `Soon`-badged stubs calling `planned()` (toast only), even though the underlying primitives (`findBySlideNumber`, `buildThemeManifest`, `installThemeManifest`) already shipped — so the rows were dead UI.

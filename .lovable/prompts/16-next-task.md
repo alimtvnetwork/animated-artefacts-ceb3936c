@@ -1,4 +1,4 @@
-# 15 — Next Task (v5)
+# 16 — Next Task (v5)
 
 Snapshot of the recurring "Next 2 Steps or Tasks (v5)" driver prompt, saved per the workflow rule.
 
@@ -24,5 +24,5 @@ Read actual logs first. No logs = the bug; add logging at entry points. Every fi
 - SEO tasks: follow `.lovable/seo-guidelines.md` if present.
 - Verify each file/folder exists first; skip missing ones silently; folder-level spec wins on conflict.
 
-## This iteration (v1.20.0)
-Completed plan subtask 02 follow-up — wired three import/export rows (`Export JSON (current slide)`, `Import themes (all)`, `Export themes (all)`) to real handlers via `src/slides/slideJson.ts`, `src/slides/themeBulk.ts`, and `src/slides/controls/ImportExportSubmenu.tsx`.
+## This iteration (v1.21.0)
+Fixed next-task prompt registry drift: `.lovable/prompts.md` and `.lovable/prompt.md` now point at the latest saved snapshot, and `.lovable/prompts/15-next-task.md` no longer carries the duplicated `# 14` / v1.19.0 content.
