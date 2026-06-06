@@ -143,7 +143,13 @@ let's start now 2026-06-06 15:46
 
 let's start now 2026-06-06 16:42
 
-## v1.56.0 — Release notes (since v1.55.0) — CURRENT
+## v1.57.0 — Release notes (since v1.56.0) — CURRENT
+
+- **Fixed controller-pill contrast on the `think-yellow` theme.** Root cause: think-yellow's slide `--background` is pure black (`0 0% 0%`) while the pill uses a global `--chrome-bg: 0 0% 7%` and a dark drop-shadow, leaving almost no edge separation on pure black.
+- Minimum fix: added a `[data-theme='think-yellow']` chrome override in `src/index.css` lifting `--chrome-bg` to `0 0% 11%`, bumping `--chrome-border-strength` to `0.4` and `--chrome-divider-strength` to `0.18` — no `.controller-pill` rule changes needed (it reads these tokens).
+- Verification: previewed `/1?theme=think-yellow` — the pill now reads as a distinct chip with a crisp gold hairline and a separated surface against pure black.
+
+## v1.56.0 — Release notes (since v1.55.0)
 
 - **Wired reference-frame thumbnails into the theme picker.** Hovering a theme tile in `ThemeSwatchGrid` now reveals the presenter reference frame each image-derived theme was sampled from.
 - New `src/slides/controls/referenceFrames.ts` maps `glasswing → 01-sample.webp`, `think-yellow → 02-sample.webp`, `riseup-pro → 03-sample.jpg` (per spec `08`); non-image themes show no frame.
