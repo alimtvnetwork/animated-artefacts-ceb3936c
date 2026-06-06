@@ -25,7 +25,10 @@ export type ThemeId =
   | 'paper-ink'
   | 'macos-sonoma'
   | 'windows-11'
-  | 'navy-blue';
+  | 'navy-blue'
+  | 'glasswing'
+  | 'think-yellow'
+  | 'riseup-pro';
 
 export interface ThemePreset {
   id: ThemeId;
