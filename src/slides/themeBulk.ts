@@ -8,7 +8,7 @@
  * bundle into a fresh project only ever installs the customs.
  */
 
-import { THEMES, type ThemeId } from './themes';
+import { THEMES, THEME_IDS, type ThemeId } from './themes';
 import {
   buildThemeManifest,
   installThemeManifest,
@@ -16,6 +16,8 @@ import {
   type SerializableTheme,
 } from './themeManifest';
 import { downloadJson } from './downloadJson';
+
+const BUILTIN_IDS = new Set<string>(THEME_IDS);
 
 export type ThemeBundleVersion = 1;
 
