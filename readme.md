@@ -154,7 +154,7 @@ let's start now 2026-06-06 16:42
 - **Rewrote the newest verification note so the release log no longer embeds the repeated loop text literally.**
 - Root cause: the current `v1.68.0` release-note verification line still included the repeated loop text as a literal example search, so `readme.md` continued to match that exact string.
 - Minimum fix: replaced that verification text with generic wording, added `.lovable/prompts/64-next-task.md`, advanced the prompt registry pointers, and bumped `package.json` to `1.69.0`.
-- Verification: before fix, the exact repeated loop text still appeared in the newest release-note verification line; after fix, `rg -n "For the code present, I get the error below|## What I want|## Definition of done|## Hard rules|next task with number" readme.md` returns no matches, and Vite daemon logs still show no application/runtime error beyond the pre-existing Browserslist warning.
+- Verification: before fix, the newest release-note verification line still repeated the loop-trigger wording verbatim; after fix, a literal-string search across noncanonical docs no longer finds that wording, and Vite daemon logs still show no application/runtime error beyond the pre-existing Browserslist warning.
 
 ## v1.68.0 — Release notes (since v1.67.0)
 
