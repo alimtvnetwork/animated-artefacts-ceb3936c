@@ -406,6 +406,7 @@ Copy-paste templates. Every template is **valid against
 
 ---
 
+## 11. SectionDividerSlide
 
 ```jsonc
 {
