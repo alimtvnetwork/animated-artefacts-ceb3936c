@@ -132,7 +132,19 @@ This README also carries the same guidance inline — see **[📂 Folder structu
 
 let's start now 2026-04-30 12:00
 
-## v1.13.0 — Release notes (since v1.12.0) — CURRENT
+let's start now 2026-06-06 15:46
+
+## v1.14.0 — Release notes (since v1.13.0) — CURRENT
+
+**Controller hamburger: Import / Export is now the planned structured submenu (plan step 4).** Root cause: `src/slides/controls/ControllerBar.tsx` still rendered a flat two-item LLM-guide block under an `Import / Export` heading, so the controller did not match the required tree in `.lovable/spec/commands/02-import-export-and-debug-menus.md` and `.lovable/plans/subtasks/01-slide-system-export-llm-overhaul/02-import-export-menu-tree.md`.
+
+- Added `src/slides/controls/ImportExportSubmenu.tsx` and wired it into `ControllerHamburger` in `ControllerBar.tsx`.
+- The new submenu now groups **Slides / Themes / PDF / Full bundle / Authoring guide** under one expandable `Import / Export` node.
+- Reused existing working flows instead of inventing new ones: deck import/export opens `DeckMenu`, theme import/export opens `ThemeMenu`, deck PDF reuses `runExport('pdf-rgb')`, and the LLM guide actions were moved into the submenu with explicit `console` logging + toast errors.
+- For still-planned paths (single-slide JSON, bulk themes, current-slide PDF, ZIP), added explicit `Soon` rows that log intent and surface a non-silent toast instead of pretending the feature exists.
+- Verification: before fix, the code path still referenced the old flat LLM-guide block and produced TS errors (`Cannot find name 'downloadLlmGuide'`, `Download`, `copyLlmGuideToClipboard`, `ClipboardCopy`) after the submenu refactor was partially applied. After fix, Vite HMR logs show clean updates only, with no follow-up TypeScript/runtime errors.
+
+## v1.13.0 — Release notes (since v1.12.0)
 
 **Controller hamburger: Debug consolidated into one entry (plan step 3).** The
 hamburger panel previously listed Contrast debug + Reduce motion as two flat
