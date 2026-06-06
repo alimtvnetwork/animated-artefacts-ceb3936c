@@ -500,6 +500,20 @@ export const SLIDE_TYPE_SCHEMAS: Record<SlideTypeValue, SlideTypeSchema> = {
       poster: '/placeholder.svg',
     },
   },
+  SvgDiagramSlide: {
+    label: 'SVG diagram',
+    blurb: 'Centered inline SVG figure with optional annotation callouts pinned by percent position.',
+    fields: ['eyebrow', 'title', 'image'],
+    defaults: {
+      eyebrow: 'HOW IT WORKS',
+      title: 'The shape of the system',
+      image: '/placeholder.svg',
+      callouts: [
+        { x: 25, y: 30, label: 'Input', tone: 'gold' },
+        { x: 75, y: 60, label: 'Output', tone: 'ember' },
+      ],
+    },
+  },
 };
 
 /** Ordered list of slide-type keys for the picker. */
@@ -530,4 +544,5 @@ export const SLIDE_TYPE_KEYS: SlideTypeValue[] = [
   'SplitMediaSlide',
   'MediaGridSlide',
   'GifLoopSlide',
+  'SvgDiagramSlide',
 ];

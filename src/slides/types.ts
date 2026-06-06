@@ -398,6 +398,23 @@ export interface MediaTileSpec {
   caption?: string;
 }
 
+/**
+ * `SvgDiagramSlide` annotation callout — a labelled marker pinned by percent
+ * position over the SVG figure. `x`/`y` are 0–100 (% of the figure box).
+ * `tone` picks a semantic capsule color for the marker. See
+ * `spec/26-slide-definitions/_patterns/svg-diagram-slide.md`.
+ */
+export interface SvgCalloutSpec {
+  /** Horizontal anchor, 0–100 (% of the figure width). */
+  x: number;
+  /** Vertical anchor, 0–100 (% of the figure height). */
+  y: number;
+  /** Short annotation text shown next to the marker. */
+  label: string;
+  /** Marker tone — maps to a `.capsule-{tone}` class. Default `gold`. */
+  tone?: 'gold' | 'ember' | 'cream';
+}
+
 /* ============================================================================
  * v0.169 — generic slide-type schemas (TableSlide / CodeBlockSlide /
  * BoxDiagramSlide / LayoutSlide). All four are topic-agnostic — they ship the
@@ -600,6 +617,17 @@ export interface SlideContent {
    * poster is the only way to honor reduced-motion for animated media.
    */
   poster?: string;
+  /**
+   * `SvgDiagramSlide` — inline SVG markup rendered as the figure. Takes
+   * precedence over `content.image`; when absent, `content.image` (an `.svg`
+   * asset / data URI) is shown via `<img>` instead.
+   */
+  svgMarkup?: string;
+  /**
+   * `SvgDiagramSlide` — annotation callouts pinned over the figure by percent
+   * position. Keep to a handful so the diagram stays legible (one idea/slide).
+   */
+  callouts?: SvgCalloutSpec[];
   /**
    * Live meeting URL encoded into the QR. Per-slide override of `deck.meeting.url`.
    * When set (and no `qrAsset`/explicit src is provided), `BrandedQR` generates
