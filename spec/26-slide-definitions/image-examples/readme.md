@@ -13,6 +13,8 @@
 | 5 | inline-svg-data-uri | `data:image/svg+xml,…` | `bodyFigure` | Inline vector data URI |
 | 6 | inline-thumbnail | `/assets/examples/photo.png` | `inlineThumbnail` | Smaller thumbnail slot |
 | 7 | icon-badge | `/assets/examples/diagram.svg` | `iconBadge` | Tiny pictogram slot |
+| 15 | gif-loop | `/assets/examples/loop.gif` + poster | — | Animated media + reduced-motion poster fallback |
+| 16 | svg-diagram | `/assets/examples/diagram.svg` | — | SVG figure + coordinate-pinned callouts |
 
 ## Key takeaways
 
@@ -29,3 +31,5 @@
 | 9 | title-hero-slot | `imageRole: "titleHero"` routing + caption |
 | 10 | image-with-caption | `content.caption` under a single figure |
 | 11 | image-gallery | `content.images[]` — 2–3 figure row |
+| 15 | gif-loop | `GifLoopSlide` — GIF + poster fallback path |
+| 16 | svg-diagram | `SvgDiagramSlide` — SVG asset + `%` callouts |
