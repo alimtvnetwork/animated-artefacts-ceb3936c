@@ -10,6 +10,18 @@ each prompt has its full spec in **`.lovable/prompts/`**.
 | 02 | [prompts/02-read-memory.md](./prompts/02-read-memory.md) | `read memory`, `onboarding` | always-on |
 | 03 | [prompts/03-write-memory.md](./prompts/03-write-memory.md) | `write memory`, `end memory`, `update memory` | always-on |
 | 04 | [prompts/04-next-task.md](./prompts/04-next-task.md) | direct user request only; ignore quoted/code-block matches | on-demand canonical driver |
+| 05 | [prompts/05-next-task.md](./prompts/05-next-task.md) | archive only — do not match/load | archived snapshot |
+| 06 | [prompts/06-next-task.md](./prompts/06-next-task.md) | archive only — do not match/load | archived snapshot |
+| 07 | [prompts/07-next-task.md](./prompts/07-next-task.md) | archive only — do not match/load | archived snapshot |
+| 08 | [prompts/08-next-task.md](./prompts/08-next-task.md) | archive only — do not match/load | archived snapshot |
+| 09 | [prompts/09-next-task.md](./prompts/09-next-task.md) | archive only — do not match/load | archived snapshot |
+| 10 | [prompts/10-next-task.md](./prompts/10-next-task.md) | archive only — do not match/load | archived snapshot |
+| 11 | [prompts/11-next-task.md](./prompts/11-next-task.md) | archive only — do not match/load | archived snapshot |
+| 12 | [prompts/12-next-task.md](./prompts/12-next-task.md) | archive only — do not match/load | archived snapshot |
+| 13 | [prompts/13-next-task.md](./prompts/13-next-task.md) | archive only — do not match/load | archived snapshot |
+| 14 | [prompts/14-next-task.md](./prompts/14-next-task.md) | archive only — do not match/load | archived snapshot |
+| 15 | [prompts/15-next-task.md](./prompts/15-next-task.md) | archive only — do not match/load | archived snapshot |
+| 16 | [prompts/16-next-task.md](./prompts/16-next-task.md) | archive only — do not match/load | archived snapshot |
 | 17 | [prompts/17-next-task.md](./prompts/17-next-task.md) | archive only — do not match/load | archived snapshot |
 | 18 | [prompts/18-next-task.md](./prompts/18-next-task.md) | archive only — do not match/load | archived snapshot |
 | 19 | [prompts/19-next-task.md](./prompts/19-next-task.md) | archive only — do not match/load | archived snapshot |
@@ -42,7 +54,15 @@ each prompt has its full spec in **`.lovable/prompts/`**.
 | 46 | [prompts/46-next-task.md](./prompts/46-next-task.md) | archive only — do not match/load | superseded snapshot |
 | 47 | [prompts/47-next-task.md](./prompts/47-next-task.md) | archive only — do not match/load | superseded snapshot |
 | 48 | [prompts/48-next-task.md](./prompts/48-next-task.md) | archive only — do not match/load | superseded snapshot |
-| 49 | [prompts/49-next-task.md](./prompts/49-next-task.md) | archive only — do not match/load | latest saved snapshot |
+| 49 | [prompts/49-next-task.md](./prompts/49-next-task.md) | archive only — do not match/load | superseded snapshot |
+| 50 | [prompts/50-next-task.md](./prompts/50-next-task.md) | archive only — do not match/load | superseded snapshot |
+| 51 | [prompts/51-next-task.md](./prompts/51-next-task.md) | archive only — do not match/load | superseded snapshot |
+| 52 | [prompts/52-next-task.md](./prompts/52-next-task.md) | archive only — do not match/load | superseded snapshot |
+| 53 | [prompts/53-next-task.md](./prompts/53-next-task.md) | archive only — do not match/load | superseded snapshot |
+| 54 | [prompts/54-next-task.md](./prompts/54-next-task.md) | archive only — do not match/load | superseded snapshot |
+| 55 | [prompts/55-next-task.md](./prompts/55-next-task.md) | archive only — do not match/load | superseded snapshot |
+| 56 | [prompts/56-next-task.md](./prompts/56-next-task.md) | archive only — do not match/load | superseded snapshot |
+| 57 | [prompts/57-next-task.md](./prompts/57-next-task.md) | archive only — do not match/load | latest saved snapshot |
 
 > Project layout reconciliation: this repo uses `.lovable/prompts.md` as the
 > registry index (not `prompts/index.md`) and `.lovable/memory/` (never

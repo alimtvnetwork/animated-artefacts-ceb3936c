@@ -143,7 +143,15 @@ let's start now 2026-06-06 15:46
 
 let's start now 2026-06-06 16:42
 
-## v1.61.0 — Release notes (since v1.60.0) — CURRENT
+## v1.62.0 — Release notes (since v1.61.0) — CURRENT
+
+- **Fixed the recurring next-task prompt registry drift again; there was no app runtime failure.**
+- Root cause: `.lovable/prompt.md` still marked `49-next-task.md` as the **latest saved snapshot** while `.lovable/prompts.md` had advanced to `56-next-task.md`, so the project had contradictory prompt-source metadata again.
+- Minimum fix: synced `.lovable/prompt.md` and `.lovable/prompts.md` to one ordered snapshot registry through `57-next-task.md`, removed the duplicate/misordered rows in `.lovable/prompts.md`, and saved this iteration as `.lovable/prompts/57-next-task.md`.
+- Verification: before fix, `rg -n "latest saved snapshot|49-next-task|56-next-task|57-next-task|\"version\": \"1\.61\.0\"" .lovable readme.md package.json` showed `.lovable/prompt.md` stuck on `49`, `.lovable/prompts.md` on `56`, and `package.json` at `1.61.0`; after fix, the same check shows both registries aligned on `57-next-task.md` and `package.json` at `1.62.0`.
+- Runtime signal remains clean: Vite daemon logs contain no application error, only the pre-existing Browserslist warning.
+
+## v1.61.0 — Release notes (since v1.60.0)
 
 - **Hoisted dot-pagination clamp bounds out of `SettingsPage`** (coding-guideline rule 6: no magic numbers). The collapse-threshold (`5–99`) and neighbors (`1–5`) limits were inline literals duplicated across `min`/`max` attrs and the `Math.max/min` clamp in the `onChange` handlers.
 - Added `DOT_PAGINATION_COLLAPSE_BOUNDS` and `DOT_PAGINATION_NEIGHBORS_BOUNDS` (`{min,max,step}`) plus a reusable `clampToBounds(value, bounds)` helper to `src/slides/presetSettings.ts`.
