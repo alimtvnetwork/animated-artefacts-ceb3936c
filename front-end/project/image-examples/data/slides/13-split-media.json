@@ -1,0 +1,23 @@
+{
+  "slideNumber": 13,
+  "slideName": "split-media",
+  "slideType": "SplitMediaSlide",
+  "transition": "PushLeft",
+  "textAnimation": "SlideUp",
+  "enabled": true,
+  "isClickReveal": false,
+  "showBrandHeader": true,
+  "showPresenterChip": false,
+  "titleStyle": "white",
+  "content": {
+    "image": "/assets/examples/photo.png",
+    "mediaSide": "left",
+    "eyebrow": "SHOW + TELL",
+    "title": "Media meets message",
+    "keywords": ["Fast", "Legible", "On-brand"],
+    "capsules": [
+      { "text": "Image", "color": "gold" },
+      { "text": "Keywords", "color": "ember" }
+    ]
+  }
+}
