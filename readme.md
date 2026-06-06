@@ -134,7 +134,14 @@ let's start now 2026-04-30 12:00
 
 let's start now 2026-06-06 15:46
 
-## v1.26.0 — Release notes (since v1.25.0) — CURRENT
+## v1.27.0 — Release notes (since v1.26.0) — CURRENT
+
+**Documented the visual export pipeline in the LLM guide (roadmap step 1 cont.).** Root cause: after v1.26.0 added ZIP-bundle docs, `LLM.md` still had zero mention of the live `src/slides/export.ts` formats (`EXPORT_FORMATS`: pdf-rgb/pdf-cmyk/svg/png/jpg and `exportSlidePdf`), so an LLM had no idea decks can render to PDF/SVG/PNG/JPG.
+- `LLM.md`: added a "Visual export formats" section covering the `/handout?print=1` PDF flow, CMYK-safe filter, per-slide SVG/PNG/JPG at 1920×1080, and the throw-on-invalid-slide contract of `exportSlidePdf`.
+- `.lovable/prompts/22-next-task.md`: saved the v1.27.0 driver snapshot; `.lovable/prompts.md` synced (`22` latest, `21` archived).
+- `package.json`: bumped to `1.27.0`.
+
+## v1.26.0 — Release notes (since v1.25.0)
 
 **Closed a real LLM-guide schema-parity gap (roadmap step 1).** Root cause: `LLM.md` documented every authoring feature except the full-deck ZIP bundle that has been live in `src/slides/zipBundle.ts` since v1.23.0 (`exportBundleZip`/`importBundleFile`), so any LLM handed the guide had no idea the backup/transfer path existed.
 - `LLM.md`: added a "Full-deck ZIP bundle (backup & transfer)" section + quick-reference row documenting export contents (`deck.json`/`themes.json`/`bundle.json`) and the validate-before-write import contract.
