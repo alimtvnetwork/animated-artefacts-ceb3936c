@@ -46,6 +46,19 @@ schemas. Keep all three in sync.
 | `BoxDiagramSlide` | `title`, `diagramNodes` | `2 ≤ nodes.length ≤ 20`. Field-by-field doc: `27c`. |
 | `ERDiagramSlide` | `title`, one of: `entities`, `diagramNodes` | `2 ≤ entities.length ≤ 20`. Same shape as BoxDiagramSlide; auto navy palette. |
 | `LayoutSlide` | `title`, `layoutSlots` | `1 ≤ slots.length ≤ 6`. Field-by-field doc: `27d`. |
+| `StepsChain3DSlide` | `title`, `steps` | `3 ≤ steps.length ≤ 6` (`capSteps`). Cinematic 3D chain. |
+| `DatabaseDiagramSlide` | `title`, one of: `dbEntities`, `diagram` | `≤5 entities` (`capEntities`), `≤6 relationships` (`capRelationships`). |
+| `DataTableSlide` | `title`, `dataColumns`, `dataRows` | `≤5 cols` (`capColumns`) × `≤8 rows` (`capRows`). |
+| `NumberCalloutSlide` | `number` | Exactly ONE number (`capNumbers`); array → flagged. |
+| `EquationSlide` | one of: `tex`, `equationHtml` | Exactly ONE equation; term-by-term Stagger (`capTerms`). |
+| `ChecklistSlide` | `title`, `items` | `≤7 items` (`capItems`). |
+| `TileSlide` | `title`, `tiles` | `2 ≤ tiles.length ≤ 4`. |
+| `BlastRadiusSlide` | `title` | Single-word title moment; pairs with `ZoomOut` exit. |
+| `SessionOutlineSlide` | `title`, `items` | `2 ≤ items.length ≤ 8`; optional `activeIndex`. |
+
+> `ClickRevealSlide` is not a content type — it is an envelope flag
+> (`isClickReveal: true` + `parentSlide`) on any slide; see `26-click-reveal-contract.md`.
+> All 26 `SlideType` enum values are now represented across this table + that note.
 
 Every envelope (any slideType) requires:
 `slideNumber:int>0`, `slideName:string`, `slideType:enum`,
