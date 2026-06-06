@@ -4,33 +4,30 @@ import { resolve } from 'node:path';
 import { buildLlmGuideMarkdown } from '../slides/llmGuideBundle';
 import { SLIDE_CONTENT_CONTRACTS, SLIDE_CONTRACTS_VERSION } from '../slides/contracts';
 
-describe('llm-guideline pack is bundled into the downloadable guide', () => {
+describe('downloadable guide is slide-content only', () => {
   const md = buildLlmGuideMarkdown({ deckName: 'test' });
 
-  it('leads with the root LLM.md fast-path playbook', () => {
-    expect(md).toContain('Fast path (root');
-    expect(md).toContain('The 30-step playbook');
+  it('instructs the AI to write output to the filesystem first (default .lovable/)', () => {
+    expect(md).toContain('write your output to the filesystem first');
+    expect(md).toContain('`.lovable/`');
   });
 
-  it('includes the blind-follow modification pack section', () => {
-    expect(md).toContain('Blind-follow modification pack');
-    expect(md).toContain('spec/llm-guideline/');
-  });
-
-  it('embeds each guideline file (non-empty)', () => {
-    for (const f of [
-      '01-modify-a-slide-step-by-step.md',
-      '03-field-reference.md',
-      '07-extended-type-recipes.md',
-      '09-decision-tree.md',
-    ]) {
-      expect(md).toContain(`## File: \`${f}\``);
-    }
-  });
-
-  it('still includes the deep authoring pack and schema', () => {
-    expect(md).toContain('Authoring pack');
+  it('includes the slide JSON schema, enum catalog, and theme tokens', () => {
     expect(md).toContain('Slide JSON schema');
+    expect(md).toContain('Runtime catalog (enumerated values)');
+    expect(md).toContain('Active theme & color tokens');
+  });
+
+  it('embeds the simplified single-file slide-authoring guide', () => {
+    expect(md).toContain('Slide authoring guide');
+    expect(md).toContain('single-file manifest contract');
+  });
+
+  it('excludes process / "how to work" material', () => {
+    expect(md).not.toContain('Fast path (root');
+    expect(md).not.toContain('Blind-follow modification pack');
+    expect(md).not.toContain('Authoring pack');
+    expect(md).not.toContain('## File: `01-modify-a-slide-step-by-step.md`');
   });
 });
 
