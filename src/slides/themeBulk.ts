@@ -2,10 +2,10 @@
  * Bulk theme import / export.
  *
  * Wraps the single-theme `themeManifest` helpers so a presenter can ship
- * every custom palette in one file (and re-import the whole set). Built-in
- * themes are included for portability, but `installAllThemes` relies on
- * `installThemeManifest`, which refuses to shadow built-ins — so importing a
- * bundle into a fresh project only ever installs the customs.
+ * every palette in one file (and re-import the whole set). Built-in themes
+ * are included in the export for portability/diffing, but `installAllThemes`
+ * skips any id that matches a built-in — only imported customs are installed
+ * on the receiving side.
  */
 
 import { THEMES, THEME_IDS, type ThemeId } from './themes';
