@@ -143,7 +143,15 @@ let's start now 2026-06-06 15:46
 
 let's start now 2026-06-06 16:42
 
-## v1.53.0 — Release notes (since v1.52.0) — CURRENT
+## v1.54.0 — Release notes (since v1.53.0) — CURRENT
+
+- Fixed the recurring **next-task prompt registry drift** again; this was a bookkeeping/prompt-source issue, not a runtime app failure.
+- Root cause: `.lovable/prompt.md` was still stale at `38-next-task.md` as the **latest saved snapshot**, while `.lovable/prompts.md` had advanced to `48-next-task.md`, so the project still had contradictory prompt-source metadata.
+- Minimum fix: synced `.lovable/prompt.md` to the real archive chain through `49-next-task.md`, marked `48` superseded and `49` latest in `.lovable/prompts.md`, and saved this iteration as `.lovable/prompts/49-next-task.md`.
+- Verification: before fix, `rg -n "latest saved snapshot|48-next-task|38-next-task|1\.53\.0|1\.54\.0" .lovable readme.md package.json` showed `.lovable/prompt.md` stuck on `38`, `.lovable/prompts.md` on `48`, and `package.json` at `1.53.0`; after fix, the same search shows both registries aligned on `49-next-task.md` and `package.json` at `1.54.0`.
+- Runtime signal remains clean: Vite daemon logs show no application error, only the pre-existing Browserslist warning.
+
+## v1.53.0 — Release notes (since v1.52.0)
 
 - Documented the three image-derived themes in the **LLM authoring pack** so future authoring picks them up.
 - `spec/21-slides-system/llm/05-design-tokens-and-theme.md`: added **§7b "Available themes (built-in)"** — a full 13-theme catalog table (id/label/appearance/flavor) including `glasswing`, `think-yellow`, `riseup-pro` with their Ubuntu+Poppins + additive notes and the `theme-flavors` demo deck pointer.
