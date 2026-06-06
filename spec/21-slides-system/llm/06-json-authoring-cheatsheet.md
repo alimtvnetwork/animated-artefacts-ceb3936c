@@ -406,6 +406,29 @@ Copy-paste templates. Every template is **valid against
 
 ---
 
+## 10d. GifLoopSlide (looping GIF + reduced-motion poster)
+
+```jsonc
+{
+  "slideNumber": 11,
+  "slideName": "demo-loop",
+  "slideType": "GifLoopSlide",
+  "transition": "FadeIn",
+  "textAnimation": "SlideUp",
+  "content": {
+    "eyebrow": "LIVE DEMO",
+    "title": "One tap to publish",
+    "caption": "The whole flow in under three seconds.",
+    "image": "images/demo-loop.gif",
+    "poster": "images/demo-still.jpg"
+  }
+}
+```
+
+---
+
+
+
 ## 11. SectionDividerSlide
 
 ```jsonc

@@ -594,6 +594,13 @@ export interface SlideContent {
    */
   mediaTiles?: MediaTileSpec[];
   /**
+   * `GifLoopSlide` — static still frame shown instead of the looping GIF
+   * (`content.image`) when `prefers-reduced-motion` is set or
+   * `freezeOnReducedMotion` is true. The browser cannot pause a GIF, so this
+   * poster is the only way to honor reduced-motion for animated media.
+   */
+  poster?: string;
+  /**
    * Live meeting URL encoded into the QR. Per-slide override of `deck.meeting.url`.
    * When set (and no `qrAsset`/explicit src is provided), `BrandedQR` generates
    * the QR client-side from this URL.

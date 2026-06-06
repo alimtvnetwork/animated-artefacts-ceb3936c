@@ -148,6 +148,14 @@ export const SlideType = {
    * `spec/26-slide-definitions/_patterns/media-grid-slide.md`.
    */
   MediaGridSlide: 'MediaGridSlide',
+  /**
+   * GifLoopSlide — a single looping animated GIF centered on the stage with an
+   * optional eyebrow + title + caption. Under reduced-motion (or
+   * `content.freezeOnReducedMotion`) the runtime swaps the GIF for a static
+   * `content.poster` frame. Use for product loops / micro-demos. See
+   * `spec/26-slide-definitions/_patterns/gif-loop-slide.md`.
+   */
+  GifLoopSlide: 'GifLoopSlide',
 } as const;
 export type SlideTypeValue = typeof SlideType[keyof typeof SlideType];
 
