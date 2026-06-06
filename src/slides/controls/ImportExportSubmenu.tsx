@@ -1,8 +1,10 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { ChevronRight, ClipboardCopy, Download, FileDown, FileJson, Package, Palette, Upload } from 'lucide-react';
 import { toast } from 'sonner';
 import { errorMessage } from '@/lib/errors';
 import { runExport, exportSlidePdf } from '../export';
+import { exportSlideJson } from '../slideJson';
+import { exportAllThemes, parseThemeBundle, installAllThemes } from '../themeBulk';
 import { copyLlmGuideToClipboard, downloadLlmGuide } from '../llmGuideBundle';
 
 interface Props {
