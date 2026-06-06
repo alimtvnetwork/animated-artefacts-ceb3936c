@@ -1,6 +1,21 @@
 import { Check, Trash2 } from 'lucide-react';
 import { THEMES, type ThemeId } from '../themes';
 import { isCustomThemeId } from '../themeManifest';
+import { getReferenceFrame } from './referenceFrames';
+
+function ReferenceFrameThumb({ src, label }: { src: string; label: string }) {
+  return (
+    <span
+      aria-hidden
+      className="pointer-events-none absolute top-full left-0 z-20 mt-1 hidden w-24 overflow-hidden rounded-md ring-1 ring-[hsl(0_0%_100%/0.2)] shadow-lg group-hover:block"
+    >
+      <img src={src} alt="" className="block w-full" />
+      <span className="block px-1 py-0.5 text-[8px] text-center bg-[hsl(0_0%_0%/0.7)] text-[hsl(0_0%_100%)]">
+        {label} reference
+      </span>
+    </span>
+  );
+}
 
 const GOLD_RING = { ['--tw-ring-color' as string]: 'hsl(var(--gold) / 0.55)' };
 
