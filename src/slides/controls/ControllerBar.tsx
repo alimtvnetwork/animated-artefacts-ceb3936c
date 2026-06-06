@@ -323,7 +323,7 @@ export function ControllerBar({ current, total, onPrev, onNext, onJump, isFullsc
           fixed position so the menu hugs the same edge. Bug fix for the
           "menu opens but nothing happens" symptom on slide 3. */}
       {(themeMenuOpen || shareOpen || deckMenuOpen) && (
-        <div className="absolute bottom-full mb-3 right-0">
+        <div className="absolute top-full mt-3 right-0">
           {themeMenuOpen && <ThemeMenu onClose={() => setThemeMenuOpen(false)} />}
           {shareOpen && <ShareMenu currentSlide={current} onClose={() => setShareOpen(false)} />}
           {deckMenuOpen && <DeckMenu onClose={() => setDeckMenuOpen(false)} />}
