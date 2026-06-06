@@ -23,6 +23,7 @@ import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
 import { useState } from 'react';
 import type { SlideSpec } from '../types';
 import { buildPageWindow } from './pageWindow';
+import { GapJumpToken } from './GapJumpToken';
 
 interface Props {
   /** 1-based current slide number among the linear slides. */
