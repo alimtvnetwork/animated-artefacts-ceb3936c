@@ -323,3 +323,73 @@ headline, eyebrow above, subtitle below, capsules, optional ambient icon scatter
 | A few clickable options | `TileSlide` |
 | Book a meeting (closer) | `QrMeetingSlide` |
 | Hidden deep-dive | `ClickRevealSlide` (parent capsule `clickRevealSlide`) |
+
+## 6 · Worked example — complete 2-slide manifest with embedded image
+
+This is the exact shape to hand to the importer when you want a whole deck in
+one shot. It includes a title slide plus one `ImageSlide` whose visual is
+embedded inline as SVG, so the JSON is portable with no missing asset paths.
+
+```json
+{
+  "manifestVersion": 1,
+  "Name": "Riseup Asia LLC — Two-slide demo",
+  "config": {
+    "deckSlug": "two-slide-demo",
+    "presenter": "MD ALIM UL KARIM",
+    "theme": "noir-gold",
+    "preset": "premium"
+  },
+  "slides": [
+    {
+      "slideNumber": 1,
+      "slideName": "title",
+      "slideType": "TitleSlide",
+      "transition": "FadeIn",
+      "textAnimation": "Bounce",
+      "enabled": true,
+      "isClickReveal": false,
+      "content": {
+        "eyebrow": "Riseup Asia LLC",
+        "title": "Single-file\nDeck Authoring",
+        "subtitle": "One manifest · All slides inline",
+        "capsules": [
+          { "text": "Portable", "color": "gold" },
+          { "text": "Self-contained", "color": "outline" }
+        ]
+      }
+    },
+    {
+      "slideNumber": 2,
+      "slideName": "image-proof",
+      "slideType": "ImageSlide",
+      "transition": "PushIn",
+      "textAnimation": "SlideUp",
+      "enabled": true,
+      "isClickReveal": false,
+      "content": {
+        "eyebrow": "Embedded asset",
+        "title": "SVG lives inside the JSON",
+        "imageRole": "bodyFigure",
+        "caption": "No external path lookup required.",
+        "image": "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 160 90'><rect width='160' height='90' rx='10' fill='%230d0d0d'/><rect x='14' y='14' width='132' height='62' rx='8' fill='%23c9a84c' opacity='0.18'/><circle cx='42' cy='45' r='14' fill='%23e85d3a'/><path d='M72 32h50M72 45h38M72 58h26' stroke='%23f0d78c' stroke-width='6' stroke-linecap='round'/></svg>"
+      }
+    }
+  ]
+}
+```
+
+## 7 · Legal enums + variety rules
+
+- **Transitions:** `FadeIn · SlideIn · PushIn · PushLeft · PushRight · ZoomOut`
+- **Text animation:** `FadeIn · Bounce · SlideUp · Stagger`
+- **Capsule colors:** `gold · ember · cream · ink · outline · violet · teal · rose · sky`
+
+Rules:
+- Use **enum values only**. Never invent new transition names, animation names,
+  capsule colors, or write raw hex/CSS into the slide JSON.
+- **Vary transitions and text animations across adjacent slides.** Do not repeat
+  the same `transition` or the same `textAnimation` on two neighboring slides
+  unless the human explicitly asks for a uniform sequence.
+- Reserve **`ZoomOut`** for cinematic exit moments, especially `BlastRadiusSlide`
+  or click-reveal style emphasis beats.
