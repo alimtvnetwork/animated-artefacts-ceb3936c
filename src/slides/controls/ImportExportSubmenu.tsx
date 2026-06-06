@@ -1,8 +1,10 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { ChevronRight, ClipboardCopy, Download, FileDown, FileJson, Package, Palette, Upload } from 'lucide-react';
 import { toast } from 'sonner';
 import { errorMessage } from '@/lib/errors';
 import { runExport, exportSlidePdf } from '../export';
+import { exportSlideJson } from '../slideJson';
+import { exportAllThemes, parseThemeBundle, installAllThemes } from '../themeBulk';
 import { copyLlmGuideToClipboard, downloadLlmGuide } from '../llmGuideBundle';
 
 interface Props {
@@ -32,6 +34,43 @@ export function ImportExportSubmenu({
   onOpenThemeTools,
 }: Props) {
   const [expanded, setExpanded] = useState(false);
+  const themesImportRef = useRef<HTMLInputElement | null>(null);
+
+  function handleSlideJson() {
+    try {
+      const filename = exportSlideJson(currentSlideNumber);
+      toast.success('Slide JSON exported', { description: filename });
+      onCloseParent();
+    } catch (err) {
+      console.error('[ImportExportSubmenu] Single-slide JSON export failed', err);
+      toast.error('Could not export slide JSON', { description: errorMessage(err) });
+    }
+  }
+
+  function handleThemesExport() {
+    try {
+      const filename = exportAllThemes();
+      toast.success('All themes exported', { description: filename });
+      onCloseParent();
+    } catch (err) {
+      console.error('[ImportExportSubmenu] Bulk theme export failed', err);
+      toast.error('Could not export themes', { description: errorMessage(err) });
+    }
+  }
+
+  async function handleThemesImportFile(file: File) {
+    try {
+      const bundle = parseThemeBundle(JSON.parse(await file.text()));
+      const count = installAllThemes(bundle);
+      toast.success('Themes imported', { description: `${count} custom theme${count === 1 ? '' : 's'} installed.` });
+      onCloseParent();
+    } catch (err) {
+      console.error('[ImportExportSubmenu] Bulk theme import failed', err);
+      toast.error('Could not import themes', { description: errorMessage(err) });
+    } finally {
+      if (themesImportRef.current) themesImportRef.current.value = '';
+    }
+  }
 
   async function handleGuideDownload() {
     try {
@@ -89,14 +128,15 @@ export function ImportExportSubmenu({
           <div className={labelClass}>Slides</div>
           <button type="button" onClick={() => planned('Import JSON (single slide)')} className={itemClass}><Upload className="h-4 w-4" /><span className="flex-1">Import JSON (single)</span><span className={SOON_BADGE}>Soon</span></button>
           <button type="button" onClick={onOpenDeckTools} className={itemClass}><Upload className="h-4 w-4" /><span className="flex-1">Import JSON (all/deck)</span></button>
-          <button type="button" onClick={() => planned(`Export JSON (current slide ${currentSlideNumber})`)} className={itemClass}><Download className="h-4 w-4" /><span className="flex-1">Export JSON (current slide)</span><span className={SOON_BADGE}>Soon</span></button>
+          <button type="button" onClick={handleSlideJson} className={itemClass}><Download className="h-4 w-4" /><span className="flex-1">Export JSON (current slide)</span></button>
           <button type="button" onClick={onOpenDeckTools} className={itemClass}><FileJson className="h-4 w-4" /><span className="flex-1">Export JSON (all/deck)</span></button>
 
           <div className={labelClass}>Themes</div>
+          <input ref={themesImportRef} type="file" accept="application/json,.json" className="hidden" onChange={(e) => { const f = e.target.files?.[0]; if (f) handleThemesImportFile(f); }} />
           <button type="button" onClick={onOpenThemeTools} className={itemClass}><Upload className="h-4 w-4" /><span className="flex-1">Import theme (single)</span></button>
-          <button type="button" onClick={() => planned('Import themes (all)')} className={itemClass}><Upload className="h-4 w-4" /><span className="flex-1">Import themes (all)</span><span className={SOON_BADGE}>Soon</span></button>
+          <button type="button" onClick={() => themesImportRef.current?.click()} className={itemClass}><Upload className="h-4 w-4" /><span className="flex-1">Import themes (all)</span></button>
           <button type="button" onClick={onOpenThemeTools} className={itemClass}><Palette className="h-4 w-4" /><span className="flex-1">Export theme (single/active)</span></button>
-          <button type="button" onClick={() => planned('Export themes (all)')} className={itemClass}><Palette className="h-4 w-4" /><span className="flex-1">Export themes (all)</span><span className={SOON_BADGE}>Soon</span></button>
+          <button type="button" onClick={handleThemesExport} className={itemClass}><Palette className="h-4 w-4" /><span className="flex-1">Export themes (all)</span></button>
 
           <div className={labelClass}>PDF</div>
           <button type="button" onClick={handleDeckPdf} className={itemClass}><FileDown className="h-4 w-4" /><span className="flex-1">Export deck to PDF</span></button>

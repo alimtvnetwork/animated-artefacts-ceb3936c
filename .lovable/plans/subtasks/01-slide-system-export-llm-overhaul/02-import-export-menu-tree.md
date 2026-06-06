@@ -43,3 +43,10 @@ Single top-level node "Import / Export" with grouped submenus.
 - Still-planned rows are rendered as explicit `Soon` entries with logging + toast
   feedback, so the menu tree exists now without silently pretending unfinished
   paths are complete.
+
+## Update — v1.20.0 (2026-06-06)
+Three previously-`Soon` rows are now live:
+- **Export JSON (current slide)** → `slideJson.exportSlideJson` (versioned envelope).
+- **Export themes (all)** → `themeBulk.exportAllThemes` (built-ins + customs bundle).
+- **Import themes (all)** → `themeBulk.parseThemeBundle` + `installAllThemes` (skips built-ins).
+Shared `downloadJson.ts` helper added. Remaining `Soon`: Import JSON (single), Export/Import ZIP.

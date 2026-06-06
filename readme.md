@@ -134,7 +134,18 @@ let's start now 2026-04-30 12:00
 
 let's start now 2026-06-06 15:46
 
-## v1.19.0 — Release notes (since v1.18.0) — CURRENT
+## v1.20.0 — Release notes (since v1.19.0) — CURRENT
+
+**Wired three "Soon" Import/Export menu rows to real functionality (plan step — `02-import-export-menu-tree.md`).** Root cause: `src/slides/controls/ImportExportSubmenu.tsx` rendered "Export JSON (current slide)", "Import themes (all)", and "Export themes (all)" as `Soon`-badged stubs calling `planned()` (toast only), even though the underlying primitives (`findBySlideNumber`, `buildThemeManifest`, `installThemeManifest`) already shipped — so the rows were dead UI.
+
+- New `src/slides/downloadJson.ts`: shared `downloadJson()` + `slugifyName()` helpers (DRY — removes the repeated Blob→`<a download>` dance).
+- New `src/slides/slideJson.ts`: `buildSlideManifest()` / `exportSlideJson()` — downloads a single slide's `SlideSpec` in a versioned envelope (`{ manifestVersion, exportedAt, source, slideNumber, slide }`), the inverse of "Import JSON (single)".
+- New `src/slides/themeBulk.ts`: `buildThemeBundle()` / `exportAllThemes()` and `parseThemeBundle()` / `installAllThemes()` — exports every palette (built-ins + customs) to one JSON; import installs only non-built-in ids (built-ins are skipped, never duplicated as `-imported`).
+- `ImportExportSubmenu.tsx`: the three rows now call real handlers (with `console.error` + toast error handling and a hidden file input for bulk theme import); `Soon` badges removed from them. ZIP import/export + "Import JSON (single)" remain scaffolded.
+- Verification: Vite/TS build clean; dev-server logs show no errors. Each handler logs success/failure with context.
+
+## v1.19.0 — Release notes (since v1.18.0)
+
 
 **Compact theme/color showcase grid in the theme picker (plan step 7 — `07-compact-theme-showcase.md`).** Root cause: `ThemeMenu.tsx` rendered each palette as a full-width row (16×16 swatch stack + label + description), so with 10 built-ins plus imported customs the popover grew tall and felt heavy — the subtask asked for a dense grid of small theme tiles.
 
