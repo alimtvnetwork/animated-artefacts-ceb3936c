@@ -26,12 +26,12 @@ Captured command: `.lovable/spec/commands/04-single-file-slide-authoring.md`.
 ## Steps
 1. ✅ DONE (v1.40.0) — Inventoried the authoritative `SlideType` enum from `src/slides/enums.ts` (28 types) and reconciled it against `CATALOG.json` + `front-end/project/*/data/slides/*.json`; canonical list captured in `spec/llm-guideline/00-simplified-single-file-guide.md` §3. See ./subtasks/03-simplified-single-file-llm-slide-guide/01-slide-type-sample-coverage.md
 2. ✅ DONE (v1.40.0) — Single-file manifest contract (envelope + inlined slides + Base64/SVG image embedding rule) written in `00-simplified-single-file-guide.md` §2, mirroring the real runtime envelope. See ./subtasks/03-simplified-single-file-llm-slide-guide/02-single-file-manifest-contract.md
-3. Decide the new guide's location and name (`spec/llm-guideline/00-simplified-single-file-guide.md`, optionally surfaced as root `LLM-SIMPLE.md`) and add it to the `spec/llm-guideline/readme.md` index.
-4. Write the guide's intro: mental model + the non-negotiable rule that the AI returns ONE manifest JSON (all slides inlined, images embedded), never a multi-file split.
-5. Write the "choosing a slide type" decision section: a compact table mapping intent → slide type, so the AI picks correctly before authoring.
-6. Write one section per slide type, each containing: why/when to use it, how it displays (layout, density cap, motion defaults), and a copy-pasteable schema-valid JSON sample wrapped as a `slides[]` entry.
+3. ✅ DONE (v1.41.0) — Guide located at `spec/llm-guideline/00-simplified-single-file-guide.md`; indexed as item 0 ("start here to author") in `spec/llm-guideline/readme.md`.
+4. ✅ DONE (v1.40.0) — Intro/mental model + non-negotiable one-manifest rule in §1–2.
+5. ✅ DONE (v1.41.0) — "Choosing a slide type" intent→type table in §5.
+6. ✅ DONE (v1.41.0) — Per-type sections in §4: why/when + how-it-displays + copy-paste JSON sample for the 18 core types; 8 specialist types pointer-linked to `23-slide-type-contracts.md`.
 7. Add the end-to-end worked example: a complete minimal 2-slide manifest (title + one content slide) with one embedded image, demonstrating the full single-file shape.
-8. Add the capsule-tone + enum-only rule (no raw hex, `.capsule-{tone}`) and the variety rule for transitions/textAnimation, with the legal value lists pulled from `CATALOG.json`.
+8. Add the capsule-tone + enum-only rule (no raw hex, `.capsule-{tone}`) and the variety rule for transitions/textAnimation, with the legal value lists pulled from `CATALOG.json`. (Partly seeded in §1/§2 capsule rule.)
 9. Wire the new file into `src/slides/llmGuideBundle.ts` so the downloadable/clipboard LLM bundle includes it, and cross-link it from `LLM.md` top and root `readme.md`.
 10. Add a verification note + memory update: record that the simplified single-file guide is canonical for one-shot authoring (memory `mem://features/llm-md-shareable-guide` or a new feature memory), and list any leftover ambiguities for the user.
 

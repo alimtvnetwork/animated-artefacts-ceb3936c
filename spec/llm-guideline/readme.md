@@ -7,6 +7,13 @@
 
 ## Read order
 
+0. [`00-simplified-single-file-guide.md`](./00-simplified-single-file-guide.md)
+   — **start here to AUTHOR a whole deck from scratch.** Self-contained: the
+   one-file manifest contract, the canonical 28-type inventory, a copy-paste
+   JSON sample per type, and the intent→type decision table. Emit ONE manifest
+   JSON with images embedded (Base64/SVG). The files below are for *modifying*
+   existing slides and going deeper.
+
 1. [`01-modify-a-slide-step-by-step.md`](./01-modify-a-slide-step-by-step.md)
    — the canonical 30-step procedure: find the file, edit it, validate it.
 2. [`02-layout-recipes.md`](./02-layout-recipes.md)
