@@ -188,11 +188,11 @@ export function ControllerBar({ current, total, onPrev, onNext, onJump, isFullsc
                 <div className="relative">
                   <Tooltip>
                     <TooltipTrigger asChild>
-                      <button onClick={() => { setDeckMenuOpen(v => !v); setShareOpen(false); setThemeMenuOpen(false); }} aria-label="Deck manifest (export / import)" className="h-9 w-9 flex items-center justify-center rounded-full hover:bg-gold/15 transition lift-hover-subtle">
+                      <button onClick={() => { setImportExportOpen(v => !v); setShareOpen(false); setThemeMenuOpen(false); setDeckMenuOpen(false); }} aria-label="Import / Export" className="h-9 w-9 flex items-center justify-center rounded-full hover:bg-gold/15 transition lift-hover-subtle">
                         <FileJson className="h-4 w-4" />
                       </button>
                     </TooltipTrigger>
-                    <TooltipContent side="bottom">Deck manifest</TooltipContent>
+                    <TooltipContent side="bottom">Import / Export</TooltipContent>
                   </Tooltip>
                   {/* v0.87 — popovers moved out of the overflow-hidden pill (see below). */}
                 </div>
