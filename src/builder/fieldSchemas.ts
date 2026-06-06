@@ -473,6 +473,21 @@ export const SLIDE_TYPE_SCHEMAS: Record<SlideTypeValue, SlideTypeSchema> = {
       mediaSide: 'left',
     },
   },
+  MediaGridSlide: {
+    label: 'Media grid',
+    blurb: '2–6 image/SVG tiles with optional captions. Galleries, logo walls, screenshot grids.',
+    fields: ['eyebrow', 'title'],
+    defaults: {
+      eyebrow: 'GALLERY',
+      title: 'A grid of moments',
+      mediaTiles: [
+        { src: '/placeholder.svg', caption: 'One' },
+        { src: '/placeholder.svg', caption: 'Two' },
+        { src: '/placeholder.svg', caption: 'Three' },
+        { src: '/placeholder.svg', caption: 'Four' },
+      ],
+    },
+  },
 };
 
 /** Ordered list of slide-type keys for the picker. */
