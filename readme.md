@@ -143,7 +143,14 @@ let's start now 2026-06-06 15:46
 
 let's start now 2026-06-06 16:42
 
-## v1.57.0 — Release notes (since v1.56.0) — CURRENT
+## v1.58.0 — Release notes (since v1.57.0) — CURRENT
+
+- **Pinned the theme registry with an explicit snapshot test** (`src/test/themeRegistrySnapshot.test.ts`).
+- Honest finding first: no existing fixture *omitted* the 3 image-derived themes — `deckContrastAudit` and the QA audits iterate `Object.keys(THEMES)` dynamically, so they were already covered. The real gap was that **no test pinned the exact id set**, so a dropped/renamed theme would pass silently.
+- New test asserts the full 13-id registry (incl. `glasswing`/`think-yellow`/`riseup-pro`) and that the three image-derived flavors keep Ubuntu display + Poppins body fonts.
+- Verification: `bunx vitest run src/test/themeRegistrySnapshot.test.ts` → 2/2 passing.
+
+## v1.57.0 — Release notes (since v1.56.0)
 
 - **Fixed controller-pill contrast on the `think-yellow` theme.** Root cause: think-yellow's slide `--background` is pure black (`0 0% 0%`) while the pill uses a global `--chrome-bg: 0 0% 7%` and a dark drop-shadow, leaving almost no edge separation on pure black.
 - Minimum fix: added a `[data-theme='think-yellow']` chrome override in `src/index.css` lifting `--chrome-bg` to `0 0% 11%`, bumping `--chrome-border-strength` to `0.4` and `--chrome-divider-strength` to `0.18` — no `.controller-pill` rule changes needed (it reads these tokens).
