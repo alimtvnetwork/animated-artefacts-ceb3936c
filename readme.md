@@ -136,7 +136,16 @@ let's start now 2026-06-06 15:46
 
 let's start now 2026-06-06 16:42
 
-## v1.32.0 — Release notes (since v1.31.0) — CURRENT
+## v1.33.0 — Release notes (since v1.32.0) — CURRENT
+
+**Resolved M-04 — `TableSlide` vs `DataTableSlide` guidance.** Root cause: two table slide types existed with no documented rule for which to use, so authors could reach for the uncapped one and overflow slides. Decision: keep `TableSlide` uncapped (legit for large tables) but steer authors to the density-capped `DataTableSlide` for ≤5 cols × ≤8 rows — documented in JSDoc, not a hard deprecation.
+- `src/slides/enums.ts`: added `@remarks` to the `TableSlide` block pointing to `DataTableSlide`.
+- `src/slides/types/TableSlide.tsx`: header comment notes the uncapped/capped split.
+- `quality/audit/remediation-plan.md`: M-04 flipped to ✅ done.
+- `.lovable/prompts/28-next-task.md`: saved driver snapshot; `.lovable/prompts.md` + `.lovable/prompt.md` synced (`27` archived, `28` latest).
+- `package.json`: bumped to `1.33.0`.
+
+## v1.32.0 — Release notes (since v1.31.0)
 
 **Next-task cycle: backlog drained to two decisions + one track.** No runtime/build error — the payload is the recurring driver. The slide-type remediation (plan 02) is fully shipped/closed; remaining work is M-04 (`TableSlide` deprecation — confirmed not yet `@deprecated` in `src/slides/types/TableSlide.tsx`), M-01 (#32 ambiguity, needs user), and the separate pending plan `01-slide-system-export-llm-overhaul`. Also captured the SQLite-in-`data/` persistence rule for Node tooling (`.lovable/spec/commands/03`).
 - `.lovable/prompts/27-next-task.md`: saved this driver snapshot; `.lovable/prompts.md` + `.lovable/prompt.md` synced (`26` archived, `27` latest).
