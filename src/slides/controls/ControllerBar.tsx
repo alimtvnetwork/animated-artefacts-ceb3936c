@@ -93,6 +93,7 @@ interface Props {
 export function ControllerBar({ current, total, onPrev, onNext, onJump, isFullscreen, onToggleFullscreen, onToggleGrid, revealHints, onToggleRevealHints, topJumperHidden, onToggleTopJumper }: Props) {
   const [shareOpen, setShareOpen] = useState(false);
   const [deckMenuOpen, setDeckMenuOpen] = useState(false);
+  const [importExportOpen, setImportExportOpen] = useState(false);
   const [themeMenuOpen, setThemeMenuOpen] = useState(false);
   const [keyboardOpen, setKeyboardOpen] = useState(false);
   const [hamburgerOpen, setHamburgerOpen] = useState(false);
