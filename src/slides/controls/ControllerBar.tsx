@@ -499,7 +499,7 @@ function ControllerHamburger({
               // Portaled to <body> so the controller pill's `overflow-hidden`
               // can't clip us. Position is `fixed` and computed from the
               // trigger's bounding rect (see `recomputeAnchor`).
-              style={{ bottom: anchor.bottom, right: anchor.right }}
+              style={{ top: anchor.top, right: anchor.right }}
               className="fixed z-[60] min-w-[16rem] rounded-xl border border-[hsl(var(--chrome-border))] bg-[hsl(var(--chrome-bg))] p-1.5 text-[hsl(var(--chrome-fg))] shadow-2xl backdrop-blur-md"
               onMouseEnter={cancelTimers}
               onMouseLeave={scheduleClose}
