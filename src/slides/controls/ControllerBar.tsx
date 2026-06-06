@@ -761,6 +761,55 @@ function TransitionStyleSubmenu({
 }
 
 /**
+ * `DebugSubmenu` — collapses the contrast-debug + reduce-motion toggles
+ * behind a single expandable "Debug" entry (plan step 3: Debug = one
+ * entry). Owns its own state hooks so the parent `ControllerHamburger`
+ * stays lean. Matches the `TransitionStyleSubmenu` expandable pattern.
+ */
+function DebugSubmenu({
+  itemClass,
+  labelClass,
+}: {
+  itemClass: string;
+  labelClass: string;
+}) {
+  const colorDebugOn = useColorDebug();
+  const reduceMotionOn = useReduceMotion();
+  const [expanded, setExpanded] = useState(false);
+  const anyActive = colorDebugOn || reduceMotionOn;
+
+  return (
+    <>
+      <button
+        type="button"
+        onClick={() => setExpanded((v) => !v)}
+        aria-expanded={expanded}
+        className={itemClass}
+      >
+        <Bug className={`h-4 w-4 ${anyActive ? 'text-gold' : ''}`} />
+        <span className="flex-1">Debug</span>
+        <ChevronRight
+          className={`h-3.5 w-3.5 opacity-60 transition-transform ${expanded ? 'rotate-90' : ''}`}
+        />
+      </button>
+      {expanded && (
+        <div className="ml-2 border-l border-[hsl(var(--chrome-border))] pl-2">
+          <div className={labelClass}>Debug tools</div>
+          <button type="button" onClick={() => toggleColorDebug()} className={itemClass}>
+            <Contrast className={`h-4 w-4 ${colorDebugOn ? 'text-gold' : ''}`} />
+            <span className="flex-1">{colorDebugOn ? 'Hide contrast debug' : 'Contrast debug'}</span>
+          </button>
+          <button type="button" onClick={() => toggleReduceMotion()} className={itemClass}>
+            <Wind className={`h-4 w-4 ${reduceMotionOn ? 'text-gold' : ''}`} />
+            <span className="flex-1">{reduceMotionOn ? 'Restore full motion' : 'Reduce motion'}</span>
+          </button>
+        </div>
+      )}
+    </>
+  );
+}
+
+/**
  * `StepMotionSubmenu` — inline expandable section that locks every step
  * across step-driven slides (StepTimelineSlide, StepsChain3DSlide,
  * FocusTimelineSlide) to a single entrance variant. Pairs naturally with
