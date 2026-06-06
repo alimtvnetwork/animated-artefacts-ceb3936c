@@ -156,6 +156,14 @@ export const SlideType = {
    * `spec/26-slide-definitions/_patterns/gif-loop-slide.md`.
    */
   GifLoopSlide: 'GifLoopSlide',
+  /**
+   * SvgDiagramSlide — a centered inline SVG figure (`content.svgMarkup`, or an
+   * `.svg` asset via `content.image`) with optional annotation callouts
+   * (`content.callouts`) pinned by percent position. Use for freeform vector
+   * diagrams that don't fit the box-and-line `BoxDiagramSlide`. See
+   * `spec/26-slide-definitions/_patterns/svg-diagram-slide.md`.
+   */
+  SvgDiagramSlide: 'SvgDiagramSlide',
 } as const;
 export type SlideTypeValue = typeof SlideType[keyof typeof SlideType];
 
