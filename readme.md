@@ -143,7 +143,17 @@ let's start now 2026-06-06 15:46
 
 let's start now 2026-06-06 16:42
 
-## v1.43.0 — Release notes (since v1.42.0) — CURRENT
+## v1.44.0 — Release notes (since v1.43.0) — CURRENT
+
+- Root cause: the downloaded/copied LLM guide (`src/slides/llmGuideBundle.ts` → `buildLlmGuideMarkdown`) bundled process/"how to work" material (root `LLM.md` fast-path + all `spec/llm-guideline/*` + the `spec/21-slides-system/llm/` pack), instead of being slide-content only as the user repeatedly asked.
+- Minimum fix: the download now includes ONLY slide-authoring content — filesystem-write instruction (§0, default `.lovable/`), active theme tokens, slide JSON schema, enum catalog, and the simplified single-file guide (`spec/llm-guideline/00-simplified-single-file-guide.md`). Removed the root `LLM.md` fast-path, the `spec/llm-guideline/*` glob, and the `21-slides-system/llm` pack from the bundle.
+- Added an explicit §0 instruction telling the AI to write slide JSON to the filesystem first (default `.lovable/`).
+- Process/"how to work" material now lives in memory (`mem://features/llm-md-shareable-guide.md`), not in the download.
+- Verification: `rg` confirms no stale `llmMarkdownFiles`/`guidelineMarkdownFiles`/`rootGuideRaw`/`concat(` references remain; build green.
+- Captured command `.lovable/spec/commands/05-…`; plan `.lovable/plans/completed/04-slide-only-download-guide-and-fs-write.md`; saved prompt snapshot `.lovable/prompts/39-next-task.md`.
+- `package.json`: bumped to `1.44.0`.
+
+## v1.43.0 — Release notes (since v1.42.0)
 
 - Root cause: `.lovable/plans/pending/03-simplified-single-file-llm-slide-guide.md` was still physically stored in the `pending/` folder even after being marked `Status: completed`, so every next-task cycle kept detecting fake unfinished work.
 - Minimum fix: moved plan 03 from `.lovable/plans/pending/` to `.lovable/plans/completed/`; no content rewrite, no behavior change, just state corrected at the real source of the loop.
