@@ -143,7 +143,14 @@ let's start now 2026-06-06 15:46
 
 let's start now 2026-06-06 16:42
 
-## v1.55.0 — Release notes (since v1.54.0) — CURRENT
+## v1.56.0 — Release notes (since v1.55.0) — CURRENT
+
+- **Wired reference-frame thumbnails into the theme picker.** Hovering a theme tile in `ThemeSwatchGrid` now reveals the presenter reference frame each image-derived theme was sampled from.
+- New `src/slides/controls/referenceFrames.ts` maps `glasswing → 01-sample.webp`, `think-yellow → 02-sample.webp`, `riseup-pro → 03-sample.jpg` (per spec `08`); non-image themes show no frame.
+- New `ReferenceFrameThumb` sub-component renders the thumb downward (`top-full mt-1`, group-hover) to match the project's "flyouts open downward" convention.
+- Verification: `bunx tsc --noEmit` clean for the touched files; `bunx vitest run src/test/themeFlavorsDeck.test.ts` → 3/3.
+
+## v1.55.0 — Release notes (since v1.54.0)
 
 - Added a dedicated **`theme-flavors` deck regression test** (`src/test/themeFlavorsDeck.test.ts`) that pins the showcase deck's shape so future edits can't silently break it.
 - Guards: 4 slides, slide-type order `[TitleSlide, CapsuleListSlide ×3]`, the manifest's declared image-derived theme, and that all three demoed themes (`glasswing`, `think-yellow`, `riseup-pro`) remain registered in `THEMES`.
