@@ -461,6 +461,18 @@ export const SLIDE_TYPE_SCHEMAS: Record<SlideTypeValue, SlideTypeSchema> = {
       scrim: 'bottom',
     },
   },
+  SplitMediaSlide: {
+    label: 'Split media',
+    blurb: 'Two-column show + tell: image/GIF on one half, eyebrow + title + keywords + capsules on the other.',
+    fields: ['eyebrow', 'title', 'keywords', 'capsules', 'image'],
+    defaults: {
+      eyebrow: 'SHOW + TELL',
+      title: 'Media meets message',
+      keywords: ['Point one', 'Point two', 'Point three'],
+      image: '/placeholder.svg',
+      mediaSide: 'left',
+    },
+  },
 };
 
 /** Ordered list of slide-type keys for the picker. */
