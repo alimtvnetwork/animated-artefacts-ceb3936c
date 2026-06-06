@@ -1,7 +1,6 @@
 import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
-import { ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight, Share2, Maximize2, Minimize2, LayoutGrid, MonitorPlay, FileJson, Palette, Eye, EyeOff, PanelTop, PanelTopClose, Contrast, Wind, Menu, Keyboard, ListChecks, Sparkles, Download, ClipboardCopy, PlayCircle, Bug } from 'lucide-react';
-import { downloadLlmGuide, copyLlmGuideToClipboard } from '../llmGuideBundle';
+import { ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight, Share2, Maximize2, Minimize2, LayoutGrid, MonitorPlay, FileJson, Palette, Eye, EyeOff, PanelTop, PanelTopClose, Contrast, Wind, Menu, Keyboard, ListChecks, Sparkles, PlayCircle, Bug } from 'lucide-react';
 import { toast } from 'sonner';
 import { useClickRevealStepwise, toggleClickRevealStepwise } from '../components/clickRevealStepwise';
 import {
@@ -25,6 +24,7 @@ import { PresenterWebcamButton } from './PresenterWebcamButton';
 import { SlideIndicator } from './SlideIndicator';
 import { DeckMenu } from './DeckMenu';
 import { ThemeMenu } from './ThemeMenu';
+import { ImportExportSubmenu } from './ImportExportSubmenu';
 import { writeThemeDebugFlag } from '../manifest';
 import { KeyboardShortcutsDialog } from './KeyboardShortcutsDialog';
 import { OnboardingCoachmark } from './OnboardingCoachmark';
@@ -95,6 +95,8 @@ export function ControllerBar({ current, total, onPrev, onNext, onJump, isFullsc
   const [themeMenuOpen, setThemeMenuOpen] = useState(false);
   const [keyboardOpen, setKeyboardOpen] = useState(false);
   const [hamburgerOpen, setHamburgerOpen] = useState(false);
+  const [deckToolsOpen, setDeckToolsOpen] = useState(false);
+  const [themeToolsOpen, setThemeToolsOpen] = useState(false);
   // C07 — first-run onboarding coachmark. Shows once (gated in localStorage);
   // re-openable from the presenter menu via "Show intro again".
   const { onboarded, markOnboarded, resetOnboarding } = useOnboardingFlag();
@@ -107,7 +109,7 @@ export function ControllerBar({ current, total, onPrev, onNext, onJump, isFullsc
   // controller stays open even after the mouse leaves. Hover or open menus
   // still expand transiently as before.
   const [pinned, setPinned] = useState(false);
-  const expanded = pinned || hovered || shareOpen || deckMenuOpen || themeMenuOpen || hamburgerOpen;
+  const expanded = pinned || hovered || shareOpen || deckMenuOpen || themeMenuOpen || hamburgerOpen || deckToolsOpen || themeToolsOpen;
 
   // ?themeDebug=1 — demo helper. Persists the debug flag in localStorage
   // (so the panel stays open across navigation) and auto-opens the theme
@@ -322,11 +324,13 @@ export function ControllerBar({ current, total, onPrev, onNext, onJump, isFullsc
           visible. The right-side anchor (`right-6`) matches the pill's
           fixed position so the menu hugs the same edge. Bug fix for the
           "menu opens but nothing happens" symptom on slide 3. */}
-      {(themeMenuOpen || shareOpen || deckMenuOpen) && (
+      {(themeMenuOpen || shareOpen || deckMenuOpen || deckToolsOpen || themeToolsOpen) && (
         <div className="absolute top-full mt-3 right-0">
           {themeMenuOpen && <ThemeMenu onClose={() => setThemeMenuOpen(false)} />}
           {shareOpen && <ShareMenu currentSlide={current} onClose={() => setShareOpen(false)} />}
           {deckMenuOpen && <DeckMenu onClose={() => setDeckMenuOpen(false)} />}
+          {deckToolsOpen && <DeckMenu onClose={() => setDeckToolsOpen(false)} />}
+          {themeToolsOpen && <ThemeMenu onClose={() => setThemeToolsOpen(false)} />}
         </div>
       )}
       {/* Keyboard shortcuts dialog — opened by the hamburger item or by `/`
