@@ -1,0 +1,20 @@
+{
+  "$schema": "../../../21-slides-system/slide.schema.json",
+  "slideNumber": 16,
+  "slideName": "svg-diagram",
+  "slideType": "SvgDiagramSlide",
+  "transition": "FadeIn",
+  "textAnimation": "SlideUp",
+  "narrowIdea": "Show that SVG assets can carry coordinate-pinned annotation callouts.",
+  "content": {
+    "image": "/assets/examples/diagram.svg",
+    "eyebrow": "VECTOR FIGURE",
+    "title": "Callouts pinned to SVG coordinates",
+    "caption": "Short labels sit over the figure without extra layout chrome.",
+    "callouts": [
+      { "x": 23, "y": 34, "label": "Source", "tone": "gold" },
+      { "x": 51, "y": 52, "label": "Flow", "tone": "ember" },
+      { "x": 78, "y": 34, "label": "Output", "tone": "cream" }
+    ]
+  }
+}

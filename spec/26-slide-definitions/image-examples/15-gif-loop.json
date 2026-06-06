@@ -1,0 +1,17 @@
+{
+  "$schema": "../../../21-slides-system/slide.schema.json",
+  "slideNumber": 15,
+  "slideName": "gif-loop",
+  "slideType": "GifLoopSlide",
+  "transition": "FadeIn",
+  "textAnimation": "SlideUp",
+  "narrowIdea": "Show the animated-media contract and its reduced-motion freeze-frame fallback.",
+  "content": {
+    "image": "/assets/examples/loop.gif",
+    "poster": "/assets/examples/photo.png",
+    "eyebrow": "ANIMATED MEDIA",
+    "title": "Loop with a freeze-frame fallback",
+    "caption": "Reduced-motion swaps the GIF for the poster.",
+    "freezeOnReducedMotion": true
+  }
+}
