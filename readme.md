@@ -143,7 +143,18 @@ let's start now 2026-06-06 15:46
 
 let's start now 2026-06-06 16:42
 
-## v1.49.0 — Release notes (since v1.48.0) — CURRENT
+## v1.50.0 — Release notes (since v1.49.0) — CURRENT
+
+- Added **three additive built-in themes** derived from presenter reference frames (`src/assets/reference-themes/`), without touching any existing theme:
+  - **glasswing** (`01-sample.webp`) — editorial cream-on-charcoal, near-monochrome, champagne accent (bg `#161513`, cream `#F2EFE6`).
+  - **think-yellow** (`02-sample.webp`) — high-energy yellow-on-black poster (pure black bg, vivid `#FFD60A`, white text).
+  - **riseup-pro** (`03-sample.jpg`) — on-brand graphite studio (bg `#262626`, brand gold `#f3a502` + ember `#E85D3A`, gold→ember gradient).
+- All three pin **Ubuntu** display + **Poppins** body via the preset `fonts` block (both already loaded in `src/index.css`); other themes keep house defaults.
+- Registration is automatic from `THEMES`: added 3 ids to the `ThemeId` union and 3 presets in `src/slides/themes.ts` — picker, import/export, and per-deck persistence pick them up with no further wiring.
+- Spec `spec/21-slides-system/08-image-derived-themes.md`; memory `mem://design/image-derived-themes`. Verified: `themeResolution` + `themeQa` suites pass (31/31).
+- Saved prompt snapshot `.lovable/prompts/45-next-task.md`; synced `.lovable/prompts.md`. `package.json` → `1.50.0`.
+
+## v1.49.0 — Release notes (since v1.48.0)
 
 - Executed plan `05` steps 4–6 (spec alignment, no runtime code yet): propagated the `buildPageWindow` ellipsis contract to all three slide-number surface specs.
 - `spec/27-slides-number/05-surface-dot-pagination.md`: collapse when `total > dotPaginationMaxBeforeCollapse` (default 15) — render `1 … cur±2 … N`, `…` is a focusable jump button; **replaces** the old `overflow-x-auto` 28-dot scroll cap (was `DotPagination.tsx` line 45).
