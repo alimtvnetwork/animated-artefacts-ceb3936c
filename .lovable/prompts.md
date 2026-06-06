@@ -9,22 +9,24 @@ Each entry links to its full spec in `.lovable/prompts/`.
 | 02 | [02-read-memory.md](./prompts/02-read-memory.md) | `read memory`, `onboarding` | always-on (run when user says "read memory") |
 | 03 | [03-write-memory.md](./prompts/03-write-memory.md) | `write memory`, `end memory`, `update memory` | always-on (run when user says "write memory") |
 | 04 | [04-next-task.md](./prompts/04-next-task.md) | `next task`, `next N steps`, `next task with number` | on-demand canonical driver |
-| 17 | [17-next-task.md](./prompts/17-next-task.md) | `next task (v5)`, `next N steps or tasks`, `next task with number` | archived snapshot |
-| 18 | [18-next-task.md](./prompts/18-next-task.md) | `next task (v5)`, `next N steps or tasks`, `next task with number` | archived snapshot |
-| 19 | [19-next-task.md](./prompts/19-next-task.md) | `next task (v5)`, `next N steps or tasks`, `next task with number` | archived snapshot |
-| 20 | [20-next-task.md](./prompts/20-next-task.md) | `next task (v5)`, `next N steps or tasks`, `next task with number` | archived snapshot |
-| 21 | [21-next-task.md](./prompts/21-next-task.md) | `next task (v5)`, `next N steps or tasks`, `next task with number` | archived snapshot |
-| 22 | [22-next-task.md](./prompts/22-next-task.md) | `next task (v5)`, `next N steps or tasks`, `next task with number` | archived snapshot |
-| 23 | [23-next-task.md](./prompts/23-next-task.md) | `next task (v5)`, `next N steps or tasks`, `next task with number` | archived snapshot |
-| 24 | [24-next-task.md](./prompts/24-next-task.md) | `next task (v5)`, `next N steps or tasks`, `next task with number` | archived snapshot |
-| 25 | [25-next-task.md](./prompts/25-next-task.md) | `next task (v5)`, `next N steps or tasks`, `next task with number` | archived snapshot |
-| 26 | [26-next-task.md](./prompts/26-next-task.md) | `next task (v5)`, `next N steps or tasks`, `next task with number` | archived snapshot |
-| 27 | [27-next-task.md](./prompts/27-next-task.md) | `next task (v5)`, `next N steps or tasks`, `next task with number` | archived snapshot |
-| 28 | [28-next-task.md](./prompts/28-next-task.md) | `next task (v5)`, `next N steps or tasks`, `next task with number` | archived snapshot |
-| 29 | [29-next-task.md](./prompts/29-next-task.md) | `next task (v5)`, `next N steps or tasks`, `next task with number` | archived snapshot |
-| 30 | [30-next-task.md](./prompts/30-next-task.md) | `next task (v5)`, `next N steps or tasks`, `next task with number` | archived snapshot |
-| 31 | [31-next-task.md](./prompts/31-next-task.md) | `next task (v5)`, `next N steps or tasks`, `next task with number` | archived snapshot |
-| 32 | [32-next-task.md](./prompts/32-next-task.md) | `next task (v5)`, `next N steps or tasks`, `next task with number` | archived snapshot |
-| 33 | [33-next-task.md](./prompts/33-next-task.md) | `next task (v5)`, `next N steps or tasks`, `next task with number` | latest saved snapshot |
+| 17 | [17-next-task.md](./prompts/17-next-task.md) | archive only — do not match/load | archived snapshot |
+| 18 | [18-next-task.md](./prompts/18-next-task.md) | archive only — do not match/load | archived snapshot |
+| 19 | [19-next-task.md](./prompts/19-next-task.md) | archive only — do not match/load | archived snapshot |
+| 20 | [20-next-task.md](./prompts/20-next-task.md) | archive only — do not match/load | archived snapshot |
+| 21 | [21-next-task.md](./prompts/21-next-task.md) | archive only — do not match/load | archived snapshot |
+| 22 | [22-next-task.md](./prompts/22-next-task.md) | archive only — do not match/load | archived snapshot |
+| 23 | [23-next-task.md](./prompts/23-next-task.md) | archive only — do not match/load | archived snapshot |
+| 24 | [24-next-task.md](./prompts/24-next-task.md) | archive only — do not match/load | archived snapshot |
+| 25 | [25-next-task.md](./prompts/25-next-task.md) | archive only — do not match/load | archived snapshot |
+| 26 | [26-next-task.md](./prompts/26-next-task.md) | archive only — do not match/load | archived snapshot |
+| 27 | [27-next-task.md](./prompts/27-next-task.md) | archive only — do not match/load | archived snapshot |
+| 28 | [28-next-task.md](./prompts/28-next-task.md) | archive only — do not match/load | archived snapshot |
+| 29 | [29-next-task.md](./prompts/29-next-task.md) | archive only — do not match/load | archived snapshot |
+| 30 | [30-next-task.md](./prompts/30-next-task.md) | archive only — do not match/load | archived snapshot |
+| 31 | [31-next-task.md](./prompts/31-next-task.md) | archive only — do not match/load | archived snapshot |
+| 32 | [32-next-task.md](./prompts/32-next-task.md) | archive only — do not match/load | archived snapshot |
+| 33 | [33-next-task.md](./prompts/33-next-task.md) | archive only — do not match/load | latest saved snapshot |
 
-Snapshots `05`–`23` are preserved as historical per-iteration saves of the same recurring next-task prompt.
+Snapshots `05`–`33` are preserved as historical per-iteration saves of the same recurring next-task prompt.
+
+Archive rule: only entries marked `active`, `always-on`, or `on-demand canonical driver` should ever be loaded as instructions. Archived snapshots are history only.

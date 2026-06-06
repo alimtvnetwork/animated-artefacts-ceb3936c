@@ -2,6 +2,9 @@
 
 > Reusable operating prompt. Trigger phrases: `next task`, `next N steps`,
 > `next 2 steps`, `next task with number`. Status: on-demand canonical driver.
+> Execution rule: this is the only executable `next-task` prompt. Numbered
+> `xx-next-task.md` files are archived snapshots and must never be auto-loaded as
+> live instructions.
 
 ## What I want
 
