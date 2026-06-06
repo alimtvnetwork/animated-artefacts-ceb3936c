@@ -194,8 +194,9 @@ export function ImportExportSubmenu({
           <button type="button" onClick={handleSlidePdf} className={itemClass}><FileDown className="h-4 w-4" /><span className="flex-1">Export current slide to PDF</span></button>
 
           <div className={labelClass}>Full bundle</div>
-          <button type="button" onClick={() => planned('Export ZIP')} className={itemClass}><Download className="h-4 w-4" /><span className="flex-1">Export ZIP</span><span className={SOON_BADGE}>Soon</span></button>
-          <button type="button" onClick={() => planned('Import ZIP')} className={itemClass}><Upload className="h-4 w-4" /><span className="flex-1">Import ZIP</span><span className={SOON_BADGE}>Soon</span></button>
+          <input ref={bundleImportRef} type="file" accept="application/zip,.zip" className="hidden" onChange={(e) => { const f = e.target.files?.[0]; if (f) handleBundleImportFile(f); }} />
+          <button type="button" onClick={handleBundleExport} className={itemClass}><Download className="h-4 w-4" /><span className="flex-1">Export ZIP (deck + themes)</span></button>
+          <button type="button" onClick={() => bundleImportRef.current?.click()} className={itemClass}><Upload className="h-4 w-4" /><span className="flex-1">Import ZIP (deck + themes)</span></button>
 
           <div className={labelClass}>Authoring guide</div>
           <button type="button" onClick={handleGuideDownload} className={itemClass}><Download className="h-4 w-4" /><span className="flex-1">Download LLM guide (.md)</span></button>
