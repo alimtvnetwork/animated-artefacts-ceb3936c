@@ -143,7 +143,15 @@ let's start now 2026-06-06 15:46
 
 let's start now 2026-06-06 16:42
 
-## v1.40.0 — Release notes (since v1.39.0) — CURRENT
+## v1.41.0 — Release notes (since v1.40.0) — CURRENT
+
+- Executed plan 03 steps 3, 5, 6: `spec/llm-guideline/00-simplified-single-file-guide.md` now carries §4 per-type JSON samples (why/when + how-it-displays) for the 18 core slide types, §5 intent→type decision table, and is indexed as "start here to author" (item 0) in `spec/llm-guideline/readme.md`.
+- Samples mirror real runtime slides in `front-end/project/*/data/slides/`; 8 specialist types pointer-linked to `23-slide-type-contracts.md`.
+- Marked plan steps 3–6 done; steps 7–10 (end-to-end manifest example, enum/variety rules, bundler wiring, memory) remain.
+- Saved prompt snapshot `.lovable/prompts/36-next-task.md`; archived `35`.
+- `package.json`: bumped to `1.41.0`.
+
+## v1.40.0 — Release notes (since v1.39.0)
 
 - Executed plan 03 steps 1–2: created `spec/llm-guideline/00-simplified-single-file-guide.md` — a NEW simplified, single-file LLM authoring guide with the one-shot manifest contract (§2) and the canonical 28-type inventory with "use it when…" guidance (§3).
 - Reconciled the `SlideType` enum from `src/slides/enums.ts` (28 types) against `CATALOG.json` and real runtime slides; mirrored the actual per-slide envelope + capsule-tone + Base64/SVG image-embedding rules.
