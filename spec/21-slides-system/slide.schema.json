@@ -51,7 +51,12 @@
         "ChecklistSlide",
         "TileSlide",
         "BlastRadiusSlide",
-        "SessionOutlineSlide"
+        "SessionOutlineSlide",
+        "FullBleedImageSlide",
+        "SplitMediaSlide",
+        "MediaGridSlide",
+        "GifLoopSlide",
+        "SvgDiagramSlide"
       ],
       "description": "Selects the React renderer. Each type expects a different `content` shape — see slide-types catalog. `FocusTimelineSlide` and `AdvanceStepSlide` consume Next/Prev internally — see spec/slides/11-focus-timeline.md and spec/slides/18-advance-step-cinematic.md. `MetricGridSlide` renders 2-6 headline metric cells — see spec/slides/llm/22b-metric-grid-worked-example.md."
     },
@@ -890,6 +895,80 @@
           "required": ["title", "items"],
           "properties": {
             "items": { "type": "array", "minItems": 2, "maxItems": 8 }
+          }
+        }
+      },
+      "required": ["slideType"]
+    },
+    {
+      "title": "FullBleedImageSlideVariant",
+      "properties": {
+        "slideType": { "const": "FullBleedImageSlide" },
+        "content": {
+          "type": "object",
+          "required": ["image"],
+          "properties": {
+            "image": { "type": "string", "minLength": 1 },
+            "scrim": { "enum": ["none", "bottom", "full"] }
+          }
+        }
+      },
+      "required": ["slideType"]
+    },
+    {
+      "title": "SplitMediaSlideVariant",
+      "properties": {
+        "slideType": { "const": "SplitMediaSlide" },
+        "content": {
+          "type": "object",
+          "required": ["title", "image"],
+          "properties": {
+            "image": { "type": "string", "minLength": 1 },
+            "mediaSide": { "enum": ["left", "right"] }
+          }
+        }
+      },
+      "required": ["slideType"]
+    },
+    {
+      "title": "MediaGridSlideVariant",
+      "properties": {
+        "slideType": { "const": "MediaGridSlide" },
+        "content": {
+          "type": "object",
+          "required": ["title", "mediaTiles"],
+          "properties": {
+            "mediaTiles": { "type": "array", "minItems": 2, "maxItems": 6 }
+          }
+        }
+      },
+      "required": ["slideType"]
+    },
+    {
+      "title": "GifLoopSlideVariant",
+      "properties": {
+        "slideType": { "const": "GifLoopSlide" },
+        "content": {
+          "type": "object",
+          "required": ["image"],
+          "properties": {
+            "image": { "type": "string", "minLength": 1 },
+            "poster": { "type": "string" }
+          }
+        }
+      },
+      "required": ["slideType"]
+    },
+    {
+      "title": "SvgDiagramSlideVariant",
+      "properties": {
+        "slideType": { "const": "SvgDiagramSlide" },
+        "content": {
+          "type": "object",
+          "properties": {
+            "svgMarkup": { "type": "string", "minLength": 1 },
+            "image": { "type": "string", "minLength": 1 },
+            "callouts": { "type": "array" }
           }
         }
       },

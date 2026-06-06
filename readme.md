@@ -143,7 +143,15 @@ let's start now 2026-06-06 15:46
 
 let's start now 2026-06-06 16:42
 
-## v1.78.0 — Release notes (since v1.77.0) — CURRENT
+## v1.79.0 — Release notes (since v1.78.0) — CURRENT
+
+- **Closed the validation gap for the 5 new media/diagram types (plan 05, step 1).** `FullBleedImageSlide`, `SplitMediaSlide`, `MediaGridSlide`, `GifLoopSlide`, and `SvgDiagramSlide` are now first-class in the boot-time zod contract and the JSON Schema — bad JSON for these types fails fast with a slide number instead of being silently rejected/falling back.
+- Root cause (one sentence): these types rendered via `SlideStage` but were never added to `SlideContract`'s discriminated union, so authoring them produced an "invalid discriminator" contract error at load with no per-type field guidance.
+- Files: 5 new zod content schemas + `REQUIRED_FIELDS` + `SLIDE_CONTENT_CONTRACTS` + discriminated union entries in `src/slides/contracts.ts` (`SLIDE_CONTRACTS_VERSION` 7→8); enum + 5 `oneOf` variants in `spec/21-slides-system/slide.schema.json`; updated count assertion (25→30, v7→v8) in `src/test/llmGuidelineBundle.test.ts`.
+- Verified: `bunx vitest run llmGuidelineBundle contracts schema deckFragmentSchema llmPackTypeCoverage llmMdSync` → 99 passed (schema enum ↔ runtime contract drift checks green); no `error TS` in Vite logs.
+
+## v1.78.0 — Release notes (since v1.77.0)
+
 
 - **Shipped `SvgDiagramSlide` (plan 05, step 1).** A centered inline SVG figure (`content.svgMarkup` or an `.svg` asset via `content.image`) with optional annotation `callouts` pinned by percent position; callout tones map to `.capsule-{tone}` classes and stagger in (instant under reduced-motion).
 - Root cause (one sentence): no app error existed — the recurring "error" is the next-task driver prompt, so this iteration advanced real plan work (diagram-forward type).

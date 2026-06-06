@@ -54,6 +54,11 @@ export const REQUIRED_FIELDS: Record<string, readonly string[]> = {
   TileSlide:             ['title', 'tiles'],
   BlastRadiusSlide:      ['title'],
   SessionOutlineSlide:   ['title', 'items'],
+  FullBleedImageSlide:   ['image'],
+  SplitMediaSlide:       ['title', 'image'],
+  MediaGridSlide:        ['title', 'mediaTiles'],
+  GifLoopSlide:          ['image'],
+  SvgDiagramSlide:       ['svgMarkup|image'], // any-of
 } as const;
 
 // ---------- Shared sub-contracts ----------
@@ -351,6 +356,66 @@ const SessionOutlineContent = z.object({
   activeIndex: z.number().int().min(0).max(7).optional(),
 }).passthrough();
 
+// ---------- v1.78 — media + diagram slide-type contracts ----------
+
+/** FullBleedImageSlide — edge-to-edge hero; `image` required. */
+const FullBleedImageContent = z.object({
+  image: z.string().min(1),
+  eyebrow: z.string().optional(),
+  title: z.string().optional(),
+  subtitle: z.string().optional(),
+  caption: z.string().optional(),
+  scrim: z.enum(['none', 'bottom', 'full']).optional(),
+  freezeOnReducedMotion: z.boolean().optional(),
+}).passthrough();
+
+/** SplitMediaSlide — two-column show + tell; `title` + `image` required. */
+const SplitMediaContent = z.object({
+  title: z.string().min(1),
+  image: z.string().min(1),
+  eyebrow: z.string().optional(),
+  keywords: z.array(z.string().min(1)).optional(),
+  capsules: z.array(Capsule).optional(),
+  mediaSide: z.enum(['left', 'right']).optional(),
+}).passthrough();
+
+/** MediaGridSlide — 2–6 tiles; `title` + `mediaTiles` required. */
+const MediaTile = z.object({ src: z.string().min(1), caption: z.string().optional() }).passthrough();
+const MediaGridContent = z.object({
+  title: z.string().min(1),
+  mediaTiles: z.array(MediaTile).min(2).max(6),
+  eyebrow: z.string().optional(),
+}).passthrough();
+
+/** GifLoopSlide — looping GIF; `image` required, `poster` recommended. */
+const GifLoopContent = z.object({
+  image: z.string().min(1),
+  poster: z.string().optional(),
+  eyebrow: z.string().optional(),
+  title: z.string().optional(),
+  caption: z.string().optional(),
+  freezeOnReducedMotion: z.boolean().optional(),
+}).passthrough();
+
+/** SvgDiagramSlide — inline SVG figure + callouts; one of svgMarkup|image. */
+const SvgCallout = z.object({
+  x: z.number().min(0).max(100),
+  y: z.number().min(0).max(100),
+  label: z.string().min(1),
+  tone: z.enum(['gold', 'ember', 'cream']).optional(),
+}).passthrough();
+const SvgDiagramContent = z.object({
+  svgMarkup: z.string().min(1).optional(),
+  image: z.string().min(1).optional(),
+  callouts: z.array(SvgCallout).optional(),
+  eyebrow: z.string().optional(),
+  title: z.string().optional(),
+  caption: z.string().optional(),
+}).passthrough().refine(
+  (c: Record<string, unknown>) => Boolean(c.svgMarkup) || Boolean(c.image),
+  { message: 'SvgDiagramSlide.content requires one of: svgMarkup, image.' },
+);
+
 /**
  * Public registry of every per-slideType content contract — the SAME zod
  * schemas the runtime validator uses. Exposed so external consumers (the
@@ -389,12 +454,17 @@ export const SLIDE_CONTENT_CONTRACTS = {
   TileSlide:             TileContent,
   BlastRadiusSlide:      BlastRadiusContent,
   SessionOutlineSlide:   SessionOutlineContent,
+  FullBleedImageSlide:   FullBleedImageContent,
+  SplitMediaSlide:       SplitMediaContent,
+  MediaGridSlide:        MediaGridContent,
+  GifLoopSlide:          GifLoopContent,
+  SvgDiagramSlide:       SvgDiagramContent,
 } as const;
 
 /** Bump on any breaking change to a per-type content contract. Drives the
  *  exported artifact's filename (`slide-types.v{N}.json`) and `version`
  *  field so downstream caches know to re-pull. */
-export const SLIDE_CONTRACTS_VERSION = 7 as const;
+export const SLIDE_CONTRACTS_VERSION = 8 as const;
 
 // ---------- Slide envelope (discriminated on slideType) ----------
 
@@ -434,6 +504,11 @@ export const SlideContract = z.discriminatedUnion('slideType', [
   make('TileSlide', TileContent),
   make('BlastRadiusSlide', BlastRadiusContent),
   make('SessionOutlineSlide', SessionOutlineContent),
+  make('FullBleedImageSlide', FullBleedImageContent),
+  make('SplitMediaSlide', SplitMediaContent),
+  make('MediaGridSlide', MediaGridContent),
+  make('GifLoopSlide', GifLoopContent),
+  make('SvgDiagramSlide', SvgDiagramContent),
 ]);
 
 export interface SlideValidationIssue {
