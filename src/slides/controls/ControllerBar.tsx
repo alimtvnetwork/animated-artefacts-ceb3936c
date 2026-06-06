@@ -546,36 +546,20 @@ function ControllerHamburger({
             <TransitionStyleSubmenu currentSlideNumber={currentSlideNumber} itemClass={itemBase} labelClass={labelClass} sepClass={sepClass} />
             <StepMotionSubmenu itemClass={itemBase} labelClass={labelClass} />
             <div className={sepClass} />
-            <div className={labelClass}>Import / Export</div>
-            <button
-              type="button"
-              onClick={() => {
-                try {
-                  const filename = downloadLlmGuide();
-                  toast.success('LLM guide downloaded', { description: filename });
-                } catch (err) {
-                  toast.error('Could not generate LLM guide', {
-                    description: err instanceof Error ? err.message : String(err),
-                  });
-                }
+            <ImportExportSubmenu
+              currentSlideNumber={currentSlideNumber}
+              itemClass={itemBase}
+              labelClass={labelClass}
+              onCloseParent={() => onOpenChange(false)}
+              onOpenDeckTools={() => {
+                setDeckToolsOpen(true);
+                setThemeToolsOpen(false);
               }}
-              className={itemBase}
-            >
-              <Download className="h-4 w-4" />
-              <span className="flex-1">Download LLM guide (.md)</span>
-            </button>
-            <button
-              type="button"
-              onClick={async () => {
-                const ok = await copyLlmGuideToClipboard();
-                if (ok) toast.success('LLM guide copied to clipboard');
-                else toast.error('Clipboard copy blocked — try Download instead');
+              onOpenThemeTools={() => {
+                setThemeToolsOpen(true);
+                setDeckToolsOpen(false);
               }}
-              className={itemBase}
-            >
-              <ClipboardCopy className="h-4 w-4" />
-              <span className="flex-1">Copy LLM guide</span>
-            </button>
+            />
             <div className={sepClass} />
             <DebugSubmenu itemClass={itemBase} labelClass={labelClass} />
 
