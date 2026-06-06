@@ -340,7 +340,72 @@ Copy-paste templates. Every template is **valid against
 
 ---
 
-## 11. SectionDividerSlide
+## 10a. FullBleedImageSlide (edge-to-edge hero)
+
+```jsonc
+{
+  "slideNumber": 8,
+  "slideName": "chapter-hero",
+  "slideType": "FullBleedImageSlide",
+  "transition": "FadeIn",
+  "textAnimation": "SlideUp",
+  "content": {
+    "eyebrow": "CHAPTER 02",
+    "title": "The photo is the slide",
+    "subtitle": "One quiet line of context over the scrim.",
+    "image": "images/hero.jpg",
+    "scrim": "bottom"
+  }
+}
+```
+
+---
+
+## 10b. SplitMediaSlide (show + tell)
+
+```jsonc
+{
+  "slideNumber": 9,
+  "slideName": "show-and-tell",
+  "slideType": "SplitMediaSlide",
+  "transition": "PushLeft",
+  "textAnimation": "Stagger",
+  "content": {
+    "eyebrow": "SHOW + TELL",
+    "title": "Media meets message",
+    "mediaSide": "left",
+    "image": "images/product.jpg",
+    "keywords": ["Fast", "Legible", "On-brand"],
+    "capsules": [{ "label": "Live", "tone": "gold" }]
+  }
+}
+```
+
+---
+
+## 10c. MediaGridSlide (gallery / logo wall, 2–6 tiles)
+
+```jsonc
+{
+  "slideNumber": 10,
+  "slideName": "gallery",
+  "slideType": "MediaGridSlide",
+  "transition": "FadeIn",
+  "textAnimation": "FadeIn",
+  "content": {
+    "eyebrow": "GALLERY",
+    "title": "A grid of moments",
+    "mediaTiles": [
+      { "src": "images/a.jpg", "caption": "One" },
+      { "src": "images/b.jpg", "caption": "Two" },
+      { "src": "images/c.jpg", "caption": "Three" }
+    ]
+  }
+}
+```
+
+---
+
 
 ```jsonc
 {
