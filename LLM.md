@@ -82,7 +82,8 @@
     `MetricGridSlide`, `TableSlide`, `CodeBlockSlide`, `BoxDiagramSlide`,
     `ERDiagramSlide`, `LayoutSlide`, `DatabaseDiagramSlide`, `DataTableSlide`,
     `NumberCalloutSlide`, `EquationSlide`, `ChecklistSlide`, `TileSlide`,
-    `BlastRadiusSlide`, `SessionOutlineSlide`. An unknown `slideType` falls back
+    `BlastRadiusSlide`, `SessionOutlineSlide`, `FullBleedImageSlide`,
+    `SplitMediaSlide`, `MediaGridSlide`. An unknown `slideType` falls back
     to `TitleSlide`. (`ClickRevealSlide` is declared in the enum but has **no
     dedicated render case** — it falls back to `TitleSlide`; click-reveal works
     as a behavior on `CapsuleListSlide`/`StepTimelineSlide` items.) For per-type
@@ -107,6 +108,9 @@
     - `ImageSlide`: `{ eyebrow?, title?, image, caption? }`
     - `QrMeetingSlide`: `{ eyebrow?, title, capsules? }` (meeting URL/QR come from `config.meeting`)
     - `SessionOutlineSlide`: `{ eyebrow?, title, items?: [...], activeIndex? }`
+    - `FullBleedImageSlide`: `{ eyebrow?, title?, subtitle?, image, scrim? }` (edge-to-edge hero + scrim)
+    - `SplitMediaSlide`: `{ eyebrow?, title, image, mediaSide?: 'left'|'right', keywords?, capsules? }`
+    - `MediaGridSlide`: `{ eyebrow?, title, mediaTiles: [{ src, caption? }] }` (2–6 tiles)
     - Diagram/table/code/metric types (`TableSlide`, `CodeBlockSlide`, `MetricGridSlide`, `LayoutSlide`, etc.) have richer `content` fields — see `spec/21-slides-system/llm/06-json-authoring-cheatsheet.md` + `27a–27d`.
 12. **Step object (StepTimelineSlide):**
     ```json

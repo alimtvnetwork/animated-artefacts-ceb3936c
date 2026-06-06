@@ -143,7 +143,15 @@ let's start now 2026-06-06 15:46
 
 let's start now 2026-06-06 16:42
 
-## v1.75.0 — Release notes (since v1.74.0) — CURRENT
+## v1.76.0 — Release notes (since v1.75.0) — CURRENT
+
+- **Updated the LLM authoring pack for the three new media types (plan 05, step 1).** `FullBleedImageSlide`, `SplitMediaSlide`, and `MediaGridSlide` are now documented in the per-type contracts inventory and the portable root guide, with copy-paste JSON samples.
+- Root cause (one sentence): the new media slide types rendered at runtime but were invisible to LLM authors because the authoring pack (`23-slide-type-contracts.md` + `LLM.md`) never listed them.
+- Files: required-fields rows in `spec/21-slides-system/llm/23-slide-type-contracts.md`; samples §10a/10b/10c in `spec/21-slides-system/llm/06-json-authoring-cheatsheet.md`; type list + per-type `content` schemas in `LLM.md`; new coverage test `src/test/llmPackTypeCoverage.test.ts` asserting every `SlideType` enum value appears in both docs.
+- Verified: `bunx vitest run llmPackTypeCoverage llmMdSync llmGuidelineBundle` → 70 passed (58 new coverage assertions); no `error TS` in Vite logs.
+
+## v1.75.0 — Release notes (since v1.74.0)
+
 
 - **Shipped `MediaGridSlide` (plan 05/02, step 1).** 2–6 image/SVG tiles with optional captions, auto-laid out (2→1×2, 3→1×3, 4→2×2, 5/6→2×3); density cap `capTiles` (≤6) enforced via `densityCheck`; reduced-motion → instant fade. Added sample slide 14 to the `image-examples` deck.
 - Root cause (one sentence): no app error existed — the recurring "error" is the next-task driver prompt, so this iteration advanced real plan work.
