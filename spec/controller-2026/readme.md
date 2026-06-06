@@ -39,6 +39,7 @@ It is **presenter-local runtime UI**: never exported, never part of slide JSON.
 | [`09-build-substeps-c05.md`](./09-build-substeps-c05.md) | **C05 expanded** into 10 code-ready sub-steps **C05.1–C05.10** with files + time. |
 | [`10-build-substeps-c06.md`](./10-build-substeps-c06.md) | **C06 expanded** into 10 code-ready sub-steps **C06.1–C06.10** with files + time. |
 | [`11-build-substeps-c07.md`](./11-build-substeps-c07.md) | **C07 expanded** into 10 code-ready sub-steps **C07.1–C07.10** with files + time. **✅ BUILT** — `useOnboardingFlag.ts`, `OnboardingCoachmark.tsx`, wired into `ControllerBar` ("Show intro again"), 8 tests in `src/test/onboarding.test.tsx` passing. |
+| [`12-keyboard-shortcuts-reference.md`](./12-keyboard-shortcuts-reference.md) | **Concrete key map** — every controller + webcam shortcut as a table, mirrored from the `SHORTCUTS` source of truth. |
 
 ---
 
