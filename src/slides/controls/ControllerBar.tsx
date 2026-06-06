@@ -246,6 +246,16 @@ export function ControllerBar({ current, total, onPrev, onNext, onJump, isFullsc
                   onToggleTopJumper={onToggleTopJumper}
                   topJumperHidden={topJumperHidden}
                   onOpenKeyboardMap={() => setKeyboardOpen(true)}
+                  onOpenDeckTools={() => {
+                    setDeckToolsOpen(true);
+                    setThemeToolsOpen(false);
+                    setHamburgerOpen(false);
+                  }}
+                  onOpenThemeTools={() => {
+                    setThemeToolsOpen(true);
+                    setDeckToolsOpen(false);
+                    setHamburgerOpen(false);
+                  }}
                   onShowIntro={() => { resetOnboarding(); setIntroOpen(true); }}
                   currentSlideNumber={current}
                 />
