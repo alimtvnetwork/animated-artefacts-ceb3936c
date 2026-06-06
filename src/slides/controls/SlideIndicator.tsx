@@ -11,6 +11,7 @@ import { useEffect, useRef, useState } from 'react';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 import { toast } from 'sonner';
 import { pushJumpHistory, useJumpHistory, clearJumpHistory } from '../jumpHistory';
+import { resolveJumpTarget } from './jumpTarget';
 import { History, X } from 'lucide-react';
 
 interface Props {
