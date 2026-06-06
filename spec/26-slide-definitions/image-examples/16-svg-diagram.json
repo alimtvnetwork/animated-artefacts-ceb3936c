@@ -1,5 +1,5 @@
 {
-  "$schema": "../../../21-slides-system/slide.schema.json",
+  "$schema": "../../21-slides-system/slide.schema.json",
   "slideNumber": 16,
   "slideName": "svg-diagram",
   "slideType": "SvgDiagramSlide",
