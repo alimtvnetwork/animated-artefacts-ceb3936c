@@ -33,11 +33,14 @@ interface Props {
   slides: SlideSpec[];
   /** Jump handler — receives a 1-based slide number. */
   onJump: (n: number) => void;
+  /** Collapse to `1 … cur±n … N` once total exceeds this. Default 15. */
+  maxBeforeCollapse?: number;
+  /** Neighbors shown each side of current when collapsed. Default 2. */
+  neighbors?: number;
 }
 
-/** Beyond this many slides the strip collapses to `1 … cur±2 … N`. */
-const COLLAPSE_THRESHOLD = 15;
-const NEIGHBORS = 2;
+const DEFAULT_THRESHOLD = 15;
+const DEFAULT_NEIGHBORS = 2;
 
 /** Midpoint slide between the numbers flanking a `'gap'` token. */
 function gapMidpoint(tokens: (number | 'gap')[], index: number): number {
