@@ -34,6 +34,7 @@ import { BlastRadiusSlide } from './types/BlastRadiusSlide';
 import { SessionOutlineSlide } from './types/SessionOutlineSlide';
 import { FullBleedImageSlide } from './types/FullBleedImageSlide';
 import { SplitMediaSlide } from './types/SplitMediaSlide';
+import { MediaGridSlide } from './types/MediaGridSlide';
 import { BrandHeader } from './components/BrandHeader';
 import { AmbientBackground } from './components/AmbientBackground';
 import { HotspotLayer } from './components/HotspotLayer';
