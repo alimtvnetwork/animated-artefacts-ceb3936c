@@ -100,15 +100,7 @@ export function buildLlmGuideMarkdown(opts: LlmGuideBuildOptions = {}): string {
   const date = new Date().toISOString().slice(0, 10);
   const deckName = opts.deckName ?? 'Riseup Asia LLC slide deck';
 
-  const concat = (files: Record<string, string>): string =>
-    Object.keys(files)
-      .sort((a, b) => a.localeCompare(b))
-      .map((path) => {
-        const filename = path.split('/').pop() ?? path;
-        const body = files[path] ?? '';
-        return `\n\n---\n\n## File: \`${filename}\`\n\n${body.trim()}\n`;
-      })
-      .join('');
+
 
   const themeSummary = summarizeTheme(preset);
   const themeJson = JSON.stringify(preset, null, 2);
