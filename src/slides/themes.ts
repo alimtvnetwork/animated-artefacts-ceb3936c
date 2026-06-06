@@ -25,7 +25,10 @@ export type ThemeId =
   | 'paper-ink'
   | 'macos-sonoma'
   | 'windows-11'
-  | 'navy-blue';
+  | 'navy-blue'
+  | 'glasswing'
+  | 'think-yellow'
+  | 'riseup-pro';
 
 export interface ThemePreset {
   id: ThemeId;
@@ -361,6 +364,104 @@ export const THEMES: Record<ThemeId, ThemePreset> = {
       body: 'Poppins, Inter, -apple-system, BlinkMacSystemFont, sans-serif',
       // Code blocks + ER-box field types use JetBrains Mono.
       mono: '"JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace',
+    },
+  },
+
+  // ─── Glasswing — editorial cream-on-charcoal (ref 01-sample).
+  // Quiet, premium, near-monochrome: deep warm charcoal bg, soft cream
+  // text, restrained champagne accent. The "gallery wall" flavor — lets a
+  // single headline breathe. Ubuntu display / Poppins body per house request.
+  'glasswing': {
+    id: 'glasswing',
+    label: 'Glasswing',
+    description: 'Editorial cream-on-charcoal — quiet, premium, near-monochrome with a champagne accent.',
+    swatch: ['#161513', '#C9B896', '#F2EFE6', '#C57A52'],
+    vars: {
+      '--gold': '38 42% 58%',          // champagne #C9B896 (darkened for AA on charcoal)
+      '--gold-glow': '40 55% 74%',
+      '--cream': '44 30% 92%',         // #F2EFE6 soft cream titles
+      '--ember': '18 48% 54%',         // muted terracotta #C57A52
+      '--primary': '38 42% 58%',
+      '--ring': '38 42% 58%',
+      '--background': '40 8% 8%',       // warm charcoal #161513
+      '--foreground': '44 25% 90%',
+      '--muted-foreground': '40 12% 65%',
+      '--border': '40 10% 22%',
+      '--surface-1': '40 7% 11%',
+      '--surface-2': '40 7% 15%',
+      '--surface-3': '40 6% 19%',
+      '--ink': '40 8% 6%',
+      '--gradient-noir': 'radial-gradient(ellipse at top, hsl(40 10% 12%) 0%, hsl(40 8% 7%) 60%)',
+    },
+    fonts: {
+      display: 'Ubuntu, Inter, sans-serif',
+      body: 'Poppins, Inter, -apple-system, BlinkMacSystemFont, sans-serif',
+    },
+  },
+
+  // ─── Think Yellow — high-energy yellow-on-black (ref 02-sample).
+  // Pure black canvas, vivid #FFD60A yellow accent (capsule/headline pop),
+  // crisp white supporting text. The "loud poster" flavor for punchy
+  // single-idea slides. Ubuntu display / Poppins body.
+  'think-yellow': {
+    id: 'think-yellow',
+    label: 'Think Yellow',
+    description: 'High-energy yellow-on-black — vivid #FFD60A accent, crisp white text, poster-loud.',
+    swatch: ['#000000', '#FFD60A', '#FFFFFF', '#FFB800'],
+    vars: {
+      '--gold': '50 100% 52%',         // #FFD60A vivid yellow
+      '--gold-glow': '48 100% 64%',
+      '--cream': '0 0% 100%',          // white text
+      '--ember': '44 100% 50%',        // amber #FFB800
+      '--primary': '50 100% 52%',
+      '--ring': '50 100% 52%',
+      '--background': '0 0% 0%',        // pure black
+      '--foreground': '0 0% 98%',
+      '--muted-foreground': '0 0% 64%',
+      '--border': '0 0% 16%',
+      '--surface-1': '0 0% 6%',
+      '--surface-2': '0 0% 10%',
+      '--surface-3': '0 0% 14%',
+      '--ink': '0 0% 0%',
+      '--gradient-noir': 'radial-gradient(ellipse 110% 80% at 50% -10%, hsl(50 80% 10%) 0%, hsl(0 0% 3%) 55%, hsl(0 0% 0%) 100%)',
+    },
+    fonts: {
+      display: 'Ubuntu, Inter, sans-serif',
+      body: 'Poppins, Inter, -apple-system, BlinkMacSystemFont, sans-serif',
+    },
+  },
+
+  // ─── Riseup Pro — on-brand graphite studio (ref 03-sample).
+  // The "presenter screen-share" flavor: neutral graphite bg matching the
+  // Riseup Pro recording look, brand gold #f3a502 + ember #E85D3A accents,
+  // soft off-white text. Ubuntu display / Poppins body.
+  'riseup-pro': {
+    id: 'riseup-pro',
+    label: 'Riseup Pro',
+    description: 'On-brand graphite studio — neutral graphite bg, Riseup gold + ember accents, soft off-white text.',
+    swatch: ['#262626', '#f3a502', '#F2EEE8', '#E85D3A'],
+    vars: {
+      '--gold': '40 96% 48%',          // brand gold #f3a502
+      '--gold-glow': '40 100% 62%',
+      '--cream': '40 25% 93%',         // #F2EEE8 soft off-white
+      '--ember': '14 80% 57%',         // brand ember #E85D3A
+      '--primary': '40 96% 48%',
+      '--ring': '40 96% 48%',
+      '--background': '0 0% 15%',       // graphite #262626
+      '--foreground': '40 15% 92%',
+      '--muted-foreground': '40 6% 68%',
+      '--border': '0 0% 28%',
+      '--surface-1': '0 0% 18%',
+      '--surface-2': '0 0% 22%',
+      '--surface-3': '0 0% 26%',
+      '--ink': '0 0% 9%',
+      '--gradient-noir': 'radial-gradient(ellipse at top, hsl(36 30% 19%) 0%, hsl(0 0% 14%) 60%)',
+      '--gradient-gold': 'linear-gradient(135deg, hsl(40 96% 48%), hsl(14 80% 57%))',
+      '--gradient-text-gold': 'linear-gradient(135deg, hsl(44 100% 62%), hsl(40 96% 48%) 50%, hsl(14 80% 57%))',
+    },
+    fonts: {
+      display: 'Ubuntu, Inter, sans-serif',
+      body: 'Poppins, Inter, -apple-system, BlinkMacSystemFont, sans-serif',
     },
   },
 };
