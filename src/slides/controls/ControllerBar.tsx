@@ -404,13 +404,13 @@ function ControllerHamburger({
   // pill morphs in size as it expands. Without portaling, the panel was
   // clipped by the pill's `overflow-hidden` and effectively invisible —
   // which is exactly the "hover does nothing" bug the user reported.
-  const [anchor, setAnchor] = useState<{ bottom: number; right: number } | null>(null);
+  const [anchor, setAnchor] = useState<{ top: number; right: number } | null>(null);
   const recomputeAnchor = () => {
     const el = triggerRef.current;
     if (!el) return;
     const r = el.getBoundingClientRect();
     setAnchor({
-      bottom: window.innerHeight - r.top + 8, // 8px gap above trigger
+      top: r.bottom + 8, // 8px gap below trigger (controller is top-anchored)
       right: window.innerWidth - r.right,
     });
   };
