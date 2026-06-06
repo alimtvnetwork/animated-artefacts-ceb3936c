@@ -62,7 +62,7 @@ schemas. Keep all three in sync.
 
 > `ClickRevealSlide` is not a content type — it is an envelope flag
 > (`isClickReveal: true` + `parentSlide`) on any slide; see `26-click-reveal-contract.md`.
-> All 29 `SlideType` enum values are now represented across this table + that note.
+> All 30 `SlideType` enum values are now represented across this table + that note.
 
 Every envelope (any slideType) requires:
 `slideNumber:int>0`, `slideName:string`, `slideType:enum`,
