@@ -1,5 +1,5 @@
 {
-  "Name": "Riseup Asia LLC — Image & SVG Examples",
+  "Name": "Riseup Asia LLC \u2014 Image & SVG Examples",
   "config": {
     "deckSlug": "image-examples",
     "presenter": "MD ALIM UL KARIM",
@@ -14,16 +14,57 @@
     }
   },
   "Slides": [
-    { "title": "cover", "path": "./slides/01-cover.json" },
-    { "title": "image-from-asset", "path": "./slides/02-image-from-asset.json" },
-    { "title": "svg-figure", "path": "./slides/03-svg-figure.json" },
-    { "title": "base64-png", "path": "./slides/04-base64-png.json" },
-    { "title": "inline-svg-data-uri", "path": "./slides/05-inline-svg-data-uri.json" },
-    { "title": "inline-thumbnail", "path": "./slides/06-inline-thumbnail.json" },
-    { "title": "icon-badge", "path": "./slides/07-icon-badge.json" },
-    { "title": "steps-with-thumbnails", "path": "./slides/08-steps-with-thumbnails.json" },
-    { "title": "title-hero-slot", "path": "./slides/09-title-hero-slot.json" },
-    { "title": "image-with-caption", "path": "./slides/10-image-with-caption.json" },
-    { "title": "image-gallery", "path": "./slides/11-image-gallery.json" }
+    {
+      "title": "cover",
+      "path": "./slides/01-cover.json"
+    },
+    {
+      "title": "image-from-asset",
+      "path": "./slides/02-image-from-asset.json"
+    },
+    {
+      "title": "svg-figure",
+      "path": "./slides/03-svg-figure.json"
+    },
+    {
+      "title": "base64-png",
+      "path": "./slides/04-base64-png.json"
+    },
+    {
+      "title": "inline-svg-data-uri",
+      "path": "./slides/05-inline-svg-data-uri.json"
+    },
+    {
+      "title": "inline-thumbnail",
+      "path": "./slides/06-inline-thumbnail.json"
+    },
+    {
+      "title": "icon-badge",
+      "path": "./slides/07-icon-badge.json"
+    },
+    {
+      "title": "steps-with-thumbnails",
+      "path": "./slides/08-steps-with-thumbnails.json"
+    },
+    {
+      "title": "title-hero-slot",
+      "path": "./slides/09-title-hero-slot.json"
+    },
+    {
+      "title": "image-with-caption",
+      "path": "./slides/10-image-with-caption.json"
+    },
+    {
+      "title": "image-gallery",
+      "path": "./slides/11-image-gallery.json"
+    },
+    {
+      "title": "full-bleed-image",
+      "path": "./slides/12-full-bleed-image.json"
+    },
+    {
+      "title": "split-media",
+      "path": "./slides/13-split-media.json"
+    }
   ]
 }

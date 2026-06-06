@@ -1,0 +1,19 @@
+{
+  "slideNumber": 12,
+  "slideName": "full-bleed-image",
+  "slideType": "FullBleedImageSlide",
+  "transition": "FadeIn",
+  "textAnimation": "SlideUp",
+  "enabled": true,
+  "isClickReveal": false,
+  "showBrandHeader": false,
+  "showPresenterChip": false,
+  "titleStyle": "white",
+  "content": {
+    "image": "/assets/examples/photo.png",
+    "eyebrow": "CHAPTER 02",
+    "title": "The photo is the slide",
+    "caption": "A quiet line of context over the scrim.",
+    "scrim": "bottom"
+  }
+}

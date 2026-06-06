@@ -143,7 +143,14 @@ let's start now 2026-06-06 15:46
 
 let's start now 2026-06-06 16:42
 
-## v1.73.0 — Release notes (since v1.72.0) — CURRENT
+## v1.74.0 — Release notes (since v1.73.0) — CURRENT
+
+- **Added real samples for the new media types to the `image-examples` deck (plan 05/02, step 1).** New slides 12 (`FullBleedImageSlide`, scrim=bottom + overlay text) and 13 (`SplitMediaSlide`, mediaSide=left + keywords + capsules), registered in the deck manifest.
+- Root cause (one sentence): no app error existed — the recurring "error" is the next-task driver prompt, so this iteration advanced real plan work.
+- Files: `front-end/project/image-examples/data/slides/12-full-bleed-image.json`, `…/13-split-media.json`, and the `Slides[]` array in `…/data/slides.json` (11 → 13 slides).
+- Verified: `bunx vitest run imageExamplesDeck contracts` → 19 passed (deck spec confidence 100/100); Vite hot-reloaded both JSONs with no errors. Visual QA via external preview blocked by the login wall.
+
+## v1.73.0 — Release notes (since v1.72.0)
 
 - **Shipped `SplitMediaSlide` (plan 05/02, step 1).** Two-column show + tell: media (image/GIF) on one half, eyebrow + title + keywords + capsules on the other; `content.mediaSide` ('left' default | 'right') picks the media half. Reduced-motion → instant fade.
 - Root cause (one sentence): no app error existed — the recurring "error" is the next-task driver prompt, so this iteration advanced real plan work.
