@@ -22,6 +22,7 @@
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
 import { useState } from 'react';
 import type { SlideSpec } from '../types';
+import { buildPageWindow } from './pageWindow';
 
 interface Props {
   /** 1-based current slide number among the linear slides. */
@@ -34,15 +35,20 @@ interface Props {
   onJump: (n: number) => void;
 }
 
+/** Beyond this many slides the strip collapses to `1 … cur±2 … N`. */
+const COLLAPSE_THRESHOLD = 15;
+const NEIGHBORS = 2;
+
 export function DotPagination({ current, total, slides, onJump }: Props) {
   const reduced = useReducedMotion();
   const [hovered, setHovered] = useState<number | null>(null);
 
-  // Cap visible width: ~22px per dot + padding. Beyond ~28 dots the row
-  // scrolls horizontally with edge masks.
-  const SLOT = 24;
-  const maxWidth = Math.min(total * SLOT + 32, 720);
-  const overflow = total > 28;
+  const tokens =
+    total > COLLAPSE_THRESHOLD
+      ? buildPageWindow(current, total, NEIGHBORS)
+      : Array.from({ length: total }, (_, i) => i + 1);
+  const maxWidth = Math.min(tokens.length * 24 + 32, 720);
+
 
   return (
     <div
