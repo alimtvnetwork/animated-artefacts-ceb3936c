@@ -52,7 +52,9 @@ write the `expand` payload, then drop it.
 
 ### Rules
 
-1. `hoverText` ≤ 28 chars. Anything longer truncates the flip motion.
+1. `hoverText` ≤ 48 chars. The capsule reserves width for the longer of
+   `text`/`hoverText` (`Capsule.tsx` widthAnchor), so it never truncates or
+   reflows — but keep it short for legibility.
 2. `expand.body` is keyword-first per the deck-wide content rule. 1-2
    sentences max. Long bodies break the card layout.
 3. `expand.capsules` ≤ 6. The card is a focal moment, not a wall.
