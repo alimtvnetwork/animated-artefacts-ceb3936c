@@ -83,7 +83,7 @@
     `ERDiagramSlide`, `LayoutSlide`, `DatabaseDiagramSlide`, `DataTableSlide`,
     `NumberCalloutSlide`, `EquationSlide`, `ChecklistSlide`, `TileSlide`,
     `BlastRadiusSlide`, `SessionOutlineSlide`, `FullBleedImageSlide`,
-    `SplitMediaSlide`, `MediaGridSlide`, `GifLoopSlide`. An unknown `slideType` falls back
+    `SplitMediaSlide`, `MediaGridSlide`, `GifLoopSlide`, `SvgDiagramSlide`. An unknown `slideType` falls back
     to `TitleSlide`. (`ClickRevealSlide` is declared in the enum but has **no
     dedicated render case** — it falls back to `TitleSlide`; click-reveal works
     as a behavior on `CapsuleListSlide`/`StepTimelineSlide` items.) For per-type
