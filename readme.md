@@ -136,7 +136,15 @@ let's start now 2026-06-06 15:46
 
 let's start now 2026-06-06 16:42
 
-## v1.33.0 — Release notes (since v1.32.0) — CURRENT
+## v1.34.0 — Release notes (since v1.33.0) — CURRENT
+
+**Closed the last stale pending plan; backlog is now drained.** Root cause: `01-slide-system-export-llm-overhaul` was a spec-only plan whose 7 subtask deliverables AND the implementation they describe already ship, so it was never moved out of `pending/`.
+- Evidence: `spec/21-slides-system/02-controller.md` §Position matches `src/slides/controls/ControllerBar.tsx:147` (`fixed top-6 right-6`); export/import via `src/slides/{export,exportPptx,exportSchemas,slideJsonImport,zipBundle}.ts`; `src/slides/controls/ImportExportSubmenu.tsx`; `spec/llm-guideline/01..09`; `src/pages/BuilderPage.tsx`.
+- `.lovable/plans/completed/01-slide-system-export-llm-overhaul.md`: moved from `pending/`, Status flipped, Resolution note added. `.lovable/plans/pending/` is now empty.
+- `.lovable/prompts/29-next-task.md`: saved driver snapshot; `.lovable/prompts.md` + `.lovable/prompt.md` synced (`28` archived, `29` latest).
+- `package.json`: bumped to `1.34.0`.
+
+## v1.33.0 — Release notes (since v1.32.0)
 
 **Resolved M-04 — `TableSlide` vs `DataTableSlide` guidance.** Root cause: two table slide types existed with no documented rule for which to use, so authors could reach for the uncapped one and overflow slides. Decision: keep `TableSlide` uncapped (legit for large tables) but steer authors to the density-capped `DataTableSlide` for ≤5 cols × ≤8 rows — documented in JSDoc, not a hard deprecation.
 - `src/slides/enums.ts`: added `@remarks` to the `TableSlide` block pointing to `DataTableSlide`.

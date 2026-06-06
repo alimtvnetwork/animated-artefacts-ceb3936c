@@ -20,6 +20,7 @@ Each entry links to its full spec in `.lovable/prompts/`.
 | 25 | [25-next-task.md](./prompts/25-next-task.md) | `next task (v5)`, `next N steps or tasks`, `next task with number` | archived snapshot |
 | 26 | [26-next-task.md](./prompts/26-next-task.md) | `next task (v5)`, `next N steps or tasks`, `next task with number` | archived snapshot |
 | 27 | [27-next-task.md](./prompts/27-next-task.md) | `next task (v5)`, `next N steps or tasks`, `next task with number` | archived snapshot |
-| 28 | [28-next-task.md](./prompts/28-next-task.md) | `next task (v5)`, `next N steps or tasks`, `next task with number` | latest saved snapshot |
+| 28 | [28-next-task.md](./prompts/28-next-task.md) | `next task (v5)`, `next N steps or tasks`, `next task with number` | archived snapshot |
+| 29 | [29-next-task.md](./prompts/29-next-task.md) | `next task (v5)`, `next N steps or tasks`, `next task with number` | latest saved snapshot |
 
 Snapshots `05`–`23` are preserved as historical per-iteration saves of the same recurring next-task prompt.

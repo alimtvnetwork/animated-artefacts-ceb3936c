@@ -2,7 +2,7 @@
 
 **Slug:** slide-system-export-llm-overhaul
 **Steps:** 50
-**Status:** pending
+**Status:** completed
 **Created:** 2026-06-06
 
 ## Context
@@ -72,3 +72,12 @@ This is a spec/plan turn: success = the plan file plus 7 subtask spec files exis
 
 ## Appended from prior pending tasks
 none (`.lovable/plans/pending` and `completed` were empty; existing carryover backlog lives in `.lovable/plan.md` and is out of scope for this request)
+
+## Resolution (2026-06-06, v1.34.0)
+This was a SPEC-ONLY plan (verification = "plan file + 7 subtask spec files exist on disk"). All deliverables are present, and the downstream implementation already ships:
+- 7 subtask specs: `.lovable/plans/subtasks/01-slide-system-export-llm-overhaul/{01..07}-*.md` ✅
+- Controller TopRight: `spec/21-slides-system/02-controller.md` §Position documents top-6 right-6 + downward popovers; matches `src/slides/controls/ControllerBar.tsx:147` (`fixed top-6 right-6`).
+- Export/import services: `src/slides/{export,exportPptx,exportSchemas,slideJsonImport,zipBundle,checkImportedAssets}.ts`.
+- Menus/UI: `src/slides/controls/{ImportExportSubmenu,ThemeImportPreviewDialog,ThemeSwatchGrid}.tsx`; builder at `src/pages/BuilderPage.tsx`.
+- LLM guide: `spec/llm-guideline/01..09 + readme`.
+Remaining (not part of this spec turn): M-01 (#32 collapsible-sections ambiguity) — needs user decision.
