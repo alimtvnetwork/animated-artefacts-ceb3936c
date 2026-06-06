@@ -34,6 +34,7 @@ interface TileProps {
 function ThemeTile({ id, isActive, onPick, onRemoveCustom }: TileProps) {
   const t = THEMES[id];
   const isCustom = isCustomThemeId(id);
+  const frame = getReferenceFrame(id);
   return (
     <div className="group relative">
       <button
