@@ -4,7 +4,7 @@
 
 **Read order before implementing.**
 1. `.lovable/coding-guidelines.md` (this file).
-2. `.lovable/prompts.md` + `.lovable/prompts/*.md`.
+2. `.lovable/prompts.md`, then only the prompt files whose status is **active**, **always-on**, or **on-demand canonical driver**. Do **not** read archived snapshot files in `.lovable/prompts/` unless the task is prompt-maintenance/history repair.
 3. `.lovable/memory/index.md` (especially Core).
 4. `spec/21-slides-system/**` (system rules + LLM authoring pack at `llm/`).
 5. `spec/26-slide-definitions/<deck>/**` (per-deck spec) when working on a specific deck.
