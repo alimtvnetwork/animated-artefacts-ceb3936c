@@ -30,6 +30,7 @@ Each entry links to its full spec in `.lovable/prompts/`.
 | 35 | [35-next-task.md](./prompts/35-next-task.md) | archive only — do not match/load | archived snapshot |
 | 36 | [36-next-task.md](./prompts/36-next-task.md) | archive only — do not match/load | archived snapshot |
 | 37 | [37-next-task.md](./prompts/37-next-task.md) | archive only — do not match/load | archived snapshot |
+| 40 | [40-next-task.md](./prompts/40-next-task.md) | archive only — do not match/load | archived snapshot |
 | 39 | [39-next-task.md](./prompts/39-next-task.md) | archive only — do not match/load | archived snapshot |
 | 38 | [38-next-task.md](./prompts/38-next-task.md) | archive only — do not match/load | latest saved snapshot |
 
