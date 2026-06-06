@@ -11,6 +11,13 @@ log; the orientation below is the fast path for newcomers (human or AI).
 slides — every field, every rule, in a 30-step playbook. Read it first for slide
 work; the packs below are deeper reference.
 
+**Ship a deck as ONE file.** A whole deck can be authored/exported as a single
+self-contained manifest JSON (config + every slide inlined), with images
+embedded as Base64/inline-SVG so nothing depends on the destination project —
+see [`LLM.md` → One-shot export & import](LLM.md#one-shot-export--import-the-whole-deck-in-one-file).
+For palettes, see the [theme creation guide](spec/llm-guideline/10-theme-creation.md)
+(single-theme manifest, multi-theme bundle, import/export).
+
 
 Read [`.lovable/what-to-read.md`](.lovable/what-to-read.md) first (the onboarding
 map), then [`.lovable/memory/index.md`](.lovable/memory/index.md) (always-apply
