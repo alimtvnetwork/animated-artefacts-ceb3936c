@@ -1,27 +1,30 @@
 ---
 name: LLM.md single shareable guide
-description: Root LLM.md is the one self-contained 30-step guide for any LLM to author/edit/reorder/ship slides; hand it out standalone
+description: Downloaded LLM guide is SLIDE-ONLY; root LLM.md holds the process/how-to-work material; AI must write slide JSON to filesystem (default .lovable/) first
 type: reference
 ---
 
-# LLM.md — single shareable authoring guide
+# LLM guide split — slide-only download vs process memory
 
-**Location:** `/LLM.md` (repo root). Linked from the top of `readme.md`.
+**Two distinct things, do not merge them:**
 
-**Purpose:** One self-contained file the user can hand to any LLM (Claude, GPT,
-Gemini) so it can create/edit/reorder/ship slides without reading anything else.
-Contains: mental model, full slide JSON envelope, all `slideType`/`transition`/
-`textAnimation` values, capsule-tone rules, a 30-step playbook (orient → schema →
-author → verify/ship), quick-reference table, and 8 golden rules.
+1. **Downloaded / copied LLM guide** (`src/slides/llmGuideBundle.ts` →
+   `buildLlmGuideMarkdown`): **slide content ONLY**. Sections: filesystem-write
+   instruction (§0), active theme tokens, slide JSON schema, enum catalog, and
+   the simplified single-file guide (`spec/llm-guideline/00-simplified-single-file-guide.md`).
+   It covers the JSON shape, every slide type, single-vs-multi-slide output, and
+   image embedding (SVG / Base64 / data URI). It contains **no** project
+   workflow, `.lovable` process, or "how to work" prose.
 
-**Relationship to existing packs:** `LLM.md` is still the shareable root fast
-path, but **`spec/llm-guideline/00-simplified-single-file-guide.md` is the
-canonical one-shot authoring contract** when the task is to create/export/import
-an entire deck as a single JSON manifest with inline slides and embedded images.
-The deep packs remain at `spec/21-slides-system/llm/` and `spec/llm-guideline/`
-for slide editing, acceptance checklists, and deeper per-type reference.
+2. **Process / "how to work" material**: stays in the repo (`LLM.md`,
+   `spec/llm-guideline/01..10`, `spec/21-slides-system/llm/**`) and is referenced
+   from project memory — it is **removed from the download bundle**.
 
-**Maintenance:** When slide schema, slideTypes, capsule tones, theme tokens, or
-manifest/import rules change, update both `LLM.md` and
-`00-simplified-single-file-guide.md` so the exported bundle, root docs, and
-shareable guide never drift on "one manifest vs many files" guidance.
+**Mandatory download instruction:** the guide tells the AI to WRITE its slide
+JSON to the filesystem first, defaulting to the **`.lovable/`** folder when no
+other memory/output location is specified, before reporting results.
+
+**Maintenance:** when slide schema, slideTypes, capsule tones, theme tokens, or
+manifest/import rules change, update both the simplified guide and this split so
+the download never re-absorbs process content. Captured command:
+`.lovable/spec/commands/05-downloaded-guide-slide-only-and-write-to-fs.md`.
