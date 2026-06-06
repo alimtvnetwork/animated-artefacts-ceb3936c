@@ -150,6 +150,7 @@ function renderSlideBody({ slide, onCapsuleClickReveal, highlightReveal, onOpenE
     case 'SessionOutlineSlide': return <SessionOutlineSlide spec={slide} />;
     case 'FullBleedImageSlide': return <FullBleedImageSlide spec={slide} />;
     case 'SplitMediaSlide': return <SplitMediaSlide spec={slide} />;
+    case 'MediaGridSlide': return <MediaGridSlide spec={slide} />;
     default: return <TitleSlide spec={slide} />;
   }
 }
