@@ -11,6 +11,11 @@ import { titleClassFor } from '../preset';
  * frameworks, vendors, plans, anything you'd put in a "compare 4–8 options
  * across 3–5 attributes" table.
  *
+ * NOTE (M-04 decision, v1.33.0): this type is intentionally UNCAPPED. For
+ * narrow comparisons within ≤5 columns × ≤8 rows, prefer `DataTableSlide`,
+ * the density-enforced sibling. Use `TableSlide` only for genuinely larger
+ * tables that exceed that budget.
+ *
  * Features
  * - **Headers** — `tableColumns[].label` + `.align` ('left' | 'center' | 'right').
  * - **Zebra rows** — alternating `--surface-2` shading via `.slide-table tbody tr:nth-child(even)`
