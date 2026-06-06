@@ -134,7 +134,16 @@ let's start now 2026-04-30 12:00
 
 let's start now 2026-06-06 15:46
 
-## v1.18.0 — Release notes (since v1.17.0) — CURRENT
+## v1.19.0 — Release notes (since v1.18.0) — CURRENT
+
+**Compact theme/color showcase grid in the theme picker (plan step 7 — `07-compact-theme-showcase.md`).** Root cause: `ThemeMenu.tsx` rendered each palette as a full-width row (16×16 swatch stack + label + description), so with 10 built-ins plus imported customs the popover grew tall and felt heavy — the subtask asked for a dense grid of small theme tiles.
+
+- New peer component `src/slides/controls/ThemeSwatchGrid.tsx`: a `grid-cols-4` of square tiles, each a mini 135° gradient built from the theme's `swatch`, an accent dot, an active checkmark overlay, an "Imp" tag for imported customs, and a hover/focus trash button to uninstall. Label + description surface via the tile `title` tooltip. Keyboard accessible (`role="menuitemradio"`, focus rings) and motion-safe (transition-only).
+- `ThemeMenu.tsx` now delegates the list to `<ThemeSwatchGrid>`, dropping ~80 lines of inline row markup and the now-unused `Check` / `Trash2` imports. Click still live-applies (`pick`) and removal still routes through `handleRemoveCustom`.
+- Verification: Vite/TS build clean after fixing the missing import (TS2304/TS7006 resolved); dev-server logs show no errors.
+
+## v1.18.0 — Release notes (since v1.17.0)
+
 
 **Theme authoring guide corrected to the shipped runtime (plan step 6 — `06-theme-authoring-guide.md`).** Root cause: `.lovable/plans/subtasks/01-slide-system-export-llm-overhaul/06-theme-authoring-guide.md` still documented a stale 9-token / 2-theme model, while the real implementation in `src/slides/themes.ts` and `src/slides/themeManifest.ts` ships 10 built-in themes, imported custom themes, per-deck theme persistence, optional font overrides, brightness offsets, and `front-end/themes/*` overlay support.
 
