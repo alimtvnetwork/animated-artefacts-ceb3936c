@@ -37,3 +37,16 @@ Each B-step verified by a rendered sample slide in the `sample` deck + a passing
 
 ## Appended from prior pending tasks
 - `01-slide-system-export-llm-overhaul.md` (pending) — controller top-right + import/export + LLM/theme guide overhaul (spec-only plan, separate track, left in `pending/`).
+
+## Resolution (2026-06-06, v1.31.0)
+Verified the entire backlog was ALREADY implemented in the codebase when this plan was written — no execution was needed:
+- B-01..B-04: `src/slides/types/{DatabaseDiagramSlide,DataTableSlide,EquationSlide}.tsx` + `NumberCalloutSlide` content + `src/slides/hooks/useCountUp.ts` all exist.
+- A-01: `--dur-count-fast/slow` tokens in `src/index.css` (lines 132-133) with reduced-motion overrides (374, 383-384).
+- B-05: `src/slides/enums.ts` has 26 slide types (>21); `src/slides/contracts.ts` has `NumberCalloutContent`/`DatabaseDiagramContent`.
+- B-06: `front-end/project/sample/data/slides/{40-database-erd,41-data-table,42-number-callout,43-equation}.json` migrated.
+- A-02: `src/slides/densityCheck.ts` + `src/test/density.test.ts`.
+- A-03: `src/slides/validateAgainstCatalog.ts` + dev boot probe wired in `loader.ts`/`specConfidence.ts`.
+- A-04: `scripts/check-catalog-drift.ts` wired in `.github/workflows/ci.yml` (`bun run check:catalog`).
+- M-02: `spec/21-slides-system/64-per-slide-sound-override.md`. M-03: `scripts/motion-variety-audit.ts`. M-05: roving-tabindex present in EquationSlide + DataTableSlide.
+Tests green: `contracts.test.ts` 14/14.
+Still genuinely open: M-01 (#32 collapsible-sections ambiguity — needs user) and M-04 (deprecate uncapped `TableSlide` decision).
