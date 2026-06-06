@@ -426,7 +426,22 @@
         "label":    { "type": "string", "description": "e.g. 'Step 1'." },
         "title":    { "type": "string" },
         "subtitle": { "type": "string" },
-        "description": { "type": "string", "description": "Long-form copy revealed when the step is the active/focused row in StepTimeline / FocusTimeline / AdvanceStep. Optional." },
+        "description": {
+          "description": "Active/focused-row detail. StepTimeline/Focus/Advance use a plain string. StepsChain3D uses a structured object — see Step3DDescription in src/slides/contracts.ts (keywords-only: bullets[] preferred, legacy `body` auto-split).",
+          "oneOf": [
+            { "type": "string" },
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "title":   { "type": "string" },
+                "bullets": { "type": "array", "items": { "type": "string" }, "minItems": 1, "maxItems": 6 },
+                "meta":    { "type": "string" },
+                "body":    { "type": "string", "description": "Legacy — auto-split into bullets at render." }
+              }
+            }
+          ]
+        },
         "capsule":  { "$ref": "#/definitions/Capsule" },
         "revealSlide": { "type": "integer", "minimum": 1, "description": "Spec 26 — navigate-style click-reveal target. Right detail panel auto-renders an 'Open' pill when set. Pair with destination slide's `isClickReveal: true` + `parentSlide`." },
         "expand":      { "$ref": "#/definitions/CapsuleExpand", "description": "Spec 26 — inline expanding-card payload. Wins over `revealSlide` when both are set." },
