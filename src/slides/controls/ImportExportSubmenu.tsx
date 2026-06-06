@@ -7,6 +7,7 @@ import { runExport, exportSlidePdf } from '../export';
 import { exportSlideJson } from '../slideJson';
 import { planSingleSlideImport } from '../slideJsonImport';
 import { exportAllThemes, parseThemeBundle, installAllThemes } from '../themeBulk';
+import { exportBundleZip, importBundleFile } from '../zipBundle';
 import { copyLlmGuideToClipboard, downloadLlmGuide } from '../llmGuideBundle';
 
 interface Props {
