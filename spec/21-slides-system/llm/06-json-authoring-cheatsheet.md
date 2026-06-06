@@ -427,6 +427,31 @@ Copy-paste templates. Every template is **valid against
 
 ---
 
+## 10e. SvgDiagramSlide (inline SVG figure + annotation callouts)
+
+```jsonc
+{
+  "slideNumber": 12,
+  "slideName": "architecture",
+  "slideType": "SvgDiagramSlide",
+  "transition": "FadeIn",
+  "textAnimation": "FadeIn",
+  "content": {
+    "eyebrow": "HOW IT WORKS",
+    "title": "The shape of the system",
+    "image": "images/architecture.svg",
+    "callouts": [
+      { "x": 25, "y": 30, "label": "Client", "tone": "gold" },
+      { "x": 75, "y": 60, "label": "API", "tone": "ember" }
+    ]
+  }
+}
+```
+
+---
+
+
+
 
 
 ## 11. SectionDividerSlide
