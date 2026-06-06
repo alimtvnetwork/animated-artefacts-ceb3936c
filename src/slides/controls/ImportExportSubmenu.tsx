@@ -1,10 +1,14 @@
 import { useRef, useState } from 'react';
-import { ChevronRight, ClipboardCopy, Download, FileDown, FileJson, Package, Palette, Upload } from 'lucide-react';
+import { ChevronRight, ClipboardCopy, Download, FileDown, FileJson, Image as ImageIcon, Package, Palette, Presentation, Upload } from 'lucide-react';
 import { toast } from 'sonner';
 import { errorMessage } from '@/lib/errors';
 import { deck, allSlides, IMPORTED_MANIFEST_KEY } from '../loader';
 import { runExport, exportSlidePdf } from '../export';
+import { exportDeckToPptx } from '../exportPptx';
 import { exportSlideJson } from '../slideJson';
+import { buildManifest } from '../manifest';
+import { downloadJson } from '../downloadJson';
+import { inlineImagePayload } from '../inlineImages';
 import { planSingleSlideImport } from '../slideJsonImport';
 import { exportAllThemes, parseThemeBundle, installAllThemes } from '../themeBulk';
 import { exportBundleZip, importBundleFile } from '../zipBundle';
@@ -119,6 +123,35 @@ export function ImportExportSubmenu({
     }
   }
 
+  async function handleDeckPptx() {
+    try {
+      console.info('[ImportExportSubmenu] Export deck to PPTX');
+      const filename = await exportDeckToPptx();
+      toast.success('PPTX exported', { description: filename });
+      onCloseParent();
+    } catch (err) {
+      console.error('[ImportExportSubmenu] PPTX export failed', err);
+      toast.error('Could not export PPTX', { description: errorMessage(err) });
+    }
+  }
+
+  async function handleDeckJsonEmbedded() {
+    try {
+      toast.info('Embedding images…', { description: 'Fetching and encoding deck images as Base64.' });
+      const manifest = buildManifest(deck, allSlides);
+      const { payload, inlined } = await inlineImagePayload(manifest);
+      const filename = `${deck.deckSlug}-deck-embedded-${new Date().toISOString().slice(0, 10)}.json`;
+      downloadJson(payload, filename);
+      toast.success('Deck JSON exported (images embedded)', {
+        description: `${inlined} image${inlined === 1 ? '' : 's'} inlined as Base64 · ${filename}`,
+      });
+      onCloseParent();
+    } catch (err) {
+      console.error('[ImportExportSubmenu] Embedded deck JSON export failed', err);
+      toast.error('Could not export embedded deck JSON', { description: errorMessage(err) });
+    }
+  }
+
   async function handleSlideImportFile(file: File) {
     try {
       const payload = JSON.parse(await file.text()) as unknown;
@@ -182,6 +215,7 @@ export function ImportExportSubmenu({
           <button type="button" onClick={onOpenDeckTools} className={itemClass}><Upload className="h-4 w-4" /><span className="flex-1">Import JSON (all/deck)</span></button>
           <button type="button" onClick={handleSlideJson} className={itemClass}><Download className="h-4 w-4" /><span className="flex-1">Export JSON (current slide)</span></button>
           <button type="button" onClick={onOpenDeckTools} className={itemClass}><FileJson className="h-4 w-4" /><span className="flex-1">Export JSON (all/deck)</span></button>
+          <button type="button" onClick={handleDeckJsonEmbedded} className={itemClass}><ImageIcon className="h-4 w-4" /><span className="flex-1">Export JSON (all, images embedded)</span></button>
 
           <div className={labelClass}>Themes</div>
           <input ref={themesImportRef} type="file" accept="application/json,.json" className="hidden" onChange={(e) => { const f = e.target.files?.[0]; if (f) handleThemesImportFile(f); }} />
@@ -190,9 +224,10 @@ export function ImportExportSubmenu({
           <button type="button" onClick={onOpenThemeTools} className={itemClass}><Palette className="h-4 w-4" /><span className="flex-1">Export theme (single/active)</span></button>
           <button type="button" onClick={handleThemesExport} className={itemClass}><Palette className="h-4 w-4" /><span className="flex-1">Export themes (all)</span></button>
 
-          <div className={labelClass}>PDF</div>
+          <div className={labelClass}>PDF &amp; PPTX</div>
           <button type="button" onClick={handleDeckPdf} className={itemClass}><FileDown className="h-4 w-4" /><span className="flex-1">Export deck to PDF</span></button>
           <button type="button" onClick={handleSlidePdf} className={itemClass}><FileDown className="h-4 w-4" /><span className="flex-1">Export current slide to PDF</span></button>
+          <button type="button" onClick={handleDeckPptx} className={itemClass}><Presentation className="h-4 w-4" /><span className="flex-1">Export deck to PPTX</span></button>
 
           <div className={labelClass}>Full bundle</div>
           <input ref={bundleImportRef} type="file" accept="application/zip,.zip" className="hidden" onChange={(e) => { const f = e.target.files?.[0]; if (f) handleBundleImportFile(f); }} />

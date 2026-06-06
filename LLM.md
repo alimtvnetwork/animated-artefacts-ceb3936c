@@ -237,3 +237,54 @@ Clearing these resets to the file-based deck/theme defaults.
 6. No Lovable branding anywhere.
 7. JSON is the runtime source of truth — keep the spec mirror in sync.
 8. Respect `prefers-reduced-motion` (the renderer handles it; don't force motion).
+
+---
+
+## One-shot export & import (the whole deck in ONE file)
+
+You do **not** have to ship a deck as many small files. The runtime can load,
+and the in-app Import/Export menu can produce, a **single self-contained JSON
+document** — the **deck manifest** — that carries the deck config + every
+slide inlined, in order.
+
+**Shape** (`src/slides/manifest.ts`):
+
+```jsonc
+{
+  "manifestVersion": 2,
+  "exportedAt": "2026-06-06T00:00:00Z",
+  "source": "showcase",
+  "deck":   { /* deck meta; deck.theme = palette id */ },
+  "slides": [ { /* slide 1 */ }, { /* slide 2 */ }, … ]  // ALL slides, in display order
+}
+```
+
+When asked to "create the deck", prefer emitting **one manifest file** with
+every slide inlined rather than dozens of `NN-name.json` files. Import it via
+the controller → **Import / Export** → **Import JSON (all/deck)**; the app
+validates it, stores it under `localStorage["riseup.deck.imported.v1"]`, and
+reloads. Disabled slides survive, so the round-trip is lossless.
+
+### Images in a one-file deck
+
+Slide image slots (`content.image`, `content.images[]`, `steps[].image`)
+accept four forms: an asset path, **inline `<svg>` markup**, a **Base64
+`data:` URI**, or an http(s) URL. For a truly portable single file, embed
+images as **Base64 data URIs or inline SVG** so nothing depends on the
+destination project's `public/` tree.
+
+- Authoring by hand → put the `data:image/...;base64,…` string (or `<svg…>`)
+  directly in the `image` field. See `front-end/project/image-examples/`.
+- Exporting an existing deck → use **Import / Export → Export JSON (all,
+  images embedded)**. It fetches every path-referenced image and rewrites it
+  as Base64 in place, producing one fully self-contained file
+  (`src/slides/inlineImages.ts`).
+
+### Other export formats (same menu)
+
+`Export deck to PDF` · `Export current slide to PDF` · `Export deck to PPTX`
+(native editable PowerPoint) · `Export ZIP (deck + themes)` for slides plus
+custom palettes in one archive.
+
+For palettes, see the companion **[theme creation guide](spec/llm-guideline/10-theme-creation.md)**.
+
