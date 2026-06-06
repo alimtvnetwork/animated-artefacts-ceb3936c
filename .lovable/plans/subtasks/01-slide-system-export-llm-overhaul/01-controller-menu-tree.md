@@ -1,6 +1,6 @@
 ---
 Slug: controller-menu-tree
-Status: pending
+Status: done (impl 2026-06-06 v1.13.0 — DebugSubmenu)
 Created: 2026-06-06
 Parent: 01-slide-system-export-llm-overhaul
 ---

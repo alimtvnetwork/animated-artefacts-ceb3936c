@@ -132,7 +132,18 @@ This README also carries the same guidance inline — see **[📂 Folder structu
 
 let's start now 2026-04-30 12:00
 
-## v1.12.0 — Release notes (since v1.11.0) — CURRENT
+## v1.13.0 — Release notes (since v1.12.0) — CURRENT
+
+**Controller hamburger: Debug consolidated into one entry (plan step 3).** The
+hamburger panel previously listed Contrast debug + Reduce motion as two flat
+buttons under a "Debug" label. Extracted a new `DebugSubmenu` component in
+`ControllerBar.tsx` (expandable, owns its own `useColorDebug`/`useReduceMotion`
+hooks, matches the `TransitionStyleSubmenu` pattern) so Debug is a single
+collapsible "Debug ▸" entry — the gold dot shows when any debug tool is active.
+Removed the now-unused state hooks from the parent `ControllerHamburger` and
+imported the `Bug` icon.
+
+## v1.12.0 — Release notes (since v1.11.0)
 
 **Fixed the controller-position memory in the authoritative `mem://` store.**
 v1.11.0 corrected the `.lovable/memory/` mirror, but the store actually injected

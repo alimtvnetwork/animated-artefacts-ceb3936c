@@ -1,6 +1,6 @@
 import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
-import { ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight, Share2, Maximize2, Minimize2, LayoutGrid, MonitorPlay, FileJson, Palette, Eye, EyeOff, PanelTop, PanelTopClose, Contrast, Wind, Menu, Keyboard, ListChecks, Sparkles, Download, ClipboardCopy, PlayCircle } from 'lucide-react';
+import { ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight, Share2, Maximize2, Minimize2, LayoutGrid, MonitorPlay, FileJson, Palette, Eye, EyeOff, PanelTop, PanelTopClose, Contrast, Wind, Menu, Keyboard, ListChecks, Sparkles, Download, ClipboardCopy, PlayCircle, Bug } from 'lucide-react';
 import { downloadLlmGuide, copyLlmGuideToClipboard } from '../llmGuideBundle';
 import { toast } from 'sonner';
 import { useClickRevealStepwise, toggleClickRevealStepwise } from '../components/clickRevealStepwise';
@@ -394,8 +394,7 @@ function ControllerHamburger({
   onShowIntro,
   currentSlideNumber,
 }: HamburgerProps) {
-  const colorDebugOn = useColorDebug();
-  const reduceMotionOn = useReduceMotion();
+  // Contrast/Reduce-motion state now lives inside `DebugSubmenu`.
   const openTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const closeTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const triggerRef = useRef<HTMLButtonElement | null>(null);
@@ -574,15 +573,8 @@ function ControllerHamburger({
               <span className="flex-1">Copy LLM guide</span>
             </button>
             <div className={sepClass} />
-            <div className={labelClass}>Debug</div>
-            <button type="button" onClick={() => toggleColorDebug()} className={itemBase}>
-              <Contrast className={`h-4 w-4 ${colorDebugOn ? 'text-gold' : ''}`} />
-              <span className="flex-1">{colorDebugOn ? 'Hide contrast debug' : 'Contrast debug'}</span>
-            </button>
-            <button type="button" onClick={() => toggleReduceMotion()} className={itemBase}>
-              <Wind className={`h-4 w-4 ${reduceMotionOn ? 'text-gold' : ''}`} />
-              <span className="flex-1">{reduceMotionOn ? 'Restore full motion' : 'Reduce motion'}</span>
-            </button>
+            <DebugSubmenu itemClass={itemBase} labelClass={labelClass} />
+
             <div className={sepClass} />
             <button type="button" onClick={onOpenKeyboardMap} className={itemBase}>
               <Keyboard className="h-4 w-4" />
@@ -761,6 +753,55 @@ function TransitionStyleSubmenu({
           >
             <span className={`inline-block h-3 w-3 rounded-sm border ${deckScope ? 'bg-gold border-gold' : 'border-[hsl(var(--chrome-border))]'}`} />
             <span className="flex-1">Apply to whole deck</span>
+          </button>
+        </div>
+      )}
+    </>
+  );
+}
+
+/**
+ * `DebugSubmenu` — collapses the contrast-debug + reduce-motion toggles
+ * behind a single expandable "Debug" entry (plan step 3: Debug = one
+ * entry). Owns its own state hooks so the parent `ControllerHamburger`
+ * stays lean. Matches the `TransitionStyleSubmenu` expandable pattern.
+ */
+function DebugSubmenu({
+  itemClass,
+  labelClass,
+}: {
+  itemClass: string;
+  labelClass: string;
+}) {
+  const colorDebugOn = useColorDebug();
+  const reduceMotionOn = useReduceMotion();
+  const [expanded, setExpanded] = useState(false);
+  const anyActive = colorDebugOn || reduceMotionOn;
+
+  return (
+    <>
+      <button
+        type="button"
+        onClick={() => setExpanded((v) => !v)}
+        aria-expanded={expanded}
+        className={itemClass}
+      >
+        <Bug className={`h-4 w-4 ${anyActive ? 'text-gold' : ''}`} />
+        <span className="flex-1">Debug</span>
+        <ChevronRight
+          className={`h-3.5 w-3.5 opacity-60 transition-transform ${expanded ? 'rotate-90' : ''}`}
+        />
+      </button>
+      {expanded && (
+        <div className="ml-2 border-l border-[hsl(var(--chrome-border))] pl-2">
+          <div className={labelClass}>Debug tools</div>
+          <button type="button" onClick={() => toggleColorDebug()} className={itemClass}>
+            <Contrast className={`h-4 w-4 ${colorDebugOn ? 'text-gold' : ''}`} />
+            <span className="flex-1">{colorDebugOn ? 'Hide contrast debug' : 'Contrast debug'}</span>
+          </button>
+          <button type="button" onClick={() => toggleReduceMotion()} className={itemClass}>
+            <Wind className={`h-4 w-4 ${reduceMotionOn ? 'text-gold' : ''}`} />
+            <span className="flex-1">{reduceMotionOn ? 'Restore full motion' : 'Reduce motion'}</span>
           </button>
         </div>
       )}
