@@ -137,6 +137,8 @@ export default function SettingsPage() {
     settings.bodyAlignment !== DEFAULT_PRESET_SETTINGS.bodyAlignment ||
     settings.bodyGridNudge !== DEFAULT_PRESET_SETTINGS.bodyGridNudge ||
     settings.showDotPagination  !== DEFAULT_PRESET_SETTINGS.showDotPagination ||
+    settings.dotPaginationMaxBeforeCollapse !== DEFAULT_PRESET_SETTINGS.dotPaginationMaxBeforeCollapse ||
+    settings.dotPaginationNeighbors !== DEFAULT_PRESET_SETTINGS.dotPaginationNeighbors ||
     settings.showAlignmentGuide !== DEFAULT_PRESET_SETTINGS.showAlignmentGuide ||
     settings.showAlignmentTargets !== DEFAULT_PRESET_SETTINGS.showAlignmentTargets ||
     settings.pixelSnap !== DEFAULT_PRESET_SETTINGS.pixelSnap ||
