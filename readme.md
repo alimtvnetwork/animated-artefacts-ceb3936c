@@ -143,7 +143,15 @@ let's start now 2026-06-06 15:46
 
 let's start now 2026-06-06 16:42
 
-## v1.42.0 — Release notes (since v1.41.0) — CURRENT
+## v1.43.0 — Release notes (since v1.42.0) — CURRENT
+
+- Root cause: `.lovable/plans/pending/03-simplified-single-file-llm-slide-guide.md` was still physically stored in the `pending/` folder even after being marked `Status: completed`, so every next-task cycle kept detecting fake unfinished work.
+- Minimum fix: moved plan 03 from `.lovable/plans/pending/` to `.lovable/plans/completed/`; no content rewrite, no behavior change, just state corrected at the real source of the loop.
+- Verification before/after: before fix, `.lovable/plans/pending/` listed `03-simplified-single-file-llm-slide-guide.md`; after fix, the pending folder is empty and the completed folder contains plan `03` alongside plans `01` and `02`.
+- Saved prompt snapshot `.lovable/prompts/38-next-task.md`; synced `.lovable/prompt.md` + `.lovable/prompts.md`.
+- `package.json`: bumped to `1.43.0`.
+
+## v1.42.0 — Release notes (since v1.41.0)
 
 - Root cause: the new single-file guide was added, but the exported LLM bundle still instructed models to emit one JSON file per slide, contradicting `LLM.md`, `src/slides/manifest.ts`, and the inline-image export path.
 - `src/slides/llmGuideBundle.ts`: fixed the bundle preamble/output contract so the default deliverable is one self-contained manifest JSON; per-slide JSON is now explicitly documented as repo-maintenance mode only.
