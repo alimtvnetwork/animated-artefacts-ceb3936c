@@ -297,7 +297,7 @@
           }
         }
       },
-      "additionalProperties": false
+      "additionalProperties": true
     }
   },
   "definitions": {
