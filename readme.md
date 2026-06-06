@@ -143,6 +143,14 @@ let's start now 2026-06-06 15:46
 
 let's start now 2026-06-06 16:42
 
+## v1.63.0 — Release notes (since v1.62.0) — CURRENT
+
+- **Hardened the canonical next-task driver so pasted prompt text no longer hijacks debugging turns.**
+- Root cause: `.lovable/prompts/04-next-task.md` still allowed the recurring next-task payload to behave like a live planning instruction during bug-report turns where the user pasted it as an error block.
+- Minimum fix: strengthened the activation guard in `.lovable/prompts/04-next-task.md` to require explicit next-step planning intent outside quoted/fenced content, added a debug override that blocks prompt-history churn on debugging turns, and advanced the saved snapshot registry to `.lovable/prompts/58-next-task.md`.
+- Verification: before fix, `.lovable/prompts/04-next-task.md:8-10,23-24` only guarded quoted/code-block matches generically and still instructed per-run prompt bookkeeping; after fix, `.lovable/prompts/04-next-task.md:8-15,28-33` explicitly treats `For the code present, I get the error below`-style turns as debug data and blocks snapshot/registry updates unless the prompt system is the proven root cause. `rg -n "For the code present|Debug override|When this prompt was truly activated|58-next-task|\"version\": \"1\.63\.0\"" .lovable readme.md package.json` now shows the new guard, the new snapshot, and the version bump.
+- Runtime signal remains clean: Vite daemon logs still show no application error beyond the pre-existing Browserslist warning.
+
 ## v1.62.0 — Release notes (since v1.61.0) — CURRENT
 
 - **Fixed the recurring next-task prompt registry drift again; there was no app runtime failure.**
