@@ -60,8 +60,8 @@
     },
     "transition": {
       "type": "string",
-      "enum": ["FadeIn", "SlideIn", "PushIn", "PushLeft", "PushRight"],
-      "description": "How the slide enters/exits the stage. Vary across the deck — never repeat the same transition on three consecutive slides."
+      "enum": ["FadeIn", "SlideIn", "PushIn", "PushLeft", "PushRight", "ZoomOut"],
+      "description": "How the slide enters/exits the stage. Vary across the deck — never repeat the same transition on three consecutive slides. `ZoomOut` is the cinematic BlastRadius-style outro."
     },
     "textAnimation": {
       "type": "string",
