@@ -143,7 +143,14 @@ let's start now 2026-06-06 15:46
 
 let's start now 2026-06-06 16:42
 
-## v1.50.0 — Release notes (since v1.49.0) — CURRENT
+## v1.51.0 — Release notes (since v1.50.0) — CURRENT
+
+- Verified the three v1.50.0 image-derived themes (`glasswing`, `think-yellow`, `riseup-pro`) are production/WCAG-AA safe — no code change needed, this was a verification gate.
+- Root finding: both audits iterate `Object.keys(THEMES)` (`src/test/deckContrastAudit.test.ts:95`, `src/test/capsuleContrast.test.ts:343`), so the new themes are automatically in scope — no per-theme `.capsule-gold` override required (unlike `macos-sonoma`).
+- Signal: `capsuleContrast` (117) + `deckContrastAudit` (183) + `chromeContrast` (41) = **341/341 passing**; `themeResolution` + `themeQa` = 31/31.
+- Saved prompt snapshot `.lovable/prompts/46-next-task.md`; synced `.lovable/prompts.md`. `package.json` → `1.51.0`.
+
+## v1.50.0 — Release notes (since v1.49.0)
 
 - Added **three additive built-in themes** derived from presenter reference frames (`src/assets/reference-themes/`), without touching any existing theme:
   - **glasswing** (`01-sample.webp`) — editorial cream-on-charcoal, near-monochrome, champagne accent (bg `#161513`, cream `#F2EFE6`).
