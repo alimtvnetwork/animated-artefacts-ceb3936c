@@ -454,6 +454,11 @@ export const SLIDE_CONTENT_CONTRACTS = {
   TileSlide:             TileContent,
   BlastRadiusSlide:      BlastRadiusContent,
   SessionOutlineSlide:   SessionOutlineContent,
+  FullBleedImageSlide:   FullBleedImageContent,
+  SplitMediaSlide:       SplitMediaContent,
+  MediaGridSlide:        MediaGridContent,
+  GifLoopSlide:          GifLoopContent,
+  SvgDiagramSlide:       SvgDiagramContent,
 } as const;
 
 /** Bump on any breaking change to a per-type content contract. Drives the
