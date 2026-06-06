@@ -336,10 +336,18 @@ export function ControllerBar({ current, total, onPrev, onNext, onJump, isFullsc
           visible. The right-side anchor (`right-6`) matches the pill's
           fixed position so the menu hugs the same edge. Bug fix for the
           "menu opens but nothing happens" symptom on slide 3. */}
-      {(themeMenuOpen || shareOpen || deckMenuOpen || deckToolsOpen || themeToolsOpen) && (
+      {(themeMenuOpen || shareOpen || deckMenuOpen || importExportOpen || deckToolsOpen || themeToolsOpen) && (
         <div className="absolute top-full mt-3 right-0">
           {themeMenuOpen && <ThemeMenu onClose={() => setThemeMenuOpen(false)} />}
           {shareOpen && <ShareMenu currentSlide={current} onClose={() => setShareOpen(false)} />}
+          {importExportOpen && (
+            <ImportExportMenu
+              currentSlideNumber={current}
+              onClose={() => setImportExportOpen(false)}
+              onOpenDeckTools={() => { setDeckToolsOpen(true); setImportExportOpen(false); }}
+              onOpenThemeTools={() => { setThemeToolsOpen(true); setImportExportOpen(false); }}
+            />
+          )}
           {deckMenuOpen && <DeckMenu onClose={() => setDeckMenuOpen(false)} />}
           {deckToolsOpen && <DeckMenu onClose={() => setDeckToolsOpen(false)} />}
           {themeToolsOpen && <ThemeMenu onClose={() => setThemeToolsOpen(false)} />}
