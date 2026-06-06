@@ -9,6 +9,25 @@ title.
 This is the surface in the reference screenshots showing `1..13` along the
 bottom-center.
 
+## Ellipsis collapse (v1.48.0) — long decks
+
+When `total > getPresetSettings().dotPaginationMaxBeforeCollapse` (default
+**15**) the row no longer renders every dot. It renders the
+`buildPageWindow(current, total, dotPaginationNeighbors)` output (see
+`spec/27-slides-number/14-page-window-algorithm.md`): `1 … cur±2 … N`, always
+anchoring slide 1 + last, current ±`neighbors` (default 2), and one `…` per gap
+of ≥3 hidden slides (a single hidden slide renders its number, never `…`).
+
+- The `…` token is a focusable `<button aria-label="Jump to hidden slides">`
+  that opens the jump input (reuse `SlideIndicator`); fallback jumps to the gap
+  midpoint.
+- This **replaces** the old "`overflow-x-auto` past 28 dots" cap (current
+  `DotPagination.tsx` line 45) — collapse, do not scroll. Keep
+  `overflow-visible` so the hover tooltip is never clipped.
+- Active-pill `layoutId` morph + hover tooltip stay; reduced-motion → instant
+  swap when the active slot crosses a `…` boundary.
+
+
 ## When it renders
 
 ```tsx
