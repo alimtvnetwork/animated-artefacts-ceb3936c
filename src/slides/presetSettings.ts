@@ -38,6 +38,12 @@ export interface PresetSettings {
    *  linear slide. Off by default — opt-in only.
    *  See `spec/slides/13-dot-pagination.md`. */
   showDotPagination: boolean;
+  /** Dot pagination collapses to `1 … cur±n … N` once the deck has more than
+   *  this many slides. Default 15. See `spec/27-slides-number/05-*.md`. */
+  dotPaginationMaxBeforeCollapse: number;
+  /** Neighbors shown either side of the current slide when collapsed.
+   *  Default 2. */
+  dotPaginationNeighbors: number;
   /**
    * Body grid horizontal alignment on wide screens.
    * - `centered` — body grid uses `margin-inline: auto` so the
