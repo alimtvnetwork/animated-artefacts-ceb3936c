@@ -136,7 +136,14 @@ let's start now 2026-06-06 15:46
 
 let's start now 2026-06-06 16:42
 
-## v1.36.0 — Release notes (since v1.35.0) — CURRENT
+## v1.37.0 — Release notes (since v1.36.0) — CURRENT
+
+- Next-task cycle: no runtime/build error; `.lovable/plans/pending/` empty; only open item is M-01 (blocked on user decision under no-questions mode).
+- Saved prompt snapshot `.lovable/prompts/32-next-task.md`; archived `31`.
+- Synced registries `.lovable/prompt.md` + `.lovable/prompts.md`.
+- `package.json`: bumped to `1.37.0`.
+
+## v1.36.0 — Release notes (since v1.35.0)
 
 **No application error exists in the current logs; this was a prompt/bookkeeping cycle only.** Root cause: the reported payload is still the recurring next-task driver, while the real project state shows no pending implementation plan (`.lovable/plans/pending/` empty), no Vite runtime failure in daemon logs, and just one intentionally blocked backlog item — `quality/audit/remediation-plan.md:29,39,58` marks **M-01** as waiting on a user decision about the collapsible-sections progress surface.
 - Verification before change: daemon logs showed only normal Vite startup/HMR (`VITE v5.4.19 ready`, `page reload`, `hmr update`) with no app error; repo state check showed `.lovable/plans/completed/{01-slide-system-export-llm-overhaul,02-slide-type-remediation-execution}.md` and an empty `.lovable/plans/pending/`.
