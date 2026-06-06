@@ -143,7 +143,15 @@ let's start now 2026-06-06 15:46
 
 let's start now 2026-06-06 16:42
 
-## v1.52.0 — Release notes (since v1.51.0) — CURRENT
+## v1.53.0 — Release notes (since v1.52.0) — CURRENT
+
+- Documented the three image-derived themes in the **LLM authoring pack** so future authoring picks them up.
+- `spec/21-slides-system/llm/05-design-tokens-and-theme.md`: added **§7b "Available themes (built-in)"** — a full 13-theme catalog table (id/label/appearance/flavor) including `glasswing`, `think-yellow`, `riseup-pro` with their Ubuntu+Poppins + additive notes and the `theme-flavors` demo deck pointer.
+- `spec/21-slides-system/llm/11-color-tokens.md`: changelog entry pointing to pack `05` §7b + spec `08`.
+- Docs-only change; no runtime/test impact.
+- Saved prompt snapshot `.lovable/prompts/48-next-task.md`; synced `.lovable/prompts.md`. `package.json` → `1.53.0`.
+
+## v1.52.0 — Release notes (since v1.51.0)
 
 - Added a **`theme-flavors` showcase deck** demoing the three image-derived themes — `front-end/project/theme-flavors/data/` (`slides.json` + 4 slide JSONs: `01-cover`, `02-glasswing`, `03-think-yellow`, `04-riseup-pro`).
 - Deck theme is `riseup-pro`; each content slide names a theme, its key hexes, and the `?theme=<id>` live-preview link. Auto-discovered by the loader globs in `src/slides/loader.ts:38-39` — no registry edit needed.
