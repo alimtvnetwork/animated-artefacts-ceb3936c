@@ -899,6 +899,80 @@
         }
       },
       "required": ["slideType"]
+    },
+    {
+      "title": "FullBleedImageSlideVariant",
+      "properties": {
+        "slideType": { "const": "FullBleedImageSlide" },
+        "content": {
+          "type": "object",
+          "required": ["image"],
+          "properties": {
+            "image": { "type": "string", "minLength": 1 },
+            "scrim": { "enum": ["none", "bottom", "full"] }
+          }
+        }
+      },
+      "required": ["slideType"]
+    },
+    {
+      "title": "SplitMediaSlideVariant",
+      "properties": {
+        "slideType": { "const": "SplitMediaSlide" },
+        "content": {
+          "type": "object",
+          "required": ["title", "image"],
+          "properties": {
+            "image": { "type": "string", "minLength": 1 },
+            "mediaSide": { "enum": ["left", "right"] }
+          }
+        }
+      },
+      "required": ["slideType"]
+    },
+    {
+      "title": "MediaGridSlideVariant",
+      "properties": {
+        "slideType": { "const": "MediaGridSlide" },
+        "content": {
+          "type": "object",
+          "required": ["title", "mediaTiles"],
+          "properties": {
+            "mediaTiles": { "type": "array", "minItems": 2, "maxItems": 6 }
+          }
+        }
+      },
+      "required": ["slideType"]
+    },
+    {
+      "title": "GifLoopSlideVariant",
+      "properties": {
+        "slideType": { "const": "GifLoopSlide" },
+        "content": {
+          "type": "object",
+          "required": ["image"],
+          "properties": {
+            "image": { "type": "string", "minLength": 1 },
+            "poster": { "type": "string" }
+          }
+        }
+      },
+      "required": ["slideType"]
+    },
+    {
+      "title": "SvgDiagramSlideVariant",
+      "properties": {
+        "slideType": { "const": "SvgDiagramSlide" },
+        "content": {
+          "type": "object",
+          "properties": {
+            "svgMarkup": { "type": "string", "minLength": 1 },
+            "image": { "type": "string", "minLength": 1 },
+            "callouts": { "type": "array" }
+          }
+        }
+      },
+      "required": ["slideType"]
     }
   ]
 }
