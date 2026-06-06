@@ -106,6 +106,23 @@ function exportPdf(opts: { cmyk: boolean }) {
 }
 
 /**
+ * v1.15.0 — single-slide PDF. Opens the handout route scoped to one
+ * `slideNumber` via `?slide=N`, then auto-prints. Throws on an invalid
+ * slide number so callers can surface the failure instead of opening a
+ * blank tab.
+ */
+export function exportSlidePdf(slideNumber: number, opts: { cmyk?: boolean } = {}): void {
+  if (!Number.isFinite(slideNumber)) {
+    throw new Error(`exportSlidePdf: invalid slideNumber "${slideNumber}"`);
+  }
+  const params = new URLSearchParams({ print: '1', slide: String(slideNumber) });
+  if (opts.cmyk) params.set('cmyk', '1');
+  const url = `${window.location.origin}/handout?${params.toString()}`;
+  console.info(`[export] Single-slide PDF → ${url}`);
+  window.open(url, '_blank', 'noopener');
+}
+
+/**
  * Serialize the document's live <style> and <link rel="stylesheet"> rules
  * into a single CSS string so foreignObject renders look identical to the
  * on-screen slide. We snapshot once and reuse for every slide in a batch.
