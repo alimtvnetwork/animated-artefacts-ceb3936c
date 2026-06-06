@@ -64,6 +64,11 @@ export default function HandoutPage() {
   // children by authoring convention) so handout flow mirrors the live
   // click-through.
   const wantReveals = params.get('reveals') === '1';
+  // v1.15.0 — `?slide=N` scopes the handout to a SINGLE slide (by slideNumber)
+  // so "Export current slide to PDF" produces a one-page document instead of
+  // the whole deck. Invalid/missing → render the full deck (back-compat).
+  const rawSlide = params.get('slide');
+  const onlySlide = rawSlide !== null && Number.isFinite(Number(rawSlide)) ? Number(rawSlide) : null;
 
   // v0.156 — handout footer customisation. Subscribe to preset settings so
   // tweaks in /settings live-update this preview without a refresh. The
@@ -102,6 +107,11 @@ export default function HandoutPage() {
   );
 
   const slidesForHandout = useMemo(() => {
+    // v1.15.0 — single-slide scope wins over reveals/deck. Match by slideNumber
+    // across allSlides so click-reveal children are addressable too.
+    if (onlySlide !== null) {
+      return allSlides.filter(s => s.slideNumber === onlySlide);
+    }
     if (!wantReveals) return linearSlides;
     // `allSlides` already preserves authoring order (parent immediately
     // followed by its reveal children). Filter only by `isActive` semantics
@@ -111,7 +121,7 @@ export default function HandoutPage() {
     // either in linearSlides OR is a click-reveal child of one of them.
     const linearNumbers = new Set(linearSlides.map(s => s.slideNumber));
     return allSlides.filter(s => linearNumbers.has(s.slideNumber) || s.isClickReveal);
-  }, [wantReveals]);
+  }, [wantReveals, onlySlide]);
 
   useEffect(() => {
     document.documentElement.setAttribute('data-export-mode', 'true');

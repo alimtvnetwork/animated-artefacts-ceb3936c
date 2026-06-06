@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { ChevronRight, ClipboardCopy, Download, FileDown, FileJson, Package, Palette, Upload } from 'lucide-react';
 import { toast } from 'sonner';
 import { errorMessage } from '@/lib/errors';
-import { runExport } from '../export';
+import { runExport, exportSlidePdf } from '../export';
 import { copyLlmGuideToClipboard, downloadLlmGuide } from '../llmGuideBundle';
 
 interface Props {
@@ -66,6 +66,17 @@ export function ImportExportSubmenu({
     onCloseParent();
   }
 
+  function handleSlidePdf() {
+    try {
+      console.info(`[ImportExportSubmenu] Export current slide ${currentSlideNumber} to PDF`);
+      exportSlidePdf(currentSlideNumber);
+      onCloseParent();
+    } catch (err) {
+      console.error('[ImportExportSubmenu] Single-slide PDF failed', err);
+      toast.error('Could not export slide to PDF', { description: errorMessage(err) });
+    }
+  }
+
   return (
     <>
       <button type="button" onClick={() => setExpanded((v) => !v)} aria-expanded={expanded} className={itemClass}>
@@ -89,7 +100,7 @@ export function ImportExportSubmenu({
 
           <div className={labelClass}>PDF</div>
           <button type="button" onClick={handleDeckPdf} className={itemClass}><FileDown className="h-4 w-4" /><span className="flex-1">Export deck to PDF</span></button>
-          <button type="button" onClick={() => planned(`Export current slide ${currentSlideNumber} to PDF`)} className={itemClass}><FileDown className="h-4 w-4" /><span className="flex-1">Export current slide to PDF</span><span className={SOON_BADGE}>Soon</span></button>
+          <button type="button" onClick={handleSlidePdf} className={itemClass}><FileDown className="h-4 w-4" /><span className="flex-1">Export current slide to PDF</span></button>
 
           <div className={labelClass}>Full bundle</div>
           <button type="button" onClick={() => planned('Export ZIP')} className={itemClass}><Download className="h-4 w-4" /><span className="flex-1">Export ZIP</span><span className={SOON_BADGE}>Soon</span></button>

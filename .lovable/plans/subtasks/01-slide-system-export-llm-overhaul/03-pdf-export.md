@@ -1,6 +1,6 @@
 ---
 Slug: pdf-export
-Status: pending
+Status: done (impl 2026-06-06 v1.15.0 — single-slide PDF via ?slide=N)
 Created: 2026-06-06
 Parent: 01-slide-system-export-llm-overhaul
 ---
