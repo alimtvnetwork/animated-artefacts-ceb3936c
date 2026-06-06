@@ -452,11 +452,11 @@ export const SLIDE_TYPE_SCHEMAS: Record<SlideTypeValue, SlideTypeSchema> = {
   FullBleedImageSlide: {
     label: 'Full-bleed image',
     blurb: 'Edge-to-edge hero image/GIF with legibility scrim and overlaid eyebrow + title + caption.',
-    fields: ['eyebrow', 'title', 'caption', 'image'],
+    fields: ['eyebrow', 'title', 'subtitle', 'image'],
     defaults: {
       eyebrow: 'CHAPTER',
       title: 'The photo is the slide',
-      caption: 'One quiet line of context.',
+      subtitle: 'One quiet line of context.',
       image: '/placeholder.svg',
       scrim: 'bottom',
     },
