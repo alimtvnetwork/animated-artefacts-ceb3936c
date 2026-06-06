@@ -46,6 +46,11 @@ export const SlideType = {
    * Comparison table — title + columns + rows with per-row accent bars.
    * Use for "X versus Y" decks (frameworks, plans, vendors). v0.169.
    * See `spec/slides/59-generic-slide-types.md`.
+   *
+   * @remarks Uncapped (any column/row count). For narrow comparisons that fit
+   * ≤5 columns × ≤8 rows, PREFER {@link DataTableSlide}, which enforces the
+   * density budget (`densityCheck`). Keep `TableSlide` only when a deck genuinely
+   * needs a larger table than the capped sibling allows. (M-04 decision, v1.33.0.)
    */
   TableSlide: 'TableSlide',
   /**
