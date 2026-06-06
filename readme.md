@@ -132,7 +132,19 @@ This README also carries the same guidance inline — see **[📂 Folder structu
 
 let's start now 2026-04-30 12:00
 
-## v1.11.0 — Release notes (since v1.10.0) — CURRENT
+## v1.12.0 — Release notes (since v1.11.0) — CURRENT
+
+**Fixed the controller-position memory in the authoritative `mem://` store.**
+v1.11.0 corrected the `.lovable/memory/` mirror, but the store actually injected
+into every session — `mem://index.md` (lines 10/11/39) and
+`mem://features/controller-hamburger.md` — still said "BottomCenter default" /
+"bottom-right controller pill." Updated all of them to **top-right** (`fixed
+top-6 right-6`, flyouts + tooltips open downward, hamburger `top: r.bottom+8`,
+entrance `y:-6`). Root cause: prior turns edited the mirror, not the injected
+`mem://` store, so future sessions kept being told the controller was
+bottom-anchored.
+
+## v1.11.0 — Release notes (since v1.10.0)
 
 **Top-right relocation cleanup: panel motion + stale memory.** Two leftovers
 from the v1.8.0 move:
