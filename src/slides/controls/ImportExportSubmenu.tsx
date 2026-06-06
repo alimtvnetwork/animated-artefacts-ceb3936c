@@ -2,8 +2,10 @@ import { useRef, useState } from 'react';
 import { ChevronRight, ClipboardCopy, Download, FileDown, FileJson, Package, Palette, Upload } from 'lucide-react';
 import { toast } from 'sonner';
 import { errorMessage } from '@/lib/errors';
+import { deck, allSlides, IMPORTED_MANIFEST_KEY } from '../loader';
 import { runExport, exportSlidePdf } from '../export';
 import { exportSlideJson } from '../slideJson';
+import { planSingleSlideImport } from '../slideJsonImport';
 import { exportAllThemes, parseThemeBundle, installAllThemes } from '../themeBulk';
 import { copyLlmGuideToClipboard, downloadLlmGuide } from '../llmGuideBundle';
 
@@ -34,6 +36,7 @@ export function ImportExportSubmenu({
   onOpenThemeTools,
 }: Props) {
   const [expanded, setExpanded] = useState(false);
+  const slideImportRef = useRef<HTMLInputElement | null>(null);
   const themesImportRef = useRef<HTMLInputElement | null>(null);
 
   function handleSlideJson() {
@@ -116,6 +119,23 @@ export function ImportExportSubmenu({
     }
   }
 
+  async function handleSlideImportFile(file: File) {
+    try {
+      const payload = JSON.parse(await file.text()) as unknown;
+      const plan = planSingleSlideImport(deck, allSlides, payload, currentSlideNumber);
+      window.localStorage.setItem(IMPORTED_MANIFEST_KEY, JSON.stringify(plan.manifest));
+      console.info(`[ImportExportSubmenu] Single-slide import ready: ${file.name} -> slide #${plan.insertedNumber}`);
+      toast.success('Slide imported', { description: `Inserted as slide ${plan.insertedNumber}. Reloading…` });
+      onCloseParent();
+      window.setTimeout(() => window.location.reload(), 600);
+    } catch (err) {
+      console.error('[ImportExportSubmenu] Single-slide JSON import failed', err);
+      toast.error('Could not import slide JSON', { description: errorMessage(err) });
+    } finally {
+      if (slideImportRef.current) slideImportRef.current.value = '';
+    }
+  }
+
   return (
     <>
       <button type="button" onClick={() => setExpanded((v) => !v)} aria-expanded={expanded} className={itemClass}>
@@ -126,7 +146,8 @@ export function ImportExportSubmenu({
       {expanded && (
         <div className="ml-2 border-l border-[hsl(var(--chrome-border))] pl-2">
           <div className={labelClass}>Slides</div>
-          <button type="button" onClick={() => planned('Import JSON (single slide)')} className={itemClass}><Upload className="h-4 w-4" /><span className="flex-1">Import JSON (single)</span><span className={SOON_BADGE}>Soon</span></button>
+          <input ref={slideImportRef} type="file" accept="application/json,.json" className="hidden" onChange={(e) => { const f = e.target.files?.[0]; if (f) handleSlideImportFile(f); }} />
+          <button type="button" onClick={() => slideImportRef.current?.click()} className={itemClass}><Upload className="h-4 w-4" /><span className="flex-1">Import JSON (single)</span></button>
           <button type="button" onClick={onOpenDeckTools} className={itemClass}><Upload className="h-4 w-4" /><span className="flex-1">Import JSON (all/deck)</span></button>
           <button type="button" onClick={handleSlideJson} className={itemClass}><Download className="h-4 w-4" /><span className="flex-1">Export JSON (current slide)</span></button>
           <button type="button" onClick={onOpenDeckTools} className={itemClass}><FileJson className="h-4 w-4" /><span className="flex-1">Export JSON (all/deck)</span></button>
