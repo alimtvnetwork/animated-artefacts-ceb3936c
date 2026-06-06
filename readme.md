@@ -136,7 +136,13 @@ let's start now 2026-06-06 15:46
 
 let's start now 2026-06-06 16:42
 
-## v1.31.0 — Release notes (since v1.30.0) — CURRENT
+## v1.32.0 — Release notes (since v1.31.0) — CURRENT
+
+**Next-task cycle: backlog drained to two decisions + one track.** No runtime/build error — the payload is the recurring driver. The slide-type remediation (plan 02) is fully shipped/closed; remaining work is M-04 (`TableSlide` deprecation — confirmed not yet `@deprecated` in `src/slides/types/TableSlide.tsx`), M-01 (#32 ambiguity, needs user), and the separate pending plan `01-slide-system-export-llm-overhaul`. Also captured the SQLite-in-`data/` persistence rule for Node tooling (`.lovable/spec/commands/03`).
+- `.lovable/prompts/27-next-task.md`: saved this driver snapshot; `.lovable/prompts.md` + `.lovable/prompt.md` synced (`26` archived, `27` latest).
+- `package.json`: bumped to `1.32.0`.
+
+## v1.31.0 — Release notes (since v1.30.0)
 
 **Reconciled the stale slide-type remediation backlog with reality.** Root cause: both `quality/audit/remediation-plan.md` and last turn's plan `02-slide-type-remediation-execution.md` described already-shipped work as open "blocking" tasks, so the next-task loop kept fabricating done work. A codebase audit confirmed everything is implemented and tested.
 - Evidence: `src/slides/enums.ts` = 26 slide types (>21); `src/slides/types/{DatabaseDiagramSlide,DataTableSlide,EquationSlide}.tsx` + `NumberCalloutSlide` content + `src/slides/hooks/useCountUp.ts`; `--dur-count-fast/slow` tokens in `src/index.css`; `src/slides/densityCheck.ts`; `src/slides/validateAgainstCatalog.ts` + boot probe; `scripts/check-catalog-drift.ts` in CI; sample slides `40..43` migrated; `spec/21-slides-system/64-per-slide-sound-override.md`; `scripts/motion-variety-audit.ts`; roving-tabindex in Equation/DataTable.
