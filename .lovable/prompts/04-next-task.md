@@ -55,3 +55,8 @@
 Rule: verify the file/folder exists first; skip silently if missing. If multiple
 guidelines apply, follow all; on conflict, prefer the folder-level spec and call
 it out.
+
+## Run log (next task with number)
+
+- **#1 → v1.4.0** — Schema-drift closeout R1: `content.additionalProperties false→true` (mirror runtime passthrough) + `Step.image`/`imageRole` (spec 31).
+- **#2 → v1.5.0** — Schema-drift closeout R2: top-level `required` parity with `Envelope`; ImageSlide `image|images`; `Step.description` string|object; `sound.kind` full `SoundKind`. Deck fragments 55→4 failures (4 remaining are authoring defects, not schema).
