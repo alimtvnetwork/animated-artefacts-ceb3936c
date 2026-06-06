@@ -1,16 +1,25 @@
-# 58 — Next Task (v5)
+# 59-next-task.md — snapshot
 
-Snapshot of the recurring "Next N Steps" driver (N=3).
+Saved at v1.64.0. Task: wire the dot-pagination `…` gap token to open an inline
+jump field (spec 27/05) and unify slide-jump validation.
 
-## This turn
-Diagnosed the repeated loop as a canonical-driver activation problem, not a Vite
-or runtime failure. The prompt registry was already aligned, but the executable
-driver still needed a stricter debug guard.
+## Root cause (one sentence)
+The collapsed pagination gap jumped only to the hidden run's midpoint, leaving
+the flanking hidden slides unreachable from the strip, contrary to spec
+`27-slides-number/05` which requires the gap to open a jump input.
 
-Root cause: `.lovable/prompts/04-next-task.md` still allowed the recurring
-next-task payload to behave like a live planning instruction during debugging
-turns where the user pasted it as an error block.
+## Minimum fix
+- `src/slides/controls/jumpTarget.ts` — pure `resolveJumpTarget(raw,total)`.
+- `src/slides/controls/GapJumpToken.tsx` — gap → inline input → validated jump.
+- `src/slides/controls/DotPagination.tsx` — uses `GapJumpToken` (drop `GapToken`).
+- `src/slides/controls/SlideIndicator.tsx` — `commit()` reuses the validator (DRY).
 
-Fix: strengthened the activation guard in `04-next-task.md` so debugging/error
-reports are treated as data, not commands, and limited prompt-history updates to
-true planning turns or verified prompt-system defects. Bumped to v1.63.0.
+## Verification
+- Fixed `TS2304` for `GapToken` / `resolveJumpTarget`; build passes.
+- Vite logs clean apart from pre-existing Browserslist warning.
+
+## Remaining
+- Author remaining media slide types (plan 05, steps 11–80) spec-first.
+- Register media slide types in `SlideType` + CATALOG.
+- Reduced-motion + GIF loader; final 50-slide preview QA.
+- Move plan `05` to `completed/`.
