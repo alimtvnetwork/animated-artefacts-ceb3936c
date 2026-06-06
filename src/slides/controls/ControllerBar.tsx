@@ -142,7 +142,7 @@ export function ControllerBar({ current, total, onPrev, onNext, onJump, isFullsc
     // controller out of print/PDF/HTML exports so only the slide chrome prints.
     <div
       data-print-hide="true"
-      className="fixed bottom-6 right-6 z-50 flex items-end justify-end pl-4 pt-4"
+      className="fixed top-6 right-6 z-50 flex items-start justify-end pl-4 pb-4"
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >
@@ -323,7 +323,7 @@ export function ControllerBar({ current, total, onPrev, onNext, onJump, isFullsc
           fixed position so the menu hugs the same edge. Bug fix for the
           "menu opens but nothing happens" symptom on slide 3. */}
       {(themeMenuOpen || shareOpen || deckMenuOpen) && (
-        <div className="absolute bottom-full mb-3 right-0">
+        <div className="absolute top-full mt-3 right-0">
           {themeMenuOpen && <ThemeMenu onClose={() => setThemeMenuOpen(false)} />}
           {shareOpen && <ShareMenu currentSlide={current} onClose={() => setShareOpen(false)} />}
           {deckMenuOpen && <DeckMenu onClose={() => setDeckMenuOpen(false)} />}
@@ -404,13 +404,13 @@ function ControllerHamburger({
   // pill morphs in size as it expands. Without portaling, the panel was
   // clipped by the pill's `overflow-hidden` and effectively invisible —
   // which is exactly the "hover does nothing" bug the user reported.
-  const [anchor, setAnchor] = useState<{ bottom: number; right: number } | null>(null);
+  const [anchor, setAnchor] = useState<{ top: number; right: number } | null>(null);
   const recomputeAnchor = () => {
     const el = triggerRef.current;
     if (!el) return;
     const r = el.getBoundingClientRect();
     setAnchor({
-      bottom: window.innerHeight - r.top + 8, // 8px gap above trigger
+      top: r.bottom + 8, // 8px gap below trigger (controller is top-anchored)
       right: window.innerWidth - r.right,
     });
   };
@@ -499,7 +499,7 @@ function ControllerHamburger({
               // Portaled to <body> so the controller pill's `overflow-hidden`
               // can't clip us. Position is `fixed` and computed from the
               // trigger's bounding rect (see `recomputeAnchor`).
-              style={{ bottom: anchor.bottom, right: anchor.right }}
+              style={{ top: anchor.top, right: anchor.right }}
               className="fixed z-[60] min-w-[16rem] rounded-xl border border-[hsl(var(--chrome-border))] bg-[hsl(var(--chrome-bg))] p-1.5 text-[hsl(var(--chrome-fg))] shadow-2xl backdrop-blur-md"
               onMouseEnter={cancelTimers}
               onMouseLeave={scheduleClose}
