@@ -134,7 +134,14 @@ let's start now 2026-04-30 12:00
 
 let's start now 2026-06-06 15:46
 
-## v1.27.0 — Release notes (since v1.26.0) — CURRENT
+## v1.28.0 — Release notes (since v1.27.0) — CURRENT
+
+**Documented the persistence model in the LLM guide (roadmap step 1 cont.).** Root cause: after ZIP (v1.26.0) and visual-export (v1.27.0) docs, `LLM.md` still never explained that edits/themes live in `localStorage`, so an LLM assumed everything is file-based and would miss draft/imported/per-deck-theme behavior.
+- `LLM.md`: added a "Persistence model" section documenting the four author-relevant keys with constants + source files — `riseup.deck.draft.v1` (`DRAFT_DECK_KEY`), `riseup.deck.imported.v1` (`IMPORTED_MANIFEST_KEY`), `riseup.themes.custom.v1` (`CUSTOM_THEMES_STORAGE_KEY`), `riseup.theme.byDeck.v1` (`STORAGE_KEY_BY_DECK`).
+- `.lovable/prompts/23-next-task.md`: saved the v1.28.0 driver snapshot; `.lovable/prompts.md` synced (`23` latest, `22` archived).
+- `package.json`: bumped to `1.28.0`.
+
+## v1.27.0 — Release notes (since v1.26.0)
 
 **Documented the visual export pipeline in the LLM guide (roadmap step 1 cont.).** Root cause: after v1.26.0 added ZIP-bundle docs, `LLM.md` still had zero mention of the live `src/slides/export.ts` formats (`EXPORT_FORMATS`: pdf-rgb/pdf-cmyk/svg/png/jpg and `exportSlidePdf`), so an LLM had no idea decks can render to PDF/SVG/PNG/JPG.
 - `LLM.md`: added a "Visual export formats" section covering the `/handout?print=1` PDF flow, CMYK-safe filter, per-slide SVG/PNG/JPG at 1920×1080, and the throw-on-invalid-slide contract of `exportSlidePdf`.
