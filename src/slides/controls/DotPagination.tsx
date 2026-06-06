@@ -81,8 +81,16 @@ export function DotPagination({
       <div className="flex items-center gap-1.5 px-4 py-1 no-scrollbar overflow-visible">
         {tokens.map((token, i) => {
           if (token === 'gap') {
-            return <GapToken key={`gap-${i}`} onJump={onJump} tokens={tokens} index={i} />;
+            return (
+              <GapJumpToken
+                key={`gap-${i}`}
+                suggested={gapMidpoint(tokens, i)}
+                total={total}
+                onJump={onJump}
+              />
+            );
           }
+
           const n = token;
           const isActive = n === current;
           const isHover = hovered === n;
