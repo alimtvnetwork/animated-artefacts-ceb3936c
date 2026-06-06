@@ -36,6 +36,7 @@ import { FullBleedImageSlide } from './types/FullBleedImageSlide';
 import { SplitMediaSlide } from './types/SplitMediaSlide';
 import { MediaGridSlide } from './types/MediaGridSlide';
 import { GifLoopSlide } from './types/GifLoopSlide';
+import { SvgDiagramSlide } from './types/SvgDiagramSlide';
 import { BrandHeader } from './components/BrandHeader';
 import { AmbientBackground } from './components/AmbientBackground';
 import { HotspotLayer } from './components/HotspotLayer';
