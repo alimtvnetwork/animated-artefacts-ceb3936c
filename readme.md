@@ -143,7 +143,15 @@ let's start now 2026-06-06 15:46
 
 let's start now 2026-06-06 16:42
 
-## v1.48.0 — Release notes (since v1.47.0) — CURRENT
+## v1.49.0 — Release notes (since v1.48.0) — CURRENT
+
+- Executed plan `05` steps 4–6 (spec alignment, no runtime code yet): propagated the `buildPageWindow` ellipsis contract to all three slide-number surface specs.
+- `spec/27-slides-number/05-surface-dot-pagination.md`: collapse when `total > dotPaginationMaxBeforeCollapse` (default 15) — render `1 … cur±2 … N`, `…` is a focusable jump button; **replaces** the old `overflow-x-auto` 28-dot scroll cap (was `DotPagination.tsx` line 45).
+- `spec/27-slides-number/06-surface-controller-indicator.md`: stays a single chip and is the canonical exact-entry jump target for `…` tokens; no windowing math here.
+- `spec/27-slides-number/03-surface-top-bar.md`: single `Slide NN / NN` counter, unchanged by collapse (no `…` rendered).
+- Saved prompt snapshot `.lovable/prompts/44-next-task.md`; synced `.lovable/prompts.md`. `package.json` → `1.49.0`.
+
+## v1.48.0 — Release notes (since v1.47.0)
 
 - Executed plan `05` steps 1–3 (spec/scan only, no runtime code yet): read the slide-type registry (`src/slides/enums.ts` — 25 types) and `src/slides/controls/DotPagination.tsx` (current cap: `overflow-x-auto` above 28 dots, line 45 — no ellipsis collapse).
 - Root decision: locked the configurable collapse defaults — `dotPaginationMaxBeforeCollapse=15`, `dotPaginationNeighbors=2` (overridable in `/settings`; not hardcoded).

@@ -125,3 +125,16 @@ Reads the trimmed input and decides:
 - Clean up the click timer on unmount.
 - This is the ONLY slide-number surface with a text-entry jump. Keep it inside
   the controller pill; do not duplicate the input elsewhere.
+
+## Ellipsis collapse on long decks (v1.48.0)
+
+The controller indicator itself stays a single `NN / NN` chip (it is not a
+strip), but it is the **canonical jump target** for the `…` gap tokens emitted
+by the Dot Pagination strip (Surface 3). When a `…` token is activated it opens
+this indicator's edit input pre-selected, so the presenter types an exact slide
+number. No windowing math lives here — `buildPageWindow`
+(`spec/27-slides-number/14-page-window-algorithm.md`) is consumed only by the
+strip surfaces; the indicator simply remains the exact-entry escape hatch when
+slides are hidden behind a `…`. The `> total` validation row already guards
+out-of-range entries.
+

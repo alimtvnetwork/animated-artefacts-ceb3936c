@@ -104,3 +104,14 @@ function ShortcutHint({ label, glyphs }: { label: string; glyphs: string[] }) {
 - Inner block `role="status"` + `aria-live="polite"` + `aria-atomic="true"` so
   screen readers announce the new "Slide NN / NN" on each change.
 - Keycap glyphs carry an `aria-label` describing the shortcut.
+
+## Ellipsis collapse on long decks (v1.48.0)
+
+This surface shows only `Slide NN / NN` (a single counter, not a strip), so the
+windowing math does **not** change its markup — the `NN / NN` already scales to
+any deck length. It is listed here for completeness: when a deck exceeds
+`dotPaginationMaxBeforeCollapse` (default 15) the *strip* surfaces collapse via
+`buildPageWindow` (`spec/27-slides-number/14-page-window-algorithm.md`); the top
+bar continues to display the raw current/total counter unchanged. No `…` token
+renders here.
+
