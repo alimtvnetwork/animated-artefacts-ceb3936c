@@ -134,7 +134,17 @@ let's start now 2026-04-30 12:00
 
 let's start now 2026-06-06 15:46
 
-## v1.15.0 — Release notes (since v1.14.0) — CURRENT
+## v1.16.0 — Release notes (since v1.15.0) — CURRENT
+
+**Storage model documented against real keys (plan step 4 — `04-storage-model.md`).** Root cause: the planning table invented `riseup.deck.v1` and `riseup.settings.v1`, which never shipped — the real runtime keys are `riseup.deck.imported.v1` (`IMPORTED_MANIFEST_KEY` in `src/slides/loader.ts`) and `riseup.presetSettings.v1` (`STORAGE_KEY` in `src/slides/presetSettings.ts`), so any future import/export work built on the table would have written to dead keys.
+
+- Added `spec/21-slides-system/architecture/storage-model.md` as the authoritative storage map, verified against the actual exported keys: theme (`riseup.theme.v1`), per-deck pin (`riseup.theme.byDeck.v1`), custom themes (`riseup.themes.custom.v1`), imported deck (`riseup.deck.imported.v1`), builder draft (`riseup.deck.draft.v1`), settings (`riseup.presetSettings.v1`).
+- Documented boot read order (`main.tsx`), save flow, `BroadcastChannel('riseup-deck-sync')` sync, and reset safety (bundled JSON never overwritten).
+- Corrected the subtask 04 table in place and pointed it at the authoritative copy.
+- Verification: keys cross-checked via `grep` against `loader.ts`, `presetSettings.ts`, `draftDeck.ts`, `themeManifest.ts`; Vite logs clean (docs-only change, no runtime impact).
+
+## v1.15.0 — Release notes (since v1.14.0)
+
 
 **Single-slide PDF export is now real (plan step 3 — `03-pdf-export.md`).** Root cause: "Export current slide to PDF" in `src/slides/controls/ImportExportSubmenu.tsx` was a `Soon` stub calling `planned()`, and `HandoutPage` only supported full-deck (`?print`, `?cmyk`, `?reveals`) — there was no way to scope the print route to one slide.
 

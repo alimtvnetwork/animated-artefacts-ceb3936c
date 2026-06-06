@@ -1,6 +1,6 @@
 ---
 Slug: storage-model
-Status: pending
+Status: done (impl 2026-06-06 v1.16.0 — authoritative doc at spec/21-slides-system/architecture/storage-model.md; real keys corrected)
 Created: 2026-06-06
 Parent: 01-slide-system-export-llm-overhaul
 ---
@@ -15,8 +15,14 @@ Answers the user's "where do you keep imported items, how do you feed/read/save 
 | Active theme (global) | `localStorage["riseup.theme.v1"]` | `main.tsx` before createRoot | `setTheme()` |
 | Per-deck theme pin | `localStorage["riseup.theme.byDeck.v1"]` | `getInitialTheme()` | `setTheme()` |
 | Imported custom themes | `localStorage["riseup.themes.custom.v1"]` | `registerCustomThemesOnBoot()` before applyTheme | on theme import/remove |
-| Imported deck (override) | `localStorage["riseup.deck.v1"]` (new) | deck loader, falls back to bundled `import.meta.glob` | on deck/slide import |
-| Settings (toggles) | `localStorage["riseup.settings.v1"]` (new) | settings store init | on toggle change |
+| Imported deck (override) | `localStorage["riseup.deck.imported.v1"]` (`IMPORTED_MANIFEST_KEY`) | deck loader, falls back to bundled `import.meta.glob` | on deck/slide import |
+| Builder draft deck | `localStorage["riseup.deck.draft.v1"]` (`DRAFT_DECK_KEY`) | `useDraftDeck()` on mount | autosave on edit |
+| Settings (toggles) | `localStorage["riseup.presetSettings.v1"]` (`STORAGE_KEY`) | settings store init | on toggle change |
+
+> CORRECTION (2026-06-06): the original draft listed `riseup.deck.v1` and
+> `riseup.settings.v1`. Those never shipped — real keys are
+> `riseup.deck.imported.v1` and `riseup.presetSettings.v1`. Authoritative copy:
+> `spec/21-slides-system/architecture/storage-model.md`.
 
 ## Read flow (boot order in main.tsx)
 1. registerCustomThemesOnBoot() → merge into in-memory THEMES
