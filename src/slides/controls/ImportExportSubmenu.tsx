@@ -151,6 +151,8 @@ export function ImportExportSubmenu({
       toast.error('Could not export embedded deck JSON', { description: errorMessage(err) });
     }
   }
+
+  async function handleSlideImportFile(file: File) {
     try {
       const payload = JSON.parse(await file.text()) as unknown;
       const plan = planSingleSlideImport(deck, allSlides, payload, currentSlideNumber);
