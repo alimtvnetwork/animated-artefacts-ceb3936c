@@ -188,7 +188,7 @@ export function ControllerBar({ current, total, onPrev, onNext, onJump, isFullsc
                         <FileJson className="h-4 w-4" />
                       </button>
                     </TooltipTrigger>
-                    <TooltipContent side="top">Deck manifest</TooltipContent>
+                    <TooltipContent side="bottom">Deck manifest</TooltipContent>
                   </Tooltip>
                   {/* v0.87 — popovers moved out of the overflow-hidden pill (see below). */}
                 </div>
@@ -199,7 +199,7 @@ export function ControllerBar({ current, total, onPrev, onNext, onJump, isFullsc
                         <Share2 className="h-4 w-4" />
                       </button>
                     </TooltipTrigger>
-                    <TooltipContent side="top">Share</TooltipContent>
+                    <TooltipContent side="bottom">Share</TooltipContent>
                   </Tooltip>
                 </div>
                 {/* v1.2 — presenter webcam toggle (squiggling chip when off). */}
@@ -212,7 +212,7 @@ export function ControllerBar({ current, total, onPrev, onNext, onJump, isFullsc
                         <Palette className="h-4 w-4" />
                       </button>
                     </TooltipTrigger>
-                    <TooltipContent side="top">Theme palette</TooltipContent>
+                    <TooltipContent side="bottom">Theme palette</TooltipContent>
                   </Tooltip>
                 </div>
                 <Tooltip>
@@ -222,7 +222,7 @@ export function ControllerBar({ current, total, onPrev, onNext, onJump, isFullsc
                     </button>
                   </TooltipTrigger>
                   {/* v0.107 — surface the keyboard shortcut so presenters discover it on hover. */}
-                  <TooltipContent side="top" align="center" sideOffset={8}>
+                  <TooltipContent side="bottom" align="center" sideOffset={8}>
                     <span className="inline-flex items-center gap-2">
                       {isFullscreen ? 'Exit fullscreen' : 'Fullscreen'}
                       <kbd className="px-1.5 py-0.5 rounded bg-[hsl(var(--chrome-hover))] text-[10px] font-mono tracking-wide text-[hsl(var(--chrome-fg-muted))] border border-[hsl(var(--chrome-border))]">F</kbd>
@@ -264,7 +264,7 @@ export function ControllerBar({ current, total, onPrev, onNext, onJump, isFullsc
                       {pinned ? <ChevronsRight className="h-4 w-4" /> : <ChevronsLeft className="h-4 w-4" />}
                     </button>
                   </TooltipTrigger>
-                  <TooltipContent side="top">
+                  <TooltipContent side="bottom">
                     {pinned ? 'Collapse to Next/Prev' : 'Extend — keep controls open'}
                   </TooltipContent>
                 </Tooltip>
@@ -295,7 +295,7 @@ export function ControllerBar({ current, total, onPrev, onNext, onJump, isFullsc
                       <ChevronLeft className="h-5 w-5" />
                     </button>
                   </TooltipTrigger>
-                  <TooltipContent side="top">Previous slide</TooltipContent>
+                  <TooltipContent side="bottom">Previous slide</TooltipContent>
                 </Tooltip>
                 <Tooltip>
                   <TooltipTrigger asChild>
@@ -307,7 +307,7 @@ export function ControllerBar({ current, total, onPrev, onNext, onJump, isFullsc
                       <ChevronRight className="h-5 w-5" />
                     </button>
                   </TooltipTrigger>
-                  <TooltipContent side="top">Next slide — hover for full controls</TooltipContent>
+                  <TooltipContent side="bottom">Next slide — hover for full controls</TooltipContent>
                 </Tooltip>
               </motion.div>
             )}
@@ -482,7 +482,7 @@ function ControllerHamburger({
             <Menu className="h-4 w-4" />
           </button>
         </TooltipTrigger>
-        {!open && <TooltipContent side="top">Presenter menu</TooltipContent>}
+        {!open && <TooltipContent side="bottom">Presenter menu</TooltipContent>}
       </Tooltip>
 
       {createPortal(

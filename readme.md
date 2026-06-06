@@ -132,7 +132,18 @@ This README also carries the same guidance inline — see **[📂 Folder structu
 
 let's start now 2026-04-30 12:00
 
-## v1.9.0 — Release notes (since v1.8.0) — CURRENT
+## v1.10.0 — Release notes (since v1.9.0) — CURRENT
+
+**Controller tooltips follow the top-right move.** The pill, popovers, and
+hamburger anchor were all flipped downward in v1.8.0–v1.9.0, but the 8 hover
+tooltips still used `side="top"` and rendered above the top-anchored pill,
+clipping past the viewport top edge. Flipped every controller-attached tooltip
+to `side="bottom"` in `ControllerBar.tsx` (Deck manifest, Share, Theme palette,
+Fullscreen, Extend/Collapse, Previous/Next, Presenter menu). Root cause: the
+relocation never touched `TooltipContent side`, so tooltips opened toward the
+edge they now sit against.
+
+## v1.9.0 — Release notes (since v1.8.0)
 
 **Controller flyouts follow the top-right move.** After v1.8.0 relocated the
 pill to top-right, the menus still anchored *upward* and rendered off the top
