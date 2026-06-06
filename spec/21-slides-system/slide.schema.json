@@ -414,7 +414,7 @@
         "text":             { "type": "string" },
         "color":            { "type": "string", "enum": ["gold", "ember", "cream", "ink", "outline", "violet", "teal", "rose", "sky"], "description": "Solid capsule color token. v0.25 added violet/teal/rose/sky for chromatic variety on multi-capsule slides." },
         "clickRevealSlide": { "type": "integer", "minimum": 1, "description": "Legacy: navigate to a click-reveal slide. Superseded by `expand` when both are present. See spec 22." },
-        "hoverText":        { "type": "string", "maxLength": 28, "description": "Hover label-flip target. Resting label rotates out, this rotates in. See spec 22 §2." },
+        "hoverText":        { "type": "string", "maxLength": 48, "description": "Hover label-flip target. Resting label rotates out, this rotates in. The capsule reserves width for the longer of `text`/`hoverText` (Capsule.tsx widthAnchor) so it never truncates or reflows; keep ≤48 for legibility. See spec 22 §2." },
         "expand":           { "$ref": "#/definitions/CapsuleExpand", "description": "Inline expanding-card payload — see CapsuleExpand. Wins over `clickRevealSlide` when both are present." }
       }
     },
