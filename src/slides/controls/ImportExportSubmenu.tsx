@@ -34,6 +34,43 @@ export function ImportExportSubmenu({
   onOpenThemeTools,
 }: Props) {
   const [expanded, setExpanded] = useState(false);
+  const themesImportRef = useRef<HTMLInputElement | null>(null);
+
+  function handleSlideJson() {
+    try {
+      const filename = exportSlideJson(currentSlideNumber);
+      toast.success('Slide JSON exported', { description: filename });
+      onCloseParent();
+    } catch (err) {
+      console.error('[ImportExportSubmenu] Single-slide JSON export failed', err);
+      toast.error('Could not export slide JSON', { description: errorMessage(err) });
+    }
+  }
+
+  function handleThemesExport() {
+    try {
+      const filename = exportAllThemes();
+      toast.success('All themes exported', { description: filename });
+      onCloseParent();
+    } catch (err) {
+      console.error('[ImportExportSubmenu] Bulk theme export failed', err);
+      toast.error('Could not export themes', { description: errorMessage(err) });
+    }
+  }
+
+  async function handleThemesImportFile(file: File) {
+    try {
+      const bundle = parseThemeBundle(JSON.parse(await file.text()));
+      const count = installAllThemes(bundle);
+      toast.success('Themes imported', { description: `${count} custom theme${count === 1 ? '' : 's'} installed.` });
+      onCloseParent();
+    } catch (err) {
+      console.error('[ImportExportSubmenu] Bulk theme import failed', err);
+      toast.error('Could not import themes', { description: errorMessage(err) });
+    } finally {
+      if (themesImportRef.current) themesImportRef.current.value = '';
+    }
+  }
 
   async function handleGuideDownload() {
     try {
