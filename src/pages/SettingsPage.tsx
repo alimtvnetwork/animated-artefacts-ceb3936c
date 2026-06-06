@@ -34,6 +34,9 @@ import {
   BRAND_INSET_X_BOUNDS,
   NUDGE_OFFSET_BOUNDS,
   STEP_NUMBER_SIZE_3D_RATIO_BOUNDS,
+  DOT_PAGINATION_COLLAPSE_BOUNDS,
+  DOT_PAGINATION_NEIGHBORS_BOUNDS,
+  clampToBounds,
   TRANSITION_DURATION_BOUNDS,
   TRANSITION_DELAY_BOUNDS,
   TRANSITION_EASING_OPTIONS,
@@ -865,10 +868,10 @@ export default function SettingsPage() {
                   </span>
                   <input
                     type="number"
-                    min={5}
-                    max={99}
+                    min={DOT_PAGINATION_COLLAPSE_BOUNDS.min}
+                    max={DOT_PAGINATION_COLLAPSE_BOUNDS.max}
                     value={settings.dotPaginationMaxBeforeCollapse}
-                    onChange={e => update({ dotPaginationMaxBeforeCollapse: Math.max(5, Math.min(99, Number(e.target.value) || 5)) })}
+                    onChange={e => update({ dotPaginationMaxBeforeCollapse: clampToBounds(Number(e.target.value), DOT_PAGINATION_COLLAPSE_BOUNDS) })}
                     className="w-full rounded-md bg-muted/40 border border-border px-2 py-1 text-sm text-foreground"
                   />
                   <span className="block text-[10px] text-muted-foreground">Slides before `1 … cur±n … N`.</span>
@@ -879,10 +882,10 @@ export default function SettingsPage() {
                   </span>
                   <input
                     type="number"
-                    min={1}
-                    max={5}
+                    min={DOT_PAGINATION_NEIGHBORS_BOUNDS.min}
+                    max={DOT_PAGINATION_NEIGHBORS_BOUNDS.max}
                     value={settings.dotPaginationNeighbors}
-                    onChange={e => update({ dotPaginationNeighbors: Math.max(1, Math.min(5, Number(e.target.value) || 1)) })}
+                    onChange={e => update({ dotPaginationNeighbors: clampToBounds(Number(e.target.value), DOT_PAGINATION_NEIGHBORS_BOUNDS) })}
                     className="w-full rounded-md bg-muted/40 border border-border px-2 py-1 text-sm text-foreground"
                   />
                   <span className="block text-[10px] text-muted-foreground">Dots shown each side of current.</span>
