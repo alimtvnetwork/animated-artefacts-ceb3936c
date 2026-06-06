@@ -66,3 +66,7 @@ via `hsl(var(--token))` or `hsl(var(--token) / 0.NN)` for opacity.
   forward decks? Default: no — ember is the secondary.
 - 2026-04-26 (v0.80.3): Phase 9 — pinned 7 tokens, mapping table, and
   the no-hex rule.
+- 2026-06-06 (v1.53.0): added 3 image-derived themes (`glasswing`,
+  `think-yellow`, `riseup-pro`) — all override brand triplets only and
+  pin Ubuntu+Poppins fonts. Full theme catalog now lives in pack `05` §7b.
+  Spec: `spec/21-slides-system/08-image-derived-themes.md`.
