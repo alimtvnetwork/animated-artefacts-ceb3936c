@@ -1,6 +1,6 @@
 ---
 Slug: compact-theme-showcase
-Status: pending
+Status: done (impl 2026-06-06 v1.19.0 — ThemeSwatchGrid.tsx dense 4-col grid; ThemeMenu delegates list)
 Created: 2026-06-06
 Parent: 01-slide-system-export-llm-overhaul
 ---
