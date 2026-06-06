@@ -133,6 +133,14 @@ export const SlideType = {
    * fade. See `spec/26-slide-definitions/_patterns/full-bleed-image-slide.md`.
    */
   FullBleedImageSlide: 'FullBleedImageSlide',
+  /**
+   * SplitMediaSlide — two-column composite: media (image/GIF) on one half,
+   * a text column (eyebrow + title + keywords + capsules) on the other.
+   * `content.mediaSide` ('left' default | 'right') picks the media half.
+   * Use for "show + tell" beats. See
+   * `spec/26-slide-definitions/_patterns/split-media-slide.md`.
+   */
+  SplitMediaSlide: 'SplitMediaSlide',
 } as const;
 export type SlideTypeValue = typeof SlideType[keyof typeof SlideType];
 
