@@ -60,3 +60,4 @@ it out.
 
 - **#1 → v1.4.0** — Schema-drift closeout R1: `content.additionalProperties false→true` (mirror runtime passthrough) + `Step.image`/`imageRole` (spec 31).
 - **#2 → v1.5.0** — Schema-drift closeout R2: top-level `required` parity with `Envelope`; ImageSlide `image|images`; `Step.description` string|object; `sound.kind` full `SoundKind`. Deck fragments 55→4 failures (4 remaining are authoring defects, not schema).
+- **#3 → v1.6.0** — Fragment parity locked: fixed `clickRevealSlide` string→24 (real no-op bug) + relaxed stale `hoverText` cap 28→48 (widthAnchor outgrew it); added `src/test/deckFragmentSchema.test.ts` CI gate. Deck fragments 4→0 failures; suite 900/900.
