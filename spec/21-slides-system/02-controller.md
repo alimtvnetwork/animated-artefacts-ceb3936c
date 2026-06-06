@@ -5,8 +5,16 @@ It must stay out of the way until invited.
 
 ## Position
 
-- **Bottom-right corner** of the viewport, fixed.
-- Margin: `bottom-6 right-6` (24px from each edge).
+- **Top-right corner** of the viewport, fixed (new default, 2026-06-06 — see
+  `.lovable/spec/commands/01-controller-top-right.md`).
+- Margin: `top-6 right-6` (24px from each edge).
+- All flyouts (Theme / Share / Deck manifest, and the presenter hamburger
+  panel) open **downward** from the pill (`top-full` / `top: r.bottom + 8`),
+  never upward.
+- Tooltips use `side="bottom"` so they clear the viewport's top edge.
+- One `ControllerBar` instance serves deck + fullscreen, so the anchor change
+  applies in every context. `PresenterTopBar` is independent and already
+  top-anchored.
 
 ## Two visual states
 

@@ -9,3 +9,4 @@ Each entry links to its full spec in `.lovable/prompts/`.
 | 02 | [02-read-memory.md](./prompts/02-read-memory.md) | `read memory`, `onboarding` | always-on (run when user says "read memory") |
 | 03 | [03-write-memory.md](./prompts/03-write-memory.md) | `write memory`, `end memory`, `update memory` | always-on (run when user says "write memory") |
 | 04 | [04-next-task.md](./prompts/04-next-task.md) | `next task`, `next N steps`, `next task with number` | always-on (run when user says "next task") |
+| 05 | [05-next-task.md](./prompts/05-next-task.md) | `next task (v5)`, `next N steps or tasks`, `next task with number` | always-on (latest "next task" driver) |
