@@ -166,7 +166,7 @@
       "additionalProperties": false,
       "properties": {
         "on":     { "type": "string", "enum": ["enter", "focus", "click"], "description": "When the cue fires. AdvanceStepSlide defaults to 'focus'; others default to 'enter'." },
-        "kind":   { "type": "string", "enum": ["whoosh", "click", "pop"], "description": "Procedural synth kind. Defaults to 'whoosh'." },
+        "kind":   { "type": "string", "enum": ["whoosh", "click", "fadeClick", "pop", "zoom", "fadeZoom"], "description": "Synth/sample kind — mirrors the `SoundKind` union in src/slides/sound.ts. Cinematic cues (zoom, fadeZoom) play longer samples. Defaults to 'whoosh'." },
         "volume": { "type": "number", "minimum": 0, "maximum": 1, "description": "Master gain for this cue. Defaults to 0.45." },
         "mute":   { "type": "boolean", "description": "Hard mute for this slide regardless of `on`/`kind`." }
       }
