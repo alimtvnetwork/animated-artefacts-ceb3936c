@@ -1,4 +1,4 @@
-# 18 — Next Task (v5)
+# 19 — Next Task (v5)
 
 Snapshot of the recurring "Next 2 Steps or Tasks (v5)" driver prompt, saved per the workflow rule.
 
@@ -24,5 +24,5 @@ Read actual logs first. No logs = the bug; add logging at entry points. Every fi
 - SEO tasks: follow `.lovable/seo-guidelines.md` if present.
 - Verify each file/folder exists first; skip missing ones silently; folder-level spec wins on conflict.
 
-## This iteration (v1.23.0)
-Shipped the full-deck ZIP bundle (export + import) — the final placeholder rows in the import/export menu. Added `fflate`, `src/slides/zipBundle.ts`, wired `ImportExportSubmenu.tsx`, removed the `planned()`/`SOON_BADGE` placeholders, and added round-trip + negative tests. 14/14 tests pass.
+## This iteration (v1.24.0)
+Fixed next-task prompt snapshot drift: `.lovable/prompts/18-next-task.md` had two iteration blocks (`v1.22.0` + `v1.23.0`) even though snapshot files are supposed to capture one checkpoint each, so the saved-history chain became internally inconsistent again. Normalized `18` to the v1.23.0 checkpoint, saved this `19` snapshot for v1.24.0, synced the registries, and updated the root release notes/version pin.
