@@ -482,7 +482,7 @@ function ControllerHamburger({
             <Menu className="h-4 w-4" />
           </button>
         </TooltipTrigger>
-        {!open && <TooltipContent side="top">Presenter menu</TooltipContent>}
+        {!open && <TooltipContent side="bottom">Presenter menu</TooltipContent>}
       </Tooltip>
 
       {createPortal(
