@@ -11,6 +11,7 @@ import { useEffect, useRef, useState } from 'react';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 import { toast } from 'sonner';
 import { pushJumpHistory, useJumpHistory, clearJumpHistory } from '../jumpHistory';
+import { resolveJumpTarget } from './jumpTarget';
 import { History, X } from 'lucide-react';
 
 interface Props {
@@ -33,40 +34,25 @@ export function SlideIndicator({ current, total, onJump, onDoubleTap, doubleTapA
   useEffect(() => () => { if (clickTimer.current) window.clearTimeout(clickTimer.current); }, []);
 
   function commit() {
-    const raw = val.trim();
-    if (raw === '') { setEditing(false); return; } // empty → silent cancel
-    const n = parseInt(raw, 10);
-    if (Number.isNaN(n)) {
-      // Non-numeric typo (e.g. presenter pasted text). Surface why nothing
-      // happened so they don't repeatedly hit Enter wondering.
-      toast.error('Not a slide number', {
-        description: `Type a number from 1 to ${total}.`,
-        duration: 2200,
-      });
+    const res = resolveJumpTarget(val, total);
+    if (res.kind === 'cancel') { setEditing(false); return; }
+    if (res.kind === 'nan') {
+      toast.error('Not a slide number', { description: `Type a number from 1 to ${total}.`, duration: 2200 });
       setEditing(false);
       return;
     }
-    if (n < 1) {
-      // Lone zero / negative — slides are 1-indexed.
-      toast.info('Slides start at 1', {
-        description: `Type a slide number from 1 to ${total}.`,
-        duration: 2200,
-      });
+    if (res.kind === 'tooLow') {
+      toast.info('Slides start at 1', { description: `Type a slide number from 1 to ${total}.`, duration: 2200 });
       setEditing(false);
       return;
     }
-    if (n > total) {
-      // Out of range — mirror the keyboard quick-jump's error toast so both
-      // entry points fail loudly instead of silently doing nothing.
-      toast.error(`No slide ${n}`, {
-        description: `Deck has ${total} slides.`,
-        duration: 2200,
-      });
+    if (res.kind === 'tooHigh') {
+      toast.error(`No slide ${res.slide}`, { description: `Deck has ${total} slides.`, duration: 2200 });
       setEditing(false);
       return;
     }
-    onJump(n);
-    pushJumpHistory(n);
+    onJump(res.slide);
+    pushJumpHistory(res.slide);
     setEditing(false);
   }
 

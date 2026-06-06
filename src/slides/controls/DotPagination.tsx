@@ -23,6 +23,7 @@ import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
 import { useState } from 'react';
 import type { SlideSpec } from '../types';
 import { buildPageWindow } from './pageWindow';
+import { GapJumpToken } from './GapJumpToken';
 
 interface Props {
   /** 1-based current slide number among the linear slides. */
@@ -51,25 +52,8 @@ function gapMidpoint(tokens: (number | 'gap')[], index: number): number {
   return Math.round((lo + hi) / 2);
 }
 
-interface GapProps {
-  tokens: (number | 'gap')[];
-  index: number;
-  onJump: (n: number) => void;
-}
+/** Total slides — used to bound the gap jump input. */
 
-/** Ellipsis token — jumps to the midpoint of the slides it hides. */
-function GapToken({ tokens, index, onJump }: GapProps) {
-  const target = gapMidpoint(tokens, index);
-  return (
-    <button
-      onClick={() => onJump(target)}
-      aria-label={`Jump to slide ${target}`}
-      className="relative shrink-0 h-6 w-5 flex items-center justify-center rounded-full text-foreground/45 hover:text-foreground text-[10px] leading-none focus:outline-none focus-visible:ring-1 focus-visible:ring-gold/60"
-    >
-      …
-    </button>
-  );
-}
 
 
 export function DotPagination({
@@ -97,8 +81,16 @@ export function DotPagination({
       <div className="flex items-center gap-1.5 px-4 py-1 no-scrollbar overflow-visible">
         {tokens.map((token, i) => {
           if (token === 'gap') {
-            return <GapToken key={`gap-${i}`} onJump={onJump} tokens={tokens} index={i} />;
+            return (
+              <GapJumpToken
+                key={`gap-${i}`}
+                suggested={gapMidpoint(tokens, i)}
+                total={total}
+                onJump={onJump}
+              />
+            );
           }
+
           const n = token;
           const isActive = n === current;
           const isHover = hovered === n;
