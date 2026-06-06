@@ -100,7 +100,7 @@ export function ImportExportSubmenu({
 
           <div className={labelClass}>PDF</div>
           <button type="button" onClick={handleDeckPdf} className={itemClass}><FileDown className="h-4 w-4" /><span className="flex-1">Export deck to PDF</span></button>
-          <button type="button" onClick={() => planned(`Export current slide ${currentSlideNumber} to PDF`)} className={itemClass}><FileDown className="h-4 w-4" /><span className="flex-1">Export current slide to PDF</span><span className={SOON_BADGE}>Soon</span></button>
+          <button type="button" onClick={handleSlidePdf} className={itemClass}><FileDown className="h-4 w-4" /><span className="flex-1">Export current slide to PDF</span></button>
 
           <div className={labelClass}>Full bundle</div>
           <button type="button" onClick={() => planned('Export ZIP')} className={itemClass}><Download className="h-4 w-4" /><span className="flex-1">Export ZIP</span><span className={SOON_BADGE}>Soon</span></button>
