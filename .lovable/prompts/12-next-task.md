@@ -36,3 +36,7 @@
 - Coding tasks: `.lovable/coding-guidelines.md` + `spec/coding-guidelines/`.
 - SEO tasks: `.lovable/seo-guidelines.md`.
 - Verify existence first; skip silently if missing; folder-level wins on conflict.
+
+## Last completed checkpoint
+- v1.17.0 completed plan step 5 (slide-types catalog).
+- v1.18.0 completed plan step 6 (theme authoring guide aligned to runtime).
