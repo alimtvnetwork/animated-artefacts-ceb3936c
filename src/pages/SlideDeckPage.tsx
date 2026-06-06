@@ -150,6 +150,8 @@ export default function SlideDeckPage() {
   const [deckTransitionTiming, setDeckTransitionTiming] = useState(() => mergeDeckTiming(deck.transitionTiming, resolveDeckTransitionOverride(getPresetSettings())));
   useEffect(() => subscribePresetSettings(() => {
     setShowDots(getPresetSettings().showDotPagination);
+    const s = getPresetSettings();
+    setDotCfg({ max: s.dotPaginationMaxBeforeCollapse, neighbors: s.dotPaginationNeighbors });
     setDeckTransitionTiming(mergeDeckTiming(deck.transitionTiming, resolveDeckTransitionOverride(getPresetSettings())));
   }), []);
   /** Imperative handle for slides that consume Next/Prev internally
