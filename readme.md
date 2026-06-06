@@ -134,7 +134,14 @@ let's start now 2026-04-30 12:00
 
 let's start now 2026-06-06 15:46
 
-## v1.25.0 — Release notes (since v1.24.0) — CURRENT
+## v1.26.0 — Release notes (since v1.25.0) — CURRENT
+
+**Closed a real LLM-guide schema-parity gap (roadmap step 1).** Root cause: `LLM.md` documented every authoring feature except the full-deck ZIP bundle that has been live in `src/slides/zipBundle.ts` since v1.23.0 (`exportBundleZip`/`importBundleFile`), so any LLM handed the guide had no idea the backup/transfer path existed.
+- `LLM.md`: added a "Full-deck ZIP bundle (backup & transfer)" section + quick-reference row documenting export contents (`deck.json`/`themes.json`/`bundle.json`) and the validate-before-write import contract.
+- `.lovable/prompts/21-next-task.md`: saved the v1.26.0 driver snapshot; `.lovable/prompts.md` synced (`21` latest, `20` archived).
+- `package.json`: bumped to `1.26.0`.
+
+## v1.25.0 — Release notes (since v1.24.0)
 
 **No application error — recurring next-task cycle closed.** Root cause: the reported "error" payload is the next-task driver prompt itself, not a runtime/build failure — `bunx vitest run src/test/contracts.test.ts` passes 14/14 and the Vite build is clean; the only open item was rolling the version pin/release log forward for this iteration.
 - `.lovable/prompts/20-next-task.md`: saved the v1.25.0 snapshot of the recurring driver prompt.

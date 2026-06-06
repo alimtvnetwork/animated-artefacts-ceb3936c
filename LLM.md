@@ -181,6 +181,21 @@
 | Acceptance checklist | `spec/21-slides-system/llm/18-acceptance-checklist.md` |
 | Do / don't | `spec/21-slides-system/llm/17-do-and-dont.md` |
 | Decision tree | `spec/llm-guideline/09-decision-tree.md` |
+| Back up / share a full deck (ZIP) | `src/slides/zipBundle.ts` — see below |
+
+### Full-deck ZIP bundle (backup & transfer)
+
+The Import/Export controller menu can package an entire deck as a single
+`.zip`. Use it to move a deck (with its themes) between environments.
+
+- **Export:** `exportBundleZip()` writes `riseup-bundle-<slug>-<date>.zip`
+  containing `deck.json` (manifest via `buildManifest`), `themes.json`
+  (custom themes via `buildThemeBundle`), and a `bundle.json` index.
+- **Import:** `importBundleFile(file)` unzips, validates **both** documents
+  (`parseManifest` + `parseThemeBundle`) before any write, installs themes,
+  persists the manifest to `riseup.deck.imported.v1`, then reloads. A bad
+  archive throws before touching storage — never a partial import.
+
 
 ## Golden rules (do not break)
 
