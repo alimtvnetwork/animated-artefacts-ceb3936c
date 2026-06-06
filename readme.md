@@ -134,7 +134,17 @@ let's start now 2026-04-30 12:00
 
 let's start now 2026-06-06 15:46
 
-## v1.22.0 — Release notes (since v1.21.0) — CURRENT
+## v1.23.0 — Release notes (since v1.22.0) — CURRENT
+
+**Full-deck ZIP bundle (export + import) is now real.** Root cause: the last two rows in `src/slides/controls/ImportExportSubmenu.tsx` ("Export ZIP" / "Import ZIP") were dead `planned('Export ZIP')` / `planned('Import ZIP')` stubs carrying a `Soon` badge — the only remaining placeholders in the import/export tree — even though every underlying primitive existed (`buildManifest`/`parseManifest` in `src/slides/manifest.ts`, `buildThemeBundle`/`parseThemeBundle`/`installAllThemes` in `src/slides/themeBulk.ts`, and the imported-deck boot path via `IMPORTED_MANIFEST_KEY`). The missing piece was a single archive wrapper that packs both documents together and validates them on the way back in.
+
+- Added dependency `fflate@0.8.3` (tiny, zero-dep zip codec) for in-browser zip read/write.
+- New `src/slides/zipBundle.ts`: `buildBundleZip`/`exportBundleZip` pack `deck.json` (DeckManifest) + `themes.json` (ThemeBundle) + `bundle.json` (provenance meta) into `riseup-bundle-<slug>-<date>.zip`; `parseBundleZip` unzips and validates BOTH documents via the existing `parseManifest`/`parseThemeBundle` before any storage write; `applyBundle`/`importBundleFile` install custom themes first, then persist the manifest to `riseup.deck.imported.v1` and reload. Images are referenced by path, never inlined — same contract as the JSON manifest.
+- `src/slides/controls/ImportExportSubmenu.tsx`: replaced both `Soon` stubs with a real export handler and a hidden `.zip` file input + import handler (toast feedback + reload). Removed the now-unused `planned()` helper and `SOON_BADGE` constant — the menu tree no longer has any placeholder rows.
+- `src/test/contracts.test.ts`: added a round-trip test (build → parse) plus a negative test that a zip missing `deck.json` throws.
+- Verification: `bunx vitest run src/test/contracts.test.ts` passes `14/14`, logging `[deck] ✓ spec confidence: 100/100` during the round-trip build. Vite logs show HMR only, no new runtime/type errors.
+
+
 
 **Single-slide JSON import is now real.** Root cause: `src/slides/controls/ImportExportSubmenu.tsx` still rendered **Import JSON (single)** as a dead `planned('Import JSON (single slide)')` stub at line 129 even though the runtime already had the necessary validation (`src/slides/contracts.ts` `validateSlide()`), imported-deck persistence (`src/slides/loader.ts` `IMPORTED_MANIFEST_KEY`), and reload path (`src/slides/controls/DeckMenu.tsx` `commitImport()`) — the only missing piece was the merge step that inserts one validated slide into the imported deck and shifts later `slideNumber` links safely.
 
