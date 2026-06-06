@@ -143,7 +143,14 @@ let's start now 2026-06-06 15:46
 
 let's start now 2026-06-06 16:42
 
-## v1.54.0 — Release notes (since v1.53.0) — CURRENT
+## v1.55.0 — Release notes (since v1.54.0) — CURRENT
+
+- Added a dedicated **`theme-flavors` deck regression test** (`src/test/themeFlavorsDeck.test.ts`) that pins the showcase deck's shape so future edits can't silently break it.
+- Guards: 4 slides, slide-type order `[TitleSlide, CapsuleListSlide ×3]`, the manifest's declared image-derived theme, and that all three demoed themes (`glasswing`, `think-yellow`, `riseup-pro`) remain registered in `THEMES`.
+- Reasoning: the deck was previously unguarded — a typo in a slide JSON or a removed theme id would only surface at preview time.
+- Verification: `bunx vitest run src/test/themeFlavorsDeck.test.ts` → 3/3 passing.
+
+## v1.54.0 — Release notes (since v1.53.0)
 
 - Fixed the recurring **next-task prompt registry drift** again; this was a bookkeeping/prompt-source issue, not a runtime app failure.
 - Root cause: `.lovable/prompt.md` was still stale at `38-next-task.md` as the **latest saved snapshot**, while `.lovable/prompts.md` had advanced to `48-next-task.md`, so the project still had contradictory prompt-source metadata.
