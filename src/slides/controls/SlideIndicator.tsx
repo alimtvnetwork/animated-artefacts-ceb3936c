@@ -103,11 +103,11 @@ export function SlideIndicator({ current, total, onJump, onDoubleTap, doubleTapA
       <div className="relative">
         {recent.length > 0 && (
           <div
-            // Anchored to the bottom of the input, opens upward so it never
-            // collides with the controller pill (which lives at the bottom
-            // of the viewport). `pointer-events-auto` because the parent
-            // controller chrome is non-interactive while collapsed.
-            className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 pointer-events-auto"
+            // Anchored to the top of the input, opens downward so it never
+            // collides with the controller pill (which now lives at the top
+            // of the viewport, v1.9.0). `pointer-events-auto` because the
+            // parent controller chrome is non-interactive while collapsed.
+            className="absolute top-full left-1/2 -translate-x-1/2 mt-2 pointer-events-auto"
             role="group"
             aria-label="Recent slide jumps"
           >

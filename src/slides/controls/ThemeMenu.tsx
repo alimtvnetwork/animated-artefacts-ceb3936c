@@ -342,7 +342,7 @@ export function ThemeMenu({ onClose, onChange }: Props) {
       // GitHub Light would flip the menu text to dark ink and make it
       // invisible against the dark pill background.
       style={{ color: 'hsl(var(--chrome-fg))' }}
-      className="absolute bottom-full mb-3 right-0 w-64 rounded-2xl controller-pill p-1.5 shadow-2xl"
+      className="absolute top-full mt-3 right-0 w-64 rounded-2xl controller-pill p-1.5 shadow-2xl"
     >
       <div className="flex items-center justify-between px-2 py-1.5">
         <div className="flex items-center gap-1.5">

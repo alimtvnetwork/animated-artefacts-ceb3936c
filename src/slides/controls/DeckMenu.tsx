@@ -139,7 +139,7 @@ export function DeckMenu({ onClose }: Props) {
       />
       <div
         role="menu"
-        className="absolute bottom-full mb-3 right-0 w-72 rounded-2xl controller-pill p-2 shadow-2xl"
+        className="absolute top-full mt-3 right-0 w-72 rounded-2xl controller-pill p-2 shadow-2xl"
       >
         <div className="flex items-center justify-between px-3 py-2">
           <div className="flex items-center gap-2">
