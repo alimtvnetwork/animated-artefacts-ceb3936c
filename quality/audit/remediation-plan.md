@@ -56,4 +56,4 @@ A code audit found Phase 1 and Phase 2 are fully implemented and tested; do NOT 
 | M-03 | ✅ done | `scripts/motion-variety-audit.ts` |
 | M-05 | ✅ done | roving-tabindex in EquationSlide + DataTableSlide |
 | M-01 | ⏳ open | #32 collapsible-sections ambiguity — needs user decision |
-| M-04 | ⏳ open | deprecate uncapped `TableSlide` after DataTableSlide — decision pending |
+| M-04 | ✅ done | DECISION (v1.33.0): keep `TableSlide` uncapped; steer authors to `DataTableSlide` for ≤5×8 via JSDoc `@remarks` in `enums.ts` + `TableSlide.tsx`. Not hard-deprecated. |
