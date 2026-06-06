@@ -52,25 +52,8 @@ function gapMidpoint(tokens: (number | 'gap')[], index: number): number {
   return Math.round((lo + hi) / 2);
 }
 
-interface GapProps {
-  tokens: (number | 'gap')[];
-  index: number;
-  onJump: (n: number) => void;
-}
+/** Total slides — used to bound the gap jump input. */
 
-/** Ellipsis token — jumps to the midpoint of the slides it hides. */
-function GapToken({ tokens, index, onJump }: GapProps) {
-  const target = gapMidpoint(tokens, index);
-  return (
-    <button
-      onClick={() => onJump(target)}
-      aria-label={`Jump to slide ${target}`}
-      className="relative shrink-0 h-6 w-5 flex items-center justify-center rounded-full text-foreground/45 hover:text-foreground text-[10px] leading-none focus:outline-none focus-visible:ring-1 focus-visible:ring-gold/60"
-    >
-      …
-    </button>
-  );
-}
 
 
 export function DotPagination({
