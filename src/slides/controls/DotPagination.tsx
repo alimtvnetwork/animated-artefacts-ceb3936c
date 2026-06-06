@@ -39,6 +39,36 @@ interface Props {
 const COLLAPSE_THRESHOLD = 15;
 const NEIGHBORS = 2;
 
+/** Midpoint slide between the numbers flanking a `'gap'` token. */
+function gapMidpoint(tokens: (number | 'gap')[], index: number): number {
+  const before = tokens[index - 1];
+  const after = tokens[index + 1];
+  const lo = typeof before === 'number' ? before : 1;
+  const hi = typeof after === 'number' ? after : lo + 2;
+  return Math.round((lo + hi) / 2);
+}
+
+interface GapProps {
+  tokens: (number | 'gap')[];
+  index: number;
+  onJump: (n: number) => void;
+}
+
+/** Ellipsis token — jumps to the midpoint of the slides it hides. */
+function GapToken({ tokens, index, onJump }: GapProps) {
+  const target = gapMidpoint(tokens, index);
+  return (
+    <button
+      onClick={() => onJump(target)}
+      aria-label={`Jump to slide ${target}`}
+      className="relative shrink-0 h-6 w-5 flex items-center justify-center rounded-full text-foreground/45 hover:text-foreground text-[10px] leading-none focus:outline-none focus-visible:ring-1 focus-visible:ring-gold/60"
+    >
+      …
+    </button>
+  );
+}
+
+
 export function DotPagination({ current, total, slides, onJump }: Props) {
   const reduced = useReducedMotion();
   const [hovered, setHovered] = useState<number | null>(null);
