@@ -104,6 +104,9 @@ const KNOWN_SLIDE_FIELDS = new Set<string>([
   // but commonly hand-written. Kept here so they don't trip the audit.
   'densityCheck',
   'theme',
+  // One-line author-facing summary of the slide's single idea. Used in deck
+  // JSON for review/outline tooling; not part of SlideSpec, ignored at render.
+  'narrowIdea',
 ]);
 
 /* ------------------------------------------------------------------ */
