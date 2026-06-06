@@ -307,6 +307,8 @@ export const DEFAULT_PRESET_SETTINGS: PresetSettings = {
   ruleColor: 'gold',
   bodyFont: 'inter',
   showDotPagination: true,
+  dotPaginationMaxBeforeCollapse: 15,
+  dotPaginationNeighbors: 2,
   bodyAlignment: 'header-anchored',
   showAlignmentGuide: false,
   showAlignmentTargets: false,
