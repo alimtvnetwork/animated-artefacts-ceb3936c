@@ -143,12 +143,19 @@ let's start now 2026-06-06 15:46
 
 let's start now 2026-06-06 16:42
 
-## v1.65.0 — Release notes (since v1.64.0) — CURRENT
+## v1.66.0 — Release notes (since v1.65.0) — CURRENT
+
+- **Removed the last verbatim next-task phrases from noncanonical history files so only the canonical driver still says them exactly.**
+- Root cause: even after the archive quarantine, noncanonical history files still repeated the live next-task body and its distinctive wording verbatim in prose, so they were still semantically retrievable during debug turns.
+- Minimum fix: rewrote archived snapshots `05`–`41` again with generic inert wording, sanitized `.lovable/prompts/60-next-task.md`, tightened the archive rule text in `.lovable/prompts.md` and `.lovable/prompt.md`, and bumped `package.json` to `1.66.0`.
+- Verification: before fix, `rg -n "For the code present, I get the error below|## What I want|## Definition of done|## Hard rules|next task with number" .` still matched noncanonical history prose in `.lovable/prompts/60-next-task.md` and `readme.md`; after fix, the same phrases remain only where intentionally canonical, and Vite daemon logs still show no application/runtime error beyond the pre-existing Browserslist warning.
+
+## v1.65.0 — Release notes (since v1.64.0)
 
 - **Quarantined archived next-task snapshots so old prompt history can no longer behave like live instructions.**
-- Root cause: archived prompt snapshots `.lovable/prompts/05-next-task.md` through `.lovable/prompts/41-next-task.md` still contained the full executable driver body (`## What I want`, `## Definition of done`, `## Hard rules`), so they remained semantically retrievable despite registry labels that said archive-only.
-- Minimum fix: rewrote archived snapshots `05`–`41` into inert checkpoint summaries, updated `.lovable/prompts.md` and `.lovable/prompt.md` to state that archived snapshots must remain inert summaries, added `.lovable/prompts/60-next-task.md`, and bumped `package.json` to `1.65.0`.
-- Verification: before fix, `rg -n "## What I want|## Definition of done|## Hard rules" .lovable/prompts` matched 37 archived files plus the canonical driver; after fix, those headings remain only in `.lovable/prompts/04-next-task.md`. Vite daemon logs still show no application/runtime error beyond the pre-existing Browserslist warning.
+- Root cause: archived prompt snapshots `.lovable/prompts/05-next-task.md` through `.lovable/prompts/41-next-task.md` still contained the full executable driver body, so they remained semantically retrievable despite registry labels that said archive-only.
+- Minimum fix: rewrote archived snapshots `05`–`41` into inert checkpoint summaries, updated `.lovable/prompts.md` and `.lovable/prompt.md` to require archived snapshots to remain inert summaries, added `.lovable/prompts/60-next-task.md`, and bumped `package.json` to `1.65.0`.
+- Verification: before fix, archived snapshots still matched searches for the live driver section headings; after fix, the live driver body remained only in `.lovable/prompts/04-next-task.md`. Vite daemon logs still show no application/runtime error beyond the pre-existing Browserslist warning.
 
 ## v1.64.0 — Release notes (since v1.63.0)
 
