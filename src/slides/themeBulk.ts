@@ -74,10 +74,11 @@ export function parseThemeBundle(raw: unknown): ThemeBundle {
   return b as ThemeBundle;
 }
 
-/** Install every theme in a bundle. Returns the count actually installed. */
+/** Install every custom theme in a bundle (built-ins are skipped — they already exist). Returns the count installed. */
 export function installAllThemes(bundle: ThemeBundle): number {
   let installed = 0;
   for (const theme of bundle.themes) {
+    if (BUILTIN_IDS.has(theme.id)) continue;
     installThemeManifest({ manifestVersion: 1, exportedAt: bundle.exportedAt, theme });
     installed++;
   }
