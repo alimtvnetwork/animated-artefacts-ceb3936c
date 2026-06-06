@@ -1,6 +1,6 @@
 ---
 Slug: slide-types-catalog
-Status: pending
+Status: done (impl 2026-06-06 v1.17.0 — 10 missing types added to 23-slide-type-contracts.md required-fields table)
 Created: 2026-06-06
 Parent: 01-slide-system-export-llm-overhaul
 ---
