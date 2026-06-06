@@ -516,4 +516,5 @@ export const SLIDE_TYPE_KEYS: SlideTypeValue[] = [
   'SessionOutlineSlide',
   'FullBleedImageSlide',
   'SplitMediaSlide',
+  'MediaGridSlide',
 ];
