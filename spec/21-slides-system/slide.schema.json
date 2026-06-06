@@ -489,6 +489,8 @@
         "image":     { "type": "string", "description": "Spec 31 — optional per-step thumbnail src (asset slug, relative path, SVG/Base64/data URI). Rendered beside the row by StepTimeline-family slides; StepsChain3D ignores it by design." },
         "imageRole": { "type": "string", "description": "Spec 31 — slot hint for `image` (e.g. \"inlineThumbnail\"). Resolved by the shared image-slot resolver." }
       }
+    },
+    "ContactRow": {
       "type": "object",
       "required": ["icon", "text"],
       "additionalProperties": false,
