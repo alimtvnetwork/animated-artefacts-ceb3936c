@@ -166,13 +166,16 @@ export function ImportExportSubmenu({
 
   return (
     <>
-      <button type="button" onClick={() => setExpanded((v) => !v)} aria-expanded={expanded} className={itemClass}>
-        <Package className="h-4 w-4" />
-        <span className="flex-1">Import / Export</span>
-        <ChevronRight className={`h-3.5 w-3.5 opacity-60 transition-transform ${expanded ? 'rotate-90' : ''}`} />
-      </button>
+      {!bare && (
+        <button type="button" onClick={() => setExpanded((v) => !v)} aria-expanded={expanded} className={itemClass}>
+          <Package className="h-4 w-4" />
+          <span className="flex-1">Import / Export</span>
+          <ChevronRight className={`h-3.5 w-3.5 opacity-60 transition-transform ${expanded ? 'rotate-90' : ''}`} />
+        </button>
+      )}
       {expanded && (
-        <div className="ml-2 border-l border-[hsl(var(--chrome-border))] pl-2">
+        <div className={bare ? '' : 'ml-2 border-l border-[hsl(var(--chrome-border))] pl-2'}>
+
           <div className={labelClass}>Slides</div>
           <input ref={slideImportRef} type="file" accept="application/json,.json" className="hidden" onChange={(e) => { const f = e.target.files?.[0]; if (f) handleSlideImportFile(f); }} />
           <button type="button" onClick={() => slideImportRef.current?.click()} className={itemClass}><Upload className="h-4 w-4" /><span className="flex-1">Import JSON (single)</span></button>
