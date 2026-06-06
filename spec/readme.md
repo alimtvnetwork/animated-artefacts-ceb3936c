@@ -51,7 +51,7 @@ Runtime decks live in `front-end/project/<slug>/data/`. `?deck=<slug>` loads one
 | Slug | Slides | Spec folder | Notes |
 |------|-------:|-------------|-------|
 | `showcase` | 8 | ✅ `26-slide-definitions/showcase/` | Primary Riseup Asia deck |
-| `image-examples` | 11 | ✅ `26-slide-definitions/image-examples/` | Image/SVG/Base64 + step-thumb + gallery demos |
+| `image-examples` | 16 | ✅ `26-slide-definitions/image-examples/` | Image/SVG/Base64 + step-thumb + gallery + GIF/SVG callout demos |
 | `inside-studio` | 24 | ✅ `26-slide-definitions/inside-studio/` | |
 | `session-4-ai-coding` | 14 | ✅ `26-slide-definitions/session-4-ai-coding/` | |
 | `sample` | 4 | ✅ `26-slide-definitions/sample/` | Minimal smoke deck |

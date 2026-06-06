@@ -1,0 +1,20 @@
+{
+  "slideNumber": 15,
+  "slideName": "gif-loop",
+  "slideType": "GifLoopSlide",
+  "transition": "FadeIn",
+  "textAnimation": "SlideUp",
+  "enabled": true,
+  "isClickReveal": false,
+  "showBrandHeader": true,
+  "showPresenterChip": false,
+  "titleStyle": "white",
+  "content": {
+    "image": "/assets/examples/loop.gif",
+    "poster": "/assets/examples/photo.png",
+    "eyebrow": "ANIMATED MEDIA",
+    "title": "Loop with a freeze-frame fallback",
+    "caption": "Reduced-motion swaps the GIF for the poster.",
+    "freezeOnReducedMotion": true
+  }
+}

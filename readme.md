@@ -143,7 +143,14 @@ let's start now 2026-06-06 15:46
 
 let's start now 2026-06-06 16:42
 
-## v1.79.0 — Release notes (since v1.78.0) — CURRENT
+## v1.80.0 — Release notes (since v1.79.0) — CURRENT
+
+- **Added real `GifLoopSlide` + `SvgDiagramSlide` samples to the `image-examples` deck (plan 05, step 2).** The maintained example deck now includes slides 15–16 plus spec-first JSON+MD pairs, so the two newest media types have concrete regression baselines instead of existing only as runtime components.
+- Root cause (one sentence): `GifLoopSlide` and `SvgDiagramSlide` were implemented in runtime and validation, but the spec-first `image-examples` deck still stopped at slide 14, leaving no maintained sample coverage for animated-media and SVG-callout authoring.
+- Files: `front-end/project/image-examples/data/slides/15-gif-loop.json`, `.../16-svg-diagram.json`, `public/assets/examples/loop.gif`, `spec/26-slide-definitions/image-examples/15-gif-loop.{json,md}`, `.../16-svg-diagram.{json,md}`, manifest update in `front-end/project/image-examples/data/slides.json`, deck inventory/readme updates in `spec/readme.md` and `spec/26-slide-definitions/image-examples/readme.md`, prompt snapshot `75-next-task.md`.
+- Verified: `bunx vitest run src/test/imageExamplesDeck.test.ts src/test/manifestKeyCasing.test.ts` → 9 passed; initial signal was empty (`read_runtime_errors`: none, `read_console_logs`: none), confirming this was a missing-coverage task rather than a live app crash.
+
+## v1.79.0 — Release notes (since v1.78.0)
 
 - **Closed the validation gap for the 5 new media/diagram types (plan 05, step 1).** `FullBleedImageSlide`, `SplitMediaSlide`, `MediaGridSlide`, `GifLoopSlide`, and `SvgDiagramSlide` are now first-class in the boot-time zod contract and the JSON Schema — bad JSON for these types fails fast with a slide number instead of being silently rejected/falling back.
 - Root cause (one sentence): these types rendered via `SlideStage` but were never added to `SlideContract`'s discriminated union, so authoring them produced an "invalid discriminator" contract error at load with no per-type field guidance.

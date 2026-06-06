@@ -69,6 +69,14 @@
     {
       "title": "media-grid",
       "path": "./slides/14-media-grid.json"
+  },
+  {
+    "title": "gif-loop",
+    "path": "./slides/15-gif-loop.json"
+  },
+  {
+    "title": "svg-diagram",
+    "path": "./slides/16-svg-diagram.json"
     }
   ]
 }
