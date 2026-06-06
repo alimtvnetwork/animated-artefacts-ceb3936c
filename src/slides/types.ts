@@ -588,6 +588,12 @@ export interface SlideContent {
    */
   mediaSide?: 'left' | 'right';
   /**
+   * `MediaGridSlide` — 2–6 image/SVG tiles with optional captions. Layout
+   * auto-derives from the count (2→1×2, 3→1×3, 4→2×2, 5/6→2×3). Density cap
+   * `capTiles` (≤6) enforced via `densityCheck`.
+   */
+  mediaTiles?: MediaTileSpec[];
+  /**
    * Live meeting URL encoded into the QR. Per-slide override of `deck.meeting.url`.
    * When set (and no `qrAsset`/explicit src is provided), `BrandedQR` generates
    * the QR client-side from this URL.
