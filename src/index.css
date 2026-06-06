@@ -1013,6 +1013,15 @@ a.tile-card:focus-visible {
   [data-theme='noir-gold'] {
     --chrome-border-strength: 0.26;        /* warm but desaturated antique gold */
   }
+  /* think-yellow's slide --background is pure black (0 0% 0%), so the pill's
+     7% chrome-bg and dark drop-shadow give almost no edge separation. Lift the
+     pill surface a touch and strengthen the gold hairline so it reads as a
+     distinct chip on pure black. */
+  [data-theme='think-yellow'] {
+    --chrome-bg: 0 0% 11%;
+    --chrome-border-strength: 0.4;
+    --chrome-divider-strength: 0.18;
+  }
 
   /* ─── Light-theme corrections ──────────────────────────────────────────
      Several capsule + bloom tokens were authored for the noir base and
