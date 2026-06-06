@@ -449,6 +449,18 @@ export const SLIDE_TYPE_SCHEMAS: Record<SlideTypeValue, SlideTypeSchema> = {
       ],
     } as unknown as Partial<SlideContent>,
   },
+  FullBleedImageSlide: {
+    label: 'Full-bleed image',
+    blurb: 'Edge-to-edge hero image/GIF with legibility scrim and overlaid eyebrow + title + caption.',
+    fields: ['eyebrow', 'title', 'caption', 'image'],
+    defaults: {
+      eyebrow: 'CHAPTER',
+      title: 'The photo is the slide',
+      caption: 'One quiet line of context.',
+      image: '/placeholder.svg',
+      scrim: 'bottom',
+    },
+  },
 };
 
 /** Ordered list of slide-type keys for the picker. */
