@@ -25,6 +25,7 @@ import { SlideIndicator } from './SlideIndicator';
 import { DeckMenu } from './DeckMenu';
 import { ThemeMenu } from './ThemeMenu';
 import { ImportExportSubmenu } from './ImportExportSubmenu';
+import { ImportExportMenu } from './ImportExportMenu';
 import { writeThemeDebugFlag } from '../manifest';
 import { KeyboardShortcutsDialog } from './KeyboardShortcutsDialog';
 import { OnboardingCoachmark } from './OnboardingCoachmark';
