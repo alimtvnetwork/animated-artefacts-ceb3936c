@@ -1,6 +1,6 @@
 ---
 Slug: import-export-menu-tree
-Status: pending
+Status: done (impl 2026-06-06 v1.14.0 — structured ImportExportSubmenu)
 Created: 2026-06-06
 Parent: 01-slide-system-export-llm-overhaul
 ---
@@ -33,3 +33,13 @@ Single top-level node "Import / Export" with grouped submenus.
 - All exports are authoring-only; never mutate bundled deck JSON.
 - Labels standardized in step 43 of parent plan.
 - Each handler wraps work in try/catch and logs via src/lib/errors.ts.
+
+## Implementation note (2026-06-06)
+- Implemented in `src/slides/controls/ImportExportSubmenu.tsx` and wired from
+  `src/slides/controls/ControllerBar.tsx`.
+- Current working rows reuse existing flows: deck JSON import/export → `DeckMenu`,
+  theme import/export → `ThemeMenu`, deck PDF → `runExport('pdf-rgb')`, authoring
+  guide download/copy → `llmGuideBundle`.
+- Still-planned rows are rendered as explicit `Soon` entries with logging + toast
+  feedback, so the menu tree exists now without silently pretending unfinished
+  paths are complete.
