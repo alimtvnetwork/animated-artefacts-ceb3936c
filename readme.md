@@ -164,7 +164,7 @@ let's start now 2026-06-06 15:46
 - New `.lovable/prompts/16-next-task.md`: saved this iteration per the workflow rule.
 - Verification: before fix, `rg -n "latest \"next task\" driver|15-next-task|# 15|v1\.20\.0|v1\.21\.0" .lovable readme.md` showed `.lovable/prompts.md` still calling `05-next-task.md` the latest driver and `15-next-task.md` opening with `# 14`. After fix, the registry points to `16-next-task.md`, `15-next-task.md` is correctly numbered, and Vite logs remain free of app errors (only the pre-existing Browserslist staleness warning remains).
 
-## v1.20.0 — Release notes (since v1.19.0) — CURRENT
+## v1.20.0 — Release notes (since v1.19.0)
 
 **Wired three "Soon" Import/Export menu rows to real functionality (plan step — `02-import-export-menu-tree.md`).** Root cause: `src/slides/controls/ImportExportSubmenu.tsx` rendered "Export JSON (current slide)", "Import themes (all)", and "Export themes (all)" as `Soon`-badged stubs calling `planned()` (toast only), even though the underlying primitives (`findBySlideNumber`, `buildThemeManifest`, `installThemeManifest`) already shipped — so the rows were dead UI.
 
