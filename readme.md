@@ -132,6 +132,25 @@ This README also carries the same guidance inline — see **[📂 Folder structu
 
 let's start now 2026-04-30 12:00
 
+## v1.4.0 — Release notes (since v1.2.0) — CURRENT
+
+Schema-drift closeout. `spec/21-slides-system/slide.schema.json` is now back in sync with the runtime contracts in `src/slides/contracts.ts` (the documented source of truth). No runtime behavior changes — decks render identically.
+
+### Root cause
+
+The JSON authoring schema had drifted from the runtime zod contracts: every per-slideType content contract in `contracts.ts` uses `.passthrough()` (extra `content.*` fields allowed), but `slide.schema.json` declared `content.additionalProperties: false` and never modeled the fields added for newer slide types (NumberCallout/Equation/DataTable/Checklist/Tile/SessionOutline/BlastRadius — `number`, `tex`, `dataColumns`, `items`, `tiles`, `kicker`, `activeIndex`, etc.) nor the spec-31 per-step thumbnail (`Step.image` / `Step.imageRole`). The schema therefore rejected JSON the renderer happily accepts.
+
+### Fix (minimum correct change)
+
+- `content.additionalProperties` flipped `false → true` to mirror the runtime `.passthrough()` semantics.
+- `Step` definition gained `image` + `imageRole` (spec 31 per-step thumbnail) so step rows with thumbnails validate.
+
+### Verification
+
+- `schema.test.ts` (6) + `exportSchemas.test.ts` (3) green; full suite **898/898** across 65 files.
+- Ad-hoc Ajv run over every full-deck slide envelope: 0 failures.
+- Spec-confidence boot log unchanged at `100/100 (excellent) — field:0 motion:0`.
+
 ## v1.2.0 — Release notes (since v1.1.0)
 
 Polish + accessibility + presenter-tools release. Five user-visible features ship together: a daytime light theme, a manual reduced-motion override, in-browser slide telemetry, presenter-cam auto-frame face tracking, and the privacy-first `/analytics` review page. Zero breaking changes — every existing deck JSON renders identically, and every new feature is opt-in.

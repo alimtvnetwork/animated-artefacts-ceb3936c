@@ -297,7 +297,7 @@
           }
         }
       },
-      "additionalProperties": false
+      "additionalProperties": true
     }
   },
   "definitions": {
@@ -485,10 +485,11 @@
           "type": "string",
           "enum": ["fade", "slide", "pushLeft", "timelineLand"],
           "description": "Per-step reveal SHAPE — independent of `enter` (which controls tempo). 'fade' = opacity only; 'slide' = legacy x:-24→0 + fade; 'pushLeft' = enter from the right (x:+24→0 + fade); 'timelineLand' = cinematic lands-onto-guide reveal (no longer requires leftOffsetPx > 0). Omit for legacy auto: leftOffsetPx>0 ⇒ timelineLand, else slide. Spec 53."
-        }
+        },
+        "image":     { "type": "string", "description": "Spec 31 — optional per-step thumbnail src (asset slug, relative path, SVG/Base64/data URI). Rendered beside the row by StepTimeline-family slides; StepsChain3D ignores it by design." },
+        "imageRole": { "type": "string", "description": "Spec 31 — slot hint for `image` (e.g. \"inlineThumbnail\"). Resolved by the shared image-slot resolver." }
       }
     },
-    
     "ContactRow": {
       "type": "object",
       "required": ["icon", "text"],
