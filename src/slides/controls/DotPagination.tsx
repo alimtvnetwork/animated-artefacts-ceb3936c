@@ -58,24 +58,15 @@ export function DotPagination({ current, total, slides, onJump }: Props) {
       className="fixed bottom-6 left-1/2 -translate-x-1/2 z-30 pointer-events-auto"
       style={{ maxWidth }}
     >
-      <div
-        className={`flex items-center gap-1.5 px-4 py-1 no-scrollbar ${
-          overflow ? 'overflow-x-auto' : 'overflow-visible'
-        }`}
-        style={{
-          maskImage: overflow
-            ? 'linear-gradient(to right, transparent 0, black 24px, black calc(100% - 24px), transparent 100%)'
-            : undefined,
-          WebkitMaskImage: overflow
-            ? 'linear-gradient(to right, transparent 0, black 24px, black calc(100% - 24px), transparent 100%)'
-            : undefined,
-        }}
-      >
-        {Array.from({ length: total }, (_, i) => {
-          const n = i + 1;
+      <div className="flex items-center gap-1.5 px-4 py-1 no-scrollbar overflow-visible">
+        {tokens.map((token, i) => {
+          if (token === 'gap') {
+            return <GapToken key={`gap-${i}`} onJump={onJump} tokens={tokens} index={i} />;
+          }
+          const n = token;
           const isActive = n === current;
           const isHover = hovered === n;
-          const slide = slides[i];
+          const slide = slides[n - 1];
           const titleText =
             slide?.content?.title ?? slide?.content?.eyebrow ?? slide?.slideName ?? '';
 
