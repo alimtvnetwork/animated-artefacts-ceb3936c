@@ -134,7 +134,17 @@ let's start now 2026-04-30 12:00
 
 let's start now 2026-06-06 15:46
 
-## v1.14.0 — Release notes (since v1.13.0) — CURRENT
+## v1.15.0 — Release notes (since v1.14.0) — CURRENT
+
+**Single-slide PDF export is now real (plan step 3 — `03-pdf-export.md`).** Root cause: "Export current slide to PDF" in `src/slides/controls/ImportExportSubmenu.tsx` was a `Soon` stub calling `planned()`, and `HandoutPage` only supported full-deck (`?print`, `?cmyk`, `?reveals`) — there was no way to scope the print route to one slide.
+
+- `src/pages/HandoutPage.tsx`: added `?slide=N` parsing (`onlySlide`) and made `slidesForHandout` return just the matching `slideNumber` from `allSlides` (so click-reveal children are addressable too); single-slide scope wins over reveals/deck.
+- `src/slides/export.ts`: added `exportSlidePdf(slideNumber, { cmyk? })` — opens `/handout?print=1&slide=N`, logs the URL, throws on a non-finite slide number.
+- `src/slides/controls/ImportExportSubmenu.tsx`: wired the row to `handleSlidePdf()` (try/catch + toast on failure) and dropped its `Soon` badge.
+- Verification: Vite logs clean (no TS/runtime errors) after the edits; `?slide=N` is the minimum change tied to the missing single-slide scope rather than a new dependency.
+
+## v1.14.0 — Release notes (since v1.13.0)
+
 
 **Controller hamburger: Import / Export is now the planned structured submenu (plan step 4).** Root cause: `src/slides/controls/ControllerBar.tsx` still rendered a flat two-item LLM-guide block under an `Import / Export` heading, so the controller did not match the required tree in `.lovable/spec/commands/02-import-export-and-debug-menus.md` and `.lovable/plans/subtasks/01-slide-system-export-llm-overhaul/02-import-export-menu-tree.md`.
 
