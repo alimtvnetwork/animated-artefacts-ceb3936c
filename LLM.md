@@ -111,6 +111,7 @@
     - `FullBleedImageSlide`: `{ eyebrow?, title?, subtitle?, image, scrim? }` (edge-to-edge hero + scrim)
     - `SplitMediaSlide`: `{ eyebrow?, title, image, mediaSide?: 'left'|'right', keywords?, capsules? }`
     - `MediaGridSlide`: `{ eyebrow?, title, mediaTiles: [{ src, caption? }] }` (2–6 tiles)
+    - `GifLoopSlide`: `{ eyebrow?, title?, caption?, image, poster?, freezeOnReducedMotion? }` (looping GIF; poster shown under reduced-motion)
     - Diagram/table/code/metric types (`TableSlide`, `CodeBlockSlide`, `MetricGridSlide`, `LayoutSlide`, etc.) have richer `content` fields — see `spec/21-slides-system/llm/06-json-authoring-cheatsheet.md` + `27a–27d`.
 12. **Step object (StepTimelineSlide):**
     ```json
