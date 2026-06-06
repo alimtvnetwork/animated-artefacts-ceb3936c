@@ -136,7 +136,13 @@ let's start now 2026-06-06 15:46
 
 let's start now 2026-06-06 16:42
 
-## v1.34.0 — Release notes (since v1.33.0) — CURRENT
+## v1.35.0 — Release notes (since v1.34.0) — CURRENT
+
+**Backlog confirmed drained; no code-actionable step remains this cycle.** Both plans are in `.lovable/plans/completed/`; `quality/audit/remediation-plan.md` shows every item ✅ except **M-01** (`#32` collapsible-sections + progress surface ambiguity), which is blocked on a user decision and gated by no-questions mode. Rather than fabricate work, this iteration is a clean closeout.
+- `.lovable/prompts/30-next-task.md`: saved driver snapshot; `.lovable/prompts.md` + `.lovable/prompt.md` synced (`29` archived, `30` latest).
+- `package.json`: bumped to `1.35.0`.
+
+## v1.34.0 — Release notes (since v1.33.0)
 
 **Closed the last stale pending plan; backlog is now drained.** Root cause: `01-slide-system-export-llm-overhaul` was a spec-only plan whose 7 subtask deliverables AND the implementation they describe already ship, so it was never moved out of `pending/`.
 - Evidence: `spec/21-slides-system/02-controller.md` §Position matches `src/slides/controls/ControllerBar.tsx:147` (`fixed top-6 right-6`); export/import via `src/slides/{export,exportPptx,exportSchemas,slideJsonImport,zipBundle}.ts`; `src/slides/controls/ImportExportSubmenu.tsx`; `spec/llm-guideline/01..09`; `src/pages/BuilderPage.tsx`.
