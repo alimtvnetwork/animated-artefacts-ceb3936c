@@ -110,17 +110,16 @@ export function buildLlmGuideMarkdown(opts: LlmGuideBuildOptions = {}): string {
       })
       .join('');
 
-  const llmFiles = concat(llmMarkdownFiles);
-  const guidelineFiles = concat(guidelineMarkdownFiles);
-
   const themeSummary = summarizeTheme(preset);
   const themeJson = JSON.stringify(preset, null, 2);
 
-  return `# LLM Slide-Authoring Guide
-> Self-contained kit for authoring new slides for **${deckName}**.
+  return `# LLM Slide-Authoring Guide (slide content only)
+> Self-contained kit for authoring slides for **${deckName}**.
 > Paste this entire document into any LLM (ChatGPT, Claude, Gemini, …) and
-> ask it to produce one self-contained deck manifest JSON by default. The schema,
-> enums, design tokens, and step-by-step recipes below are the complete contract.
+> ask it to produce slide JSON. This guide covers ONLY slide content: the JSON
+> shape, every slide type, single-vs-multi-slide output, and how to embed
+> images (SVG / Base64 / data URI). It deliberately contains NO project
+> workflow or "how to work" process material.
 
 \`\`\`yaml
 generated:    ${date}
@@ -133,12 +132,13 @@ catalogSource: spec/21-slides-system/llm/CATALOG.json
 
 ---
 
-## 0 · Fast path (root \`LLM.md\`)
+## 0 · Always write your output to the filesystem first
 
-The concise, self-contained 30-step authoring playbook. Read this first; the
-schema, catalog, and deep packs below are the reference material it points to.
-
-${rootGuideRaw.trim()}
+Before returning anything, WRITE your slide JSON to a file in the project's
+filesystem. If you have not been told where slide/memory files should live,
+default to the **\`.lovable/\`** folder. Only after the file is written should
+you report what you produced. Never return slide JSON as chat-only text when a
+filesystem is available.
 
 ---
 
@@ -190,53 +190,35 @@ ${catalogRaw.trim()}
 
 ---
 
-## 4 · Blind-follow modification pack — \`spec/llm-guideline/\`
+## 4 · Slide authoring guide (JSON shape, types, single/multi, images)
 
-A short, self-contained recipe book for **modifying** a slide's JSON (change
-text, center, resize a title, edit the header, add capsules, attach a
-click-reveal). Read this first when the task is an edit; use §5 for deep system
-detail when authoring something new.
-${guidelineFiles}
+The complete slide-authoring contract: the manifest envelope, a worked sample
+for every slide type, how to output a single slide vs many slides in one JSON,
+and how to embed images as SVG / Base64 / data URI.
 
----
-
-## 5 · Authoring pack — \`spec/21-slides-system/llm/\`
-
-The remainder of this document is every Markdown file from the canonical
-LLM authoring pack, concatenated in numeric order. Read \`00-readme.md\`
-first; the rest is reference material referenced from there.
-${llmFiles}
+${simplifiedGuideRaw.trim()}
 
 ---
 
-## 6 · What to output
+## 5 · What to output
 
-When the human asks you to author a slide:
+When the human asks you to author slides:
 
-1. **Default deliverable: one manifest JSON for the whole deck.** Put deck
-   metadata in \`deck\` and inline every slide in \`slides[]\` in display order.
-   Use embedded Base64 data URIs or inline SVG for images when the output must
-   be portable across projects.
-2. **Only emit one JSON file per slide when the human explicitly asks to edit
-   the repo's on-disk runtime files.** In that repo-maintenance mode, use the
-   filename pattern \`NN-kebab-case-name.json\` where \`NN\` is the zero-padded
-   slide number.
-3. **Validate against the schema** in §2 mentally before responding. Required
-   fields by \`slideType\` are spelled out in \`23-slide-type-contracts.md\`.
-4. **Keywords-only content rule** — slides are visual anchors, NOT
-   paragraphs. The presenter narrates; the slide shows 3-7 keywords or
-   capsules. Never write prose blocks into \`content.body\` etc.
-5. **Use enum values, never hex colors.** Theme tokens already encode the
-   visual identity (see §1).
-6. **Pick from the catalog** in §3 for transitions, text animations,
-   capsule colors, and step motion variants. Vary them across the deck —
-   monotony is a smell.
+1. **Write the JSON to the filesystem first** (default \`.lovable/\` — see §0).
+2. **Default deliverable: one manifest JSON** with deck metadata plus every
+   slide inlined in \`slides[]\` in display order. To output a single slide,
+   emit just that one slide object in the same shape.
+3. **Embed images** as inline \`<svg>\` or Base64 data URIs so the file is
+   portable — never path references.
+4. **Validate against the schema** in §2 mentally before responding.
+5. **Keywords-only content** — slides are visual anchors, not paragraphs.
+6. **Use enum values, never hex colors**, and **pick transitions / text
+   animations / capsule colors from the catalog** in §3, varying them.
 
 ---
 
-*End of LLM guide. ${Object.keys(guidelineMarkdownFiles).length} guideline files +
-${Object.keys(llmMarkdownFiles).length} pack files +
-schema + catalog + theme \`${themeId}\` bundled on ${date}.*
+*End of slide-authoring guide. Simplified guide + schema + catalog + theme
+\`${themeId}\` bundled on ${date}.*
 `;
 }
 
