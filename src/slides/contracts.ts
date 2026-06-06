@@ -504,6 +504,11 @@ export const SlideContract = z.discriminatedUnion('slideType', [
   make('TileSlide', TileContent),
   make('BlastRadiusSlide', BlastRadiusContent),
   make('SessionOutlineSlide', SessionOutlineContent),
+  make('FullBleedImageSlide', FullBleedImageContent),
+  make('SplitMediaSlide', SplitMediaContent),
+  make('MediaGridSlide', MediaGridContent),
+  make('GifLoopSlide', GifLoopContent),
+  make('SvgDiagramSlide', SvgDiagramContent),
 ]);
 
 export interface SlideValidationIssue {
