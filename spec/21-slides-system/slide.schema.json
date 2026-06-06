@@ -10,9 +10,6 @@
     "slideType",
     "transition",
     "textAnimation",
-    "isClickReveal",
-    "showBrandHeader",
-    "showPresenterChip",
     "content"
   ],
   "additionalProperties": false,
