@@ -54,6 +54,11 @@ export const REQUIRED_FIELDS: Record<string, readonly string[]> = {
   TileSlide:             ['title', 'tiles'],
   BlastRadiusSlide:      ['title'],
   SessionOutlineSlide:   ['title', 'items'],
+  FullBleedImageSlide:   ['image'],
+  SplitMediaSlide:       ['title', 'image'],
+  MediaGridSlide:        ['title', 'mediaTiles'],
+  GifLoopSlide:          ['image'],
+  SvgDiagramSlide:       ['svgMarkup|image'], // any-of
 } as const;
 
 // ---------- Shared sub-contracts ----------
