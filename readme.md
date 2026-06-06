@@ -132,7 +132,21 @@ This README also carries the same guidance inline — see **[📂 Folder structu
 
 let's start now 2026-04-30 12:00
 
-## v1.7.0 — Release notes (since v1.6.0) — CURRENT
+## v1.8.0 — Release notes (since v1.7.0) — CURRENT
+
+**Controller moved to top-right (implementation).** Relocated `ControllerBar`
+from bottom-right to top-right per `.lovable/spec/commands/01-controller-top-right.md`.
+- `src/slides/controls/ControllerBar.tsx`:
+  - Wrapper (L145): `bottom-6 right-6 items-end pt-4` → `top-6 right-6 items-start pb-4`.
+  - Theme/Share/Deck popovers (L326): `bottom-full mb-3` → `top-full mt-3` (open downward).
+  - Hamburger anchor (`recomputeAnchor`): `{ bottom: innerHeight - r.top }` →
+    `{ top: r.bottom + 8 }`; panel `style` (L502) `bottom` → `top`. Anchor type
+    updated `{ bottom; right }` → `{ top; right }` (fixes TS2339 build error).
+- Spec `spec/21-slides-system/02-controller.md` Position section already updated in v1.7.0.
+- Build: TS2339 (`Property 'bottom' does not exist`) resolved; no stale
+  bottom-anchor references remain (grep clean).
+
+## v1.7.0 — Release notes (since v1.6.0)
 
 **Controller relocation — spec + audit (plan steps 1–2).** Began the
 slide-system/export overhaul (`.lovable/plans/pending/01-slide-system-export-llm-overhaul.md`).
