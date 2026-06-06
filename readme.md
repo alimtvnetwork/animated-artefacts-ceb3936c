@@ -136,7 +136,15 @@ let's start now 2026-06-06 15:46
 
 let's start now 2026-06-06 16:42
 
-## v1.29.0 — Release notes (since v1.28.0) — CURRENT
+## v1.30.0 — Release notes (since v1.29.0) — CURRENT
+
+**Wrote the 20-step slide-type remediation execution plan.** Root cause: the remediation backlog in `quality/audit/remediation-plan.md` (four missing slide types + enum/CATALOG bump + Phase 2/3 guards) had no execution plan on disk, so the work kept being re-described in chat instead of tracked. This is a spec/plan turn — no code executed.
+- `.lovable/plans/pending/02-slide-type-remediation-execution.md`: new 20-step plan covering A-01 → B-01..B-06 → A-02..A-04 → M-01..M-05, with prior pending task `01-...` appended.
+- `.lovable/plans/subtasks/02-slide-type-remediation-execution/{01-database-diagram-slide,02-equation-slide}.md`: depth specs for the two heaviest steps.
+- `.lovable/prompts/25-next-task.md`: saved this iteration’s driver snapshot; `.lovable/prompts.md` + `.lovable/prompt.md` synced (`24` archived, `25` latest).
+- `package.json`: bumped to `1.30.0`.
+
+## v1.29.0 — Release notes (since v1.28.0)
 
 **Fixed the recurring next-task prompt registry drift.** Root cause: the repo’s prompt metadata was internally contradictory — `.lovable/prompt.md` still labeled `04-next-task.md` as **always-on** and still pointed at `19-next-task.md` as the latest saved snapshot, while `.lovable/prompts.md` had already advanced to `23-next-task.md`; that stale registry made the repeated “error” payload look like an active system instruction instead of an on-demand driver.
 - `.lovable/prompt.md`: synced the top-level pointer with the real snapshot history (`19`–`23` archived, `24` latest) and changed `04-next-task.md` from `always-on` to `on-demand canonical driver`.

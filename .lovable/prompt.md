@@ -17,7 +17,8 @@ each prompt has its full spec in **`.lovable/prompts/`**.
 | 21 | [prompts/21-next-task.md](./prompts/21-next-task.md) | `next task (v5)`, `next N steps or tasks`, `next task with number` | archived snapshot |
 | 22 | [prompts/22-next-task.md](./prompts/22-next-task.md) | `next task (v5)`, `next N steps or tasks`, `next task with number` | archived snapshot |
 | 23 | [prompts/23-next-task.md](./prompts/23-next-task.md) | `next task (v5)`, `next N steps or tasks`, `next task with number` | archived snapshot |
-| 24 | [prompts/24-next-task.md](./prompts/24-next-task.md) | `next task (v5)`, `next N steps or tasks`, `next task with number` | latest saved snapshot |
+| 24 | [prompts/24-next-task.md](./prompts/24-next-task.md) | `next task (v5)`, `next N steps or tasks`, `next task with number` | archived snapshot |
+| 25 | [prompts/25-next-task.md](./prompts/25-next-task.md) | `next task (v5)`, `next N steps or tasks`, `next task with number` | latest saved snapshot |
 
 > Project layout reconciliation: this repo uses `.lovable/prompts.md` as the
 > registry index (not `prompts/index.md`) and `.lovable/memory/` (never
