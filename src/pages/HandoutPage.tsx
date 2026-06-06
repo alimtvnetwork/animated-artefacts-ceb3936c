@@ -64,6 +64,11 @@ export default function HandoutPage() {
   // children by authoring convention) so handout flow mirrors the live
   // click-through.
   const wantReveals = params.get('reveals') === '1';
+  // v1.15.0 — `?slide=N` scopes the handout to a SINGLE slide (by slideNumber)
+  // so "Export current slide to PDF" produces a one-page document instead of
+  // the whole deck. Invalid/missing → render the full deck (back-compat).
+  const rawSlide = params.get('slide');
+  const onlySlide = rawSlide !== null && Number.isFinite(Number(rawSlide)) ? Number(rawSlide) : null;
 
   // v0.156 — handout footer customisation. Subscribe to preset settings so
   // tweaks in /settings live-update this preview without a refresh. The
