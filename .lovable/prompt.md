@@ -31,7 +31,18 @@ each prompt has its full spec in **`.lovable/prompts/`**.
 | 35 | [prompts/35-next-task.md](./prompts/35-next-task.md) | archive only — do not match/load | archived snapshot |
 | 36 | [prompts/36-next-task.md](./prompts/36-next-task.md) | archive only — do not match/load | archived snapshot |
 | 37 | [prompts/37-next-task.md](./prompts/37-next-task.md) | archive only — do not match/load | archived snapshot |
-| 38 | [prompts/38-next-task.md](./prompts/38-next-task.md) | archive only — do not match/load | latest saved snapshot |
+| 38 | [prompts/38-next-task.md](./prompts/38-next-task.md) | archive only — do not match/load | archived snapshot |
+| 39 | [prompts/39-next-task.md](./prompts/39-next-task.md) | archive only — do not match/load | archived snapshot |
+| 40 | [prompts/40-next-task.md](./prompts/40-next-task.md) | archive only — do not match/load | archived snapshot |
+| 41 | [prompts/41-next-task.md](./prompts/41-next-task.md) | archive only — do not match/load | archived snapshot |
+| 42 | [prompts/42-next-task.md](./prompts/42-next-task.md) | archive only — do not match/load | archived snapshot |
+| 43 | [prompts/43-next-task.md](./prompts/43-next-task.md) | archive only — do not match/load | archived snapshot |
+| 44 | [prompts/44-next-task.md](./prompts/44-next-task.md) | archive only — do not match/load | superseded snapshot |
+| 45 | [prompts/45-next-task.md](./prompts/45-next-task.md) | archive only — do not match/load | superseded snapshot |
+| 46 | [prompts/46-next-task.md](./prompts/46-next-task.md) | archive only — do not match/load | superseded snapshot |
+| 47 | [prompts/47-next-task.md](./prompts/47-next-task.md) | archive only — do not match/load | superseded snapshot |
+| 48 | [prompts/48-next-task.md](./prompts/48-next-task.md) | archive only — do not match/load | superseded snapshot |
+| 49 | [prompts/49-next-task.md](./prompts/49-next-task.md) | archive only — do not match/load | latest saved snapshot |
 
 > Project layout reconciliation: this repo uses `.lovable/prompts.md` as the
 > registry index (not `prompts/index.md`) and `.lovable/memory/` (never
