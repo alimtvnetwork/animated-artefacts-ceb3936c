@@ -368,6 +368,8 @@ interface HamburgerProps {
   onToggleTopJumper?: () => void;
   topJumperHidden?: boolean;
   onOpenKeyboardMap: () => void;
+  onOpenDeckTools: () => void;
+  onOpenThemeTools: () => void;
   /** Clears the onboarding flag and re-opens the first-run coachmark. */
   onShowIntro: () => void;
   /** Active slide number — used as the default scope target for the live
@@ -395,6 +397,8 @@ function ControllerHamburger({
   onToggleTopJumper,
   topJumperHidden,
   onOpenKeyboardMap,
+  onOpenDeckTools,
+  onOpenThemeTools,
   onShowIntro,
   currentSlideNumber,
 }: HamburgerProps) {
@@ -551,14 +555,8 @@ function ControllerHamburger({
               itemClass={itemBase}
               labelClass={labelClass}
               onCloseParent={() => onOpenChange(false)}
-              onOpenDeckTools={() => {
-                setDeckToolsOpen(true);
-                setThemeToolsOpen(false);
-              }}
-              onOpenThemeTools={() => {
-                setThemeToolsOpen(true);
-                setDeckToolsOpen(false);
-              }}
+              onOpenDeckTools={onOpenDeckTools}
+              onOpenThemeTools={onOpenThemeTools}
             />
             <div className={sepClass} />
             <DebugSubmenu itemClass={itemBase} labelClass={labelClass} />
