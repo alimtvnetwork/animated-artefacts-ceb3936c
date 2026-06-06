@@ -132,7 +132,32 @@ This README also carries the same guidance inline — see **[📂 Folder structu
 
 let's start now 2026-04-30 12:00
 
-## v1.4.0 — Release notes (since v1.2.0) — CURRENT
+## v1.5.0 — Release notes (since v1.4.0) — CURRENT
+
+Schema-drift closeout, round 2. `spec/21-slides-system/slide.schema.json` is now in parity with the runtime contracts in `src/slides/contracts.ts` and the `SoundKind` union in `src/slides/sound.ts`, so per-slide deck fragments validate against the canonical schema. No runtime behavior changes.
+
+### Root cause
+
+The JSON authoring schema was stricter than the runtime: it (a) listed `isClickReveal`/`showBrandHeader`/`showPresenterChip` in top-level `required` even though the runtime `Envelope` (contracts.ts) requires only `slideNumber/slideName/slideType/transition/textAnimation/content` (52/83 fragments omit `isClickReveal`); (b) required `content.image` for ImageSlide while the runtime `ImageContent` accepts `image` OR `images[]`; (c) typed `Step.description` as string-only while StepsChain3D uses the structured `Step3DDescription` object; (d) capped `sound.kind` to `[whoosh,click,pop]` while `SoundKind` also defines `fadeClick/zoom/fadeZoom`.
+
+### Fix (minimum correct change)
+
+- Top-level `required` trimmed to match the runtime `Envelope`.
+- `ImageSlide` content → `anyOf` `image` | `images`.
+- `Step.description` → `oneOf` string | `{title,bullets[],meta,body}`.
+- `sound.kind` enum extended to the full `SoundKind` union.
+
+### Verification
+
+- Ad-hoc Ajv over all 83 deck fragments: **55 → 4 failures**; the 4 remaining are genuine authoring defects, NOT schema drift (see below).
+- Full suite **898/898** across 65 files; `schema.test.ts` + `exportSchemas.test.ts` green; spec-confidence boot log unchanged at `100/100`.
+
+### Known authoring defects surfaced (deck content, not schema)
+
+- `inside-studio/04-capsules.json` capsule `clickRevealSlide: "click-reveal-process"` — a string is a runtime no-op (`clickRevealAudit.ts` only navigates when `typeof === 'number'`); should be the target slide number.
+- `session-4-ai-coding/{03-recap,06-references,07-about-riseup}.json` capsule `hoverText` exceeds the 28-char label-flip cap.
+
+## v1.4.0 — Release notes (since v1.2.0)
 
 Schema-drift closeout. `spec/21-slides-system/slide.schema.json` is now back in sync with the runtime contracts in `src/slides/contracts.ts` (the documented source of truth). No runtime behavior changes — decks render identically.
 
