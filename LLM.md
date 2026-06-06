@@ -209,6 +209,21 @@ the JSON bundle above. Formats live in `EXPORT_FORMATS`:
   `/handout?slide=N` and auto-prints; it **throws** on an invalid slide
   number so the caller surfaces the failure instead of a blank tab.
 
+### Persistence model (localStorage keys that matter)
+
+Edits and overrides live in `localStorage`, not files. The four keys an
+author/agent must know:
+
+- `riseup.deck.draft.v1` (`DRAFT_DECK_KEY`, `src/builder/draftDeck.ts`) — the
+  Builder's working deck; `useDraftDeck()` reads it on mount.
+- `riseup.deck.imported.v1` (`IMPORTED_MANIFEST_KEY`, `src/slides/loader.ts`) —
+  a ZIP/JSON-imported manifest; the loader prefers it over bundled data.
+- `riseup.themes.custom.v1` (`CUSTOM_THEMES_STORAGE_KEY`,
+  `src/slides/themeManifest.ts`) — imported custom themes.
+- `riseup.theme.byDeck.v1` (`STORAGE_KEY_BY_DECK`, `src/slides/themes.ts`) —
+  per-deck theme pin (slug→id); restores a deck's last theme on reopen.
+
+Clearing these resets to the file-based deck/theme defaults.
 
 
 
