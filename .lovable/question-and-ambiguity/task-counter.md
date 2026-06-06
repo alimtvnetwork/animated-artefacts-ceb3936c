@@ -8,12 +8,13 @@
 
 ## Progress
 
-`0 / 40` — window 3 open
+`1 / 40` — window 3 open
 
 ## Log
 
 | # | Date | Task summary | Ambiguity note |
 |---|------|--------------|----------------|
+| 01 | 2026-06-06 | Reproduced repeated "next task" report with full log-first workflow; no runtime/build/network error surfaced. Preview rendered, focused import regression passed, and only non-blocking React Router/Browserslist warnings were present. Logged missing-error ambiguity instead of making a blind patch. | [64-missing-error-signal-next-task.md](./64-missing-error-signal-next-task.md) |
 | 01 | 2026-04-28 | Clearer StepsChain3D `description` validation error + bullets[] example payload | [01-3d-validation-scope.md](./01-3d-validation-scope.md) |
 | 02 | 2026-04-28 | Slide 3 lattice reduced 30% (dot α 0.14→0.098, mask peak 0.80→0.56) | [02-slide3-lattice-scope.md](./02-slide3-lattice-scope.md) |
 | 03 | 2026-04-28 | Slide 4 3D ghost numeral color → #F3A502 @ 20%; memory rule saved | _none_ |
