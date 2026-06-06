@@ -544,4 +544,5 @@ export const SLIDE_TYPE_KEYS: SlideTypeValue[] = [
   'SplitMediaSlide',
   'MediaGridSlide',
   'GifLoopSlide',
+  'SvgDiagramSlide',
 ];
