@@ -19,14 +19,7 @@ interface Props {
   onOpenThemeTools: () => void;
 }
 
-const SOON_BADGE = 'rounded-md bg-[hsl(var(--chrome-hover))] px-1.5 py-0.5 text-[10px] text-[hsl(var(--chrome-fg-muted))]';
 
-function planned(label: string) {
-  console.info(`[ImportExportSubmenu] Planned action clicked: ${label}`);
-  toast.info('Planned next', {
-    description: `${label} is scaffolded in the menu tree and lands in a follow-up import/export step.`,
-  });
-}
 
 export function ImportExportSubmenu({
   currentSlideNumber,
