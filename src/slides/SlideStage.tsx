@@ -33,6 +33,7 @@ import { TileSlide } from './types/TileSlide';
 import { BlastRadiusSlide } from './types/BlastRadiusSlide';
 import { SessionOutlineSlide } from './types/SessionOutlineSlide';
 import { FullBleedImageSlide } from './types/FullBleedImageSlide';
+import { SplitMediaSlide } from './types/SplitMediaSlide';
 import { BrandHeader } from './components/BrandHeader';
 import { AmbientBackground } from './components/AmbientBackground';
 import { HotspotLayer } from './components/HotspotLayer';
@@ -147,6 +148,7 @@ function renderSlideBody({ slide, onCapsuleClickReveal, highlightReveal, onOpenE
     case 'BlastRadiusSlide': return <BlastRadiusSlide spec={slide} />;
     case 'SessionOutlineSlide': return <SessionOutlineSlide spec={slide} />;
     case 'FullBleedImageSlide': return <FullBleedImageSlide spec={slide} />;
+    case 'SplitMediaSlide': return <SplitMediaSlide spec={slide} />;
     default: return <TitleSlide spec={slide} />;
   }
 }
