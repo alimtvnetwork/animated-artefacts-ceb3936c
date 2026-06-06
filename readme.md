@@ -136,7 +136,15 @@ let's start now 2026-06-06 15:46
 
 let's start now 2026-06-06 16:42
 
-## v1.35.0 — Release notes (since v1.34.0) — CURRENT
+## v1.36.0 — Release notes (since v1.35.0) — CURRENT
+
+**No application error exists in the current logs; this was a prompt/bookkeeping cycle only.** Root cause: the reported payload is still the recurring next-task driver, while the real project state shows no pending implementation plan (`.lovable/plans/pending/` empty), no Vite runtime failure in daemon logs, and just one intentionally blocked backlog item — `quality/audit/remediation-plan.md:29,39,58` marks **M-01** as waiting on a user decision about the collapsible-sections progress surface.
+- Verification before change: daemon logs showed only normal Vite startup/HMR (`VITE v5.4.19 ready`, `page reload`, `hmr update`) with no app error; repo state check showed `.lovable/plans/completed/{01-slide-system-export-llm-overhaul,02-slide-type-remediation-execution}.md` and an empty `.lovable/plans/pending/`.
+- `.lovable/prompts/31-next-task.md`: saved the new driver snapshot for this iteration.
+- `.lovable/prompts.md` + `.lovable/prompt.md`: synced registry state (`30` archived, `31` latest).
+- `package.json`: bumped to `1.36.0`.
+
+## v1.35.0 — Release notes (since v1.34.0)
 
 **Backlog confirmed drained; no code-actionable step remains this cycle.** Both plans are in `.lovable/plans/completed/`; `quality/audit/remediation-plan.md` shows every item ✅ except **M-01** (`#32` collapsible-sections + progress surface ambiguity), which is blocked on a user decision and gated by no-questions mode. Rather than fabricate work, this iteration is a clean closeout.
 - `.lovable/prompts/30-next-task.md`: saved driver snapshot; `.lovable/prompts.md` + `.lovable/prompt.md` synced (`29` archived, `30` latest).
