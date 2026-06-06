@@ -132,7 +132,23 @@ This README also carries the same guidance inline — see **[📂 Folder structu
 
 let's start now 2026-04-30 12:00
 
-## v1.6.0 — Release notes (since v1.5.0) — CURRENT
+## v1.7.0 — Release notes (since v1.6.0) — CURRENT
+
+**Controller relocation — spec + audit (plan steps 1–2).** Began the
+slide-system/export overhaul (`.lovable/plans/pending/01-slide-system-export-llm-overhaul.md`).
+- **Audited** the controller anchor logic and recorded exact tokens to change
+  in `.lovable/plans/subtasks/01-slide-system-export-llm-overhaul/01-controller-menu-tree.md`
+  (wrapper `bottom-6 right-6`, popover `bottom-full`, hamburger `recomputeAnchor`).
+- **Spec'd** the new **Top-right** controller default with downward-opening
+  flyouts in `spec/21-slides-system/02-controller.md`; captured the user
+  command in `.lovable/spec/commands/01-controller-top-right.md`.
+- Root cause documented: controller hard-anchored bottom-right with all
+  flyouts opening upward — TopRight requires flipping wrapper anchor + every
+  popover's vertical direction. (Implementation lands in a later step.)
+
+## v1.6.0 — Release notes (since v1.5.0)
+
+
 
 Deck-fragment parity locked. The two authoring defects surfaced in v1.5.0 are fixed, the last stale schema constraint is reconciled with the renderer, and a new CI gate keeps every deck fragment valid against the canonical schema forever.
 
