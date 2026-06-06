@@ -20,8 +20,9 @@ describe('theme registry snapshot', () => {
 
   it('every theme declares Ubuntu display + Poppins body for image-derived flavors', () => {
     for (const id of ['glasswing', 'think-yellow', 'riseup-pro'] as const) {
-      expect(THEMES[id].fonts.display).toContain('Ubuntu');
-      expect(THEMES[id].fonts.body).toContain('Poppins');
+      const fonts = THEMES[id].fonts;
+      expect(fonts?.display ?? '').toContain('Ubuntu');
+      expect(fonts?.body ?? '').toContain('Poppins');
     }
   });
 });
