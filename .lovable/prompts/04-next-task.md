@@ -1,7 +1,7 @@
 # 04 — Next Task (Next N Steps, v5)
 
 > Reusable operating prompt. Trigger phrases: `next task`, `next N steps`,
-> `next 2 steps`, `next task with number`. Status: active.
+> `next 2 steps`, `next task with number`. Status: on-demand canonical driver.
 
 ## What I want
 
