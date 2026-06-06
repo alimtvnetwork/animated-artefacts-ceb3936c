@@ -132,7 +132,21 @@ This README also carries the same guidance inline — see **[📂 Folder structu
 
 let's start now 2026-04-30 12:00
 
-## v1.8.0 — Release notes (since v1.7.0) — CURRENT
+## v1.9.0 — Release notes (since v1.8.0) — CURRENT
+
+**Controller flyouts follow the top-right move.** After v1.8.0 relocated the
+pill to top-right, the menus still anchored *upward* and rendered off the top
+edge. Flipped every controller flyout to open downward:
+- `DeckMenu.tsx` L142, `ShareMenu.tsx` L65, `ThemeMenu.tsx` L345:
+  `absolute bottom-full mb-3` → `absolute top-full mt-3`.
+- `SlideIndicator.tsx` L110 "recent jumps" chip: `bottom-full mb-2` →
+  `top-full mt-2` (comment updated).
+- Root cause: each menu carried its own upward anchor that conflicted with the
+  now top-anchored controller container.
+- Verified: `grep bottom-full src/slides/controls/` shows only the unrelated
+  bottom-screen `DotPagination` tooltips remain.
+
+## v1.8.0 — Release notes (since v1.7.0)
 
 **Controller moved to top-right (implementation).** Relocated `ControllerBar`
 from bottom-right to top-right per `.lovable/spec/commands/01-controller-top-right.md`.
