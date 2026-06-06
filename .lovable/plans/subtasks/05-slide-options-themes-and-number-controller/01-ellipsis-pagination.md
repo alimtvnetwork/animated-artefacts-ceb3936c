@@ -1,6 +1,7 @@
 # Ellipsis pagination for slide-number surfaces
 
 **Slug:** ellipsis-pagination
+**Status:** core shipped (v1.59.0) — `pageWindow.ts` + `DotPagination` wired & tested; PresetSettings/`/settings` keys + `SlideIndicator` jump-input reuse still pending
 **Status:** pending
 **Parent:** 05-slide-options-themes-and-number-controller
 **Created:** 2026-06-06

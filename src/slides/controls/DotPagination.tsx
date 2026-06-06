@@ -22,6 +22,7 @@
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
 import { useState } from 'react';
 import type { SlideSpec } from '../types';
+import { buildPageWindow } from './pageWindow';
 
 interface Props {
   /** 1-based current slide number among the linear slides. */
@@ -34,15 +35,50 @@ interface Props {
   onJump: (n: number) => void;
 }
 
+/** Beyond this many slides the strip collapses to `1 … cur±2 … N`. */
+const COLLAPSE_THRESHOLD = 15;
+const NEIGHBORS = 2;
+
+/** Midpoint slide between the numbers flanking a `'gap'` token. */
+function gapMidpoint(tokens: (number | 'gap')[], index: number): number {
+  const before = tokens[index - 1];
+  const after = tokens[index + 1];
+  const lo = typeof before === 'number' ? before : 1;
+  const hi = typeof after === 'number' ? after : lo + 2;
+  return Math.round((lo + hi) / 2);
+}
+
+interface GapProps {
+  tokens: (number | 'gap')[];
+  index: number;
+  onJump: (n: number) => void;
+}
+
+/** Ellipsis token — jumps to the midpoint of the slides it hides. */
+function GapToken({ tokens, index, onJump }: GapProps) {
+  const target = gapMidpoint(tokens, index);
+  return (
+    <button
+      onClick={() => onJump(target)}
+      aria-label={`Jump to slide ${target}`}
+      className="relative shrink-0 h-6 w-5 flex items-center justify-center rounded-full text-foreground/45 hover:text-foreground text-[10px] leading-none focus:outline-none focus-visible:ring-1 focus-visible:ring-gold/60"
+    >
+      …
+    </button>
+  );
+}
+
+
 export function DotPagination({ current, total, slides, onJump }: Props) {
   const reduced = useReducedMotion();
   const [hovered, setHovered] = useState<number | null>(null);
 
-  // Cap visible width: ~22px per dot + padding. Beyond ~28 dots the row
-  // scrolls horizontally with edge masks.
-  const SLOT = 24;
-  const maxWidth = Math.min(total * SLOT + 32, 720);
-  const overflow = total > 28;
+  const tokens =
+    total > COLLAPSE_THRESHOLD
+      ? buildPageWindow(current, total, NEIGHBORS)
+      : Array.from({ length: total }, (_, i) => i + 1);
+  const maxWidth = Math.min(tokens.length * 24 + 32, 720);
+
 
   return (
     <div
@@ -52,24 +88,15 @@ export function DotPagination({ current, total, slides, onJump }: Props) {
       className="fixed bottom-6 left-1/2 -translate-x-1/2 z-30 pointer-events-auto"
       style={{ maxWidth }}
     >
-      <div
-        className={`flex items-center gap-1.5 px-4 py-1 no-scrollbar ${
-          overflow ? 'overflow-x-auto' : 'overflow-visible'
-        }`}
-        style={{
-          maskImage: overflow
-            ? 'linear-gradient(to right, transparent 0, black 24px, black calc(100% - 24px), transparent 100%)'
-            : undefined,
-          WebkitMaskImage: overflow
-            ? 'linear-gradient(to right, transparent 0, black 24px, black calc(100% - 24px), transparent 100%)'
-            : undefined,
-        }}
-      >
-        {Array.from({ length: total }, (_, i) => {
-          const n = i + 1;
+      <div className="flex items-center gap-1.5 px-4 py-1 no-scrollbar overflow-visible">
+        {tokens.map((token, i) => {
+          if (token === 'gap') {
+            return <GapToken key={`gap-${i}`} onJump={onJump} tokens={tokens} index={i} />;
+          }
+          const n = token;
           const isActive = n === current;
           const isHover = hovered === n;
-          const slide = slides[i];
+          const slide = slides[n - 1];
           const titleText =
             slide?.content?.title ?? slide?.content?.eyebrow ?? slide?.slideName ?? '';
 

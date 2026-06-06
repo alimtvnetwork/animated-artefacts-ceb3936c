@@ -143,7 +143,15 @@ let's start now 2026-06-06 15:46
 
 let's start now 2026-06-06 16:42
 
-## v1.58.0 — Release notes (since v1.57.0) — CURRENT
+## v1.59.0 — Release notes (since v1.58.0) — CURRENT
+
+- **Shipped ellipsis pagination for the slide-number strip** (plan `05`).
+- Root cause: `DotPagination.tsx` rendered every dot for `1..total` and merely horizontal-scrolled past 28 slides, so on big decks the audience couldn't see "where we are" at a glance.
+- New pure helper `src/slides/controls/pageWindow.ts` → `buildPageWindow(current, total, neighbors)` collapses to `1 … cur±2 … N`: always anchors slide 1 + last, keeps current ±2, turns any run of ≥2 hidden slides into one `…`, and renders a single hidden slide as its number.
+- `DotPagination` now maps that window (threshold 15) with a focusable `…` `GapToken` that jumps to the gap midpoint; dropped the old `overflow-x-auto`/mask path while keeping `overflow-visible` for tooltips and the `layoutId` active-pill morph.
+- Verification: `bunx vitest run src/test/pageWindow.test.ts` → 6/6 (total=16/50, current at 1/middle/last, single-gap, empty/1-slide); `bunx tsc --noEmit` clean for touched files. Spec `27/05` annotated with the v1.59.0 implementation status.
+
+## v1.58.0 — Release notes (since v1.57.0)
 
 - **Pinned the theme registry with an explicit snapshot test** (`src/test/themeRegistrySnapshot.test.ts`).
 - Honest finding first: no existing fixture *omitted* the 3 image-derived themes — `deckContrastAudit` and the QA audits iterate `Object.keys(THEMES)` dynamically, so they were already covered. The real gap was that **no test pinned the exact id set**, so a dropped/renamed theme would pass silently.
