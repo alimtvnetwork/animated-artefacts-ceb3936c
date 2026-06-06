@@ -854,6 +854,42 @@ export default function SettingsPage() {
               </label>
             </div>
 
+            {/* Dot pagination ellipsis windowing (spec 27/05) */}
+            {settings.showDotPagination && (
+              <div className="grid grid-cols-2 gap-4 pl-7">
+                <label className="space-y-1">
+                  <span className="block text-[11px] font-semibold uppercase tracking-[0.14em] text-gold/90">
+                    Collapse above
+                  </span>
+                  <input
+                    type="number"
+                    min={5}
+                    max={99}
+                    value={settings.dotPaginationMaxBeforeCollapse}
+                    onChange={e => update({ dotPaginationMaxBeforeCollapse: Math.max(5, Math.min(99, Number(e.target.value) || 5)) })}
+                    className="w-full rounded-md bg-muted/40 border border-border px-2 py-1 text-sm text-foreground"
+                  />
+                  <span className="block text-[10px] text-muted-foreground">Slides before `1 … cur±n … N`.</span>
+                </label>
+                <label className="space-y-1">
+                  <span className="block text-[11px] font-semibold uppercase tracking-[0.14em] text-gold/90">
+                    Neighbors
+                  </span>
+                  <input
+                    type="number"
+                    min={1}
+                    max={5}
+                    value={settings.dotPaginationNeighbors}
+                    onChange={e => update({ dotPaginationNeighbors: Math.max(1, Math.min(5, Number(e.target.value) || 1)) })}
+                    className="w-full rounded-md bg-muted/40 border border-border px-2 py-1 text-sm text-foreground"
+                  />
+                  <span className="block text-[10px] text-muted-foreground">Dots shown each side of current.</span>
+                </label>
+              </div>
+            )}
+
+
+
             {/* Alignment guide overlay (spec 35) */}
             <div className="space-y-2">
               <label className="flex items-start gap-3 cursor-pointer group">
