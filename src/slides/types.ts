@@ -385,6 +385,19 @@ export interface MetricSpec {
   accent?: CapsuleColorValue;
 }
 
+/**
+ * `MediaGridSlide` tile — a single image/SVG cell with an optional caption.
+ * `src` accepts any `<img src>` value (asset / SVG / Base64 / data URI), same
+ * contract as `content.image`. See
+ * `spec/26-slide-definitions/_patterns/media-grid-slide.md`.
+ */
+export interface MediaTileSpec {
+  /** Tile image source. Required. */
+  src: string;
+  /** Optional one-line caption under the tile. */
+  caption?: string;
+}
+
 /* ============================================================================
  * v0.169 — generic slide-type schemas (TableSlide / CodeBlockSlide /
  * BoxDiagramSlide / LayoutSlide). All four are topic-agnostic — they ship the
