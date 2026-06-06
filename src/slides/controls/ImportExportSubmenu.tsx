@@ -215,6 +215,7 @@ export function ImportExportSubmenu({
           <button type="button" onClick={onOpenDeckTools} className={itemClass}><Upload className="h-4 w-4" /><span className="flex-1">Import JSON (all/deck)</span></button>
           <button type="button" onClick={handleSlideJson} className={itemClass}><Download className="h-4 w-4" /><span className="flex-1">Export JSON (current slide)</span></button>
           <button type="button" onClick={onOpenDeckTools} className={itemClass}><FileJson className="h-4 w-4" /><span className="flex-1">Export JSON (all/deck)</span></button>
+          <button type="button" onClick={handleDeckJsonEmbedded} className={itemClass}><ImageIcon className="h-4 w-4" /><span className="flex-1">Export JSON (all, images embedded)</span></button>
 
           <div className={labelClass}>Themes</div>
           <input ref={themesImportRef} type="file" accept="application/json,.json" className="hidden" onChange={(e) => { const f = e.target.files?.[0]; if (f) handleThemesImportFile(f); }} />
