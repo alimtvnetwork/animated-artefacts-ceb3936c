@@ -635,7 +635,10 @@
         "slideType": { "const": "ImageSlide" },
         "content": {
           "type": "object",
-          "required": ["image"]
+          "anyOf": [
+            { "required": ["image"] },
+            { "required": ["images"] }
+          ]
         }
       },
       "required": ["slideType"]
