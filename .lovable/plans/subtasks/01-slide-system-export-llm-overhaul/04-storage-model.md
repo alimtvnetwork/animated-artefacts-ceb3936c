@@ -1,6 +1,6 @@
 ---
 Slug: storage-model
-Status: pending
+Status: done (impl 2026-06-06 v1.16.0 — authoritative doc at spec/21-slides-system/architecture/storage-model.md; real keys corrected)
 Created: 2026-06-06
 Parent: 01-slide-system-export-llm-overhaul
 ---
