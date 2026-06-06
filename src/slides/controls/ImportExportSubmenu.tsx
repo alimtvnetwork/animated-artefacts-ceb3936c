@@ -224,9 +224,10 @@ export function ImportExportSubmenu({
           <button type="button" onClick={onOpenThemeTools} className={itemClass}><Palette className="h-4 w-4" /><span className="flex-1">Export theme (single/active)</span></button>
           <button type="button" onClick={handleThemesExport} className={itemClass}><Palette className="h-4 w-4" /><span className="flex-1">Export themes (all)</span></button>
 
-          <div className={labelClass}>PDF</div>
+          <div className={labelClass}>PDF &amp; PPTX</div>
           <button type="button" onClick={handleDeckPdf} className={itemClass}><FileDown className="h-4 w-4" /><span className="flex-1">Export deck to PDF</span></button>
           <button type="button" onClick={handleSlidePdf} className={itemClass}><FileDown className="h-4 w-4" /><span className="flex-1">Export current slide to PDF</span></button>
+          <button type="button" onClick={handleDeckPptx} className={itemClass}><Presentation className="h-4 w-4" /><span className="flex-1">Export deck to PPTX</span></button>
 
           <div className={labelClass}>Full bundle</div>
           <input ref={bundleImportRef} type="file" accept="application/zip,.zip" className="hidden" onChange={(e) => { const f = e.target.files?.[0]; if (f) handleBundleImportFile(f); }} />
