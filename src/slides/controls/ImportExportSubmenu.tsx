@@ -123,7 +123,34 @@ export function ImportExportSubmenu({
     }
   }
 
-  async function handleSlideImportFile(file: File) {
+  async function handleDeckPptx() {
+    try {
+      console.info('[ImportExportSubmenu] Export deck to PPTX');
+      const filename = await exportDeckToPptx();
+      toast.success('PPTX exported', { description: filename });
+      onCloseParent();
+    } catch (err) {
+      console.error('[ImportExportSubmenu] PPTX export failed', err);
+      toast.error('Could not export PPTX', { description: errorMessage(err) });
+    }
+  }
+
+  async function handleDeckJsonEmbedded() {
+    try {
+      toast.info('Embedding images…', { description: 'Fetching and encoding deck images as Base64.' });
+      const manifest = buildManifest(deck, allSlides);
+      const { payload, inlined } = await inlineImagePayload(manifest);
+      const filename = `${deck.deckSlug}-deck-embedded-${new Date().toISOString().slice(0, 10)}.json`;
+      downloadJson(payload, filename);
+      toast.success('Deck JSON exported (images embedded)', {
+        description: `${inlined} image${inlined === 1 ? '' : 's'} inlined as Base64 · ${filename}`,
+      });
+      onCloseParent();
+    } catch (err) {
+      console.error('[ImportExportSubmenu] Embedded deck JSON export failed', err);
+      toast.error('Could not export embedded deck JSON', { description: errorMessage(err) });
+    }
+  }
     try {
       const payload = JSON.parse(await file.text()) as unknown;
       const plan = planSingleSlideImport(deck, allSlides, payload, currentSlideNumber);
