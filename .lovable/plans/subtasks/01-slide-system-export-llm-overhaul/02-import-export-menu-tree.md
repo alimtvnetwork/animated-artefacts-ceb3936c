@@ -49,4 +49,10 @@ Three previously-`Soon` rows are now live:
 - **Export JSON (current slide)** → `slideJson.exportSlideJson` (versioned envelope).
 - **Export themes (all)** → `themeBulk.exportAllThemes` (built-ins + customs bundle).
 - **Import themes (all)** → `themeBulk.parseThemeBundle` + `installAllThemes` (skips built-ins).
-Shared `downloadJson.ts` helper added. Remaining `Soon`: Import JSON (single), Export/Import ZIP.
+Shared `downloadJson.ts` helper added.
+
+## Update — v1.22.0 (2026-06-06)
+- **Import JSON (single)** → `slideJsonImport.planSingleSlideImport` + `ImportExportSubmenu` file picker.
+- Import flow: parse single-slide envelope → validate slide with `validateSlide()` → insert **after current slide** → persist a rebuilt deck manifest to `riseup.deck.imported.v1` → reload.
+- Link safety: later `slideNumber`s shift forward by 1, and `parentSlide` / `clickRevealSlide` / `revealSlide` references are shifted with them so hidden-detail routing stays intact.
+- Remaining `Soon`: Export ZIP, Import ZIP.

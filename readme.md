@@ -134,7 +134,17 @@ let's start now 2026-04-30 12:00
 
 let's start now 2026-06-06 15:46
 
-## v1.21.0 — Release notes (since v1.20.0) — CURRENT
+## v1.22.0 — Release notes (since v1.21.0) — CURRENT
+
+**Single-slide JSON import is now real.** Root cause: `src/slides/controls/ImportExportSubmenu.tsx` still rendered **Import JSON (single)** as a dead `planned('Import JSON (single slide)')` stub at line 129 even though the runtime already had the necessary validation (`src/slides/contracts.ts` `validateSlide()`), imported-deck persistence (`src/slides/loader.ts` `IMPORTED_MANIFEST_KEY`), and reload path (`src/slides/controls/DeckMenu.tsx` `commitImport()`) — the only missing piece was the merge step that inserts one validated slide into the imported deck and shifts later `slideNumber` links safely.
+
+- New `src/slides/slideJsonImport.ts`: parses the single-slide envelope, validates `slide` via `validateSlide()`, inserts it after the current slide, builds a fresh imported manifest, and logs the prepared insert.
+- New `src/slides/slideLinkShift.ts`: shifts later slide numbers plus link fields (`parentSlide`, `clickRevealSlide`, `revealSlide`) so routing/click-reveal references stay coherent after insertion.
+- `src/slides/controls/ImportExportSubmenu.tsx`: replaced the `Soon` stub with a real hidden file input + import handler that writes the merged manifest to `riseup.deck.imported.v1`, logs the import target, shows toast feedback, and reloads through the existing imported-deck boot path.
+- `src/test/contracts.test.ts`: added a regression test proving that single-slide import inserts after the current slide and shifts later reveal links correctly.
+- Verification: before fix, `ImportExportSubmenu.tsx:129` called `planned('Import JSON (single slide)')` and the menu row was non-functional. After fix, `bunx vitest run src/test/contracts.test.ts` passes `12/12`, including the new import test, and logs `[slideJsonImport] Prepared "imported" as #2; shifted 2 later slide(s).` Vite logs show HMR updates only, with no new runtime/type errors.
+
+## v1.21.0 — Release notes (since v1.20.0)
 
 **Fixed next-task prompt registry drift.** Root cause: the saved prompt snapshots in `.lovable/prompts/` had advanced through `15-next-task.md`, but the registry files `.lovable/prompts.md` and `.lovable/prompt.md` still pointed at `05-next-task.md` as the "latest" driver, and `.lovable/prompts/15-next-task.md` itself still contained duplicated `# 14` / v1.19.0 content — so the project’s documented next-task source of truth was stale and self-contradictory.
 
