@@ -70,7 +70,7 @@ Default: `gold` for primary capsules, `outline` for neutral lists.
 
 ## 8. Controller chrome
 
-- Position: **bottom-right** (`fixed bottom-6 right-6`).
+- Position: **top-right** (`fixed top-6 right-6`, changed 2026-06-06 v1.8.0; flyouts open downward).
 - Collapsed by default: `← →` two-button pill (~96×48), ~55% opacity.
 - Hover or recent mousemove (2.2s) → expand to full pill: prev / N/total / next / grid / presenter / manifest / share / fullscreen.
 - Slide-number tooltip is **center-aligned** above the indicator.

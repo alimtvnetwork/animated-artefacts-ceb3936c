@@ -1,6 +1,6 @@
 ---
 name: toc-sidebar
-description: Left-edge searchable slide outline (`SlideTocSidebar`). Toggle = `Ctrl+1` / `⌘+1` (was `O`, freed for camera circle). `Esc` closes when open. Default closed, persisted under `riseup.tocSidebar`. The hamburger / consolidated presenter menu lives in the **bottom-right controller**, NOT in this sidebar — see `mem://features/controller-hamburger`.
+description: Left-edge searchable slide outline (`SlideTocSidebar`). Toggle = `Ctrl+1` / `⌘+1` (was `O`, freed for camera circle). `Esc` closes when open. Default closed, persisted under `riseup.tocSidebar`. The hamburger / consolidated presenter menu lives in the **top-right controller**, NOT in this sidebar — see `mem://features/controller-hamburger`.
 type: feature
 ---
 
@@ -18,7 +18,7 @@ The previous `O` binding is now camera-circle (spec 64 §15).
 
 The hamburger dropdown (Overview / Presenter view / Top jumper /
 Reveal hints / Contrast debug / Reduce motion / Keyboard map) lives in
-the **bottom-right controller pill**, not here. Earlier plan (#29 Q7)
+the **top-right controller pill**, not here. Earlier plan (#29 Q7)
 placed it here; superseded by #30. Sidebar remains a pure slide
 outline + search.
 

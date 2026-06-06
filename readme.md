@@ -132,7 +132,20 @@ This README also carries the same guidance inline — see **[📂 Folder structu
 
 let's start now 2026-04-30 12:00
 
-## v1.10.0 — Release notes (since v1.9.0) — CURRENT
+## v1.11.0 — Release notes (since v1.10.0) — CURRENT
+
+**Top-right relocation cleanup: panel motion + stale memory.** Two leftovers
+from the v1.8.0 move:
+- `ControllerBar.tsx` L495–497: the hamburger panel opens downward but its
+  entrance still used `y: 6` (rose up into the trigger). Flipped to `y: -6` so
+  the downward panel settles *down* into place.
+- Corrected stale controller-position memory that still said "bottom-right":
+  `house-style.md`, `slide-spec-format.md`, `llm-guide-download.md`,
+  `toc-sidebar.md`, `controller-hamburger.md` now read **top-right**
+  (`fixed top-6 right-6`, flyouts open downward). Stale Core memory would have
+  re-introduced bottom anchors next session.
+
+## v1.10.0 — Release notes (since v1.9.0)
 
 **Controller tooltips follow the top-right move.** The pill, popovers, and
 hamburger anchor were all flipped downward in v1.8.0–v1.9.0, but the 8 hover

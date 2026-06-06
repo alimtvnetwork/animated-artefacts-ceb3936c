@@ -14,7 +14,7 @@ export via prose."
 
 ## Where it lives
 
-`ControllerHamburger` panel (bottom-right pill > Menu icon).
+`ControllerHamburger` panel (top-right pill > Menu icon).
 
 New section, placed **after** "Step motion" and **before** the Debug group:
 

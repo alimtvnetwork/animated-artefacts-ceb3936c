@@ -28,7 +28,7 @@ Every slide is one JSON file in `spec/slides/{deck}/NN-name.json` plus an MD com
 
 ## Controller
 
-- Position: **bottom-right** (`fixed bottom-6 right-6`).
+- Position: **top-right** (`fixed top-6 right-6`, changed 2026-06-06 v1.8.0; flyouts open downward).
 - Idle opacity 15%, scale 0.92. Hover or recent mousemove (2.2s) → opacity 1, scale 1.
 - Always mounted; only opacity/scale animate.
 
