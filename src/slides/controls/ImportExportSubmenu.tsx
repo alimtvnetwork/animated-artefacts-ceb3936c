@@ -1,10 +1,14 @@
 import { useRef, useState } from 'react';
-import { ChevronRight, ClipboardCopy, Download, FileDown, FileJson, Package, Palette, Upload } from 'lucide-react';
+import { ChevronRight, ClipboardCopy, Download, FileDown, FileJson, Image as ImageIcon, Package, Palette, Presentation, Upload } from 'lucide-react';
 import { toast } from 'sonner';
 import { errorMessage } from '@/lib/errors';
 import { deck, allSlides, IMPORTED_MANIFEST_KEY } from '../loader';
 import { runExport, exportSlidePdf } from '../export';
+import { exportDeckToPptx } from '../exportPptx';
 import { exportSlideJson } from '../slideJson';
+import { buildManifest } from '../manifest';
+import { downloadJson } from '../downloadJson';
+import { inlineImagePayload } from '../inlineImages';
 import { planSingleSlideImport } from '../slideJsonImport';
 import { exportAllThemes, parseThemeBundle, installAllThemes } from '../themeBulk';
 import { exportBundleZip, importBundleFile } from '../zipBundle';
