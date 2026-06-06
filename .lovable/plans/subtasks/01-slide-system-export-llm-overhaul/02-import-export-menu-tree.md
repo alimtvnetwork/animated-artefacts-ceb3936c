@@ -56,3 +56,9 @@ Shared `downloadJson.ts` helper added.
 - Import flow: parse single-slide envelope → validate slide with `validateSlide()` → insert **after current slide** → persist a rebuilt deck manifest to `riseup.deck.imported.v1` → reload.
 - Link safety: later `slideNumber`s shift forward by 1, and `parentSlide` / `clickRevealSlide` / `revealSlide` references are shifted with them so hidden-detail routing stays intact.
 - Remaining `Soon`: Export ZIP, Import ZIP.
+
+## Update — v1.23.0 (2026-06-06)
+- **Export ZIP / Import ZIP** are now live via new `src/slides/zipBundle.ts` (uses `fflate`). No `Soon` rows remain in the menu tree.
+- Export packs `deck.json` (DeckManifest) + `themes.json` (ThemeBundle) + `bundle.json` (meta) → `riseup-bundle-<slug>-<date>.zip`.
+- Import unzips, validates BOTH parts (`parseManifest` + `parseThemeBundle`) before any write, installs custom themes, persists the manifest to `riseup.deck.imported.v1`, then reloads — atomic apply.
+- Removed the now-unused `planned()` helper + `SOON_BADGE` from `ImportExportSubmenu`. Round-trip + negative tests added to `contracts.test.ts`.

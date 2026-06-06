@@ -7,6 +7,7 @@ import { runExport, exportSlidePdf } from '../export';
 import { exportSlideJson } from '../slideJson';
 import { planSingleSlideImport } from '../slideJsonImport';
 import { exportAllThemes, parseThemeBundle, installAllThemes } from '../themeBulk';
+import { exportBundleZip, importBundleFile } from '../zipBundle';
 import { copyLlmGuideToClipboard, downloadLlmGuide } from '../llmGuideBundle';
 
 interface Props {
@@ -18,14 +19,7 @@ interface Props {
   onOpenThemeTools: () => void;
 }
 
-const SOON_BADGE = 'rounded-md bg-[hsl(var(--chrome-hover))] px-1.5 py-0.5 text-[10px] text-[hsl(var(--chrome-fg-muted))]';
 
-function planned(label: string) {
-  console.info(`[ImportExportSubmenu] Planned action clicked: ${label}`);
-  toast.info('Planned next', {
-    description: `${label} is scaffolded in the menu tree and lands in a follow-up import/export step.`,
-  });
-}
 
 export function ImportExportSubmenu({
   currentSlideNumber,
@@ -38,6 +32,7 @@ export function ImportExportSubmenu({
   const [expanded, setExpanded] = useState(false);
   const slideImportRef = useRef<HTMLInputElement | null>(null);
   const themesImportRef = useRef<HTMLInputElement | null>(null);
+  const bundleImportRef = useRef<HTMLInputElement | null>(null);
 
   function handleSlideJson() {
     try {
@@ -136,6 +131,34 @@ export function ImportExportSubmenu({
     }
   }
 
+  function handleBundleExport() {
+    try {
+      const filename = exportBundleZip();
+      toast.success('Bundle exported', { description: filename });
+      onCloseParent();
+    } catch (err) {
+      console.error('[ImportExportSubmenu] Bundle ZIP export failed', err);
+      toast.error('Could not export bundle', { description: errorMessage(err) });
+    }
+  }
+
+  async function handleBundleImportFile(file: File) {
+    try {
+      const result = await importBundleFile(file);
+      console.info(`[ImportExportSubmenu] Bundle import ready: ${file.name} (${result.slideCount} slides, ${result.themeCount} themes)`);
+      toast.success('Bundle imported', {
+        description: `${result.slideCount} slide${result.slideCount === 1 ? '' : 's'} · ${result.themeCount} theme${result.themeCount === 1 ? '' : 's'}. Reloading…`,
+      });
+      onCloseParent();
+      window.setTimeout(() => window.location.reload(), 600);
+    } catch (err) {
+      console.error('[ImportExportSubmenu] Bundle ZIP import failed', err);
+      toast.error('Could not import bundle', { description: errorMessage(err) });
+    } finally {
+      if (bundleImportRef.current) bundleImportRef.current.value = '';
+    }
+  }
+
   return (
     <>
       <button type="button" onClick={() => setExpanded((v) => !v)} aria-expanded={expanded} className={itemClass}>
@@ -164,8 +187,9 @@ export function ImportExportSubmenu({
           <button type="button" onClick={handleSlidePdf} className={itemClass}><FileDown className="h-4 w-4" /><span className="flex-1">Export current slide to PDF</span></button>
 
           <div className={labelClass}>Full bundle</div>
-          <button type="button" onClick={() => planned('Export ZIP')} className={itemClass}><Download className="h-4 w-4" /><span className="flex-1">Export ZIP</span><span className={SOON_BADGE}>Soon</span></button>
-          <button type="button" onClick={() => planned('Import ZIP')} className={itemClass}><Upload className="h-4 w-4" /><span className="flex-1">Import ZIP</span><span className={SOON_BADGE}>Soon</span></button>
+          <input ref={bundleImportRef} type="file" accept="application/zip,.zip" className="hidden" onChange={(e) => { const f = e.target.files?.[0]; if (f) handleBundleImportFile(f); }} />
+          <button type="button" onClick={handleBundleExport} className={itemClass}><Download className="h-4 w-4" /><span className="flex-1">Export ZIP (deck + themes)</span></button>
+          <button type="button" onClick={() => bundleImportRef.current?.click()} className={itemClass}><Upload className="h-4 w-4" /><span className="flex-1">Import ZIP (deck + themes)</span></button>
 
           <div className={labelClass}>Authoring guide</div>
           <button type="button" onClick={handleGuideDownload} className={itemClass}><Download className="h-4 w-4" /><span className="flex-1">Download LLM guide (.md)</span></button>

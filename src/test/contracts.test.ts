@@ -190,3 +190,22 @@ describe('per-slideType contracts', () => {
     expect(plan.manifest.slides[3].parentSlide).toBe(1);
   });
 });
+
+describe('zip bundle round-trip', () => {
+  it('packs deck + themes into a zip and parses them back', async () => {
+    const { buildBundleZip, parseBundleZip } = await import('../slides/zipBundle');
+    const { bytes, filename } = buildBundleZip();
+    expect(filename).toMatch(/^riseup-bundle-.+\.zip$/);
+    const parsed = parseBundleZip(bytes);
+    expect(parsed.manifest.slides.length).toBeGreaterThan(0);
+    expect(parsed.themes.themes.length).toBeGreaterThan(0);
+    expect(parsed.meta.bundleVersion).toBe(1);
+  });
+
+  it('rejects a zip missing deck.json', async () => {
+    const { parseBundleZip } = await import('../slides/zipBundle');
+    const { zipSync, strToU8 } = await import('fflate');
+    const bytes = zipSync({ 'themes.json': strToU8('{}') });
+    expect(() => parseBundleZip(bytes)).toThrow(/missing deck\.json/i);
+  });
+});
