@@ -15,7 +15,7 @@
       { "text": "Brief in 1 page",   "color": "gold" },
       { "text": "Spec before code",  "color": "ember" },
       { "text": "Token-driven UI",   "color": "violet" },
-      { "text": "Motion with meaning","color": "teal", "clickRevealSlide": "click-reveal-process" },
+      { "text": "Motion with meaning","color": "teal", "clickRevealSlide": 24 },
       { "text": "Ship behind a flag","color": "rose" },
       { "text": "Review on Friday",  "color": "sky" }
     ]
