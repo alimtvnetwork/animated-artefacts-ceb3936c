@@ -143,7 +143,15 @@ let's start now 2026-06-06 15:46
 
 let's start now 2026-06-06 16:42
 
-## v1.38.0 — Release notes (since v1.37.0) — CURRENT
+## v1.39.0 — Release notes (since v1.38.0) — CURRENT
+
+- Planning cycle: wrote `.lovable/plans/pending/03-simplified-single-file-llm-slide-guide.md` (10 steps) for a NEW simplified, single-file LLM authoring guide that carries a worked JSON sample for every slide type plus why/when/how-it-displays notes — distinct from the deep `spec/llm-guideline/**` "how to work" pack.
+- Captured command `.lovable/spec/commands/04-single-file-slide-authoring.md` (one-shot single manifest JSON is canonical output; images Base64/SVG embedded).
+- Added subtasks `01-slide-type-sample-coverage.md` + `02-single-file-manifest-contract.md`.
+- Saved prompt snapshot `.lovable/prompts/34-next-task.md`; archived `33`.
+- `package.json`: bumped to `1.39.0`.
+
+## v1.38.0 — Release notes (since v1.37.0)
 
 - Next-task cycle: no runtime/build error; `.lovable/plans/pending/` empty; only open item is M-01 (blocked on user decision under no-questions mode).
 - Saved prompt snapshot `.lovable/prompts/33-next-task.md`; archived `32`.
