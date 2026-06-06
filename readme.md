@@ -145,7 +145,7 @@ let's start now 2026-06-06 16:42
 - `package.json`: bumped to `1.29.0`.
 - Verification: before fix, `rg -n "always-on \(canonical reusable driver\)|latest saved snapshot|19-next-task|23-next-task|24-next-task|\"version\": \"1\.28\.0\"" .lovable readme.md package.json` showed `04-next-task.md` documented as always-on, `.lovable/prompt.md` stuck on snapshot `19`, `.lovable/prompts.md` on snapshot `23`, and `package.json` pinned to `1.28.0`. After fix, the same checks show `04-next-task.md` as on-demand in both registries, `24` as latest, and `package.json` pinned to `1.29.0`. Runtime verification remains clean: `bunx vitest run src/test/contracts.test.ts` passes `14/14`, and `bun run build` succeeds; the only build output is the pre-existing Browserslist/chunk-size warning, not an app failure.
 
-## v1.28.0 — Release notes (since v1.27.0) — CURRENT
+## v1.28.0 — Release notes (since v1.27.0)
 
 **Documented the persistence model in the LLM guide (roadmap step 1 cont.).** Root cause: after ZIP (v1.26.0) and visual-export (v1.27.0) docs, `LLM.md` still never explained that edits/themes live in `localStorage`, so an LLM assumed everything is file-based and would miss draft/imported/per-deck-theme behavior.
 - `LLM.md`: added a "Persistence model" section documenting the four author-relevant keys with constants + source files — `riseup.deck.draft.v1` (`DRAFT_DECK_KEY`), `riseup.deck.imported.v1` (`IMPORTED_MANIFEST_KEY`), `riseup.themes.custom.v1` (`CUSTOM_THEMES_STORAGE_KEY`), `riseup.theme.byDeck.v1` (`STORAGE_KEY_BY_DECK`).
