@@ -138,6 +138,34 @@ export function ImportExportSubmenu({
     }
   }
 
+  function handleBundleExport() {
+    try {
+      const filename = exportBundleZip();
+      toast.success('Bundle exported', { description: filename });
+      onCloseParent();
+    } catch (err) {
+      console.error('[ImportExportSubmenu] Bundle ZIP export failed', err);
+      toast.error('Could not export bundle', { description: errorMessage(err) });
+    }
+  }
+
+  async function handleBundleImportFile(file: File) {
+    try {
+      const result = await importBundleFile(file);
+      console.info(`[ImportExportSubmenu] Bundle import ready: ${file.name} (${result.slideCount} slides, ${result.themeCount} themes)`);
+      toast.success('Bundle imported', {
+        description: `${result.slideCount} slide${result.slideCount === 1 ? '' : 's'} · ${result.themeCount} theme${result.themeCount === 1 ? '' : 's'}. Reloading…`,
+      });
+      onCloseParent();
+      window.setTimeout(() => window.location.reload(), 600);
+    } catch (err) {
+      console.error('[ImportExportSubmenu] Bundle ZIP import failed', err);
+      toast.error('Could not import bundle', { description: errorMessage(err) });
+    } finally {
+      if (bundleImportRef.current) bundleImportRef.current.value = '';
+    }
+  }
+
   return (
     <>
       <button type="button" onClick={() => setExpanded((v) => !v)} aria-expanded={expanded} className={itemClass}>
