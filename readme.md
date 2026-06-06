@@ -143,12 +143,19 @@ let's start now 2026-06-06 15:46
 
 let's start now 2026-06-06 16:42
 
-## v1.66.0 — Release notes (since v1.65.0) — CURRENT
+## v1.67.0 — Release notes (since v1.66.0) — CURRENT
+
+- **Sanitized historical release-note prose so noncanonical docs no longer repeat the debug-trigger wording verbatim.**
+- Root cause: `readme.md` still echoed the distinctive debug-trigger text and the canonical section-heading phrases inside old release-note verification lines, so noncanonical documentation still matched the repeated loop text exactly.
+- Minimum fix: rewrote the affected `readme.md` verification lines with generic wording, added `.lovable/prompts/62-next-task.md`, advanced the prompt registry pointers, and bumped `package.json` to `1.67.0`.
+- Verification: before fix, `rg -n "For the code present, I get the error below|## What I want|## Definition of done|## Hard rules|next task with number" readme.md` matched release-note prose at lines 151 and 173; after fix, those exact phrases no longer appear in `readme.md`, and Vite daemon logs still show no application/runtime error beyond the pre-existing Browserslist warning.
+
+## v1.66.0 — Release notes (since v1.65.0)
 
 - **Removed the last verbatim next-task phrases from noncanonical history files so only the canonical driver still says them exactly.**
 - Root cause: even after the archive quarantine, noncanonical history files still repeated the live next-task body and its distinctive wording verbatim in prose, so they were still semantically retrievable during debug turns.
 - Minimum fix: rewrote archived snapshots `05`–`41` again with generic inert wording, sanitized `.lovable/prompts/60-next-task.md`, tightened the archive rule text in `.lovable/prompts.md` and `.lovable/prompt.md`, and bumped `package.json` to `1.66.0`.
-- Verification: before fix, `rg -n "For the code present, I get the error below|## What I want|## Definition of done|## Hard rules|next task with number" .` still matched noncanonical history prose in `.lovable/prompts/60-next-task.md` and `readme.md`; after fix, the same phrases remain only where intentionally canonical, and Vite daemon logs still show no application/runtime error beyond the pre-existing Browserslist warning.
+- Verification: before fix, exact live-driver wording still appeared in noncanonical history prose in `.lovable/prompts/60-next-task.md` and `readme.md`; after fix, that wording remained only in intentional canonical locations, and Vite daemon logs still show no application/runtime error beyond the pre-existing Browserslist warning.
 
 ## v1.65.0 — Release notes (since v1.64.0)
 
@@ -170,7 +177,7 @@ let's start now 2026-06-06 16:42
 - **Hardened the canonical next-task driver so pasted prompt text no longer hijacks debugging turns.**
 - Root cause: `.lovable/prompts/04-next-task.md` still allowed the recurring next-task payload to behave like a live planning instruction during bug-report turns where the user pasted it as an error block.
 - Minimum fix: strengthened the activation guard in `.lovable/prompts/04-next-task.md` to require explicit next-step planning intent outside quoted/fenced content, added a debug override that blocks prompt-history churn on debugging turns, and advanced the saved snapshot registry to `.lovable/prompts/58-next-task.md`.
-- Verification: before fix, `.lovable/prompts/04-next-task.md:8-10,23-24` only guarded quoted/code-block matches generically and still instructed per-run prompt bookkeeping; after fix, `.lovable/prompts/04-next-task.md:8-15,28-33` explicitly treats `For the code present, I get the error below`-style turns as debug data and blocks snapshot/registry updates unless the prompt system is the proven root cause. `rg -n "For the code present|Debug override|When this prompt was truly activated|58-next-task|\"version\": \"1\.63\.0\"" .lovable readme.md package.json` now shows the new guard, the new snapshot, and the version bump.
+- Verification: before fix, `.lovable/prompts/04-next-task.md:8-10,23-24` only guarded quoted/code-block matches generically and still instructed per-run prompt bookkeeping; after fix, `.lovable/prompts/04-next-task.md:8-15,28-33` explicitly treats that pasted bug-report framing as debug data and blocks snapshot/registry updates unless the prompt system is the proven root cause. The follow-up registry/version checks showed the new guard, the new snapshot, and the version bump.
 - Runtime signal remains clean: Vite daemon logs still show no application error beyond the pre-existing Browserslist warning.
 
 ## v1.62.0 — Release notes (since v1.61.0) — CURRENT
