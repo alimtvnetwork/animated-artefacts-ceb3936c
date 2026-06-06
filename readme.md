@@ -134,7 +134,15 @@ let's start now 2026-04-30 12:00
 
 let's start now 2026-06-06 15:46
 
-## v1.17.0 — Release notes (since v1.16.0) — CURRENT
+## v1.18.0 — Release notes (since v1.17.0) — CURRENT
+
+**Theme authoring guide corrected to the shipped runtime (plan step 6 — `06-theme-authoring-guide.md`).** Root cause: `.lovable/plans/subtasks/01-slide-system-export-llm-overhaul/06-theme-authoring-guide.md` still documented a stale 9-token / 2-theme model, while the real implementation in `src/slides/themes.ts` and `src/slides/themeManifest.ts` ships 10 built-in themes, imported custom themes, per-deck theme persistence, optional font overrides, brightness offsets, and `front-end/themes/*` overlay support.
+
+- Rewrote the subtask doc to reflect the real theme system: built-in theme inventory, `ThemePreset` / `SerializableTheme` anatomy, actual token surface, authoring recipe, background rules, import collision handling, custom-theme persistence, per-deck theme pins, and brightness-offset storage.
+- Updated `spec/21-slides-system/07-theme-system.md` to match the runtime: added `paper-ink` + `navy-blue`, documented `registerCustomThemesOnBoot()` + `getInitialTheme(deckTheme, activeDeckSlug)` boot flow, theme import/export, and overlay JSON support.
+- Verification: before fix, the plan doc claimed only 9 tokens and omitted `paper-ink`, `navy-blue`, `riseup.theme.byDeck.v1`, `riseup.theme.brightness.v1`, `fonts`, and `front-end/themes/*`. After fix, the docs reconcile with the exact runtime files/functions (`src/slides/themes.ts`, `src/slides/themeManifest.ts`, `src/main.tsx`) and Vite logs remain clean with no runtime errors.
+
+## v1.17.0 — Release notes (since v1.16.0)
 
 **Slide-types catalog completed — all 26 enum types now documented (plan step 5 — `05-slide-types-catalog.md`).** Root cause: the required-fields table in `spec/21-slides-system/llm/23-slide-type-contracts.md` listed only 16 of the 26 `SlideType` values from `src/slides/enums.ts`, so the downstream LLM guide (parent steps 19–37) had no contract for 10 shipped types and would emit invalid slides for them.
 
