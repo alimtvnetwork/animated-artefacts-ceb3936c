@@ -141,6 +141,13 @@ export const SlideType = {
    * `spec/26-slide-definitions/_patterns/split-media-slide.md`.
    */
   SplitMediaSlide: 'SplitMediaSlide',
+  /**
+   * MediaGridSlide — 2–6 image/SVG tiles with optional captions, auto-laid
+   * out (2→1×2, 3→1×3, 4→2×2, 5/6→2×3). Density cap `capTiles` (≤6). Use for
+   * galleries / logo walls / screenshot grids. See
+   * `spec/26-slide-definitions/_patterns/media-grid-slide.md`.
+   */
+  MediaGridSlide: 'MediaGridSlide',
 } as const;
 export type SlideTypeValue = typeof SlideType[keyof typeof SlideType];
 
