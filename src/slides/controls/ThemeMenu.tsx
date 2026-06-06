@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState, type MouseEvent as ReactMouseEvent } from 'react';
-import { Palette, Check, X, Bug, Copy, ClipboardCheck, Download, Upload, Trash2, Sun, RotateCcw } from 'lucide-react';
+import { Palette, X, Bug, Copy, ClipboardCheck, Download, Upload, Sun, RotateCcw } from 'lucide-react';
 import { toast } from 'sonner';
 import {
   THEMES,
@@ -22,6 +22,7 @@ import {
   type ThemeManifest,
 } from '../themeManifest';
 import { ThemeImportPreviewDialog } from './ThemeImportPreviewDialog';
+import { ThemeSwatchGrid } from './ThemeSwatchGrid';
 
 // Chrome tokens we surface in the debug panel. Order matters — it's the
 // order they render in the popover so a presenter can scan them quickly.
