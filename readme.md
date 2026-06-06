@@ -143,7 +143,15 @@ let's start now 2026-06-06 15:46
 
 let's start now 2026-06-06 16:42
 
-## v1.47.0 — Release notes (since v1.46.0) — CURRENT
+## v1.48.0 — Release notes (since v1.47.0) — CURRENT
+
+- Executed plan `05` steps 1–3 (spec/scan only, no runtime code yet): read the slide-type registry (`src/slides/enums.ts` — 25 types) and `src/slides/controls/DotPagination.tsx` (current cap: `overflow-x-auto` above 28 dots, line 45 — no ellipsis collapse).
+- Root decision: locked the configurable collapse defaults — `dotPaginationMaxBeforeCollapse=15`, `dotPaginationNeighbors=2` (overridable in `/settings`; not hardcoded).
+- Wrote `spec/27-slides-number/14-page-window-algorithm.md` — the single-source `buildPageWindow(current,total,neighbors)` contract (`1 … cur±2 … N`, one-slide gaps render the number not `…`, gap-token jump, reduced-motion rule, worked-output table) consumed by all three number surfaces.
+- Logged ambiguity `.lovable/question-and-ambiguity/65-slide-number-threshold-and-theme-images.md` (no-questions mode: defaulted threshold; theme reference images still blocked on user).
+- Saved prompt snapshot `.lovable/prompts/43-next-task.md`; synced `.lovable/prompts.md`. `package.json` → `1.48.0`.
+
+## v1.47.0 — Release notes (since v1.46.0)
 
 - Planning turn (no code executed): wrote the 100-step plan `.lovable/plans/pending/05-slide-options-themes-and-number-controller.md` covering media-rich slide types (image/SVG/GIF), an ellipsis slide-number controller (`1 … cur±2 … N`) with a configurable collapse threshold (default 15), image-derived color themes, and an LLM-guide refresh.
 - Captured command `.lovable/spec/commands/06-slide-number-ellipsis-pagination.md` and three subtask files under `.lovable/plans/subtasks/05-slide-options-themes-and-number-controller/`.

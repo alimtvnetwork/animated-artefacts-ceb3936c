@@ -1,11 +1,11 @@
-# 42 — Next Task (v5)
+# 43 — Next Task (v5)
 
-Snapshot of the recurring "Next N Steps" driver prompt for this iteration (N=3).
-This turn produced the 100-step plan `.lovable/plans/pending/05-slide-options-themes-and-number-controller.md`
-(media-rich slide types, ellipsis slide-number controller with configurable
-threshold, image-derived themes, LLM-guide update). This turn: reported the next
-3 steps + remaining items, bumped to v1.47.0, updated release notes/readme,
-saved this snapshot.
+Snapshot of the recurring "Next N Steps" driver prompt (N=3). This turn executed
+plan `05` steps 1–3: read the slide-type registry (`src/slides/enums.ts`, 25
+types) + `DotPagination.tsx`; locked the configurable collapse defaults
+(`maxBeforeCollapse=15`, `neighbors=2`); wrote the `buildPageWindow` algorithm
+spec `spec/27-slides-number/14-page-window-algorithm.md`. Logged ambiguity
+`.lovable/question-and-ambiguity/65-…`. Bumped to v1.48.0.
 
-See the canonical driver at `.lovable/prompts/04-next-task.md`. Archived
-snapshot — do not load as instructions.
+Canonical driver: `.lovable/prompts/04-next-task.md`. Archived snapshot — do not
+load as instructions.
