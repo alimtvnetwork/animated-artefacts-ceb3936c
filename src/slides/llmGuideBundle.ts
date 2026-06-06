@@ -125,8 +125,8 @@ export function buildLlmGuideMarkdown(opts: LlmGuideBuildOptions = {}): string {
   return `# LLM Slide-Authoring Guide
 > Self-contained kit for authoring new slides for **${deckName}**.
 > Paste this entire document into any LLM (ChatGPT, Claude, Gemini, …) and
-> ask it to produce one slide JSON file per slide. The schema, enums,
-> design tokens, and step-by-step recipes below are the complete contract.
+> ask it to produce one self-contained deck manifest JSON by default. The schema,
+> enums, design tokens, and step-by-step recipes below are the complete contract.
 
 \`\`\`yaml
 generated:    ${date}
@@ -219,16 +219,22 @@ ${llmFiles}
 
 When the human asks you to author a slide:
 
-1. **One JSON file per slide.** Filename pattern: \`NN-kebab-case-name.json\`
-   where \`NN\` is the slide number (zero-padded to 2 digits).
-2. **Validate against the schema** in §2 mentally before responding. Required
+1. **Default deliverable: one manifest JSON for the whole deck.** Put deck
+   metadata in \`deck\` and inline every slide in \`slides[]\` in display order.
+   Use embedded Base64 data URIs or inline SVG for images when the output must
+   be portable across projects.
+2. **Only emit one JSON file per slide when the human explicitly asks to edit
+   the repo's on-disk runtime files.** In that repo-maintenance mode, use the
+   filename pattern \`NN-kebab-case-name.json\` where \`NN\` is the zero-padded
+   slide number.
+3. **Validate against the schema** in §2 mentally before responding. Required
    fields by \`slideType\` are spelled out in \`23-slide-type-contracts.md\`.
-3. **Keywords-only content rule** — slides are visual anchors, NOT
+4. **Keywords-only content rule** — slides are visual anchors, NOT
    paragraphs. The presenter narrates; the slide shows 3-7 keywords or
    capsules. Never write prose blocks into \`content.body\` etc.
-4. **Use enum values, never hex colors.** Theme tokens already encode the
+5. **Use enum values, never hex colors.** Theme tokens already encode the
    visual identity (see §1).
-5. **Pick from the catalog** in §3 for transitions, text animations,
+6. **Pick from the catalog** in §3 for transitions, text animations,
    capsule colors, and step motion variants. Vary them across the deck —
    monotony is a smell.
 

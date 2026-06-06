@@ -8,8 +8,8 @@ log; the orientation below is the fast path for newcomers (human or AI).
 
 **👉 Single shareable guide: [`LLM.md`](LLM.md).** Hand this one file to any LLM
 (Claude, GPT, Gemini, etc.) and it knows how to create, edit, reorder, and ship
-slides — every field, every rule, in a 30-step playbook. Read it first for slide
-work; the packs below are deeper reference.
+slides — every field, every rule, in a 30-step playbook. For strict one-shot
+deck authoring, start with [`spec/llm-guideline/00-simplified-single-file-guide.md`](spec/llm-guideline/00-simplified-single-file-guide.md).
 
 **Ship a deck as ONE file.** A whole deck can be authored/exported as a single
 self-contained manifest JSON (config + every slide inlined), with images
@@ -143,7 +143,16 @@ let's start now 2026-06-06 15:46
 
 let's start now 2026-06-06 16:42
 
-## v1.41.0 — Release notes (since v1.40.0) — CURRENT
+## v1.42.0 — Release notes (since v1.41.0) — CURRENT
+
+- Root cause: the new single-file guide was added, but the exported LLM bundle still instructed models to emit one JSON file per slide, contradicting `LLM.md`, `src/slides/manifest.ts`, and the inline-image export path.
+- `src/slides/llmGuideBundle.ts`: fixed the bundle preamble/output contract so the default deliverable is one self-contained manifest JSON; per-slide JSON is now explicitly documented as repo-maintenance mode only.
+- `spec/llm-guideline/00-simplified-single-file-guide.md`: added the missing end-to-end 2-slide worked manifest example with an embedded SVG image plus legal enum/variety rules for transitions, textAnimation, and capsule tones.
+- `LLM.md` + root onboarding section: cross-linked the simplified guide and clarified the distinction between one-shot manifest authoring vs checked-in multi-file repo editing.
+- Saved prompt snapshot `.lovable/prompts/37-next-task.md`; synced `.lovable/prompt.md` + `.lovable/prompts.md`; marked plan steps 7–10 done.
+- `package.json`: bumped to `1.42.0`.
+
+## v1.41.0 — Release notes (since v1.40.0)
 
 - Executed plan 03 steps 3, 5, 6: `spec/llm-guideline/00-simplified-single-file-guide.md` now carries §4 per-type JSON samples (why/when + how-it-displays) for the 18 core slide types, §5 intent→type decision table, and is indexed as "start here to author" (item 0) in `spec/llm-guideline/readme.md`.
 - Samples mirror real runtime slides in `front-end/project/*/data/slides/`; 8 specialist types pointer-linked to `23-slide-type-contracts.md`.

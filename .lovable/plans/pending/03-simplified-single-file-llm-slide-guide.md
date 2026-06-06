@@ -2,7 +2,7 @@
 
 **Slug:** simplified-single-file-llm-slide-guide
 **Steps:** 10
-**Status:** pending
+**Status:** completed
 **Created:** 2026-06-06
 
 ## Context
@@ -30,10 +30,10 @@ Captured command: `.lovable/spec/commands/04-single-file-slide-authoring.md`.
 4. ✅ DONE (v1.40.0) — Intro/mental model + non-negotiable one-manifest rule in §1–2.
 5. ✅ DONE (v1.41.0) — "Choosing a slide type" intent→type table in §5.
 6. ✅ DONE (v1.41.0) — Per-type sections in §4: why/when + how-it-displays + copy-paste JSON sample for the 18 core types; 8 specialist types pointer-linked to `23-slide-type-contracts.md`.
-7. Add the end-to-end worked example: a complete minimal 2-slide manifest (title + one content slide) with one embedded image, demonstrating the full single-file shape.
-8. Add the capsule-tone + enum-only rule (no raw hex, `.capsule-{tone}`) and the variety rule for transitions/textAnimation, with the legal value lists pulled from `CATALOG.json`. (Partly seeded in §1/§2 capsule rule.)
-9. Wire the new file into `src/slides/llmGuideBundle.ts` so the downloadable/clipboard LLM bundle includes it, and cross-link it from `LLM.md` top and root `readme.md`.
-10. Add a verification note + memory update: record that the simplified single-file guide is canonical for one-shot authoring (memory `mem://features/llm-md-shareable-guide` or a new feature memory), and list any leftover ambiguities for the user.
+7. ✅ DONE (v1.42.0) — Added an end-to-end 2-slide worked manifest in `spec/llm-guideline/00-simplified-single-file-guide.md` §6, including one embedded inline SVG image so the one-file deck shape is copy-pasteable.
+8. ✅ DONE (v1.42.0) — Added legal enum lists + adjacent-slide variety rules in `00-simplified-single-file-guide.md` §7 for `transition`, `textAnimation`, and capsule tones; raw hex remains forbidden.
+9. ✅ DONE (v1.42.0) — Updated `src/slides/llmGuideBundle.ts` so the exported bundle now defaults to one manifest JSON, and cross-linked the simplified guide from `LLM.md` and `readme.md`.
+10. ✅ DONE (v1.42.0) — Updated `.lovable/memory/features/llm-md-shareable-guide.md` + `.lovable/memory/index.md` so the simplified guide is canonical for one-shot authoring, and verified the contradictory bundle wording is gone.
 
 ## Verification
 Each step lands as a concrete doc/code edit: the new guide file exists with a
@@ -41,6 +41,12 @@ section for every enum value (grep enum vs guide headings), the manifest
 skeleton imports cleanly via the existing Import/Export path, the LLM bundle
 (`buildLlmGuideMarkdown`) includes the new file, and `LLM.md`/`readme.md` link
 to it. Build stays green; no runtime behavior changes.
+
+## Resolution
+
+Completed in v1.42.0. Root cause was doc/bundle drift: the simplified guide and
+manifest import contract were already single-file-first, but the exported LLM
+bundle still instructed models to emit one JSON file per slide.
 
 ## Appended from prior pending tasks
 none (`.lovable/plans/pending/` was empty; completed plans 01 and 02 are done)

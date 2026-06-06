@@ -14,9 +14,14 @@ Contains: mental model, full slide JSON envelope, all `slideType`/`transition`/
 `textAnimation` values, capsule-tone rules, a 30-step playbook (orient → schema →
 author → verify/ship), quick-reference table, and 8 golden rules.
 
-**Relationship to existing packs:** It is the fast path. The deep packs remain at
-`spec/21-slides-system/llm/` (29 files) and `spec/llm-guideline/` — LLM.md points
-to them for new slide types, acceptance checklist, decision tree, etc.
+**Relationship to existing packs:** `LLM.md` is still the shareable root fast
+path, but **`spec/llm-guideline/00-simplified-single-file-guide.md` is the
+canonical one-shot authoring contract** when the task is to create/export/import
+an entire deck as a single JSON manifest with inline slides and embedded images.
+The deep packs remain at `spec/21-slides-system/llm/` and `spec/llm-guideline/`
+for slide editing, acceptance checklists, and deeper per-type reference.
 
-**Maintenance:** When slide schema, slideTypes, capsule tones, or theme tokens
-change, update LLM.md too (it duplicates those facts for portability).
+**Maintenance:** When slide schema, slideTypes, capsule tones, theme tokens, or
+manifest/import rules change, update both `LLM.md` and
+`00-simplified-single-file-guide.md` so the exported bundle, root docs, and
+shareable guide never drift on "one manifest vs many files" guidance.

@@ -8,6 +8,7 @@
 > Presenter: **MD ALIM UL KARIM**. Theme: **Noir & Gold** (dark bg `#0D0D0D`,
 > gold `#C9A84C`, ember `#E85D3A`, cream `#F0D78C`).
 >
+> **Canonical one-shot authoring path:** `spec/llm-guideline/00-simplified-single-file-guide.md`.
 > Deeper reference packs live in `spec/21-slides-system/llm/` (29 files) and
 > `spec/llm-guideline/`. This file is the fast, self-contained path. Read the
 > packs only when a step below points you there.
@@ -264,6 +265,11 @@ every slide inlined rather than dozens of `NN-name.json` files. Import it via
 the controller → **Import / Export** → **Import JSON (all/deck)**; the app
 validates it, stores it under `localStorage["riseup.deck.imported.v1"]`, and
 reloads. Disabled slides survive, so the round-trip is lossless.
+
+If the task is specifically to edit the repository's checked-in runtime deck
+files, then switch to the repo-maintenance mode described earlier in this file:
+`front-end/project/<deck>/data/slides.json` plus one `slides/NN-name.json` file
+per slide. Deliverable default = one manifest; repo-edit mode = many files.
 
 ### Images in a one-file deck
 
