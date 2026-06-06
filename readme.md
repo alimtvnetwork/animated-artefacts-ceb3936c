@@ -134,7 +134,15 @@ let's start now 2026-04-30 12:00
 
 let's start now 2026-06-06 15:46
 
-## v1.16.0 — Release notes (since v1.15.0) — CURRENT
+## v1.17.0 — Release notes (since v1.16.0) — CURRENT
+
+**Slide-types catalog completed — all 26 enum types now documented (plan step 5 — `05-slide-types-catalog.md`).** Root cause: the required-fields table in `spec/21-slides-system/llm/23-slide-type-contracts.md` listed only 16 of the 26 `SlideType` values from `src/slides/enums.ts`, so the downstream LLM guide (parent steps 19–37) had no contract for 10 shipped types and would emit invalid slides for them.
+
+- Added the 10 missing rows sourced verbatim from `src/slides/contracts.ts` `REQUIRED_FIELDS` (lines 40–56) with density caps from `densityCheck.ts` / the enum doc comments: `StepsChain3DSlide`, `DatabaseDiagramSlide`, `DataTableSlide`, `NumberCalloutSlide`, `EquationSlide`, `ChecklistSlide`, `TileSlide`, `BlastRadiusSlide`, `SessionOutlineSlide` (+ a note that `ClickRevealSlide` is an envelope flag, not a content type).
+- Verification: cross-checked the 26 names in `CATALOG.json` against `enums.ts` and the doc table; counts reconcile (16 prior + 10 added = 26 minus the ClickReveal envelope note). Docs-only change, Vite logs clean.
+
+## v1.16.0 — Release notes (since v1.15.0)
+
 
 **Storage model documented against real keys (plan step 4 — `04-storage-model.md`).** Root cause: the planning table invented `riseup.deck.v1` and `riseup.settings.v1`, which never shipped — the real runtime keys are `riseup.deck.imported.v1` (`IMPORTED_MANIFEST_KEY` in `src/slides/loader.ts`) and `riseup.presetSettings.v1` (`STORAGE_KEY` in `src/slides/presetSettings.ts`), so any future import/export work built on the table would have written to dead keys.
 
