@@ -33,11 +33,14 @@ interface Props {
   slides: SlideSpec[];
   /** Jump handler — receives a 1-based slide number. */
   onJump: (n: number) => void;
+  /** Collapse to `1 … cur±n … N` once total exceeds this. Default 15. */
+  maxBeforeCollapse?: number;
+  /** Neighbors shown each side of current when collapsed. Default 2. */
+  neighbors?: number;
 }
 
-/** Beyond this many slides the strip collapses to `1 … cur±2 … N`. */
-const COLLAPSE_THRESHOLD = 15;
-const NEIGHBORS = 2;
+const DEFAULT_THRESHOLD = 15;
+const DEFAULT_NEIGHBORS = 2;
 
 /** Midpoint slide between the numbers flanking a `'gap'` token. */
 function gapMidpoint(tokens: (number | 'gap')[], index: number): number {
@@ -69,13 +72,16 @@ function GapToken({ tokens, index, onJump }: GapProps) {
 }
 
 
-export function DotPagination({ current, total, slides, onJump }: Props) {
+export function DotPagination({
+  current, total, slides, onJump,
+  maxBeforeCollapse = DEFAULT_THRESHOLD, neighbors = DEFAULT_NEIGHBORS,
+}: Props) {
   const reduced = useReducedMotion();
   const [hovered, setHovered] = useState<number | null>(null);
 
   const tokens =
-    total > COLLAPSE_THRESHOLD
-      ? buildPageWindow(current, total, NEIGHBORS)
+    total > maxBeforeCollapse
+      ? buildPageWindow(current, total, neighbors)
       : Array.from({ length: total }, (_, i) => i + 1);
   const maxWidth = Math.min(tokens.length * 24 + 32, 720);
 

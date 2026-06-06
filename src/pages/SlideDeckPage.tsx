@@ -140,12 +140,18 @@ export default function SlideDeckPage() {
   /** Subscribe to PresetSettings so toggling /settings live-updates without
    *  a page reload (currently powers the dot pagination opt-in). */
   const [showDots, setShowDots] = useState<boolean>(() => getPresetSettings().showDotPagination);
+  const [dotCfg, setDotCfg] = useState(() => {
+    const s = getPresetSettings();
+    return { max: s.dotPaginationMaxBeforeCollapse, neighbors: s.dotPaginationNeighbors };
+  });
   // v0.167 — live deck-wide transition timing override (merged with deck JSON
   // before being handed to <SlideStage />). Re-derived on every preset
   // change so dragging the duration slider updates the next transition.
   const [deckTransitionTiming, setDeckTransitionTiming] = useState(() => mergeDeckTiming(deck.transitionTiming, resolveDeckTransitionOverride(getPresetSettings())));
   useEffect(() => subscribePresetSettings(() => {
     setShowDots(getPresetSettings().showDotPagination);
+    const s = getPresetSettings();
+    setDotCfg({ max: s.dotPaginationMaxBeforeCollapse, neighbors: s.dotPaginationNeighbors });
     setDeckTransitionTiming(mergeDeckTiming(deck.transitionTiming, resolveDeckTransitionOverride(getPresetSettings())));
   }), []);
   /** Imperative handle for slides that consume Next/Prev internally
@@ -1073,6 +1079,8 @@ export default function SlideDeckPage() {
           total={total}
           slides={linearSlides}
           onJump={jump}
+          maxBeforeCollapse={dotCfg.max}
+          neighbors={dotCfg.neighbors}
         />
       )}
       {/* v0.124 — in-deck animation scrubber. Lives outside any printable

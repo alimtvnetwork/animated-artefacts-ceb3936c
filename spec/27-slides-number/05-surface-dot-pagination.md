@@ -18,14 +18,15 @@ When `total > getPresetSettings().dotPaginationMaxBeforeCollapse` (default
 anchoring slide 1 + last, current ±`neighbors` (default 2), and one `…` per gap
 of ≥3 hidden slides (a single hidden slide renders its number, never `…`).
 
-> **Implementation status (v1.59.0):** `buildPageWindow` now lives in
+> **Implementation status (v1.60.0):** `buildPageWindow` lives in
 > `src/slides/controls/pageWindow.ts` (pure, unit-tested in
 > `src/test/pageWindow.test.ts`) and is wired into `DotPagination.tsx`. The
-> threshold/neighbors are module constants (`COLLAPSE_THRESHOLD = 15`,
-> `NEIGHBORS = 2`) for now; promoting them to `PresetSettings`
-> (`dotPaginationMaxBeforeCollapse` / `dotPaginationNeighbors`) + the
-> `/settings` UI is still pending. The `…` token jumps to the gap midpoint;
-> reusing the `SlideIndicator` jump input is deferred.
+> threshold/neighbors are now **configurable** via `PresetSettings`
+> (`dotPaginationMaxBeforeCollapse` default 15, `dotPaginationNeighbors`
+> default 2), surfaced in `/settings` (two number inputs under the dot-
+> pagination toggle) and passed through `SlideDeckPage` → `DotPagination`
+> props (live-updated via `subscribePresetSettings`). The `…` token jumps to
+> the gap midpoint; reusing the `SlideIndicator` jump input is still deferred.
 
 - The `…` token is a focusable `<button aria-label="Jump to hidden slides">`
   that opens the jump input (reuse `SlideIndicator`); fallback jumps to the gap
