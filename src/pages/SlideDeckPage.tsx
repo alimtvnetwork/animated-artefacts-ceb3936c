@@ -1079,6 +1079,8 @@ export default function SlideDeckPage() {
           total={total}
           slides={linearSlides}
           onJump={jump}
+          maxBeforeCollapse={dotCfg.max}
+          neighbors={dotCfg.neighbors}
         />
       )}
       {/* v0.124 — in-deck animation scrubber. Lives outside any printable
