@@ -62,7 +62,7 @@ export function ShareMenu({ currentSlide, onClose }: Props) {
   // duplicates the standard handout.
   const hasReveals = allSlides.some(s => s.isClickReveal);
   return (
-    <div ref={ref} className="absolute bottom-full mb-3 right-0 controller-pill rounded-2xl p-1.5 min-w-[220px]">
+    <div ref={ref} className="absolute top-full mt-3 right-0 controller-pill rounded-2xl p-1.5 min-w-[220px]">
       <button onClick={() => copy(`${origin}/${currentSlide}`, 'Slide link')} className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-white/5 text-left text-sm lift-hover-subtle">
         <Link2 className="h-4 w-4 text-gold" />
         <div>
