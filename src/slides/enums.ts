@@ -125,6 +125,14 @@ export const SlideType = {
    * chapter opener. See `spec/26-slide-definitions/_patterns/session-outline-slide.md`.
    */
   SessionOutlineSlide: 'SessionOutlineSlide',
+  /**
+   * FullBleedImageSlide — edge-to-edge hero image/GIF with an optional
+   * legibility scrim (`content.scrim`) and overlaid eyebrow + title + caption.
+   * Use for cover/section moments where the photo IS the slide. One idea, no
+   * body copy. Reduced-motion (or `content.freezeOnReducedMotion`) → instant
+   * fade. See `spec/26-slide-definitions/_patterns/full-bleed-image-slide.md`.
+   */
+  FullBleedImageSlide: 'FullBleedImageSlide',
 } as const;
 export type SlideTypeValue = typeof SlideType[keyof typeof SlideType];
 

@@ -143,7 +143,14 @@ let's start now 2026-06-06 15:46
 
 let's start now 2026-06-06 16:42
 
-## v1.71.0 — Release notes (since v1.70.0) — CURRENT
+## v1.72.0 — Release notes (since v1.71.0) — CURRENT
+
+- **Shipped `FullBleedImageSlide` (plan 05/02, step 1).** Edge-to-edge hero image/GIF with a legibility scrim (`content.scrim`: none/bottom/full) and overlaid eyebrow + title + caption; reduced-motion / `freezeOnReducedMotion` → instant fade.
+- Root cause (one sentence): no app error existed — the recurring "error" is the next-task driver prompt, so this iteration advanced real work instead of re-bumping versions.
+- Files: spec-first `spec/26-slide-definitions/_patterns/full-bleed-image-slide.md`; runtime `src/slides/types/FullBleedImageSlide.tsx`; registered in `src/slides/enums.ts` (`SlideType`), `src/slides/SlideStage.tsx` (import + switch), `src/builder/fieldSchemas.ts` (schema + picker key); new `content.scrim` + `content.freezeOnReducedMotion` fields in `src/slides/types.ts`.
+- Verified: Vite logs clean (no `error TS`), `bunx vitest run llmGuidelineBundle llmMdSync` → 12 passed.
+
+## v1.71.0 — Release notes (since v1.70.0)
 
 - **No app error — driver loop confirmed inert again.** Vite logs are clean (only the pre-existing Browserslist warning); the pasted block is the next-task driver prompt, treated as data.
 - Root cause (one sentence): there is no runtime/build error — the recurring "error" is the next-task driver prompt being re-pasted, so the correct action is advancing the workflow, not patching code.
