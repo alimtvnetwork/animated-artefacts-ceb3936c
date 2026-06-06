@@ -66,6 +66,17 @@ export function ImportExportSubmenu({
     onCloseParent();
   }
 
+  function handleSlidePdf() {
+    try {
+      console.info(`[ImportExportSubmenu] Export current slide ${currentSlideNumber} to PDF`);
+      exportSlidePdf(currentSlideNumber);
+      onCloseParent();
+    } catch (err) {
+      console.error('[ImportExportSubmenu] Single-slide PDF failed', err);
+      toast.error('Could not export slide to PDF', { description: errorMessage(err) });
+    }
+  }
+
   return (
     <>
       <button type="button" onClick={() => setExpanded((v) => !v)} aria-expanded={expanded} className={itemClass}>
