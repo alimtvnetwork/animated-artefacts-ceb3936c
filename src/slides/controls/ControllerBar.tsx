@@ -574,15 +574,8 @@ function ControllerHamburger({
               <span className="flex-1">Copy LLM guide</span>
             </button>
             <div className={sepClass} />
-            <div className={labelClass}>Debug</div>
-            <button type="button" onClick={() => toggleColorDebug()} className={itemBase}>
-              <Contrast className={`h-4 w-4 ${colorDebugOn ? 'text-gold' : ''}`} />
-              <span className="flex-1">{colorDebugOn ? 'Hide contrast debug' : 'Contrast debug'}</span>
-            </button>
-            <button type="button" onClick={() => toggleReduceMotion()} className={itemBase}>
-              <Wind className={`h-4 w-4 ${reduceMotionOn ? 'text-gold' : ''}`} />
-              <span className="flex-1">{reduceMotionOn ? 'Restore full motion' : 'Reduce motion'}</span>
-            </button>
+            <DebugSubmenu itemClass={itemBase} labelClass={labelClass} />
+
             <div className={sepClass} />
             <button type="button" onClick={onOpenKeyboardMap} className={itemBase}>
               <Keyboard className="h-4 w-4" />
