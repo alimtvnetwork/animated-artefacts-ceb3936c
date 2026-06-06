@@ -143,7 +143,15 @@ let's start now 2026-06-06 15:46
 
 let's start now 2026-06-06 16:42
 
-## v1.76.0 — Release notes (since v1.75.0) — CURRENT
+## v1.77.0 — Release notes (since v1.76.0) — CURRENT
+
+- **Shipped `GifLoopSlide` (plan 05, step 1).** A centered looping GIF + optional eyebrow/title/caption; under `prefers-reduced-motion` (or `content.freezeOnReducedMotion`) the runtime swaps the GIF for a static `content.poster` so motion-sensitive viewers see a frozen frame.
+- Root cause (one sentence): no app error existed — the recurring "error" is the next-task driver prompt, so this iteration advanced real plan work (animated-media type).
+- Files: new `content.poster` field in `src/slides/types.ts`; runtime `src/slides/types/GifLoopSlide.tsx`; registered in `src/slides/enums.ts`, `src/slides/SlideStage.tsx` (import + switch), `src/builder/fieldSchemas.ts` (schema + picker key); spec `spec/26-slide-definitions/_patterns/gif-loop-slide.md`; docs in `LLM.md`, `spec/21-slides-system/llm/23-slide-type-contracts.md` (+count 30) & `06-json-authoring-cheatsheet.md` (§10d).
+- Verified: `bunx vitest run llmPackTypeCoverage llmMdSync contracts` → 79 passed (60 coverage assertions = 30 types × 2 docs); no `error TS` in Vite logs.
+
+## v1.76.0 — Release notes (since v1.75.0)
+
 
 - **Updated the LLM authoring pack for the three new media types (plan 05, step 1).** `FullBleedImageSlide`, `SplitMediaSlide`, and `MediaGridSlide` are now documented in the per-type contracts inventory and the portable root guide, with copy-paste JSON samples.
 - Root cause (one sentence): the new media slide types rendered at runtime but were invisible to LLM authors because the authoring pack (`23-slide-type-contracts.md` + `LLM.md`) never listed them.
