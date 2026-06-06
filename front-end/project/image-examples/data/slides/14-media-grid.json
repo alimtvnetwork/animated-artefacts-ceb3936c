@@ -1,0 +1,23 @@
+{
+  "slideNumber": 14,
+  "slideName": "media-grid",
+  "slideType": "MediaGridSlide",
+  "transition": "FadeIn",
+  "textAnimation": "SlideUp",
+  "enabled": true,
+  "isClickReveal": false,
+  "showBrandHeader": true,
+  "showPresenterChip": false,
+  "titleStyle": "white",
+  "densityCheck": { "capTiles": 6 },
+  "content": {
+    "eyebrow": "GALLERY",
+    "title": "A grid of moments",
+    "mediaTiles": [
+      { "src": "/assets/examples/photo.png", "caption": "One" },
+      { "src": "/assets/examples/photo.png", "caption": "Two" },
+      { "src": "/assets/examples/photo.png", "caption": "Three" },
+      { "src": "/assets/examples/photo.png", "caption": "Four" }
+    ]
+  }
+}

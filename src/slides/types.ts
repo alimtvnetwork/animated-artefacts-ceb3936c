@@ -385,6 +385,19 @@ export interface MetricSpec {
   accent?: CapsuleColorValue;
 }
 
+/**
+ * `MediaGridSlide` tile — a single image/SVG cell with an optional caption.
+ * `src` accepts any `<img src>` value (asset / SVG / Base64 / data URI), same
+ * contract as `content.image`. See
+ * `spec/26-slide-definitions/_patterns/media-grid-slide.md`.
+ */
+export interface MediaTileSpec {
+  /** Tile image source. Required. */
+  src: string;
+  /** Optional one-line caption under the tile. */
+  caption?: string;
+}
+
 /* ============================================================================
  * v0.169 — generic slide-type schemas (TableSlide / CodeBlockSlide /
  * BoxDiagramSlide / LayoutSlide). All four are topic-agnostic — they ship the
@@ -574,6 +587,12 @@ export interface SlideContent {
    * right; `right` mirrors it. Default `left`.
    */
   mediaSide?: 'left' | 'right';
+  /**
+   * `MediaGridSlide` — 2–6 image/SVG tiles with optional captions. Layout
+   * auto-derives from the count (2→1×2, 3→1×3, 4→2×2, 5/6→2×3). Density cap
+   * `capTiles` (≤6) enforced via `densityCheck`.
+   */
+  mediaTiles?: MediaTileSpec[];
   /**
    * Live meeting URL encoded into the QR. Per-slide override of `deck.meeting.url`.
    * When set (and no `qrAsset`/explicit src is provided), `BrandedQR` generates

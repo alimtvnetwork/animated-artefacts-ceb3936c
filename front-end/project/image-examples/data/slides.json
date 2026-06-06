@@ -65,6 +65,10 @@
     {
       "title": "split-media",
       "path": "./slides/13-split-media.json"
+    },
+    {
+      "title": "media-grid",
+      "path": "./slides/14-media-grid.json"
     }
   ]
 }

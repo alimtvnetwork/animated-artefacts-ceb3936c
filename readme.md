@@ -143,7 +143,14 @@ let's start now 2026-06-06 15:46
 
 let's start now 2026-06-06 16:42
 
-## v1.74.0 — Release notes (since v1.73.0) — CURRENT
+## v1.75.0 — Release notes (since v1.74.0) — CURRENT
+
+- **Shipped `MediaGridSlide` (plan 05/02, step 1).** 2–6 image/SVG tiles with optional captions, auto-laid out (2→1×2, 3→1×3, 4→2×2, 5/6→2×3); density cap `capTiles` (≤6) enforced via `densityCheck`; reduced-motion → instant fade. Added sample slide 14 to the `image-examples` deck.
+- Root cause (one sentence): no app error existed — the recurring "error" is the next-task driver prompt, so this iteration advanced real plan work.
+- Files: new `MediaTileSpec` + `content.mediaTiles` in `src/slides/types.ts`; `capTiles` cap + counter in `src/slides/densityCheck.ts`; runtime `src/slides/types/MediaGridSlide.tsx`; registered in `src/slides/enums.ts`, `src/slides/SlideStage.tsx` (import + switch), `src/builder/fieldSchemas.ts` (schema + picker key); spec `spec/26-slide-definitions/_patterns/media-grid-slide.md`; sample `front-end/project/image-examples/data/slides/14-media-grid.json` + manifest.
+- Verified: `bunx vitest run imageExamplesDeck contracts density` → 25 passed (deck confidence 100/100); Vite hot-reloaded the new JSON with no `error TS`.
+
+## v1.74.0 — Release notes (since v1.73.0)
 
 - **Added real samples for the new media types to the `image-examples` deck (plan 05/02, step 1).** New slides 12 (`FullBleedImageSlide`, scrim=bottom + overlay text) and 13 (`SplitMediaSlide`, mediaSide=left + keywords + capsules), registered in the deck manifest.
 - Root cause (one sentence): no app error existed — the recurring "error" is the next-task driver prompt, so this iteration advanced real plan work.
