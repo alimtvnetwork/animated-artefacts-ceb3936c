@@ -143,7 +143,14 @@ let's start now 2026-06-06 15:46
 
 let's start now 2026-06-06 16:42
 
-## v1.60.0 — Release notes (since v1.59.0) — CURRENT
+## v1.61.0 — Release notes (since v1.60.0) — CURRENT
+
+- **Hoisted dot-pagination clamp bounds out of `SettingsPage`** (coding-guideline rule 6: no magic numbers). The collapse-threshold (`5–99`) and neighbors (`1–5`) limits were inline literals duplicated across `min`/`max` attrs and the `Math.max/min` clamp in the `onChange` handlers.
+- Added `DOT_PAGINATION_COLLAPSE_BOUNDS` and `DOT_PAGINATION_NEIGHBORS_BOUNDS` (`{min,max,step}`) plus a reusable `clampToBounds(value, bounds)` helper to `src/slides/presetSettings.ts`.
+- `SettingsPage.tsx` now drives both number inputs' `min`/`max` and clamp logic from those constants — single source of truth, NaN-safe via `clampToBounds`.
+- No behavior change for users; ranges identical (5–99 / 1–5). Pure DRY/spec-compliance refactor.
+
+## v1.60.0 — Release notes (since v1.59.0)
 
 - **Made dot-pagination ellipsis windowing configurable** (spec `27/05` requirement; previously hard-coded constants in `DotPagination.tsx`).
 - Added `dotPaginationMaxBeforeCollapse` (default 15) and `dotPaginationNeighbors` (default 2) to `PresetSettings` (`src/slides/presetSettings.ts`) + `DEFAULT_PRESET_SETTINGS`.
