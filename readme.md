@@ -136,7 +136,14 @@ let's start now 2026-06-06 15:46
 
 let's start now 2026-06-06 16:42
 
-## v1.37.0 — Release notes (since v1.36.0) — CURRENT
+## v1.38.0 — Release notes (since v1.37.0) — CURRENT
+
+- Next-task cycle: no runtime/build error; `.lovable/plans/pending/` empty; only open item is M-01 (blocked on user decision under no-questions mode).
+- Saved prompt snapshot `.lovable/prompts/33-next-task.md`; archived `32`.
+- Synced registries `.lovable/prompt.md` + `.lovable/prompts.md`.
+- `package.json`: bumped to `1.38.0`.
+
+## v1.37.0 — Release notes (since v1.36.0)
 
 - Next-task cycle: no runtime/build error; `.lovable/plans/pending/` empty; only open item is M-01 (blocked on user decision under no-questions mode).
 - Saved prompt snapshot `.lovable/prompts/32-next-task.md`; archived `31`.
