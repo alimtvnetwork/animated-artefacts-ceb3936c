@@ -616,86 +616,12 @@ export function ThemeMenu({ onClose, onChange }: Props) {
         </div>
       )}
 
-      <div className="flex flex-col gap-1">
-        {/* Read directly from THEMES so imported custom themes show up.
-            THEME_IDS is the static built-in list — keep it for testing /
-            other call sites, but the picker needs the live registry. */}
-        {Object.keys(THEMES).map((id) => {
-          const t = THEMES[id as ThemeId];
-          const isActive = active === id;
-          const custom = isCustomThemeId(id);
-          return (
-            <div key={id} className="relative flex items-stretch">
-              <button
-                onClick={() => pick(id as ThemeId)}
-                role="menuitemradio"
-                aria-checked={isActive}
-                style={{ ['--tw-ring-color' as string]: 'hsl(var(--gold) / 0.55)' }}
-                className={`group flex-1 min-w-0 flex items-center gap-2 px-2 py-1.5 rounded-lg transition text-left focus-visible:outline-none focus-visible:ring-2 active:bg-[hsl(0_0%_100%/0.22)] ${
-                  isActive
-                    ? 'bg-[hsl(0_0%_100%/0.18)] ring-1 ring-gold/55'
-                    : 'hover:bg-[hsl(0_0%_100%/0.12)] focus-visible:bg-[hsl(0_0%_100%/0.12)]'
-                }`}
-              >
-                <div className="flex -space-x-1 shrink-0">
-                  {t.swatch.map((hex, i) => (
-                    <span
-                      key={i}
-                      className="h-4 w-4 rounded-full ring-2"
-                      style={{
-                        backgroundColor: hex,
-                        boxShadow: '0 0 0 2px hsl(var(--chrome-bg))',
-                      }}
-                      aria-hidden
-                    />
-                  ))}
-                </div>
-                <div className="flex-1 min-w-0">
-                  <div className="text-[12px] flex items-center gap-1.5 truncate">
-                    <span className="truncate">{t.label}</span>
-                    {isActive && <Check className="h-3 w-3 text-gold shrink-0" />}
-                    {custom && (
-                      <span
-                        className="ml-auto inline-flex items-center px-1 py-0.5 rounded text-[9px] font-semibold tracking-wide uppercase shrink-0"
-                        style={{
-                          background: 'hsl(var(--gold) / 0.18)',
-                          color: 'hsl(var(--gold))',
-                          border: '1px solid hsl(var(--gold) / 0.35)',
-                        }}
-                      >
-                        Imported
-                      </span>
-                    )}
-                  </div>
-                  <div
-                    className="text-[10.5px] leading-snug truncate transition-colors"
-                    style={{
-                      color: isActive
-                        ? 'hsl(var(--chrome-fg))'
-                        : 'hsl(var(--chrome-fg-subtle))',
-                    }}
-                  >
-                    <span className="group-hover:text-[hsl(var(--chrome-fg))] group-focus-visible:text-[hsl(var(--chrome-fg))]">
-                      {t.description}
-                    </span>
-                  </div>
-                </div>
-              </button>
-              {custom && (
-                <button
-                  onClick={(e) => handleRemoveCustom(id, e)}
-                  aria-label={`Remove imported theme ${t.label}`}
-                  title="Remove imported theme"
-                  style={{ ['--tw-ring-color' as string]: 'hsl(var(--gold) / 0.55)' }}
-                  className="ml-1 h-7 w-7 self-center flex items-center justify-center rounded-full transition hover:bg-[hsl(8_80%_50%/0.22)] hover:text-[hsl(10_95%_82%)] focus-visible:outline-none focus-visible:ring-2"
-                >
-                  <Trash2 className="h-3.5 w-3.5" />
-                </button>
-              )}
-            </div>
-          );
-        })}
-      </div>
+      {/* Dense swatch grid — imported customs included via live THEMES registry. */}
+      <ThemeSwatchGrid
+        active={active}
+        onPick={(id) => pick(id)}
+        onRemoveCustom={handleRemoveCustom}
+      />
     </div>
     <ThemeImportPreviewDialog
       open={pendingImport !== null}
