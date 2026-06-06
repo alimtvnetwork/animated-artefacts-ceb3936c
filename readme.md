@@ -134,7 +134,14 @@ let's start now 2026-04-30 12:00
 
 let's start now 2026-06-06 15:46
 
-## v1.24.0 — Release notes (since v1.23.0) — CURRENT
+## v1.25.0 — Release notes (since v1.24.0) — CURRENT
+
+**No application error — recurring next-task cycle closed.** Root cause: the reported "error" payload is the next-task driver prompt itself, not a runtime/build failure — `bunx vitest run src/test/contracts.test.ts` passes 14/14 and the Vite build is clean; the only open item was rolling the version pin/release log forward for this iteration.
+- `.lovable/prompts/20-next-task.md`: saved the v1.25.0 snapshot of the recurring driver prompt.
+- `.lovable/prompts.md`: marked `20` latest, `19` archived, extended historical range to `05`–`19`.
+- `package.json`: bumped to `1.25.0`.
+
+## v1.24.0 — Release notes (since v1.23.0)
 
 **Fixed next-task prompt snapshot drift again.** Root cause: `.lovable/prompts/18-next-task.md` carried two different checkpoint sections (`## This iteration (v1.22.0)` and `## Iteration note (v1.23.0)`) while the registries still marked that file as the single latest saved snapshot, so the saved prompt history was internally inconsistent even though the runtime app itself had no failing build/runtime signal.
 
