@@ -17,6 +17,10 @@ interface Props {
   onCloseParent: () => void;
   onOpenDeckTools: () => void;
   onOpenThemeTools: () => void;
+  /** When true the section list is always shown and the collapsible
+   *  "Import / Export" toggle header is hidden. Used by the dedicated
+   *  Import/Export popover (vs. the nested hamburger submenu). */
+  bare?: boolean;
 }
 
 
@@ -28,8 +32,9 @@ export function ImportExportSubmenu({
   onCloseParent,
   onOpenDeckTools,
   onOpenThemeTools,
+  bare = false,
 }: Props) {
-  const [expanded, setExpanded] = useState(false);
+  const [expanded, setExpanded] = useState(bare);
   const slideImportRef = useRef<HTMLInputElement | null>(null);
   const themesImportRef = useRef<HTMLInputElement | null>(null);
   const bundleImportRef = useRef<HTMLInputElement | null>(null);
