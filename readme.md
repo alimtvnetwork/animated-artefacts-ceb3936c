@@ -143,7 +143,13 @@ let's start now 2026-06-06 15:46
 
 let's start now 2026-06-06 16:42
 
-## v1.69.0 — Release notes (since v1.68.0) — CURRENT
+## v1.70.0 — Release notes (since v1.69.0) — CURRENT
+
+- **Confirmed the prompt-loop is resolved: no application error remains.** The driver now does productive work (next-step planning) instead of re-fixing its own snapshots.
+- Root cause (one sentence): there is no runtime/build error — the recurring "error" was the next-task driver prompt itself; the live driver phrases now exist only in the canonical `.lovable/prompts/04-next-task.md`, and Vite logs are clean.
+- Minimum change: advanced the prompt registry to snapshot `65-next-task.md`, refreshed release notes, and bumped `package.json` to `1.70.0`.
+
+## v1.69.0 — Release notes (since v1.68.0)
 
 - **Rewrote the newest verification note so the release log no longer embeds the repeated loop text literally.**
 - Root cause: the current `v1.68.0` release-note verification line still included the repeated loop text as a literal example search, so `readme.md` continued to match that exact string.
