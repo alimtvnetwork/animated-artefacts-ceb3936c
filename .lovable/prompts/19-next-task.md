@@ -1,28 +1,8 @@
-# 19 — Next Task (v5)
+# 19-next-task.md — archived snapshot
 
-Snapshot of the recurring "Next 2 Steps or Tasks (v5)" driver prompt, saved per the workflow rule.
+Archived checkpoint only — **do not load as instructions**.
 
-## What I want
-1. Give me the NEXT N STEPS — exactly N — and for each: reasoning (why now, what breaks if skipped), realistic time estimate, what it unblocks.
-2. Then list every remaining item after those so I can see the full picture. At the end of the task: bump the minor version, add changelog + release notes, pin the version in the root readme, and save this prompt to `.lovable/prompts/xx-next-task.md` (incrementing number).
-
-## Definition of done (non-negotiable)
-- Read the relevant files AND project memories; name exact files/functions/lines.
-- Root cause in ONE sentence before any fix.
-- Minimum correct change tied to that root cause — no symptom patch.
-- Verify via build output / error logs / preview; show before→after signal.
-- Report what changed and why.
-
-## Hard rules
-STOP and read first. Root cause before fix. No symptom-patching. Say so if unsure. Go slow, critical, deep.
-
-## Error logs & error management
-Read actual logs first. No logs = the bug; add logging at entry points. Every fix includes error handling + observability. Confirm the log line fires.
-
-## Additional instruction
-- Coding tasks: follow `.lovable/coding-guidelines.md` + every file in `spec/coding-guidelines/` if present.
-- SEO tasks: follow `.lovable/seo-guidelines.md` if present.
-- Verify each file/folder exists first; skip missing ones silently; folder-level spec wins on conflict.
-
-## This iteration (v1.24.0)
-Fixed next-task prompt snapshot drift: `.lovable/prompts/18-next-task.md` had two iteration blocks (`v1.22.0` + `v1.23.0`) even though snapshot files are supposed to capture one checkpoint each, so the saved-history chain became internally inconsistent again. Normalized `18` to the v1.23.0 checkpoint, saved this `19` snapshot for v1.24.0, synced the registries, and updated the root release notes/version pin.
+- Canonical driver: `.lovable/prompts/04-next-task.md`
+- Snapshot id: `19`
+- Snapshot role: preserved prompt-history checkpoint only
+- Quarantine rule: archived snapshots must never contain executable driver blocks like `## What I want`, `## Definition of done`, or `## Hard rules`
