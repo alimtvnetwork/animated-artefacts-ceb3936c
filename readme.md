@@ -143,7 +143,13 @@ let's start now 2026-06-06 15:46
 
 let's start now 2026-06-06 16:42
 
-## v1.70.0 — Release notes (since v1.69.0) — CURRENT
+## v1.71.0 — Release notes (since v1.70.0) — CURRENT
+
+- **No app error — driver loop confirmed inert again.** Vite logs are clean (only the pre-existing Browserslist warning); the pasted block is the next-task driver prompt, treated as data.
+- Root cause (one sentence): there is no runtime/build error — the recurring "error" is the next-task driver prompt being re-pasted, so the correct action is advancing the workflow, not patching code.
+- Minimum change: snapshotted `66-next-task.md`, advanced the prompt registry, refreshed release notes, and bumped `package.json` to `1.71.0`.
+
+## v1.70.0 — Release notes (since v1.69.0)
 
 - **Confirmed the prompt-loop is resolved: no application error remains.** The driver now does productive work (next-step planning) instead of re-fixing its own snapshots.
 - Root cause (one sentence): there is no runtime/build error — the recurring "error" was the next-task driver prompt itself; the live driver phrases now exist only in the canonical `.lovable/prompts/04-next-task.md`, and Vite logs are clean.
