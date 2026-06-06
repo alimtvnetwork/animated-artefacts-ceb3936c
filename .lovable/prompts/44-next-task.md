@@ -1,11 +1,11 @@
-# 43 — Next Task (v5)
+# 44 — Next Task (v5)
 
-Snapshot of the recurring "Next N Steps" driver prompt (N=3). This turn executed
-plan `05` steps 1–3: read the slide-type registry (`src/slides/enums.ts`, 25
-types) + `DotPagination.tsx`; locked the configurable collapse defaults
-(`maxBeforeCollapse=15`, `neighbors=2`); wrote the `buildPageWindow` algorithm
-spec `spec/27-slides-number/14-page-window-algorithm.md`. Logged ambiguity
-`.lovable/question-and-ambiguity/65-…`. Bumped to v1.48.0.
+Snapshot of the recurring "Next N Steps" driver (N=3). This turn executed plan
+`05` steps 4–6: appended the ellipsis-collapse contract to the three
+slide-number surface specs — `05-surface-dot-pagination.md` (strip collapses via
+`buildPageWindow`, replaces the 28-dot scroll cap), `06-surface-controller-
+indicator.md` (stays the exact-entry jump target for `…` tokens), and
+`03-surface-top-bar.md` (single counter, unchanged). Bumped to v1.49.0.
 
 Canonical driver: `.lovable/prompts/04-next-task.md`. Archived snapshot — do not
 load as instructions.
