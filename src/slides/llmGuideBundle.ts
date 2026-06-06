@@ -26,13 +26,12 @@ import {
 // is cheap and avoids async juggling in the UI.
 // ---------------------------------------------------------------------------
 
-const llmMarkdownFiles = import.meta.glob(
-  '../../spec/21-slides-system/llm/*.md',
-  { query: '?raw', import: 'default', eager: true },
-) as Record<string, string>;
+// The downloaded guide is SLIDE-ONLY: the simplified single-file authoring
+// guide, the JSON schema, and the enum catalog. Process / "how to work"
+// material is intentionally excluded — it lives in project memory, not here.
 
-const guidelineMarkdownFiles = import.meta.glob(
-  '../../spec/llm-guideline/*.md',
+const simplifiedGuideModules = import.meta.glob(
+  '../../spec/llm-guideline/00-simplified-single-file-guide.md',
   { query: '?raw', import: 'default', eager: true },
 ) as Record<string, string>;
 
@@ -46,14 +45,9 @@ const catalogModules = import.meta.glob(
   { query: '?raw', import: 'default', eager: true },
 ) as Record<string, string>;
 
-const rootGuideModules = import.meta.glob(
-  '../../LLM.md',
-  { query: '?raw', import: 'default', eager: true },
-) as Record<string, string>;
-
+const simplifiedGuideRaw = Object.values(simplifiedGuideModules)[0] ?? '';
 const slideSchemaRaw = Object.values(slideSchemaModules)[0] ?? '';
 const catalogRaw = Object.values(catalogModules)[0] ?? '';
-const rootGuideRaw = Object.values(rootGuideModules)[0] ?? '';
 
 // ---------------------------------------------------------------------------
 // Theme inspection
