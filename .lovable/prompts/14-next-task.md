@@ -1,42 +1,28 @@
-# Prompt 13 — Next N Task (v5)
+# 14 — Next Task (v5)
 
-> Saved per the "save this prompt" instruction. This is the running "next task"
-> driver: execute exactly N next steps, report root cause before fix, verify
-> with build/logs/preview, then bump minor version + changelog + release notes
-> + pin version in root readme.
+Snapshot of the recurring "Next 2 Steps or Tasks (v5)" driver prompt, saved per the workflow rule.
 
 ## What I want
-
-1. Give me the **NEXT N STEPS — exactly N** — and for each one:
-   1a) **Reasoning** — why this step, why now, what breaks if it's skipped.
-   1b) **Time estimate** — realistic, not optimistic.
-   1c) **What it unblocks** — the next thing that becomes possible.
-2. Then list **every remaining item** after those so I can see the full picture.
-   At the end of the task always bump the minor version, add changes log and
-   update release notes, and pin that version in the root readme. Also save this
-   prompt in `.lovable/prompts/` as `xx-next-task.md` and update it as "next
-   task with number".
+1. Give me the NEXT N STEPS — exactly N — and for each: reasoning (why now, what breaks if skipped), realistic time estimate, what it unblocks.
+2. Then list every remaining item after those so I can see the full picture. At the end of the task: bump the minor version, add changelog + release notes, pin the version in the root readme, and save this prompt to `.lovable/prompts/xx-next-task.md` (incrementing number).
 
 ## Definition of done (non-negotiable)
-- Read relevant files AND project memories — name exact files/functions/lines.
-- Root cause in ONE sentence, before any fix.
-- Fix = minimum correct change tied to that root cause (no symptom patch).
-- Verified: build output, error logs, and/or preview — show before/after signal.
-- Reported what changed and why.
+- Read the relevant files AND project memories; name exact files/functions/lines.
+- Root cause in ONE sentence before any fix.
+- Minimum correct change tied to that root cause — no symptom patch.
+- Verify via build output / error logs / preview; show before→after signal.
+- Report what changed and why.
 
 ## Hard rules
-- STOP and read first. Root cause before fix. No symptom-patching.
-- If unsure, say so. Go slow, go critical, go deep.
+STOP and read first. Root cause before fix. No symptom-patching. Say so if unsure. Go slow, critical, deep.
 
 ## Error logs & error management
-- Read actual error logs FIRST. No logs = add logging at entry point, surface
-  errors, never swallow. Confirm the log line fires after the change.
+Read actual logs first. No logs = the bug; add logging at entry points. Every fix includes error handling + observability. Confirm the log line fires.
 
-## Additional guideline check
-- Coding tasks: `.lovable/coding-guidelines.md` + `spec/coding-guidelines/`.
-- SEO tasks: `.lovable/seo-guidelines.md`.
-- Verify existence first; skip silently if missing; folder-level wins on conflict.
+## Additional instruction
+- Coding tasks: follow `.lovable/coding-guidelines.md` + every file in `spec/coding-guidelines/` if present.
+- SEO tasks: follow `.lovable/seo-guidelines.md` if present.
+- Verify each file/folder exists first; skip missing ones silently; folder-level spec wins on conflict.
 
-## Last completed checkpoint
-- v1.17.0 completed plan step 5 (slide-types catalog).
-- v1.18.0 completed plan step 6 (theme authoring guide aligned to runtime).
+## This iteration (v1.19.0)
+Completed plan subtask 07 — compact theme/color showcase grid (`ThemeSwatchGrid.tsx` + `ThemeMenu.tsx`).
