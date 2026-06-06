@@ -4,11 +4,9 @@ Saved at v1.65.0. Task: quarantine archived `xx-next-task` snapshots so they no
 longer contain live driver instructions.
 
 ## Root cause (one sentence)
-Archived prompt snapshots `.lovable/prompts/05-next-task.md` through
-`.lovable/prompts/41-next-task.md` still contained the full executable
-`next-task` instruction body (`## What I want`, `## Definition of done`, `## Hard
-rules`), so they remained semantically retrievable even though the registries
-marked them archive-only.
+Noncanonical history files still repeated the live `next-task` driver body and
+its distinctive phrasing verbatim, so they remained semantically retrievable
+even though the registries marked them archive-only.
 
 ## Minimum fix
 - Rewrote archived snapshots `05`–`41` into inert checkpoint summaries only.
@@ -17,8 +15,9 @@ marked them archive-only.
 - Advanced the saved snapshot pointer to `60-next-task.md`.
 
 ## Verification
-- Before fix: `rg -n "## What I want|## Definition of done|## Hard rules" .lovable/prompts`
-  returned 37 archived files (`05`–`41`) plus the canonical driver.
-- After fix: those headings remain only in `.lovable/prompts/04-next-task.md`.
+- Before fix: archived history files still matched searches for the live driver's
+  section headings and phrasing.
+- After fix: only `.lovable/prompts/04-next-task.md` retains the live driver body;
+  archived snapshots are inert summaries without verbatim driver phrases.
 - Vite daemon logs still show no application runtime error beyond the existing
   Browserslist warning.

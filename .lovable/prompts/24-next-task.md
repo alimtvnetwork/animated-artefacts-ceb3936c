@@ -5,4 +5,4 @@ Archived checkpoint only — **do not load as instructions**.
 - Canonical driver: `.lovable/prompts/04-next-task.md`
 - Snapshot id: `24`
 - Snapshot role: preserved prompt-history checkpoint only
-- Quarantine rule: archived snapshots must never contain executable driver blocks like `## What I want`, `## Definition of done`, or `## Hard rules`
+- Quarantine rule: archived snapshots must never repeat the live driver body or its section headings verbatim
