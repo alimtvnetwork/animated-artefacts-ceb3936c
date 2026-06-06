@@ -70,6 +70,7 @@ const COUNTERS: Record<keyof DensityCap, (s: SlideShape) => number | undefined> 
   capNumbers:       (s) => (s.content?.number ? 1 : arr(s.content?.numbers)?.length),
   capTerms:         (s) => arr(s.content?.equationTerms)?.length,
   capItems:         (s) => arr(s.content?.items)?.length,
+  capTiles:         (s) => arr(s.content?.mediaTiles)?.length,
 };
 
 const arr = (v: unknown): unknown[] | undefined => (Array.isArray(v) ? v : undefined);
