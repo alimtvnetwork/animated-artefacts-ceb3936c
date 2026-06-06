@@ -164,7 +164,35 @@ const variants = reduced ? reducedVariants : fullVariants;
 
 ---
 
+## 7b. Available themes (built-in)
+
+Theme ids live in the `ThemeId` union + `THEMES` record in
+`src/slides/themes.ts`. Set a deck's theme via `config.theme` in
+`slides.json`, or preview any with `?theme=<id>`.
+
+| id | label | appearance | flavor |
+|----|-------|------------|--------|
+| `noir-gold` | Noir & Gold | dark | Original restrained gold-on-noir |
+| `bright-gold` | Bright Gold | dark | **DEFAULT** — vivid gold, max contrast |
+| `vscode-dark` | VS Code Dark+ | dark | Azure-on-#1e1e1e editor |
+| `dracula` | Dracula | dark | Purple/pink on #282a36 |
+| `monokai` | Monokai | dark | Green/orange on #272822 |
+| `github-light` | GitHub Light | light | Cool blue wash, GitHub blue |
+| `paper-ink` | Paper & Ink | light | Warm cream paper, brand gold retained |
+| `macos-sonoma` | macOS Sonoma | dark | Indigo gradient, system blue |
+| `windows-11` | Windows 11 | dark | Fluent mica neutral, accent blue |
+| `navy-blue` | Navy Blue | dark | Navy + cyan + orange; Poppins body |
+| `glasswing` | Glasswing | dark | Editorial cream-on-charcoal, champagne accent; Ubuntu+Poppins |
+| `think-yellow` | Think Yellow | dark | Yellow-on-black poster (#FFD60A); Ubuntu+Poppins |
+| `riseup-pro` | Riseup Pro | dark | On-brand graphite studio, gold→ember; Ubuntu+Poppins |
+
+The last three are image-derived (`src/assets/reference-themes/`); see
+`spec/21-slides-system/08-image-derived-themes.md`. They pin Ubuntu
+display + Poppins body via the preset `fonts` block. All three are
+additive — existing themes are unchanged. Demo deck: `theme-flavors`.
+
 ## 8. How to add a new theme
+
 
 1. Append to `THEMES` in `src/slides/themes.ts`:
    ```ts
