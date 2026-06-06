@@ -142,7 +142,7 @@ export function ControllerBar({ current, total, onPrev, onNext, onJump, isFullsc
     // controller out of print/PDF/HTML exports so only the slide chrome prints.
     <div
       data-print-hide="true"
-      className="fixed bottom-6 right-6 z-50 flex items-end justify-end pl-4 pt-4"
+      className="fixed top-6 right-6 z-50 flex items-start justify-end pl-4 pb-4"
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >
