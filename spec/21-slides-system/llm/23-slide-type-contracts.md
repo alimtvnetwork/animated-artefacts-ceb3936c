@@ -55,10 +55,13 @@ schemas. Keep all three in sync.
 | `TileSlide` | `title`, `tiles` | `2 ≤ tiles.length ≤ 4`. |
 | `BlastRadiusSlide` | `title` | Single-word title moment; pairs with `ZoomOut` exit. |
 | `SessionOutlineSlide` | `title`, `items` | `2 ≤ items.length ≤ 8`; optional `activeIndex`. |
+| `FullBleedImageSlide` | `image` | Edge-to-edge hero; optional `eyebrow`, `title`, `subtitle`, `scrim` (`bottom`\|`top`\|`full`\|`none`). |
+| `SplitMediaSlide` | `title`, `image` | Two-column show + tell; `mediaSide` (`left` default \| `right`), optional `keywords`, `capsules`. |
+| `MediaGridSlide` | `title`, `mediaTiles` | `2 ≤ mediaTiles.length ≤ 6` (`capTiles`); each tile `{ src, caption? }`. |
 
 > `ClickRevealSlide` is not a content type — it is an envelope flag
 > (`isClickReveal: true` + `parentSlide`) on any slide; see `26-click-reveal-contract.md`.
-> All 26 `SlideType` enum values are now represented across this table + that note.
+> All 29 `SlideType` enum values are now represented across this table + that note.
 
 Every envelope (any slideType) requires:
 `slideNumber:int>0`, `slideName:string`, `slideType:enum`,
