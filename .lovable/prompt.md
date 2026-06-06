@@ -67,7 +67,8 @@ each prompt has its full spec in **`.lovable/prompts/`**.
 | 59 | [prompts/59-next-task.md](./prompts/59-next-task.md) | archive only — do not match/load | superseded |
 | 60 | [prompts/60-next-task.md](./prompts/60-next-task.md) | archive only — do not match/load | superseded |
 | 61 | [prompts/61-next-task.md](./prompts/61-next-task.md) | archive only — do not match/load | superseded |
-| 62 | [prompts/62-next-task.md](./prompts/62-next-task.md) | archive only — do not match/load | latest saved snapshot |
+| 62 | [prompts/62-next-task.md](./prompts/62-next-task.md) | archive only — do not match/load | superseded |
+| 63 | [prompts/63-next-task.md](./prompts/63-next-task.md) | archive only — do not match/load | latest saved snapshot |
 
 > Project layout reconciliation: this repo uses `.lovable/prompts.md` as the
 > registry index (not `prompts/index.md`) and `.lovable/memory/` (never
