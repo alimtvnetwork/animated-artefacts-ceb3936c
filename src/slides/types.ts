@@ -555,6 +555,20 @@ export interface SlideContent {
   /** `ImageSlide` — short caption rendered under the figure(s). One line. */
   caption?: string;
   /**
+   * `FullBleedImageSlide` — darkening gradient over the edge-to-edge media so
+   * overlaid title/eyebrow text stays legible. `none` = no scrim,
+   * `bottom` = gradient rising from the lower third (default),
+   * `full` = even dim across the whole frame. Magic values live in the union.
+   */
+  scrim?: 'none' | 'bottom' | 'full';
+  /**
+   * `FullBleedImageSlide` — when the media is an animated GIF, hold a static
+   * first frame instead of looping under `prefers-reduced-motion`. The runtime
+   * cannot pause a GIF, so this flag swaps the entrance to an instant fade and
+   * documents intent; pair with a still poster in `content.image` when needed.
+   */
+  freezeOnReducedMotion?: boolean;
+  /**
    * Live meeting URL encoded into the QR. Per-slide override of `deck.meeting.url`.
    * When set (and no `qrAsset`/explicit src is provided), `BrandedQR` generates
    * the QR client-side from this URL.
