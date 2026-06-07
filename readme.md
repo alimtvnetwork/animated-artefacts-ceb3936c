@@ -143,7 +143,14 @@ let's start now 2026-06-06 15:46
 
 let's start now 2026-06-06 16:42
 
-## v1.87.0 — Release notes (since v1.86.0) — CURRENT
+## v1.88.0 — Release notes (since v1.87.0) — CURRENT
+
+- **Added `spec/2096-steps-slide/06-typography.md` and `07-layout-geometry.md` (plan 06, steps 16–17).** The blind-LLM step-pack now locks the type system (Ubuntu 700 titles + Inter body, `letter-spacing -0.02em`, weight-bevel via tokens, depth ramp by font-size+alpha NOT scale, `far` alpha ≥0.55 for WCAG AA-large) and the spatial system (all gutters derive from `--brand-inset-x/-y`, no-reflow `min-height: calc(var(--step-title-active)*1.05)`, rail@left:18px, 36×36 chip, mirrored counter pill).
+- Grounded in: `src/index.css:186-210,241,657,679,723-770,1495-1582`, `stepTimelineGithubLightContrast.test.ts`, `mem://design/text-weight-shadow`.
+- Housekeeping: prompt snapshot `.lovable/prompts/83-next-task.md`; folder index status updated.
+- Remaining: spec files `08`–`18` + self-audit (plan steps 18–30).
+
+## v1.87.0 — Release notes (since v1.86.0)
 
 - **Added `spec/2096-steps-slide/05-color-and-tokens.md` (plan 06, steps 14–15).** The blind-LLM step-pack now locks the theme-safe capsule contract: use `.capsule-{tone}` classes and `.capsule-meta`, never inline brand-token backgrounds/foregrounds. It also explains why `--gold`/`--cream`/`--white`/`--ink` flip meaning on light themes and lists the step-family token set (`--gold`, `--ember`, `--cream`, `--brand-inset-x/-y`, `--step-title-active/-adjacent/-far`, `--text-shadow-weight-*`).
 - Grounded in: `src/index.css:38-91,186-230,826-912,1053-1185`, `.lovable/memory/index.md:32`, `spec/llm-guideline/10-theme-creation.md:24-34,96-101`.
