@@ -70,7 +70,24 @@ each prompt has its full spec in **`.lovable/prompts/`**.
 | 62 | [prompts/62-next-task.md](./prompts/62-next-task.md) | archive only — do not match/load | superseded |
 | 63 | [prompts/63-next-task.md](./prompts/63-next-task.md) | archive only — do not match/load | superseded |
 | 64 | [prompts/64-next-task.md](./prompts/64-next-task.md) | archive only — do not match/load | superseded |
-| 65 | [prompts/65-next-task.md](./prompts/65-next-task.md) | archive only — do not match/load | latest saved snapshot |
+| 65 | [prompts/65-next-task.md](./prompts/65-next-task.md) | archive only — do not match/load | superseded |
+| 66 | [prompts/66-next-task.md](./prompts/66-next-task.md) | archive only — do not match/load | superseded |
+| 67 | [prompts/67-next-task.md](./prompts/67-next-task.md) | archive only — do not match/load | superseded |
+| 68 | [prompts/68-next-task.md](./prompts/68-next-task.md) | archive only — do not match/load | superseded |
+| 69 | [prompts/69-next-task.md](./prompts/69-next-task.md) | archive only — do not match/load | superseded |
+| 70 | [prompts/70-next-task.md](./prompts/70-next-task.md) | archive only — do not match/load | superseded |
+| 71 | [prompts/71-next-task.md](./prompts/71-next-task.md) | archive only — do not match/load | superseded |
+| 72 | [prompts/72-next-task.md](./prompts/72-next-task.md) | archive only — do not match/load | superseded |
+| 73 | [prompts/73-next-task.md](./prompts/73-next-task.md) | archive only — do not match/load | superseded |
+| 74 | [prompts/74-next-task.md](./prompts/74-next-task.md) | archive only — do not match/load | superseded |
+| 75 | [prompts/75-next-task.md](./prompts/75-next-task.md) | archive only — do not match/load | superseded |
+| 76 | [prompts/76-next-task.md](./prompts/76-next-task.md) | archive only — do not match/load | superseded |
+| 77 | [prompts/77-next-task.md](./prompts/77-next-task.md) | archive only — do not match/load | superseded |
+| 78 | [prompts/78-next-task.md](./prompts/78-next-task.md) | archive only — do not match/load | superseded |
+| 79 | [prompts/79-next-task.md](./prompts/79-next-task.md) | archive only — do not match/load | superseded |
+| 80 | [prompts/80-next-task.md](./prompts/80-next-task.md) | archive only — do not match/load | superseded |
+| 81 | [prompts/81-next-task.md](./prompts/81-next-task.md) | archive only — do not match/load | superseded |
+| 82 | [prompts/82-next-task.md](./prompts/82-next-task.md) | archive only — do not match/load | latest saved snapshot |
 
 > Project layout reconciliation: this repo uses `.lovable/prompts.md` as the
 > registry index (not `prompts/index.md`) and `.lovable/memory/` (never
