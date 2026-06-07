@@ -625,6 +625,21 @@ export interface SlideContent {
    */
   mediaTiles?: MediaTileSpec[];
   /**
+   * `LogoWallSlide` — the brand/partner logos rendered in the wall. 2–12
+   * recommended. See `LogoSpec`.
+   */
+  logos?: LogoSpec[];
+  /**
+   * `LogoWallSlide` — fixed column count (2–6). When omitted, columns
+   * auto-derive from the logo count.
+   */
+  columns?: number;
+  /**
+   * `LogoWallSlide` — render logos desaturated (default `true`), revealing
+   * full color on hover. Set `false` for an always-color wall.
+   */
+  grayscale?: boolean;
+  /**
    * `GifLoopSlide` — static still frame shown instead of the looping GIF
    * (`content.image`) when `prefers-reduced-motion` is set or
    * `freezeOnReducedMotion` is true. The browser cannot pause a GIF, so this
