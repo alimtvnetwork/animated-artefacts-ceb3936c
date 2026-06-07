@@ -8,7 +8,7 @@
 
 ## Progress
 
-`1 / 40` — window 3 open
+`2 / 40` — window 3 open
 
 ## Log
 
