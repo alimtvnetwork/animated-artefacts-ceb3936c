@@ -143,7 +143,14 @@ let's start now 2026-06-06 15:46
 
 let's start now 2026-06-06 16:42
 
-## v1.95.0 — Release notes (since v1.94.0) — CURRENT
+## v1.96.0 — Release notes (since v1.95.0) — CURRENT
+
+- **Plan 06 spec series advanced: authored `16-worked-example.md` and `17-common-mistakes.md`.**
+- Root cause (one sentence): the reported "error" is the recurring next-task checkpoint prompt, not a runtime fault — Vite daemon logs are clean, so this iteration advances the deferred plan-06 spec series instead of patching code.
+- Change: created `spec/2096-steps-slide/16-worked-example.md` (annotated end-to-end 4-step focus-timeline deck spec: JSON source of truth + runtime flow + done signal) and `17-common-mistakes.md` (7 anti-patterns: inline hex/capsule colors, scale-reflow depth, silent catch, re-render hack vs `tryAdvance`, ignoring reduced motion, paragraph rows, magic timings — each tied to a coding-guideline rule). Created `.lovable/prompts/91-next-task.md`, advanced both registries so `91` is latest and `90` superseded, bumped `package.json` to `1.96.0`.
+- Verified: `sqlite3 /tmp/sandbox-state.db` query for `error|failed` in recent `vite` logs returned no rows; both new spec files cite source anchors in `FocusTimelineSlide.tsx`, `useFocusTimeline.ts`, and `index.css`.
+
+## v1.95.0 — Release notes (since v1.94.0)
 
 - **Fixed recurring next-task archive regression; runtime remains clean.**
 - Root cause (one sentence): `.lovable/prompts/89-next-task.md` was saved as a live verbatim next-task driver instead of an inert archive summary, while `.lovable/prompt.md` and `.lovable/prompts.md` still incorrectly pointed at `88` as latest, so the prompt-history guardrails were internally inconsistent again.
