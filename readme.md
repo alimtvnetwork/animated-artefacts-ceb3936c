@@ -143,7 +143,14 @@ let's start now 2026-06-06 15:46
 
 let's start now 2026-06-06 16:42
 
-## v1.96.0 — Release notes (since v1.95.0) — CURRENT
+## v1.97.0 — Release notes (since v1.96.0) — CURRENT
+
+- **Plan 06 spec series COMPLETE: authored the final file `18-acceptance-and-qa.md`.**
+- Root cause (one sentence): the reported "error" is the recurring next-task checkpoint prompt, not a runtime fault — Vite daemon logs are clean, so this iteration closes the deferred plan-06 spec series instead of patching code.
+- Change: created `spec/2096-steps-slide/18-acceptance-and-qa.md` (acceptance checklist + QA matrix across theme × motion × sound × navigation, contrast + reduced-motion guards, done signal). Created `.lovable/prompts/92-next-task.md`, advanced both registries so `92` is latest and `91` superseded, bumped `package.json` to `1.97.0`. Files `00`–`18` of plan 06 are now all authored.
+- Verified: `sqlite3 /tmp/sandbox-state.db` query for `error|failed` in recent `vite` logs returned no rows; the new spec cites source anchors in `FocusTimelineSlide.tsx`, `useFocusTimeline.ts`, `index.css`, and `stepTimelineGithubLightContrast.test.ts`.
+
+## v1.96.0 — Release notes (since v1.95.0)
 
 - **Plan 06 spec series advanced: authored `16-worked-example.md` and `17-common-mistakes.md`.**
 - Root cause (one sentence): the reported "error" is the recurring next-task checkpoint prompt, not a runtime fault — Vite daemon logs are clean, so this iteration advances the deferred plan-06 spec series instead of patching code.
