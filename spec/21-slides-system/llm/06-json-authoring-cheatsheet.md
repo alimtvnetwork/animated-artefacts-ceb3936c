@@ -450,6 +450,28 @@ Copy-paste templates. Every template is **valid against
 
 ---
 
+## 10f. QuoteOverImageSlide (pull-quote over a dimmed photo)
+
+```jsonc
+{
+  "slideNumber": 13,
+  "slideName": "testimonial",
+  "slideType": "QuoteOverImageSlide",
+  "transition": "FadeIn",
+  "textAnimation": "SlideUp",
+  "content": {
+    "eyebrow": "TESTIMONIAL",
+    "quote": "It changed how our whole team ships.",
+    "image": "images/customer.jpg",
+    "attribution": "Jane Doe",
+    "attributionRole": "Head of Product, Acme",
+    "scrim": "full"
+  }
+}
+```
+
+---
+
 
 
 

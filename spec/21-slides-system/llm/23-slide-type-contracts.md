@@ -60,6 +60,7 @@ schemas. Keep all three in sync.
 | `MediaGridSlide` | `title`, `mediaTiles` | `2 ≤ mediaTiles.length ≤ 6` (`capTiles`); each tile `{ src, caption? }`. |
 | `GifLoopSlide` | `image` | Looping GIF; optional `poster` (still shown under reduced-motion), `eyebrow`, `title`, `caption`, `freezeOnReducedMotion`. |
 | `SvgDiagramSlide` | one of: `svgMarkup`, `image` | Inline SVG figure + optional `callouts` (`[{ x, y, label, tone? }]`, % position), `eyebrow`, `title`, `caption`. |
+| `QuoteOverImageSlide` | `quote`, `image` | Pull-quote over a dimmed photo. Optional `eyebrow`, `attribution`, `attributionRole`, `scrim` (`none`/`bottom`/`full`, default `full`). |
 
 > `ClickRevealSlide` is not a content type — it is an envelope flag
 > (`isClickReveal: true` + `parentSlide`) on any slide; see `26-click-reveal-contract.md`.

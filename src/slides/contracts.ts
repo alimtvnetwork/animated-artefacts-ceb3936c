@@ -59,6 +59,7 @@ export const REQUIRED_FIELDS: Record<string, readonly string[]> = {
   MediaGridSlide:        ['title', 'mediaTiles'],
   GifLoopSlide:          ['image'],
   SvgDiagramSlide:       ['svgMarkup|image'], // any-of
+  QuoteOverImageSlide:   ['quote', 'image'],
 } as const;
 
 // ---------- Shared sub-contracts ----------
@@ -416,6 +417,16 @@ const SvgDiagramContent = z.object({
   { message: 'SvgDiagramSlide.content requires one of: svgMarkup, image.' },
 );
 
+/** QuoteOverImageSlide — pull-quote over a dimmed photo; `quote` + `image` required. */
+const QuoteOverImageContent = z.object({
+  quote: z.string().min(1),
+  image: z.string().min(1),
+  eyebrow: z.string().optional(),
+  attribution: z.string().optional(),
+  attributionRole: z.string().optional(),
+  scrim: z.enum(['none', 'bottom', 'full']).optional(),
+}).passthrough();
+
 /**
  * Public registry of every per-slideType content contract — the SAME zod
  * schemas the runtime validator uses. Exposed so external consumers (the
@@ -459,12 +470,13 @@ export const SLIDE_CONTENT_CONTRACTS = {
   MediaGridSlide:        MediaGridContent,
   GifLoopSlide:          GifLoopContent,
   SvgDiagramSlide:       SvgDiagramContent,
+  QuoteOverImageSlide:   QuoteOverImageContent,
 } as const;
 
 /** Bump on any breaking change to a per-type content contract. Drives the
  *  exported artifact's filename (`slide-types.v{N}.json`) and `version`
  *  field so downstream caches know to re-pull. */
-export const SLIDE_CONTRACTS_VERSION = 8 as const;
+export const SLIDE_CONTRACTS_VERSION = 9 as const;
 
 // ---------- Slide envelope (discriminated on slideType) ----------
 
@@ -509,6 +521,7 @@ export const SlideContract = z.discriminatedUnion('slideType', [
   make('MediaGridSlide', MediaGridContent),
   make('GifLoopSlide', GifLoopContent),
   make('SvgDiagramSlide', SvgDiagramContent),
+  make('QuoteOverImageSlide', QuoteOverImageContent),
 ]);
 
 export interface SlideValidationIssue {

@@ -56,7 +56,8 @@
         "SplitMediaSlide",
         "MediaGridSlide",
         "GifLoopSlide",
-        "SvgDiagramSlide"
+        "SvgDiagramSlide",
+        "QuoteOverImageSlide"
       ],
       "description": "Selects the React renderer. Each type expects a different `content` shape — see slide-types catalog. `FocusTimelineSlide` and `AdvanceStepSlide` consume Next/Prev internally — see spec/slides/11-focus-timeline.md and spec/slides/18-advance-step-cinematic.md. `MetricGridSlide` renders 2-6 headline metric cells — see spec/slides/llm/22b-metric-grid-worked-example.md."
     },
@@ -970,6 +971,25 @@
             "image": { "type": "string", "minLength": 1 },
             "callouts": { "type": "array" }
           }
+        }
+      },
+      "required": ["slideType"]
+    },
+    {
+      "title": "QuoteOverImageSlideVariant",
+      "properties": {
+        "slideType": { "const": "QuoteOverImageSlide" },
+        "content": {
+          "type": "object",
+          "properties": {
+            "quote": { "type": "string", "minLength": 1 },
+            "image": { "type": "string", "minLength": 1 },
+            "eyebrow": { "type": "string" },
+            "attribution": { "type": "string" },
+            "attributionRole": { "type": "string" },
+            "scrim": { "enum": ["none", "bottom", "full"] }
+          },
+          "required": ["quote", "image"]
         }
       },
       "required": ["slideType"]

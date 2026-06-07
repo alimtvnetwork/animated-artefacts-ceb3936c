@@ -164,6 +164,14 @@ export const SlideType = {
    * `spec/26-slide-definitions/_patterns/svg-diagram-slide.md`.
    */
   SvgDiagramSlide: 'SvgDiagramSlide',
+  /**
+   * QuoteOverImageSlide — a pull-quote (`content.quote`) layered over a dimmed
+   * background photo (`content.image`) with optional `attribution` +
+   * `attributionRole`. `content.scrim` ('full' default | 'bottom' | 'none')
+   * tunes the legibility dim. Use for testimonial / quote beats. See
+   * `spec/26-slide-definitions/_patterns/quote-over-image-slide.md`.
+   */
+  QuoteOverImageSlide: 'QuoteOverImageSlide',
 } as const;
 export type SlideTypeValue = typeof SlideType[keyof typeof SlideType];
 

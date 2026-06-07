@@ -514,6 +514,19 @@ export const SLIDE_TYPE_SCHEMAS: Record<SlideTypeValue, SlideTypeSchema> = {
       ],
     },
   },
+  QuoteOverImageSlide: {
+    label: 'Quote over image',
+    blurb: 'A pull-quote layered over a dimmed background photo with optional attribution.',
+    fields: ['eyebrow', 'image'],
+    defaults: {
+      eyebrow: 'TESTIMONIAL',
+      image: '/placeholder.svg',
+      quote: 'It changed how our whole team ships.',
+      attribution: 'Jane Doe',
+      attributionRole: 'Head of Product, Acme',
+      scrim: 'full',
+    } as unknown as Partial<SlideContent>,
+  },
 };
 
 /** Ordered list of slide-type keys for the picker. */
@@ -545,4 +558,5 @@ export const SLIDE_TYPE_KEYS: SlideTypeValue[] = [
   'MediaGridSlide',
   'GifLoopSlide',
   'SvgDiagramSlide',
+  'QuoteOverImageSlide',
 ];

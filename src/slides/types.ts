@@ -629,6 +629,20 @@ export interface SlideContent {
    */
   callouts?: SvgCalloutSpec[];
   /**
+   * `QuoteOverImageSlide` — the pull-quote text layered over the dimmed photo
+   * (`content.image`). Required for this type. Keep it to one or two sentences.
+   */
+  quote?: string;
+  /**
+   * `QuoteOverImageSlide` — who said the quote (name). Rendered under the quote.
+   */
+  attribution?: string;
+  /**
+   * `QuoteOverImageSlide` — the speaker's role/company, rendered under the
+   * attribution name in a quieter tone.
+   */
+  attributionRole?: string;
+  /**
    * Live meeting URL encoded into the QR. Per-slide override of `deck.meeting.url`.
    * When set (and no `qrAsset`/explicit src is provided), `BrandedQR` generates
    * the QR client-side from this URL.
