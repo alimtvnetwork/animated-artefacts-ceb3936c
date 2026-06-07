@@ -143,7 +143,14 @@ let's start now 2026-06-06 15:46
 
 let's start now 2026-06-06 16:42
 
-## v1.84.0 — Release notes (since v1.83.0) — CURRENT
+## v1.85.0 — Release notes (since v1.84.0) — CURRENT
+
+- **Added `spec/2096-steps-slide/04-css-tricks.md` (plan 06, steps 10–11).** The new blind-LLM CSS guide locks the Type-B rail recipe (dim base connector + active gold fill + glow), explains why the connector is a two-layer system, and documents the core no-`scale()` rule: depth must come from real font-size tokens, opacity ramp, and pure-white active text.
+- Grounded in: `src/slides/types/StepTimelineSlide.tsx:771-790`, `spec/21-slides-system/42-steps-motion.md:12-25,38-39`, `spec/21-slides-system/17-step-timeline-v2.md:42-43`, `src/index.css:208-230`.
+- Housekeeping: prompt snapshot `.lovable/prompts/80-next-task.md`; folder index status updated.
+- Remaining: spec files `05`–`18` + self-audit (plan steps 12–30).
+
+## v1.84.0 — Release notes (since v1.83.0)
 
 - **Added `spec/2096-steps-slide/03-focus-animation.md` (plan 06, steps 7–9).** The Type-B focus state machine ("first one, then the next"), the active/adjacent/far depth table (opacity 1.0/0.55/0.30, `--step-title-active/-adjacent/-far`, pure-white active, translateX -24→0, no scale), the detail-panel snap (enter 280ms cubic-bezier, y ±12, scale spring 380/28/0.7, exit 220ms, inner stagger 0.05/0.12/0.18/0.26s), and the mount reveal cadence (300ms base + 180ms stagger).
 - Grounded in: `src/index.css:208-210`, `src/slides/types/StepTimelineSlide.tsx`, `spec/21-slides-system/42-steps-motion.md`.
