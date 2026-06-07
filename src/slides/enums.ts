@@ -172,6 +172,15 @@ export const SlideType = {
    * `spec/26-slide-definitions/_patterns/quote-over-image-slide.md`.
    */
   QuoteOverImageSlide: 'QuoteOverImageSlide',
+  /**
+   * LogoWallSlide — a tidy grid of brand/partner logos (`content.logos`) with
+   * an optional eyebrow + title. Logos render desaturated by default
+   * (`content.grayscale`, default true) and reveal color on hover; column
+   * count auto-derives from the logo count unless `content.columns` (2–6) is
+   * set. Use for "trusted by" / partner / sponsor walls. See
+   * `spec/26-slide-definitions/_patterns/logo-wall-slide.md`.
+   */
+  LogoWallSlide: 'LogoWallSlide',
 } as const;
 export type SlideTypeValue = typeof SlideType[keyof typeof SlideType];
 
