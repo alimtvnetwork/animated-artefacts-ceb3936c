@@ -143,7 +143,14 @@ let's start now 2026-06-06 15:46
 
 let's start now 2026-06-06 16:42
 
-## v1.97.0 — Release notes (since v1.96.0) — CURRENT
+## v1.98.0 — Release notes (since v1.97.0) — CURRENT
+
+- **Started the prompt-audit series: created `audit/` and `audit/01-next-task-prompt-audit.md`.**
+- Root cause (one sentence): no runtime fault — the request is a new task to audit the last authored prompt for blind-AI-implementation readiness and persist scored results in an audit folder, step 1 of a 10-step series.
+- Change: created the `audit/` folder (first time populated, matching the folder-structure memory) and `audit/01-next-task-prompt-audit.md` scoring `.lovable/prompts/04-next-task.md` 1–100 across clarity, success criteria, checklist, self-containment, guardrails, observability, and side-effect determinism (composite **88/100**) with ranked weaknesses + fixes. Advanced prompt registries to `93`, bumped `package.json` to `1.98.0`.
+- Verified: `audit/01-next-task-prompt-audit.md` exists with the scoring table; Vite daemon logs show no `error|failed` rows.
+
+## v1.97.0 — Release notes (since v1.96.0)
 
 - **Plan 06 spec series COMPLETE: authored the final file `18-acceptance-and-qa.md`.**
 - Root cause (one sentence): the reported "error" is the recurring next-task checkpoint prompt, not a runtime fault — Vite daemon logs are clean, so this iteration closes the deferred plan-06 spec series instead of patching code.
