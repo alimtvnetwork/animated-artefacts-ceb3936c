@@ -143,7 +143,14 @@ let's start now 2026-06-06 15:46
 
 let's start now 2026-06-06 16:42
 
-## v1.81.0 — Release notes (since v1.80.0) — CURRENT
+## v1.82.0 — Release notes (since v1.81.0) — CURRENT
+
+- **Started the dedicated `spec/2096-steps-slide/` blind-LLM spec folder (plan 06, steps 1–3).** A self-contained guide teaching any LLM to rebuild the step-slide system, with the **two step types** (static outline vs. interactive focus) front and center.
+- Files: `spec/2096-steps-slide/readme.md` (index + reading order + canon cross-links), `spec/2096-steps-slide/00-overview.md` (shared mental model + house rules), `spec/2096-steps-slide/01-two-step-types.md` (Type A `SessionOutlineSlide` vs Type B `StepTimeline`/`Focus`/`AdvanceStep`, decision table, migration cost). Numbers grounded in `src/slides/types/StepTimelineSlide.tsx` (`STEP_INTERVAL_MS=2200`, `PAUSE_MS=6000`) and `src/index.css` (`--step-title-active/-adjacent/-far`).
+- Plan + captured command: `.lovable/plans/pending/06-steps-slide-2096-spec-folder.md`, `.lovable/spec/commands/07-steps-slide-spec-folder.md`. Prompt snapshot: `.lovable/prompts/77-next-task.md`.
+- Remaining: spec files `02`–`18` plus the final self-audit (plan steps 4–30).
+
+## v1.81.0 — Release notes (since v1.80.0)
 
 - **Added the `QuoteOverImageSlide` type (plan 05, steps 54–58 core).** A pull-quote layered over a dimmed background photo for testimonial / quote beats — runtime component, zod contract, builder picker entry, and LLM authoring docs.
 - Root cause (one sentence): quote/testimonial moments had no dedicated media-overlay slide type, so they had to be shoehorned into `ImageSlide`/`TitleSlide` with no legibility scrim or attribution structure.
