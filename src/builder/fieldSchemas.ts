@@ -575,4 +575,5 @@ export const SLIDE_TYPE_KEYS: SlideTypeValue[] = [
   'GifLoopSlide',
   'SvgDiagramSlide',
   'QuoteOverImageSlide',
+  'LogoWallSlide',
 ];
