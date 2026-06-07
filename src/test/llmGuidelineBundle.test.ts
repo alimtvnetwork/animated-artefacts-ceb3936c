@@ -32,9 +32,9 @@ describe('downloadable guide is slide-content only', () => {
 });
 
 describe('slideType registry is the source of truth the docs cite', () => {
-  it('exposes 30 runtime contracts at version 8', () => {
-    expect(Object.keys(SLIDE_CONTENT_CONTRACTS)).toHaveLength(30);
-    expect(SLIDE_CONTRACTS_VERSION).toBe(8);
+  it('exposes 31 runtime contracts at version 9', () => {
+    expect(Object.keys(SLIDE_CONTENT_CONTRACTS)).toHaveLength(31);
+    expect(SLIDE_CONTRACTS_VERSION).toBe(9);
   });
 
   it('slide.schema.json enum matches the runtime contract list (no drift)', () => {
