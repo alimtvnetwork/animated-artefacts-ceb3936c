@@ -60,6 +60,7 @@ export const REQUIRED_FIELDS: Record<string, readonly string[]> = {
   GifLoopSlide:          ['image'],
   SvgDiagramSlide:       ['svgMarkup|image'], // any-of
   QuoteOverImageSlide:   ['quote', 'image'],
+  LogoWallSlide:         ['logos'],
 } as const;
 
 // ---------- Shared sub-contracts ----------
@@ -427,6 +428,20 @@ const QuoteOverImageContent = z.object({
   scrim: z.enum(['none', 'bottom', 'full']).optional(),
 }).passthrough();
 
+/** LogoWallSlide — grid of brand logos; `logos` (2–12) required. */
+const Logo = z.object({
+  src: z.string().min(1),
+  name: z.string().optional(),
+  href: z.string().optional(),
+}).passthrough();
+const LogoWallContent = z.object({
+  logos: z.array(Logo).min(2).max(12),
+  eyebrow: z.string().optional(),
+  title: z.string().optional(),
+  columns: z.number().int().min(2).max(6).optional(),
+  grayscale: z.boolean().optional(),
+}).passthrough();
+
 /**
  * Public registry of every per-slideType content contract — the SAME zod
  * schemas the runtime validator uses. Exposed so external consumers (the
@@ -471,12 +486,13 @@ export const SLIDE_CONTENT_CONTRACTS = {
   GifLoopSlide:          GifLoopContent,
   SvgDiagramSlide:       SvgDiagramContent,
   QuoteOverImageSlide:   QuoteOverImageContent,
+  LogoWallSlide:         LogoWallContent,
 } as const;
 
 /** Bump on any breaking change to a per-type content contract. Drives the
  *  exported artifact's filename (`slide-types.v{N}.json`) and `version`
  *  field so downstream caches know to re-pull. */
-export const SLIDE_CONTRACTS_VERSION = 9 as const;
+export const SLIDE_CONTRACTS_VERSION = 10 as const;
 
 // ---------- Slide envelope (discriminated on slideType) ----------
 

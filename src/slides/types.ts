@@ -399,6 +399,20 @@ export interface MediaTileSpec {
 }
 
 /**
+ * `LogoWallSlide` — one brand/partner logo in the wall. `src` accepts any
+ * `<img src>` value (asset / SVG / Base64 / data URI). `name` is used as alt
+ * text; `href` is decorative metadata (not a live link in presentation mode).
+ */
+export interface LogoSpec {
+  /** Logo image source. Required. */
+  src: string;
+  /** Brand name — used as the image alt text. */
+  name?: string;
+  /** Decorative source URL (not navigated in presentation mode). */
+  href?: string;
+}
+
+/**
  * `SvgDiagramSlide` annotation callout — a labelled marker pinned by percent
  * position over the SVG figure. `x`/`y` are 0–100 (% of the figure box).
  * `tone` picks a semantic capsule color for the marker. See
@@ -610,6 +624,21 @@ export interface SlideContent {
    * `capTiles` (≤6) enforced via `densityCheck`.
    */
   mediaTiles?: MediaTileSpec[];
+  /**
+   * `LogoWallSlide` — the brand/partner logos rendered in the wall. 2–12
+   * recommended. See `LogoSpec`.
+   */
+  logos?: LogoSpec[];
+  /**
+   * `LogoWallSlide` — fixed column count (2–6). When omitted, columns
+   * auto-derive from the logo count.
+   */
+  columns?: number;
+  /**
+   * `LogoWallSlide` — render logos desaturated (default `true`), revealing
+   * full color on hover. Set `false` for an always-color wall.
+   */
+  grayscale?: boolean;
   /**
    * `GifLoopSlide` — static still frame shown instead of the looping GIF
    * (`content.image`) when `prefers-reduced-motion` is set or

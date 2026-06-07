@@ -38,6 +38,7 @@ import { MediaGridSlide } from './types/MediaGridSlide';
 import { GifLoopSlide } from './types/GifLoopSlide';
 import { SvgDiagramSlide } from './types/SvgDiagramSlide';
 import { QuoteOverImageSlide } from './types/QuoteOverImageSlide';
+import { LogoWallSlide } from './types/LogoWallSlide';
 import { BrandHeader } from './components/BrandHeader';
 import { AmbientBackground } from './components/AmbientBackground';
 import { HotspotLayer } from './components/HotspotLayer';
@@ -157,6 +158,7 @@ function renderSlideBody({ slide, onCapsuleClickReveal, highlightReveal, onOpenE
     case 'GifLoopSlide': return <GifLoopSlide spec={slide} />;
     case 'SvgDiagramSlide': return <SvgDiagramSlide spec={slide} />;
     case 'QuoteOverImageSlide': return <QuoteOverImageSlide spec={slide} />;
+    case 'LogoWallSlide': return <LogoWallSlide spec={slide} />;
     default: return <TitleSlide spec={slide} />;
   }
 }
