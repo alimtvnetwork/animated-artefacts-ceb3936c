@@ -133,7 +133,104 @@ real sizes rather than scaling a bitmap-like painted result.
 
 ---
 
-## 3. Minimum implementation rules
+## 3. Optional blur / glow effects (reduced-motion gated)
+
+The step system uses **soft blur and glow as transient cues only** — never as a
+permanent visual state. Every blur/glow effect below MUST be disabled when the
+user prefers reduced motion.
+
+Source anchors:
+
+- Panel blur ramp on swap: `src/slides/types/StepTimelineSlide.tsx:1088-1105`
+- Cleared resting state: `src/slides/types/StepTimelineSlide.tsx:1096`
+- Reduced-motion guard: the `reduced` flag at `StepTimelineSlide.tsx:818,1022,1172`
+
+### 3.1 Detail-panel backdrop blur ramp
+
+When the right detail panel swaps step → step, the *outgoing* content carries a
+small `filter: blur()` that **clears to `blur(0px)` at rest**. Blur is part of the
+transition, not the destination.
+
+| Phase | filter | Notes |
+|---|---|---|
+| enter (jump) | `blur(4px)` → `blur(0px)` | snappy, ~180ms clear |
+| enter (auto/hover) | `blur(6px)` → `blur(0px)` | cinematic, longer expo |
+| sideways crossfade | `blur(2px)` → `blur(0px)` | gentle hover swap |
+| **resting** | `blur(0px)` | **always crisp at rest** |
+| exit | `blur(3–4px)` | only while leaving |
+
+Rule: the panel is **only blurred mid-motion**. If a panel is ever blurry while
+sitting still, the effect is wrong.
+
+### 3.2 Ember / cream glow halos
+
+Glow halos are emitted from gold/ember/cream tokens, never raw hex:
+
+```tsx
+// active rail fill glow
+shadow-[0_0_8px_hsl(var(--gold)/0.6)]
+// secondary (cream) trail glow
+shadow-[0_0_6px_hsl(var(--cream)/0.35)]
+```
+
+Keep halos **bound to the active element** (rail fill, active chip), never on the
+whole column or panel. A column-wide glow flattens the depth hierarchy.
+
+### 3.3 Reduced-motion gate
+
+When `prefers-reduced-motion: reduce` is set, the runtime passes a `reduced`
+flag that collapses every effect above:
+
+- **Disable:** all `filter: blur()` ramps (set duration 0 / no blur keyframes),
+  directional x/y entrance, scale spring, connector grow animation.
+- **Keep:** a ≤150ms opacity crossfade, the static font-size tokens, and the
+  resting glow on the active rail (it is a static state, not motion).
+
+Never ship a blur that animates under reduced motion — gate it at the source,
+not with a CSS override.
+
+---
+
+## 4. The numbered chip
+
+Each step row is anchored by a **numbered chip**. This is the single most copied
+primitive of the step system.
+
+Source anchor: `src/slides/types/StepTimelineSlide.tsx:974` (chip element).
+
+### 4.1 It is a `<button>`, never a `<div>`
+
+The chip is interactive — clicking an inactive chip jumps focus to that step.
+Render it as a real `<button>` so it is keyboard-focusable and exposes the right
+ARIA role. A `<div>` with an `onClick` is a defect.
+
+### 4.2 Geometry
+
+| Property | Spec target | Why |
+|---|---|---|
+| size | `36 × 36` (`h-9 w-9`) | large enough to read the 2-digit label on projection |
+| shape | `rounded-full` | circular chip, never a square or pill |
+| font | `font-display font-bold` | Ubuntu Bold numerals match titles |
+| transition | `transition-all duration-300` | smooth active/inactive state change |
+
+> Runtime note: the present `StepTimelineSlide.tsx` uses a slightly smaller
+> chip for local tuning; for a blind reimplementation, use **36×36** as the spec
+> target unless explicitly matching the current runtime offset.
+
+### 4.3 Index label format
+
+The number inside the chip is **always 2 digits, zero-padded, 1-based**:
+
+```tsx
+const label = String(i + 1).padStart(2, '0'); // item 0 → "01", item 9 → "10"
+```
+
+This matches the `STEP NN / NN` counter pill and the ghost numeral. Never print a
+bare `1` or a 0-based index.
+
+---
+
+## 5. Minimum implementation rules
 
 - Keep the connector as **two separate layers**: dim rail + active fill.
 - Keep both rail layers on the **same x coordinate**.
