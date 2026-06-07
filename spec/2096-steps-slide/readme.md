@@ -58,5 +58,6 @@ spec (see `01-two-step-types.md`):
 
 - 2026-06-07 — Folder scaffolded. `readme.md`, `00-overview.md`,
   `01-two-step-types.md`, `02-data-model.md`, `03-focus-animation.md`,
-  `04-css-tricks.md` written (plan `06`, steps 1–11). Remaining files `05`–`18`
-  to be authored in subsequent steps. Self-audit pending (plan step 30).
+  `04-css-tricks.md` written (plan `06`, steps 1–13 — §3 blur/glow gating +
+  §4 numbered chip now complete). Remaining files `05`–`18` to be authored in
+  subsequent steps. Self-audit pending (plan step 30).

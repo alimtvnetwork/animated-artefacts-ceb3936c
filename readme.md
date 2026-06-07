@@ -143,7 +143,14 @@ let's start now 2026-06-06 15:46
 
 let's start now 2026-06-06 16:42
 
-## v1.85.0 — Release notes (since v1.84.0) — CURRENT
+## v1.86.0 — Release notes (since v1.85.0) — CURRENT
+
+- **Expanded `spec/2096-steps-slide/04-css-tricks.md` (plan 06, steps 12–13).** Added §3 *Optional blur/glow effects (reduced-motion gated)* — the panel backdrop-blur ramp that always clears to `blur(0px)` at rest, ember/cream glow halos bound to the active element only, and the explicit reduced-motion gate (disable blur/x-y/scale/connector-grow; keep ≤150ms opacity crossfade + static glow). Added §4 *The numbered chip* — it MUST be a `<button>` (never a `<div>`), `36×36 rounded-full`, label `String(i+1).padStart(2,'0')`. Renumbered the closing rules to §5.
+- Grounded in: `src/slides/types/StepTimelineSlide.tsx:974,1088-1105,818,1022,1172`.
+- Housekeeping: prompt snapshot `.lovable/prompts/81-next-task.md`; folder index status updated.
+- Remaining: spec files `05`–`18` + self-audit (plan steps 14–30).
+
+## v1.85.0 — Release notes (since v1.84.0)
 
 - **Added `spec/2096-steps-slide/04-css-tricks.md` (plan 06, steps 10–11).** The new blind-LLM CSS guide locks the Type-B rail recipe (dim base connector + active gold fill + glow), explains why the connector is a two-layer system, and documents the core no-`scale()` rule: depth must come from real font-size tokens, opacity ramp, and pure-white active text.
 - Grounded in: `src/slides/types/StepTimelineSlide.tsx:771-790`, `spec/21-slides-system/42-steps-motion.md:12-25,38-39`, `spec/21-slides-system/17-step-timeline-v2.md:42-43`, `src/index.css:208-230`.
