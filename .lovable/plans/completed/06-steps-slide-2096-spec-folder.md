@@ -2,7 +2,7 @@
 
 **Slug:** steps-slide-2096-spec-folder
 **Steps:** 30
-**Status:** pending
+**Status:** completed
 **Created:** 2026-06-07
 
 ## Context
