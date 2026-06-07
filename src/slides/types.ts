@@ -399,6 +399,20 @@ export interface MediaTileSpec {
 }
 
 /**
+ * `LogoWallSlide` — one brand/partner logo in the wall. `src` accepts any
+ * `<img src>` value (asset / SVG / Base64 / data URI). `name` is used as alt
+ * text; `href` is decorative metadata (not a live link in presentation mode).
+ */
+export interface LogoSpec {
+  /** Logo image source. Required. */
+  src: string;
+  /** Brand name — used as the image alt text. */
+  name?: string;
+  /** Decorative source URL (not navigated in presentation mode). */
+  href?: string;
+}
+
+/**
  * `SvgDiagramSlide` annotation callout — a labelled marker pinned by percent
  * position over the SVG figure. `x`/`y` are 0–100 (% of the figure box).
  * `tone` picks a semantic capsule color for the marker. See
