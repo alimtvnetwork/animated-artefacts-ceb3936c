@@ -70,5 +70,9 @@ spec (see `01-two-step-types.md`):
   `tryAdvance`, click `focusOn`, autoplay/scrubber `setStep`) and
   `11-reduced-motion.md` (drop transforms/variants/pulse, keep opacity+blur;
   dual `@media` + `[data-reduce-motion]` triggers) written (plan `06`, steps
-  20–21). Remaining files `12`–`18` to be authored next. Self-audit pending
-  (plan step 30).
+  20–21).
+- 2026-06-07 — `12-accessibility.md` (ARIA `aria-current`/`aria-hidden`/tabindex
+  windowing + WCAG alpha-ramp contrast guard) and `13-sound.md` (focus-arrival
+  `click` cue, silent-degradation rules, mute persistence vs reduced motion)
+  written (plan `06`, steps 22–23). Remaining files `14`–`18` to be authored
+  next. Self-audit pending (plan step 30).
