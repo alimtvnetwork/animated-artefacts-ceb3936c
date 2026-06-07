@@ -76,3 +76,6 @@ spec (see `01-two-step-types.md`):
   `click` cue, silent-degradation rules, mute persistence vs reduced motion)
   written (plan `06`, steps 22–23). Remaining files `14`–`18` to be authored
   next. Self-audit pending (plan step 30).
+- 2026-06-07 — Prompt-history repair: corrected stale `.lovable/prompts/86-next-task.md`
+  and `87-next-task.md`, then advanced the registry to `88-next-task.md` so the
+  saved next-task checkpoint matches the actual latest iteration metadata again.
