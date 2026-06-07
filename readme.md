@@ -143,7 +143,14 @@ let's start now 2026-06-06 15:46
 
 let's start now 2026-06-06 16:42
 
-## v1.82.0 — Release notes (since v1.81.0) — CURRENT
+## v1.83.0 — Release notes (since v1.82.0) — CURRENT
+
+- **Added `spec/2096-steps-slide/02-data-model.md` (plan 06, steps 5–6).** The exact `content` contract for both step types: Type A `content.items[]` (`StepSlideContent`/`StepItem`) and Type B `content.steps[]` (`StepSpec`), each with an annotated valid JSON example and the shared field rules (zero-based `activeIndex`, `meta` vs `capsule`, no third array key).
+- Grounded in real source: `src/slides/types.ts` (`StepSpec` line 116, `SlideContent` line 538).
+- Housekeeping: prompt snapshot `.lovable/prompts/78-next-task.md`; folder index `spec/2096-steps-slide/readme.md` status updated.
+- Remaining: spec files `03`–`18` + self-audit (plan steps 7–30).
+
+## v1.82.0 — Release notes (since v1.81.0)
 
 - **Started the dedicated `spec/2096-steps-slide/` blind-LLM spec folder (plan 06, steps 1–3).** A self-contained guide teaching any LLM to rebuild the step-slide system, with the **two step types** (static outline vs. interactive focus) front and center.
 - Files: `spec/2096-steps-slide/readme.md` (index + reading order + canon cross-links), `spec/2096-steps-slide/00-overview.md` (shared mental model + house rules), `spec/2096-steps-slide/01-two-step-types.md` (Type A `SessionOutlineSlide` vs Type B `StepTimeline`/`Focus`/`AdvanceStep`, decision table, migration cost). Numbers grounded in `src/slides/types/StepTimelineSlide.tsx` (`STEP_INTERVAL_MS=2200`, `PAUSE_MS=6000`) and `src/index.css` (`--step-title-active/-adjacent/-far`).
