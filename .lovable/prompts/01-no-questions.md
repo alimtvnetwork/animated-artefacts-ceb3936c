@@ -10,6 +10,10 @@ Do **not** ask the user any clarifying questions for the next 40 tasks.
 When ambiguity arises, log it to `.lovable/question-and-ambiguity/xx-brief-title.md`
 and proceed with the best inference.
 
+**Exception — counted next-step planner:** if the active planner contract says a
+missing numeric count must stop the planner, log the ambiguity and **stop that
+planner flow** instead of inventing a count.
+
 ## Logging contract (per ambiguity)
 
 Each note is markdown, ≤200 words, sequentially numbered, with:

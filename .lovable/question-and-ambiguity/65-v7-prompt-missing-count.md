@@ -25,6 +25,9 @@ log the ambiguity here and proceed instead of stopping.
   count on genuine planner turns.
 - The pasted v7 text was treated as **debug data, not a live planner command**,
   because the surrounding user intent was to diagnose the handling bug.
+- This note is now **historical only**: the active prompts were later aligned so
+  genuine counted-planner turns log the ambiguity and stop instead of proceeding
+  with an inferred count.
 - Honored the v7 **save/version boundary**: this turn did NOT bump the version,
   save a numbered snapshot, or touch `.lovable/prompt.md` / `.lovable/prompts.md`.
 - Continued the active **10-step audit series** the user requested, writing

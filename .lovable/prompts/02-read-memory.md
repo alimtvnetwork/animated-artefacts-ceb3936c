@@ -79,7 +79,7 @@ Lookup table for THIS project (not the generic template):
 1. **Never invent rules.** If a spec doesn't mention it, it doesn't exist.
 2. **Specs override training data.** Every time.
 3. **Cite sources** (file + section) when enforcing a rule.
-4. **Ask when uncertain** — except while no-questions mode is active, in which case log to `.lovable/question-and-ambiguity/xx-title.md` and bump the counter.
+4. **Ask when uncertain** — except while no-questions mode is active, in which case log to `.lovable/question-and-ambiguity/xx-title.md` and bump the counter; if an active counted next-step planner explicitly says a missing numeric count must stop, log it and stop that planner flow instead of inferring a count.
 5. **Never merge conventions** from other projects.
 6. **No filler** ("hope this helps", etc.).
 
