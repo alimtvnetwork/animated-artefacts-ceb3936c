@@ -36,12 +36,9 @@ the prompt body.
    - **ETA** — realistic duration.
    - **Unlocks** — the immediate follow-on work this enables.
 2. Then list **all remaining work** after those N items.
-3. When this planner was truly activated for planning, **bump the minor
-   version**, update changelog/release notes, and pin the version in the root
-   `readme.md` when practical.
-4. When truly activated for planning, save or refresh the numbered snapshot in
-   `.lovable/prompts/` and keep `.lovable/prompts.md` plus `.lovable/prompt.md`
-   aligned.
+3. **Do not** save, re-save, version, or register prompt files from this
+   counted next-step planner. That lifecycle belongs only to the plan-prompt
+   family.
 
 ## Completion gate
 
