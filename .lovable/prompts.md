@@ -92,7 +92,9 @@ Each entry links to its full spec in `.lovable/prompts/`.
 | 85 | [85-next-task.md](./prompts/85-next-task.md) | archive only — do not match/load | superseded |
 | 86 | [86-next-task.md](./prompts/86-next-task.md) | archive only — do not match/load | superseded |
 | 87 | [87-next-task.md](./prompts/87-next-task.md) | archive only — do not match/load | superseded |
-| 88 | [88-next-task.md](./prompts/88-next-task.md) | archive only — do not match/load | latest saved snapshot |
+| 88 | [88-next-task.md](./prompts/88-next-task.md) | archive only — do not match/load | superseded |
+| 89 | [89-next-task.md](./prompts/89-next-task.md) | archive only — do not match/load | superseded |
+| 90 | [90-next-task.md](./prompts/90-next-task.md) | archive only — do not match/load | latest saved snapshot |
 
 Snapshots `05`–`85` are preserved as historical per-iteration saves of the same recurring next-task prompt.
 
