@@ -143,7 +143,15 @@ let's start now 2026-06-06 15:46
 
 let's start now 2026-06-06 16:42
 
-## v1.80.0 — Release notes (since v1.79.0) — CURRENT
+## v1.81.0 — Release notes (since v1.80.0) — CURRENT
+
+- **Added the `QuoteOverImageSlide` type (plan 05, steps 54–58 core).** A pull-quote layered over a dimmed background photo for testimonial / quote beats — runtime component, zod contract, builder picker entry, and LLM authoring docs.
+- Root cause (one sentence): quote/testimonial moments had no dedicated media-overlay slide type, so they had to be shoehorned into `ImageSlide`/`TitleSlide` with no legibility scrim or attribution structure.
+- Files: `src/slides/types/QuoteOverImageSlide.tsx` (new), `src/slides/enums.ts`, `src/slides/SlideStage.tsx`, `src/slides/types.ts` (`quote`/`attribution`/`attributionRole` content fields), `src/slides/contracts.ts` (`QuoteOverImageContent`, REQUIRED_FIELDS, registry, union, `SLIDE_CONTRACTS_VERSION` 8→9), `src/builder/fieldSchemas.ts`, docs (`LLM.md`, `23-slide-type-contracts.md`, `06-json-authoring-cheatsheet.md`), test counts in `src/test/llmGuidelineBundle.test.ts` (30→31, v9), spec pattern `spec/26-slide-definitions/_patterns/quote-over-image-slide.md`, prompt snapshot `76-next-task.md`.
+- Verified: `bunx vitest run` on contract + LLM-pack coverage tests passes (31 contracts at v9).
+
+## v1.80.0 — Release notes (since v1.79.0)
+
 
 - **Added real `GifLoopSlide` + `SvgDiagramSlide` samples to the `image-examples` deck (plan 05, step 2).** The maintained example deck now includes slides 15–16 plus spec-first JSON+MD pairs, so the two newest media types have concrete regression baselines instead of existing only as runtime components.
 - Root cause (one sentence): `GifLoopSlide` and `SvgDiagramSlide` were implemented in runtime and validation, but the spec-first `image-examples` deck still stopped at slide 14, leaving no maintained sample coverage for animated-media and SVG-callout authoring.
