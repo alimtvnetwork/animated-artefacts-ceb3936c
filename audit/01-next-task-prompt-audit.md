@@ -3,6 +3,11 @@
 Audit target: the last prompt authored/maintained — the on-demand canonical
 next-step planner at `.lovable/prompts/04-next-task.md` (75 lines).
 
+> **Historical note (2026-06-07):** weakness #1 and the save/version concern
+> below are now superseded by the live prompt rules. The active planner now
+> **stops** on missing/ambiguous numeric `N` and does **not** save/version/register
+> prompt files.
+
 Purpose of this audit: score how well a **blind AI implementer** (no prior
 context, only this prompt) could execute it correctly and safely. Step 1 of a
 10-step audit series.
@@ -24,15 +29,15 @@ context, only this prompt) could execute it correctly and safely. Step 1 of a
 
 ## Top weaknesses (ranked)
 
-1. **`N` is undefined inside the prompt** — depends entirely on the trigger turn.
-   A blind run with no explicit N has no default. *Fix:* state "default N = 2 if
-   unspecified."
+1. **`N` was undefined inside the prompt** — this was the original gap at audit
+   time. **Superseded:** the live prompt now parses `N` from the live
+   title/header and stops when the count is missing or ambiguous.
 2. **Self-containment** — references `.lovable/coding-guidelines.md`,
    registries, and `readme.md` without paths-at-a-glance. *Fix:* add a "files
    this prompt touches" manifest block.
-3. **"when practical" / "when truly activated"** — soft language on the readme
-   pin and snapshot save invites drift. *Fix:* make both unconditional on a
-   real planning activation.
+3. **"when practical" / prompt-save side effects** — this was an audit-time
+   drift risk. **Superseded:** the live counted planner no longer performs any
+   save/version/register lifecycle.
 
 ## What's already excellent
 
