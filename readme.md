@@ -143,7 +143,21 @@ let's start now 2026-06-06 15:46
 
 let's start now 2026-06-06 16:42
 
-## v1.90.0 — Release notes (since v1.89.0) — CURRENT
+## v1.92.0 — Release notes (since v1.91.0) — CURRENT
+
+- **Authored `spec/2096-steps-slide/12-accessibility.md` and `13-sound.md` (plan `06`, steps 22–23).**
+- `12` documents ARIA + focus: `aria-current="step"` on the active row, `aria-hidden` on the decorative rail and out-of-window rows, `tabIndex` 0/-1 windowing (`FocusTimelineSlide.tsx:92/109/145-147`), and the WCAG-AA alpha-ramp contrast contract (active 1.0 / adjacent 0.62 / far 0.55) guarded by `stepTimelineGithubLightContrast.test.ts`.
+- `13` documents the focus-arrival `click` cue (`SlideDeckPage.tsx:269/281` → `slideSound.play('click')` at volume 0.18), the closed `SoundKind` union, and silent-degradation rules: no-op before first gesture/when muted/on decode fail, mute persisted via `slide-sound-muted`, and reduced motion does not auto-mute.
+- Housekeeping: bumped `package.json` to `1.92.0`, snapshotted prompt to `.lovable/prompts/87-next-task.md`, updated the spec folder status log.
+
+## v1.91.0 — Release notes (since v1.90.0)
+
+- **Authored `spec/2096-steps-slide/10-interaction-contract.md` and `11-reduced-motion.md` (plan `06`, steps 20–21).**
+- `10` documents the deck Next/Prev short-circuit: `SlideDeckPage.tsx:268/280` call `focusRef.tryAdvance(dir)` first and only navigate on `false`, with boundary truth owned by `useFocusTimeline.next/prev`; click rows jump via `focusOn(i)`; autoplay/scrubber use `setStep` (`setStep(-1)` = pre-reveal).
+- `11` documents reduced motion: drop transforms/per-variant keyframes/swipe-pulse but keep the opacity ramp (1.0/0.62/0.55) and blur ramp (0/1.2/2.5px), mirrored across both `@media (prefers-reduced-motion)` (`index.css:371`) and `:root[data-reduce-motion="true"]` (`index.css:1707-1730`).
+- Housekeeping: bumped `package.json` to `1.91.0`, snapshotted prompt to `.lovable/prompts/86-next-task.md`, updated the spec folder status log.
+
+## v1.90.0 — Release notes (since v1.89.0)
 
 - **Fixed prompt snapshot registry drift; no runtime app error existed.**
 - Root cause (one sentence): prompt-history metadata was out of sync because `.lovable/prompt.md` and `.lovable/prompts.md` still marked `82-next-task.md` as latest while files `83-next-task.md` and `84-next-task.md` already existed, and both newer files still contained stale `snapshot 82` content.
