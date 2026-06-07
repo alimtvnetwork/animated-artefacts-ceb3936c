@@ -427,6 +427,20 @@ const QuoteOverImageContent = z.object({
   scrim: z.enum(['none', 'bottom', 'full']).optional(),
 }).passthrough();
 
+/** LogoWallSlide — grid of brand logos; `logos` (2–12) required. */
+const Logo = z.object({
+  src: z.string().min(1),
+  name: z.string().optional(),
+  href: z.string().optional(),
+}).passthrough();
+const LogoWallContent = z.object({
+  logos: z.array(Logo).min(2).max(12),
+  eyebrow: z.string().optional(),
+  title: z.string().optional(),
+  columns: z.number().int().min(2).max(6).optional(),
+  grayscale: z.boolean().optional(),
+}).passthrough();
+
 /**
  * Public registry of every per-slideType content contract — the SAME zod
  * schemas the runtime validator uses. Exposed so external consumers (the
