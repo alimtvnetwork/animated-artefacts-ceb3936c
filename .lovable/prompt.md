@@ -87,7 +87,10 @@ each prompt has its full spec in **`.lovable/prompts/`**.
 | 79 | [prompts/79-next-task.md](./prompts/79-next-task.md) | archive only — do not match/load | superseded |
 | 80 | [prompts/80-next-task.md](./prompts/80-next-task.md) | archive only — do not match/load | superseded |
 | 81 | [prompts/81-next-task.md](./prompts/81-next-task.md) | archive only — do not match/load | superseded |
-| 82 | [prompts/82-next-task.md](./prompts/82-next-task.md) | archive only — do not match/load | latest saved snapshot |
+| 82 | [prompts/82-next-task.md](./prompts/82-next-task.md) | archive only — do not match/load | superseded |
+| 83 | [prompts/83-next-task.md](./prompts/83-next-task.md) | archive only — do not match/load | superseded |
+| 84 | [prompts/84-next-task.md](./prompts/84-next-task.md) | archive only — do not match/load | superseded |
+| 85 | [prompts/85-next-task.md](./prompts/85-next-task.md) | archive only — do not match/load | latest saved snapshot |
 
 > Project layout reconciliation: this repo uses `.lovable/prompts.md` as the
 > registry index (not `prompts/index.md`) and `.lovable/memory/` (never
