@@ -24,6 +24,23 @@ Coding guidelines apply: `.lovable/coding-guidelines.md` (12 rules; no
 **Open question for user:** confirm collapse threshold default (proposed 15) and
 neighbor count (proposed ±2); and supply the reference images for new themes.
 
+## Scan results (step 1 — 2026-06-07) ✅
+
+Re-scanned `src/slides/`, `enums.ts`, `SlideStage.tsx`, `controls/`, `presetSettings.ts`.
+**Large parts of this plan are already implemented.** True remaining scope below.
+
+**Already DONE — do NOT redo:**
+- **Ellipsis pagination** — `src/slides/controls/pageWindow.ts` + `pageWindow.test.ts` exist; `buildPageWindow(current, total, neighbors)` is wired into `DotPagination.tsx:68`; `presetSettings.ts` has `dotPaginationMaxBeforeCollapse: 15` + `dotPaginationNeighbors: 2`; `GapJumpToken.tsx` exists. (Plan steps 3–10, 21–28 largely complete — verify only.)
+- **6 media slide types** built + in `SlideType` union + rendered via `SlideStage.tsx`: `FullBleedImageSlide`, `SplitMediaSlide`, `MediaGridSlide`, `GifLoopSlide`, `SvgDiagramSlide`, `QuoteOverImageSlide` (each has a `src/slides/types/*.tsx` renderer). (Plan steps 12–16, 29–53.)
+- **Image-derived themes** — 3 built-in (glasswing, think-yellow, riseup-pro) per `mem://design/image-derived-themes`, spec `21-slides-system/08`. (Plan steps 19, 81–88 substantially complete.)
+
+**STILL REMAINING (real work for future `next` sessions):**
+- **4 missing media types** — `LogoWallSlide`, `BeforeAfterSlide`, `IconRowSlide`, `MediaTimelineSlide` (not in `enums.ts`, no renderer). Plan steps 17, 54–78.
+- **`freezeOnReducedMotion` + GIF loader** — confirm/implement in shared media renderer. Plan steps 18, 79–80.
+- **LLM guide updates** — add all new types to `spec/llm-guideline/00-simplified-single-file-guide.md` §3/§4, `09-decision-tree.md`, `LLM.md`, `llmGuideBundle.ts`. Plan steps 20, 89–94.
+- **Verification sweep** — `vitest`, `check-catalog-drift.ts`, `contrast-audit.ts`, 50-slide preview QA. Plan steps 95–99.
+- **Closeout** — memory + version bump + move plan to completed. Plan step 100.
+
 ## Steps
 1. Re-scan `.lovable/`, `spec/21-slides-system/`, `spec/27-slides-number/`, and `src/slides/` to confirm current slide-type union, renderer switch, and number-surface components.
 2. Record the configurable collapse threshold (default 15) + neighbor count (default ±2) decision in the controller command file; flag for user confirmation.
