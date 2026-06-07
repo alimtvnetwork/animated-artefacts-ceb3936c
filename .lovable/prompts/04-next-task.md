@@ -15,6 +15,12 @@
 > Debug override: on debugging turns, do not mutate prompt history, save
 > numbered snapshots, or update prompt registries unless the verified root cause
 > is the prompt system itself.
+> Count rule precedence: if a pasted/quoted prompt says "stop and ask" for a
+> missing count but **no-questions mode** is active, do not ask. Log the
+> ambiguity in `.lovable/question-and-ambiguity/`, state that the count was
+> missing, and continue the debugging workflow using the best supported
+> inference. This precedence applies only while inspecting prompt text as data,
+> not when the planner is genuinely activated by the user's live intent.
 
 ## Requested output
 
