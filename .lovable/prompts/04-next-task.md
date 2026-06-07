@@ -1,4 +1,4 @@
-# 04 — Next Task (Numbered next-step planner)
+# 04 — Next Task (Counted next-step planner, v7 contract)
 
 > Reusable operating prompt. Trigger phrases: plain-language requests to map the
 > upcoming work, including `next task`, `next N steps`, or a numbered next-step
@@ -6,7 +6,7 @@
 > Execution rule: this is the only executable next-step planner. Numbered
 > `xx-next-task.md` files are archived snapshots and must never be auto-loaded as
 > live instructions.
-> Activation guard: run this prompt only when the user's primary intent,
+> Activation guard: run this planner only when the user's primary intent,
 > outside quoted or fenced text, is to plan upcoming work. If the surrounding
 > turn is about debugging, investigating, fixing, resolving, or explaining a
 > failure — especially when it includes a pasted prompt, bug report, stack
@@ -15,34 +15,31 @@
 > Debug override: on debugging turns, do not mutate prompt history, save
 > numbered snapshots, or update prompt registries unless the verified root cause
 > is the prompt system itself.
-> Count parsing rule: when this planner is genuinely activated, parse **N** from
-> the user's live title/header before anything else. Do not infer **N** from the
-> body text.
-> Missing-count rule: if the live request has no numeric **N** or the count is
-> ambiguous, stop the planner and request the count. If **no-questions mode** is
-> active, log the ambiguity in `.lovable/question-and-ambiguity/` and stop the
-> planner instead of fabricating a count.
-> Debug-data rule: when a counted prompt appears only inside quoted/pasted text
-> on a debugging turn, inspect it as data and do not execute its counted-output
-> contract.
+
+## Count parsing
+
+1. Parse **N** from the user's live title/header before doing anything else.
+2. For any count-bearing next-steps/tasks header, that number is **N**.
+3. Use that exact **N** everywhere in the answer.
+4. Give exactly **N** next steps: not `N-1`, not `N+1`.
+5. Never leave count text unless it matches the parsed **N**.
+6. If no count is present or the count is ambiguous, stop and request the count.
+7. If **no-questions mode** is active, log the ambiguity in
+   `.lovable/question-and-ambiguity/` and stop this planner flow instead of
+   fabricating a count.
+8. Do not infer **N** from body text.
 
 ## Requested output
 
-Set **N** from the user's live request header/title before reading the rest of
-the prompt body.
+1. Give exactly **N requested steps/tasks** and, for each one, include:
+   - **Reasoning** — why this step, why now, what breaks if it is skipped.
+   - **Time estimate** — realistic, not optimistic.
+   - **What it unblocks** — the next thing that becomes possible.
+2. Then list **every remaining item** after those **N** steps/tasks.
 
-1. Provide **exactly N upcoming steps** and, for each step, include:
-   - **Reason** — why this step belongs now and what risk appears if skipped.
-   - **ETA** — realistic duration.
-   - **Unlocks** — the immediate follow-on work this enables.
-2. Then list **all remaining work** after those N items.
-3. **Do not** save, re-save, version, or register prompt files from this
-   counted next-step planner. That lifecycle belongs only to the plan-prompt
-   family.
+## Definition of done
 
-## Completion gate
-
-- [ ] Read the relevant files and project memories — name the exact
+- [ ] Read the relevant files **and** project memories; name the exact
       files/functions/lines involved.
 - [ ] Write the **root cause** in one sentence before any fix.
 - [ ] Make the **minimum correct change** tied to that root cause.
@@ -50,36 +47,45 @@ the prompt body.
       signal.
 - [ ] Report what changed and why.
 
-## Guardrails
+## Hard rules
 
-- **Read first.** No skimming, no filename guessing.
-- **Root cause first.** Trace the issue end-to-end.
+- **Stop and read first.** No skimming, no filename guessing.
+- **Root cause before fix.** Trace the issue end-to-end.
 - **No symptom patches.** Do not hide the problem with fallbacks or hacks.
 - **If unsure, say so.** Never invent certainty.
-- **Be deliberate.** Depth is the job.
+- **Go slow. Go critical. Go deep.** Depth is the job.
 
-## Logs first
+## Error logs & error management
 
-- Read the actual logs first — console, server/worker output, build output, or
-  stack traces.
+- Read the actual error logs first — console, server/worker output, build
+  output, or stack traces.
 - If there are no logs, add observability at the entry point and surface the
   failure instead of swallowing it.
-- Every fix should preserve or improve error visibility.
+- Every fix must preserve or improve error visibility.
 - Confirm the relevant log line appears after the change.
+
+## Save/version boundary
+
+This counted next-task planner does **not** save, re-save, version, or register
+prompt files. The registry-aware save/version lifecycle belongs only to the
+plan-prompt family.
 
 ## Additional instruction (follow if matches)
 
-1. **Coding tasks** — check `.lovable/coding-guidelines.md` and
-   `spec/coding-guidelines/`; follow every file present. If a coding task and
-   neither exists, ask for one.
-2. **SEO tasks** — check `.lovable/seo-guidelines.md`; follow if present.
+Before executing, check the task type and follow the relevant guidelines if
+they exist. Verify each file/folder exists first; skip silently if missing. If
+multiple guidelines apply, follow all of them. If they conflict, prefer the
+folder-level spec and call out the conflict.
 
-Rule: verify the file/folder exists first; skip silently if missing. If multiple
-guidelines apply, follow all; on conflict, prefer the folder-level spec and call
-it out.
-
-## Run log (numbered archive)
-
-- **#1 → v1.4.0** — Schema-drift closeout R1: `content.additionalProperties false→true` (mirror runtime passthrough) + `Step.image`/`imageRole` (spec 31).
-- **#2 → v1.5.0** — Schema-drift closeout R2: top-level `required` parity with `Envelope`; ImageSlide `image|images`; `Step.description` string|object; `sound.kind` full `SoundKind`. Deck fragments 55→4 failures (4 remaining are authoring defects, not schema).
-- **#3 → v1.6.0** — Fragment parity locked: fixed `clickRevealSlide` string→24 (real no-op bug) + relaxed stale `hoverText` cap 28→48 (widthAnchor outgrew it); added `src/test/deckFragmentSchema.test.ts` CI gate. Deck fragments 4→0 failures; suite 900/900.
+1. **Coding tasks**
+   - Check `.lovable/coding-guidelines.md`. If present, follow it.
+   - Check `spec/coding-guidelines/`. If present, follow every file inside.
+   - Check `spec/XX-error-manage/` and `coding-guidelines/XX-error-manage/`,
+     where `XX` is a zero-padded sequence (`01`, `02`, …). If any such folder
+     exists, read **every** file inside and apply its logging, error surfacing,
+     retries, and failure-handling rules to every code-touching step.
+   - If this is a coding task and none of the above exist, ask for one — except
+     while no-questions mode is active, in which case log the ambiguity and stop
+     this planner flow.
+2. **SEO tasks**
+   - Check `.lovable/seo-guidelines.md`. If present, follow it.
