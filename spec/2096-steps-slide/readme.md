@@ -83,3 +83,7 @@ spec (see `01-two-step-types.md`):
   scaffold to sound) and `15-css-recipes.md` (connector glow, depth-without-scale
   ramp, blur ramp, capsule tones, reduced-motion override) written (plan `06`,
   steps 24–25). Remaining files `16`–`18` to be authored next.
+- 2026-06-07 — Prompt-history repair: rewrote `.lovable/prompts/89-next-task.md`
+  from a live verbatim driver back into an inert checkpoint summary, then
+  advanced both prompt registries to `90-next-task.md` so archived snapshots stay
+  non-executable and the latest pointer matches reality again.
