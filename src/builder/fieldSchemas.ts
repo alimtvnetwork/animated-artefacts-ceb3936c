@@ -527,6 +527,22 @@ export const SLIDE_TYPE_SCHEMAS: Record<SlideTypeValue, SlideTypeSchema> = {
       scrim: 'full',
     } as unknown as Partial<SlideContent>,
   },
+  LogoWallSlide: {
+    label: 'Logo wall',
+    blurb: 'A tidy grid of brand/partner logos, desaturated by default, with an optional title.',
+    fields: ['eyebrow', 'title'],
+    defaults: {
+      eyebrow: 'TRUSTED BY',
+      title: 'Partners & Clients',
+      logos: [
+        { src: '/placeholder.svg', name: 'Acme' },
+        { src: '/placeholder.svg', name: 'Globex' },
+        { src: '/placeholder.svg', name: 'Initech' },
+        { src: '/placeholder.svg', name: 'Umbrella' },
+      ],
+      grayscale: true,
+    } as unknown as Partial<SlideContent>,
+  },
 };
 
 /** Ordered list of slide-type keys for the picker. */
