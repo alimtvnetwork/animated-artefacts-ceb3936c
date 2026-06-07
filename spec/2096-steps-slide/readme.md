@@ -57,5 +57,5 @@ spec (see `01-two-step-types.md`):
 ## Status
 
 - 2026-06-07 — Folder scaffolded. `readme.md`, `00-overview.md`,
-  `01-two-step-types.md`, `02-data-model.md` written (plan `06`, steps 1–6). Remaining files
-  `03`–`18` to be authored in subsequent steps. Self-audit pending (plan step 30).
+  `01-two-step-types.md`, `02-data-model.md`, `03-focus-animation.md` written (plan `06`, steps 1–9). Remaining files
+  `04`–`18` to be authored in subsequent steps. Self-audit pending (plan step 30).
