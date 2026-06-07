@@ -60,6 +60,7 @@ export const REQUIRED_FIELDS: Record<string, readonly string[]> = {
   GifLoopSlide:          ['image'],
   SvgDiagramSlide:       ['svgMarkup|image'], // any-of
   QuoteOverImageSlide:   ['quote', 'image'],
+  LogoWallSlide:         ['logos'],
 } as const;
 
 // ---------- Shared sub-contracts ----------
@@ -485,12 +486,13 @@ export const SLIDE_CONTENT_CONTRACTS = {
   GifLoopSlide:          GifLoopContent,
   SvgDiagramSlide:       SvgDiagramContent,
   QuoteOverImageSlide:   QuoteOverImageContent,
+  LogoWallSlide:         LogoWallContent,
 } as const;
 
 /** Bump on any breaking change to a per-type content contract. Drives the
  *  exported artifact's filename (`slide-types.v{N}.json`) and `version`
  *  field so downstream caches know to re-pull. */
-export const SLIDE_CONTRACTS_VERSION = 9 as const;
+export const SLIDE_CONTRACTS_VERSION = 10 as const;
 
 // ---------- Slide envelope (discriminated on slideType) ----------
 
