@@ -143,7 +143,14 @@ let's start now 2026-06-06 15:46
 
 let's start now 2026-06-06 16:42
 
-## v1.94.0 — Release notes (since v1.93.0) — CURRENT
+## v1.95.0 — Release notes (since v1.94.0) — CURRENT
+
+- **Fixed recurring next-task archive regression; runtime remains clean.**
+- Root cause (one sentence): `.lovable/prompts/89-next-task.md` was saved as a live verbatim next-task driver instead of an inert archive summary, while `.lovable/prompt.md` and `.lovable/prompts.md` still incorrectly pointed at `88` as latest, so the prompt-history guardrails were internally inconsistent again.
+- Minimum fix: rewrote `.lovable/prompts/89-next-task.md` into an inert checkpoint summary, created `.lovable/prompts/90-next-task.md`, advanced both registries so `90` is latest and `88`–`89` are superseded, bumped `package.json` to `1.95.0`, and noted the repair in `spec/2096-steps-slide/readme.md`.
+- Verified: before fix, `rg -n "# Next 2 Steps or Tasks \(v5\)|## What I want|Definition of done|Hard rules|Additional Instruction|latest saved snapshot|snapshot 89|snapshot 88" .lovable/prompts .lovable/prompts.md .lovable/prompt.md readme.md` showed `89-next-task.md` still carrying the live driver body while both registries still marked `88` as latest; after fix, those live-driver phrases are gone from `89`, both registries point to `90-next-task.md`, and Vite daemon logs still show no runtime/build error signal beyond the pre-existing Browserslist warning.
+
+## v1.94.0 — Release notes (since v1.93.0)
 
 - **Plan 06 spec series advanced: authored `14-implementation-checklist.md` and `15-css-recipes.md`.**
 - Root cause (one sentence): the reported "error" is the recurring next-task checkpoint prompt, not a runtime fault — Vite daemon logs are clean, so this iteration advances the deferred plan-06 spec series instead of patching code.
