@@ -79,3 +79,7 @@ spec (see `01-two-step-types.md`):
 - 2026-06-07 — Prompt-history repair: corrected stale `.lovable/prompts/86-next-task.md`
   and `87-next-task.md`, then advanced the registry to `88-next-task.md` so the
   saved next-task checkpoint matches the actual latest iteration metadata again.
+- 2026-06-07 — `14-implementation-checklist.md` (8-step build order from
+  scaffold to sound) and `15-css-recipes.md` (connector glow, depth-without-scale
+  ramp, blur ramp, capsule tones, reduced-motion override) written (plan `06`,
+  steps 24–25). Remaining files `16`–`18` to be authored next.

@@ -143,7 +143,14 @@ let's start now 2026-06-06 15:46
 
 let's start now 2026-06-06 16:42
 
-## v1.93.0 — Release notes (since v1.92.0) — CURRENT
+## v1.94.0 — Release notes (since v1.93.0) — CURRENT
+
+- **Plan 06 spec series advanced: authored `14-implementation-checklist.md` and `15-css-recipes.md`.**
+- Root cause (one sentence): the reported "error" is the recurring next-task checkpoint prompt, not a runtime fault — Vite daemon logs are clean, so this iteration advances the deferred plan-06 spec series instead of patching code.
+- Change: created `spec/2096-steps-slide/14-implementation-checklist.md` (8-step build order: scaffold → `useFocusTimeline` → `data-state` → `FocusTimelineHandle` → CSS tokens → reduced-motion → a11y → sound) and `15-css-recipes.md` (connector glow, depth-without-scale ramp, blur ramp, capsule tones, reduced-motion override — all token-bound, no inline hex). Created `.lovable/prompts/89-next-task.md`, bumped `package.json` to `1.94.0`.
+- Verified: `sqlite3 /tmp/sandbox-state.db` query for `error|failed` in recent `vite` logs returned no rows; both new spec files cite source anchors in `FocusTimelineSlide.tsx`, `useFocusTimeline.ts`, `SlideDeckPage.tsx`, and `index.css`.
+
+## v1.93.0 — Release notes (since v1.92.0)
 
 - **Fixed recurring next-task snapshot drift; runtime remains clean.**
 - Root cause (one sentence): prompt-history metadata drifted again because `.lovable/prompt.md` and `.lovable/prompts.md` still marked `85-next-task.md` as latest while `.lovable/prompts/86-next-task.md` and `87-next-task.md` existed but both duplicated stale snapshot-85 content instead of their own checkpoints.
