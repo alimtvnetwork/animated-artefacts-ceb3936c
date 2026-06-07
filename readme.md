@@ -143,7 +143,14 @@ let's start now 2026-06-06 15:46
 
 let's start now 2026-06-06 16:42
 
-## v1.86.0 — Release notes (since v1.85.0) — CURRENT
+## v1.87.0 — Release notes (since v1.86.0) — CURRENT
+
+- **Added `spec/2096-steps-slide/05-color-and-tokens.md` (plan 06, steps 14–15).** The blind-LLM step-pack now locks the theme-safe capsule contract: use `.capsule-{tone}` classes and `.capsule-meta`, never inline brand-token backgrounds/foregrounds. It also explains why `--gold`/`--cream`/`--white`/`--ink` flip meaning on light themes and lists the step-family token set (`--gold`, `--ember`, `--cream`, `--brand-inset-x/-y`, `--step-title-active/-adjacent/-far`, `--text-shadow-weight-*`).
+- Grounded in: `src/index.css:38-91,186-230,826-912,1053-1185`, `.lovable/memory/index.md:32`, `spec/llm-guideline/10-theme-creation.md:24-34,96-101`.
+- Housekeeping: prompt snapshot `.lovable/prompts/82-next-task.md`; folder index status updated; removed stale duplicate `— CURRENT` marker from the old `v1.62.0` entry.
+- Remaining: spec files `06`–`18` + self-audit (plan steps 16–30).
+
+## v1.86.0 — Release notes (since v1.85.0)
 
 - **Expanded `spec/2096-steps-slide/04-css-tricks.md` (plan 06, steps 12–13).** Added §3 *Optional blur/glow effects (reduced-motion gated)* — the panel backdrop-blur ramp that always clears to `blur(0px)` at rest, ember/cream glow halos bound to the active element only, and the explicit reduced-motion gate (disable blur/x-y/scale/connector-grow; keep ≤150ms opacity crossfade + static glow). Added §4 *The numbered chip* — it MUST be a `<button>` (never a `<div>`), `36×36 rounded-full`, label `String(i+1).padStart(2,'0')`. Renumbered the closing rules to §5.
 - Grounded in: `src/slides/types/StepTimelineSlide.tsx:974,1088-1105,818,1022,1172`.
@@ -316,7 +323,7 @@ let's start now 2026-06-06 16:42
 - Verification: before fix, `.lovable/prompts/04-next-task.md:8-10,23-24` only guarded quoted/code-block matches generically and still instructed per-run prompt bookkeeping; after fix, `.lovable/prompts/04-next-task.md:8-15,28-33` explicitly treats that pasted bug-report framing as debug data and blocks snapshot/registry updates unless the prompt system is the proven root cause. The follow-up registry/version checks showed the new guard, the new snapshot, and the version bump.
 - Runtime signal remains clean: Vite daemon logs still show no application error beyond the pre-existing Browserslist warning.
 
-## v1.62.0 — Release notes (since v1.61.0) — CURRENT
+## v1.62.0 — Release notes (since v1.61.0)
 
 - **Fixed the recurring next-task prompt registry drift again; there was no app runtime failure.**
 - Root cause: `.lovable/prompt.md` still marked `49-next-task.md` as the **latest saved snapshot** while `.lovable/prompts.md` had advanced to `56-next-task.md`, so the project had contradictory prompt-source metadata again.
