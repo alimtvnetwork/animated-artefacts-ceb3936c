@@ -143,7 +143,14 @@ let's start now 2026-06-06 15:46
 
 let's start now 2026-06-06 16:42
 
-## v1.89.0 — Release notes (since v1.88.0) — CURRENT
+## v1.90.0 — Release notes (since v1.89.0) — CURRENT
+
+- **Fixed prompt snapshot registry drift; no runtime app error existed.**
+- Root cause (one sentence): prompt-history metadata was out of sync because `.lovable/prompt.md` and `.lovable/prompts.md` still marked `82-next-task.md` as latest while files `83-next-task.md` and `84-next-task.md` already existed, and both newer files still contained stale `snapshot 82` content.
+- Minimum fix: corrected `.lovable/prompts/83-next-task.md` and `84-next-task.md`, created `.lovable/prompts/85-next-task.md`, advanced both registries so `85` is latest and `82`–`84` are superseded, and bumped `package.json` to `1.90.0`.
+- Verified: before fix, `rg -n "latest saved snapshot|83-next-task|84-next-task|snapshot 82|version\": \"1\.89\.0\"" .lovable readme.md package.json` showed both registries stuck on `82`, both newer snapshots mislabeled as `snapshot 82`, and `package.json` at `1.89.0`; after fix, the same check shows `85-next-task.md` as latest, `83/84` correctly titled, and `package.json` at `1.90.0`. Vite daemon logs remain clean with no runtime/build error signal.
+
+## v1.89.0 — Release notes (since v1.88.0)
 
 - **Added `spec/2096-steps-slide/08-motion-constants.md` and `09-enums-and-state.md` (plan 06, steps 18–19).** `08` is the code-cited single source of truth for every step timing/ease/opacity/blur (`--step-text-ease` expo-out, 1300ms crossfade, 700ms depth lift, 900ms blur, `--step-opacity-*` 1/0.55/0.30, blur 0/1.2/2.5px). `09` documents the `data-state` 3-value enum (active/adjacent/far) and the `useFocusTimeline` hook contract (no-loop boundary returns, self-healing index, `FocusTimelineHandle.tryAdvance`/`setStep(-1)` pre-reveal phase).
 - Grounded in: `src/index.css:132-133,220-229,1505-1582`, `src/slides/hooks/useFocusTimeline.ts`.
