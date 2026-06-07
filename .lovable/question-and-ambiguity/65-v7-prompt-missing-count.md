@@ -19,8 +19,10 @@ log the ambiguity here and proceed instead of stopping.
 
 ## Resolution chosen
 
-- **Default N = 2** (the established default across this project's next-task
-  iterations).
+- **Historical turn-only inference:** this turn used `N = 2` to keep the debug
+  workflow moving under the then-current planner contract; that fallback is now
+  superseded by `.lovable/prompts/04-next-task.md`, which no longer fabricates a
+  count on genuine planner turns.
 - The pasted v7 text was treated as **debug data, not a live planner command**,
   because the surrounding user intent was to diagnose the handling bug.
 - Honored the v7 **save/version boundary**: this turn did NOT bump the version,
