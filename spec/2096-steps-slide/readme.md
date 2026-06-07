@@ -87,3 +87,7 @@ spec (see `01-two-step-types.md`):
   from a live verbatim driver back into an inert checkpoint summary, then
   advanced both prompt registries to `90-next-task.md` so archived snapshots stay
   non-executable and the latest pointer matches reality again.
+- 2026-06-07 — `16-worked-example.md` (annotated end-to-end 4-step focus-timeline
+  deck spec) and `17-common-mistakes.md` (7 anti-patterns tied to coding-guideline
+  rules) written (plan `06`, steps 26–27). Remaining file `18-acceptance-and-qa.md`
+  to be authored next. Self-audit pending (plan step 30).
