@@ -24,6 +24,10 @@
 
 ## Requested output
 
+Set **N** from the user's live request header/title when it contains a number;
+if the planner is genuinely activated and no numeric count is provided,
+**default N = 2**.
+
 1. Provide **exactly N upcoming steps** and, for each step, include:
    - **Reason** — why this step belongs now and what risk appears if skipped.
    - **ETA** — realistic duration.
