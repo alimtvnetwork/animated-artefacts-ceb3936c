@@ -143,7 +143,14 @@ let's start now 2026-06-06 15:46
 
 let's start now 2026-06-06 16:42
 
-## v1.88.0 — Release notes (since v1.87.0) — CURRENT
+## v1.89.0 — Release notes (since v1.88.0) — CURRENT
+
+- **Added `spec/2096-steps-slide/08-motion-constants.md` and `09-enums-and-state.md` (plan 06, steps 18–19).** `08` is the code-cited single source of truth for every step timing/ease/opacity/blur (`--step-text-ease` expo-out, 1300ms crossfade, 700ms depth lift, 900ms blur, `--step-opacity-*` 1/0.55/0.30, blur 0/1.2/2.5px). `09` documents the `data-state` 3-value enum (active/adjacent/far) and the `useFocusTimeline` hook contract (no-loop boundary returns, self-healing index, `FocusTimelineHandle.tryAdvance`/`setStep(-1)` pre-reveal phase).
+- Grounded in: `src/index.css:132-133,220-229,1505-1582`, `src/slides/hooks/useFocusTimeline.ts`.
+- Housekeeping: prompt snapshot `.lovable/prompts/84-next-task.md`; folder index status updated.
+- Remaining: spec files `10`–`18` + self-audit (plan steps 20–30).
+
+## v1.88.0 — Release notes (since v1.87.0)
 
 - **Added `spec/2096-steps-slide/06-typography.md` and `07-layout-geometry.md` (plan 06, steps 16–17).** The blind-LLM step-pack now locks the type system (Ubuntu 700 titles + Inter body, `letter-spacing -0.02em`, weight-bevel via tokens, depth ramp by font-size+alpha NOT scale, `far` alpha ≥0.55 for WCAG AA-large) and the spatial system (all gutters derive from `--brand-inset-x/-y`, no-reflow `min-height: calc(var(--step-title-active)*1.05)`, rail@left:18px, 36×36 chip, mirrored counter pill).
 - Grounded in: `src/index.css:186-210,241,657,679,723-770,1495-1582`, `stepTimelineGithubLightContrast.test.ts`, `mem://design/text-weight-shadow`.

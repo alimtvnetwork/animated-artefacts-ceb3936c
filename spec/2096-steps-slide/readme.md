@@ -62,5 +62,8 @@ spec (see `01-two-step-types.md`):
   1–15 — capsule/theme token contract complete).
 - 2026-06-07 — `06-typography.md` (font stacks, depth ramp, weight-bevel,
   keywords-only) and `07-layout-geometry.md` (brand insets, no-reflow row
-  height, rail/chip alignment) written (plan `06`, steps 16–17). Remaining
-  files `08`–`18` to be authored next. Self-audit pending (plan step 30).
+  height, rail/chip alignment) written (plan `06`, steps 16–17).
+- 2026-06-07 — `08-motion-constants.md` (code-cited timing/ease/opacity/blur
+  table) and `09-enums-and-state.md` (`data-state` enum + `useFocusTimeline`
+  contract) written (plan `06`, steps 18–19). Remaining files `10`–`18` to be
+  authored next. Self-audit pending (plan step 30).
