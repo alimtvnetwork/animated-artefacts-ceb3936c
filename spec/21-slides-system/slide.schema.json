@@ -973,6 +973,25 @@
         }
       },
       "required": ["slideType"]
+    },
+    {
+      "title": "QuoteOverImageSlideVariant",
+      "properties": {
+        "slideType": { "const": "QuoteOverImageSlide" },
+        "content": {
+          "type": "object",
+          "properties": {
+            "quote": { "type": "string", "minLength": 1 },
+            "image": { "type": "string", "minLength": 1 },
+            "eyebrow": { "type": "string" },
+            "attribution": { "type": "string" },
+            "attributionRole": { "type": "string" },
+            "scrim": { "enum": ["none", "bottom", "full"] }
+          },
+          "required": ["quote", "image"]
+        }
+      },
+      "required": ["slideType"]
     }
   ]
 }
