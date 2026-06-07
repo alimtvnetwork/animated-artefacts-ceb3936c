@@ -91,3 +91,6 @@ spec (see `01-two-step-types.md`):
   deck spec) and `17-common-mistakes.md` (7 anti-patterns tied to coding-guideline
   rules) written (plan `06`, steps 26–27). Remaining file `18-acceptance-and-qa.md`
   to be authored next. Self-audit pending (plan step 30).
+- 2026-06-07 — `18-acceptance-and-qa.md` (acceptance checklist + QA matrix +
+  contrast/reduced-motion guards) written (plan `06`, step 28). Plan 06 spec
+  files `00`–`18` are now ALL authored. Only step 30 self-audit remains.
