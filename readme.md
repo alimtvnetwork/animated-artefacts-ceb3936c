@@ -143,7 +143,14 @@ let's start now 2026-06-06 15:46
 
 let's start now 2026-06-06 16:42
 
-## v1.92.0 — Release notes (since v1.91.0) — CURRENT
+## v1.93.0 — Release notes (since v1.92.0) — CURRENT
+
+- **Fixed recurring next-task snapshot drift; runtime remains clean.**
+- Root cause (one sentence): prompt-history metadata drifted again because `.lovable/prompt.md` and `.lovable/prompts.md` still marked `85-next-task.md` as latest while `.lovable/prompts/86-next-task.md` and `87-next-task.md` existed but both duplicated stale snapshot-85 content instead of their own checkpoints.
+- Minimum fix: corrected `.lovable/prompts/86-next-task.md` and `87-next-task.md`, created `.lovable/prompts/88-next-task.md`, advanced both registries so `88` is latest and `85`–`87` are superseded, bumped `package.json` to `1.93.0`, and noted the repair in `spec/2096-steps-slide/readme.md`.
+- Verified: before fix, `rg -n "latest saved snapshot|snapshot 85|85-next-task|86-next-task|87-next-task|88-next-task|version\": \"1\.92\.0\"" .lovable readme.md spec/2096-steps-slide/readme.md package.json` showed both registries stuck on `85`, both newer snapshots titled `snapshot 85`, no `88-next-task.md`, and `package.json` at `1.92.0`; after fix, the same check shows `88-next-task.md` as latest, `86/87` correctly titled, and `package.json` at `1.93.0`. Vite daemon logs still show no runtime/build error signal.
+
+## v1.92.0 — Release notes (since v1.91.0)
 
 - **Authored `spec/2096-steps-slide/12-accessibility.md` and `13-sound.md` (plan `06`, steps 22–23).**
 - `12` documents ARIA + focus: `aria-current="step"` on the active row, `aria-hidden` on the decorative rail and out-of-window rows, `tabIndex` 0/-1 windowing (`FocusTimelineSlide.tsx:92/109/145-147`), and the WCAG-AA alpha-ramp contrast contract (active 1.0 / adjacent 0.62 / far 0.55) guarded by `stepTimelineGithubLightContrast.test.ts`.
