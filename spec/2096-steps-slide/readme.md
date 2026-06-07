@@ -59,5 +59,8 @@ spec (see `01-two-step-types.md`):
 - 2026-06-07 — Folder scaffolded. `readme.md`, `00-overview.md`,
   `01-two-step-types.md`, `02-data-model.md`, `03-focus-animation.md`,
   `04-css-tricks.md`, and `05-color-and-tokens.md` written (plan `06`, steps
-  1–15 — capsule/theme token contract now complete). Remaining files `06`–`18`
-  to be authored in subsequent steps. Self-audit pending (plan step 30).
+  1–15 — capsule/theme token contract complete).
+- 2026-06-07 — `06-typography.md` (font stacks, depth ramp, weight-bevel,
+  keywords-only) and `07-layout-geometry.md` (brand insets, no-reflow row
+  height, rail/chip alignment) written (plan `06`, steps 16–17). Remaining
+  files `08`–`18` to be authored next. Self-audit pending (plan step 30).
