@@ -94,3 +94,16 @@ spec (see `01-two-step-types.md`):
 - 2026-06-07 — `18-acceptance-and-qa.md` (acceptance checklist + QA matrix +
   contrast/reduced-motion guards) written (plan `06`, step 28). Plan 06 spec
   files `00`–`18` are now ALL authored. Only step 30 self-audit remains.
+
+## Self-audit (plan 06, step 30 — 2026-06-07) ✅ COMPLETE
+
+Verified against the runtime source of truth; result: **PASS**.
+
+- **File completeness** — `00`–`18` (19 files) + `readme.md` = 20 files present; reading order in §"Reading order" matches the on-disk sequence.
+- **Two step types unambiguous** — Type A (`SessionOutlineSlide`, static outline) vs Type B (`StepTimelineSlide`/`FocusTimelineSlide`/`AdvanceStepSlide`, interactive focus) are distinguished in `readme.md`, `00`, and `01` with a decision table; no file conflates them.
+- **Motion numbers match code** — `STEP_INTERVAL_MS=2200`, `PAUSE_MS=6000` (`src/slides/types/StepTimelineSlide.tsx:83-84`); reveal base/stagger `300ms`/`180ms` (`src/slides/stepTiming.ts` `DEFAULT_*_MS`, cited in `03`); opacity ramp `1 / 0.55 / 0.30` and title-alpha `1.0 / 0.62 / 0.55` (`src/index.css:220-222`, cited in `03`+`08`); active pure white, `translateX -24px→0`, panel enter `280ms` / exit `220ms` (`03`).
+- **No contradiction with `42-steps-motion.md`** — durations/eases in `08` cite `src/index.css` lines and agree with the canon motion doc.
+- **Discoverability** — `spec/readme.md` lists `2096-steps-slide/`; relative cross-links in `readme.md` §"Source canon" resolve (no broken `../` links found).
+
+Note: the reveal constants moved from inline literals to `src/slides/stepTiming.ts`
+(`DEFAULT_*_MS = 300 / 180`); spec `03`/`08` reference the values correctly. Plan 06 is complete.
